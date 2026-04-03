@@ -241,8 +241,8 @@ def al_actualizar_preview(tabla, seg_por_verso, fade_dur, posicion, tamano,
 
 
 def al_generar_video(tabla, seg_por_verso, duracion_min, posicion, tamano,
-                     color_texto, color_ref, mostrar_ref, fade_dur, nombre_archivo,
-                     progress=gr.Progress()):
+                     color_texto, color_ref, mostrar_ref, fade_dur, efecto_imagen,
+                     nombre_archivo, progress=gr.Progress()):
     from core.video_render import renderizar_video
 
     versiculos = []
@@ -290,6 +290,7 @@ def al_generar_video(tabla, seg_por_verso, duracion_min, posicion, tamano,
             segundos_por_versiculo=int(seg_por_verso),
             config_texto=config_texto,
             output_path=output_path,
+            efecto_imagen=efecto_imagen or "Sin efecto",
             progress_callback=progress_cb,
         )
         return f"✓ Video listo: {path}"
@@ -521,7 +522,7 @@ with gr.Blocks(
                     preview_img = gr.Image(label="Vista previa del fondo", height=160)
                     info_imagen = gr.Textbox(label="", interactive=False, lines=1, elem_classes=["status-box"])
 
-                    with gr.Accordion("📂  Usar una imagen que ya creé antes", open=False):
+                    with gr.Accordion("📂  Usar una imagen que ya creé antes", open=True):
                         info_galeria = gr.Textbox(label="", interactive=False, lines=1, elem_classes=["status-box"])
                         galeria_imgs = gr.Gallery(
                             label="",
@@ -571,6 +572,11 @@ with gr.Blocks(
 
                     # Estilo avanzado (colapsado)
                     with gr.Accordion("⚙️  Personalizar el texto (opcional)", open=False):
+                        efecto_imagen = gr.Radio(
+                            choices=["Sin efecto", "Zoom lento ↗", "Zoom lento ↙", "Paneo suave →"],
+                            value="Zoom lento ↗",
+                            label="Movimiento del fondo (efecto Ken Burns)",
+                        )
                         fade_dur = gr.Slider(
                             minimum=0.5, maximum=3.0,
                             value=config.get("default_fade_duration", 1.5),
@@ -716,7 +722,7 @@ with gr.Blocks(
         inputs=[
             tabla_versiculos, seg_por_verso, duracion_render, posicion_texto,
             tamano_texto, color_texto, color_referencia, mostrar_ref,
-            fade_dur, nombre_archivo,
+            fade_dur, efecto_imagen, nombre_archivo,
         ],
         outputs=[info_render],
     )
@@ -729,6 +735,8 @@ with gr.Blocks(
         outputs=[info_config, estado_apis],
     )
 
+
+    app.load(fn=listar_imagenes_guardadas, outputs=[galeria_imgs, info_galeria])
 
 # ─── Launch ─────────────────────────────────────────────────────
 

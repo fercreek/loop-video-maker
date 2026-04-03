@@ -177,6 +177,60 @@ def _wrap_text(draw, text: str, font, max_width: int) -> str:
     return "\n".join(lines)
 
 
+def _apply_bg_effect(clip, efecto: str):
+    """
+    Aplica efecto de movimiento al clip de fondo.
+    - "Zoom lento ↗": zoom in lento (6% de escala sobre toda la duración)
+    - "Zoom lento ↙": zoom out lento
+    - "Paneo suave →": desplazamiento horizontal de izquierda a derecha
+    - "Sin efecto": sin cambios
+    """
+    if not efecto or efecto == "Sin efecto":
+        return clip
+
+    duration = clip.duration
+    W, H = 1920, 1080
+    zoom_ratio = 0.06  # 6% de escala — sutil, no mareante
+
+    if efecto == "Zoom lento ↗":
+        def zoom_in(get_frame, t):
+            scale = 1.0 + zoom_ratio * (t / duration)
+            frame = get_frame(t)
+            img = Image.fromarray(frame)
+            new_w, new_h = int(W * scale), int(H * scale)
+            img = img.resize((new_w, new_h), Image.LANCZOS)
+            left = (new_w - W) // 2
+            top = (new_h - H) // 2
+            return np.array(img.crop((left, top, left + W, top + H)))
+        return clip.transform(zoom_in, apply_to="video")
+
+    elif efecto == "Zoom lento ↙":
+        def zoom_out(get_frame, t):
+            scale = (1.0 + zoom_ratio) - zoom_ratio * (t / duration)
+            frame = get_frame(t)
+            img = Image.fromarray(frame)
+            new_w, new_h = int(W * scale), int(H * scale)
+            img = img.resize((new_w, new_h), Image.LANCZOS)
+            left = (new_w - W) // 2
+            top = (new_h - H) // 2
+            return np.array(img.crop((left, top, left + W, top + H)))
+        return clip.transform(zoom_out, apply_to="video")
+
+    elif efecto == "Paneo suave →":
+        def pan_right(get_frame, t):
+            frame = get_frame(t)
+            img = Image.fromarray(frame)
+            scale = 1.0 + zoom_ratio
+            new_w, new_h = int(W * scale), int(H * scale)
+            img = img.resize((new_w, new_h), Image.LANCZOS)
+            offset_x = int((new_w - W) * (t / duration))
+            top = (new_h - H) // 2
+            return np.array(img.crop((offset_x, top, offset_x + W, top + H)))
+        return clip.transform(pan_right, apply_to="video")
+
+    return clip
+
+
 def renderizar_video(
     imagen_path: str,
     musica_path: str,
@@ -185,6 +239,7 @@ def renderizar_video(
     segundos_por_versiculo: int,
     config_texto: dict,
     output_path: str,
+    efecto_imagen: str = "Zoom lento ↗",
     progress_callback=None,
 ) -> str:
     """
@@ -226,8 +281,9 @@ def renderizar_video(
     if progress_callback:
         progress_callback(0.1, f"Renderizando {len(full_verses)} versículos...")
 
-    # 2. Clip de fondo
+    # 2. Clip de fondo + efecto Ken Burns / paneo
     bg_clip = ImageClip(bg_array, duration=actual_duration).with_fps(fps)
+    bg_clip = _apply_bg_effect(bg_clip, efecto_imagen)
 
     # 3. Crear clips de texto para cada versículo
     text_clips = []
