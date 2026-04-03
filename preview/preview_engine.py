@@ -1,16 +1,24 @@
 from __future__ import annotations
 """
 Motor de preview HTML para versículos bíblicos.
-Genera HTML autocontenido con imagen y audio en base64.
+
+Cambios vs. versión anterior:
+- Audio: usa URL /file= de Gradio en lugar de base64 (evita cuelgue con WAVs grandes)
+- Audio trim: genera musica_preview.wav de 90s máx para carga rápida
+- Play button: usa oncanplaythrough en lugar de readyState >= 2 (fix autoplay)
+- Ken Burns: animación CSS en el fondo para simular el efecto del video real
+- Badge "Vista previa · Baja calidad" en esquina superior derecha
 """
 
-import base64
 import os
+import shutil
+import wave
 from typing import Optional
 
 
 def _file_to_base64(path: str) -> str:
-    """Convierte un archivo a string base64."""
+    """Convierte un archivo a string base64 (solo para imagen — audio usa URL)."""
+    import base64
     if not path or not os.path.exists(path):
         return ""
     with open(path, "rb") as f:
@@ -19,13 +27,52 @@ def _file_to_base64(path: str) -> str:
 
 def _get_audio_mime(path: str) -> str:
     """Detecta el tipo MIME del audio."""
-    if path.endswith(".mp3"):
-        return "audio/mpeg"
-    elif path.endswith(".wav"):
+    if not path:
         return "audio/wav"
-    elif path.endswith(".ogg"):
+    lp = path.lower()
+    if lp.endswith(".mp3"):
+        return "audio/mpeg"
+    elif lp.endswith(".ogg"):
         return "audio/ogg"
     return "audio/wav"
+
+
+def _trim_audio_for_preview(audio_path: str, max_sec: int = 90) -> str:
+    """
+    Crea un WAV recortado de max_sec segundos en el mismo directorio.
+    Retorna la ruta del archivo recortado (o el original si ya es corto).
+    Llama desde generar_preview_html(); nunca falla — si hay error devuelve original.
+    """
+    if not audio_path or not os.path.exists(audio_path):
+        return audio_path
+
+    out_dir = os.path.dirname(audio_path)
+    preview_path = os.path.join(out_dir, "musica_preview.wav")
+
+    try:
+        with wave.open(audio_path, "r") as src:
+            sr = src.getframerate()
+            channels = src.getnchannels()
+            sampwidth = src.getsampwidth()
+            frames_total = src.getnframes()
+            frames_max = sr * max_sec
+
+            if frames_total <= frames_max:
+                # Already short enough — copy as-is
+                shutil.copy2(audio_path, preview_path)
+                return preview_path
+
+            data = src.readframes(frames_max)
+
+        with wave.open(preview_path, "w") as dst:
+            dst.setnchannels(channels)
+            dst.setsampwidth(sampwidth)
+            dst.setframerate(sr)
+            dst.writeframes(data)
+
+        return preview_path
+    except Exception:
+        return audio_path
 
 
 def generar_preview_html(
@@ -36,17 +83,10 @@ def generar_preview_html(
     config_texto: Optional[dict] = None,
 ) -> str:
     """
-    Genera HTML completo autocontenido con preview del video.
+    Genera HTML completo con preview del video.
 
-    Args:
-        imagen_path: Path a la imagen de fondo
-        musica_path: Path al archivo de audio
-        versiculos: Lista de dicts con keys 'texto' y 'referencia'
-        segundos_por_versiculo: Duración de cada versículo en segundos
-        config_texto: Dict con configuración de texto (posicion, tamano, color, etc.)
-
-    Returns:
-        String HTML completo
+    Audio: usa /file= URL de Gradio (no base64) + clip recortado a 90s.
+    Imagen: embebida como base64 (imágenes son pequeñas ~100-200KB).
     """
     if config_texto is None:
         config_texto = {}
@@ -58,10 +98,18 @@ def generar_preview_html(
     mostrar_referencia = config_texto.get("mostrar_referencia", True)
     fade_duration = config_texto.get("fade_duration", 1.5)
 
-    # Convertir archivos a base64
+    # Imagen: base64 (pequeña, siempre funciona)
     img_b64 = _file_to_base64(imagen_path)
-    audio_b64 = _file_to_base64(musica_path)
-    audio_mime = _get_audio_mime(musica_path) if musica_path else "audio/wav"
+    img_bg = f"data:image/jpeg;base64,{img_b64}" if img_b64 else ""
+
+    # Audio: trim a 90s + usar URL /file= de Gradio (no base64)
+    audio_url = ""
+    has_audio_js = "false"
+    if musica_path and os.path.exists(musica_path):
+        preview_audio = _trim_audio_for_preview(musica_path, max_sec=90)
+        # Gradio sirve archivos del output_dir via /file=<absolute_path>
+        audio_url = f"/file={preview_audio}"
+        has_audio_js = "true"
 
     # Posición vertical del texto
     if posicion == "top":
@@ -78,13 +126,6 @@ def generar_preview_html(
         ref = v.get("referencia", "").replace("\\", "\\\\").replace('"', '\\"')
         verses_js += f'  {{"texto": "{texto}", "referencia": "{ref}"}},\n'
     verses_js += "]"
-
-    img_bg = f"data:image/jpeg;base64,{img_b64}" if img_b64 else ""
-    audio_src = f"data:{audio_mime};base64,{audio_b64}" if audio_b64 else ""
-
-    # Fix: audio tag y sync en JS
-    audio_src_attr = f'src="{audio_src}"' if audio_src else ""
-    has_audio_js = "true" if audio_src else "false"
 
     html = f"""<!DOCTYPE html>
 <html lang="es">
@@ -114,6 +155,12 @@ def generar_preview_html(
     overflow: hidden;
   }}
 
+  /* Ken Burns: simula el zoom-in lento del video real */
+  @keyframes kenburns {{
+    0%   {{ transform: scale(1.0); }}
+    100% {{ transform: scale(1.08); }}
+  }}
+
   .canvas-bg {{
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -121,6 +168,27 @@ def generar_preview_html(
     background-size: cover;
     background-position: center;
     background-color: #0a0a2e;
+    /* Animación activa solo cuando el preview está reproduciendo */
+    transform-origin: center center;
+  }}
+
+  .canvas-bg.playing {{
+    animation: kenburns 30s linear infinite alternate;
+  }}
+
+  /* Badge de calidad */
+  .quality-badge {{
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0,0,0,0.65);
+    color: #999;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    z-index: 20;
+    pointer-events: none;
+    letter-spacing: 0.3px;
   }}
 
   .verse-overlay {{
@@ -255,12 +323,21 @@ def generar_preview_html(
     display: flex;
     gap: 4px;
   }}
+
+  /* Audio status hint */
+  .audio-hint {{
+    font-size: 11px;
+    color: #666;
+    text-align: center;
+    padding: 4px 0 0;
+  }}
 </style>
 </head>
 <body>
 <div class="preview-root" id="previewRoot">
   <div class="canvas-wrapper">
-    <div class="canvas-bg"></div>
+    <div class="canvas-bg" id="canvasBg"></div>
+    <div class="quality-badge">Vista previa · Baja calidad</div>
     <div class="verse-overlay">
       <div class="verse-bg" id="verseBg">
         <div class="verse-text" id="verseText"></div>
@@ -280,7 +357,7 @@ def generar_preview_html(
         <button class="btn" id="btnPlay" title="Play/Pause">&#9654; Play</button>
         <button class="btn" id="btnNext" title="Siguiente">&#9654;&#9654;</button>
       </div>
-      <span class="info-text" id="verseCounter">0 / 0</span>
+      <span class="info-text" id="verseCounter">1 / {len(versiculos)}</span>
       <span class="info-text" id="timeDisplay">0:00 / 0:00</span>
       <div class="speed-group">
         <button class="btn active" data-speed="1">1x</button>
@@ -288,86 +365,112 @@ def generar_preview_html(
         <button class="btn" data-speed="4">4x</button>
       </div>
     </div>
+    {"<p class='audio-hint' id='audioHint'>&#9654; Haz clic en Play para escuchar la música</p>" if has_audio_js == 'true' else ""}
   </div>
 </div>
 
-<audio id="audioPlayer" preload="auto" {audio_src_attr}></audio>
+<!-- Audio: URL directa de Gradio, clip de 90s máx para carga rápida -->
+{"<audio id='audioPlayer' preload='auto' src='" + audio_url + "'></audio>" if audio_url else "<audio id='audioPlayer'></audio>"}
 
 <script>
 (function() {{
-  const verses = {verses_js};
-  const secPerVerse = {segundos_por_versiculo};
-  const fadeDur = {fade_duration};
-  const showRef = {'true' if mostrar_referencia else 'false'};
-  const hasAudio = {has_audio_js};
+  var verses = {verses_js};
+  var secPerVerse = {segundos_por_versiculo};
+  var fadeDur = {fade_duration};
+  var showRef = {'true' if mostrar_referencia else 'false'};
+  var hasAudio = {has_audio_js};
 
-  const totalDuration = verses.length * secPerVerse;
+  var totalDuration = verses.length * secPerVerse;
 
-  const verseBg = document.getElementById('verseBg');
-  const verseText = document.getElementById('verseText');
-  const verseRef = document.getElementById('verseRef');
-  const btnPlay = document.getElementById('btnPlay');
-  const btnPrev = document.getElementById('btnPrev');
-  const btnNext = document.getElementById('btnNext');
-  const verseCounter = document.getElementById('verseCounter');
-  const timeDisplay = document.getElementById('timeDisplay');
-  const timeline = document.getElementById('timeline');
-  const timelineFill = document.getElementById('timelineFill');
-  const timelineHandle = document.getElementById('timelineHandle');
-  const audio = document.getElementById('audioPlayer');
-  const speedBtns = document.querySelectorAll('[data-speed]');
+  var canvasBg = document.getElementById('canvasBg');
+  var verseBg = document.getElementById('verseBg');
+  var verseText = document.getElementById('verseText');
+  var verseRef = document.getElementById('verseRef');
+  var btnPlay = document.getElementById('btnPlay');
+  var btnPrev = document.getElementById('btnPrev');
+  var btnNext = document.getElementById('btnNext');
+  var verseCounter = document.getElementById('verseCounter');
+  var timeDisplay = document.getElementById('timeDisplay');
+  var timeline = document.getElementById('timeline');
+  var timelineFill = document.getElementById('timelineFill');
+  var timelineHandle = document.getElementById('timelineHandle');
+  var audio = document.getElementById('audioPlayer');
+  var speedBtns = document.querySelectorAll('[data-speed]');
+  var audioHint = document.getElementById('audioHint');
 
-  let playing = false;
-  let currentTime = 0;
-  let speed = 1;
-  let lastTimestamp = null;
-  let currentVerseIdx = -1;
-  let dragging = false;
+  var playing = false;
+  var currentTime = 0;
+  var speed = 1;
+  var lastTimestamp = null;
+  var currentVerseIdx = -1;
+  var dragging = false;
+  var audioReady = false;
+
+  // Audio ready detection — handles both cached and streamed audio
+  if (hasAudio && audio) {{
+    audio.addEventListener('canplaythrough', function() {{
+      audioReady = true;
+      if (audioHint) audioHint.style.display = 'none';
+    }});
+    audio.addEventListener('error', function(e) {{
+      console.warn('Preview audio error:', e);
+      audioReady = false;
+    }});
+    // Some browsers fire canplay not canplaythrough — accept either
+    audio.addEventListener('canplay', function() {{
+      audioReady = true;
+    }});
+  }}
 
   function formatTime(s) {{
-    const m = Math.floor(s / 60);
-    const sec = Math.floor(s % 60);
+    var m = Math.floor(s / 60);
+    var sec = Math.floor(s % 60);
     return m + ':' + (sec < 10 ? '0' : '') + sec;
   }}
 
   function updateVerse() {{
     if (verses.length === 0) return;
 
-    const idx = Math.min(Math.floor(currentTime / secPerVerse), verses.length - 1);
-    const timeInVerse = currentTime - (idx * secPerVerse);
+    var idx = Math.min(Math.floor(currentTime / secPerVerse), verses.length - 1);
+    var timeInVerse = currentTime - (idx * secPerVerse);
 
-    // Update counter
     verseCounter.textContent = (idx + 1) + ' / ' + verses.length;
     timeDisplay.textContent = formatTime(currentTime) + ' / ' + formatTime(totalDuration);
 
-    // Timeline
-    const pct = totalDuration > 0 ? (currentTime / totalDuration) * 100 : 0;
+    var pct = totalDuration > 0 ? (currentTime / totalDuration) * 100 : 0;
     timelineFill.style.width = pct + '%';
     timelineHandle.style.left = pct + '%';
 
     if (idx !== currentVerseIdx) {{
-      // Fade out old
       verseBg.classList.remove('visible');
-
+      var capturedIdx = idx;
       setTimeout(function() {{
-        verseText.textContent = verses[idx].texto;
+        verseText.textContent = verses[capturedIdx].texto;
         if (showRef && verseRef) {{
-          verseRef.textContent = '— ' + verses[idx].referencia + ' —';
+          verseRef.textContent = '— ' + verses[capturedIdx].referencia + ' —';
         }}
-        // Fade in new
         verseBg.classList.add('visible');
-      }}, fadeDur * 500); // half the fade duration for transition
-
+      }}, fadeDur * 500);
       currentVerseIdx = idx;
     }} else {{
-      // Handle fade at boundaries
-      if (timeInVerse < fadeDur) {{
+      if (timeInVerse < fadeDur || timeInVerse <= secPerVerse - fadeDur) {{
         verseBg.classList.add('visible');
-      }} else if (timeInVerse > secPerVerse - fadeDur) {{
-        verseBg.classList.remove('visible');
       }} else {{
-        verseBg.classList.add('visible');
+        verseBg.classList.remove('visible');
       }}
+    }}
+  }}
+
+  function tryPlayAudio() {{
+    if (!hasAudio || !audio) return;
+    audio.playbackRate = speed;
+    audio.currentTime = currentTime % (audio.duration || secPerVerse * verses.length);
+    var promise = audio.play();
+    if (promise !== undefined) {{
+      promise.catch(function(e) {{
+        // Autoplay blocked — user already clicked, so this usually succeeds
+        console.warn('Audio play blocked:', e.message);
+      }});
     }}
   }}
 
@@ -375,7 +478,7 @@ def generar_preview_html(
     if (!playing) return;
 
     if (lastTimestamp === null) lastTimestamp = timestamp;
-    const delta = (timestamp - lastTimestamp) / 1000;
+    var delta = (timestamp - lastTimestamp) / 1000;
     lastTimestamp = timestamp;
 
     currentTime += delta * speed;
@@ -385,10 +488,11 @@ def generar_preview_html(
       currentVerseIdx = -1;
     }}
 
-    // Sync audio
-    if (hasAudio && audio.readyState >= 2) {{
-      if (Math.abs(audio.currentTime - currentTime) > 1) {{
-        audio.currentTime = currentTime;
+    // Sync audio drift (> 1.5s off)
+    if (hasAudio && audio && audioReady) {{
+      var audioClamped = currentTime % (audio.duration || totalDuration);
+      if (Math.abs(audio.currentTime - audioClamped) > 1.5) {{
+        audio.currentTime = audioClamped;
       }}
     }}
 
@@ -400,73 +504,71 @@ def generar_preview_html(
     playing = true;
     lastTimestamp = null;
     btnPlay.innerHTML = '&#9646;&#9646; Pausa';
-
-    if (hasAudio && audio.readyState >= 2) {{
-      audio.playbackRate = speed;
-      audio.currentTime = currentTime;
-      audio.play().catch(function() {{}});
-    }}
-
+    canvasBg.classList.add('playing');
+    tryPlayAudio();
     requestAnimationFrame(tick);
   }}
 
   function pause() {{
     playing = false;
     btnPlay.innerHTML = '&#9654; Play';
-    if (hasAudio) audio.pause();
+    canvasBg.classList.remove('playing');
+    if (hasAudio && audio) audio.pause();
   }}
 
   btnPlay.addEventListener('click', function() {{
-    if (playing) pause(); else play();
+    if (playing) {{ pause(); }} else {{ play(); }}
   }});
 
   btnPrev.addEventListener('click', function() {{
-    const idx = Math.floor(currentTime / secPerVerse);
+    var idx = Math.floor(currentTime / secPerVerse);
     currentTime = Math.max(0, (idx - 1)) * secPerVerse;
     currentVerseIdx = -1;
     updateVerse();
-    if (hasAudio && audio.readyState >= 2) audio.currentTime = currentTime;
+    if (hasAudio && audio && audioReady) {{
+      audio.currentTime = currentTime % (audio.duration || totalDuration);
+    }}
   }});
 
   btnNext.addEventListener('click', function() {{
-    const idx = Math.floor(currentTime / secPerVerse);
-    const nextIdx = (idx + 1) >= verses.length ? 0 : idx + 1;
+    var idx = Math.floor(currentTime / secPerVerse);
+    var nextIdx = (idx + 1) >= verses.length ? 0 : idx + 1;
     currentTime = nextIdx * secPerVerse;
     currentVerseIdx = -1;
     updateVerse();
-    if (hasAudio && audio.readyState >= 2) audio.currentTime = currentTime;
+    if (hasAudio && audio && audioReady) {{
+      audio.currentTime = currentTime % (audio.duration || totalDuration);
+    }}
   }});
 
-  // Speed buttons
   speedBtns.forEach(function(btn) {{
     btn.addEventListener('click', function() {{
-      speed = parseInt(btn.dataset.speed);
+      speed = parseFloat(btn.dataset.speed);
       speedBtns.forEach(function(b) {{ b.classList.remove('active'); }});
       btn.classList.add('active');
-      if (audio.src && audio.readyState >= 2) audio.playbackRate = speed;
+      if (hasAudio && audio && audioReady) audio.playbackRate = speed;
     }});
   }});
 
-  // Timeline drag
   function seekFromEvent(e) {{
-    const rect = timeline.getBoundingClientRect();
-    const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
-    const pct = x / rect.width;
+    var rect = timeline.getBoundingClientRect();
+    var x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+    var pct = x / rect.width;
     currentTime = pct * totalDuration;
     currentVerseIdx = -1;
     updateVerse();
-    if (hasAudio && audio.readyState >= 2) audio.currentTime = currentTime;
+    if (hasAudio && audio && audioReady) {{
+      audio.currentTime = currentTime % (audio.duration || totalDuration);
+    }}
   }}
 
   timeline.addEventListener('mousedown', function(e) {{
     dragging = true;
     seekFromEvent(e);
   }});
-
   document.addEventListener('mousemove', function(e) {{
     if (dragging) seekFromEvent(e);
   }});
-
   document.addEventListener('mouseup', function() {{
     dragging = false;
   }});

@@ -433,6 +433,8 @@ def _generar_ambient(mood: str, duracion_segundos: int, output_dir: str) -> str:
             time_offset += n / sr
             chord_idx += 1
 
+    return os.path.abspath(path)
+
 
 def _generar_silencio(duracion_segundos: int, output_dir: str) -> str:
     """Genera un archivo WAV silencioso de la duración especificada."""

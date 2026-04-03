@@ -45,7 +45,7 @@ def test_html_sin_audio_no_tiene_src():
 
 
 def test_html_con_audio_tiene_src(tmp_path):
-    """Con un archivo de audio real, el HTML debe embeber el audio en base64."""
+    """Con un archivo de audio real, el HTML debe referenciar el audio via /file= URL."""
     # Crear un WAV mínimo válido (44 bytes de header)
     wav = tmp_path / "test.wav"
     wav.write_bytes(
@@ -53,7 +53,9 @@ def test_html_con_audio_tiene_src(tmp_path):
         b"D\xac\x00\x00\x88X\x01\x00\x02\x00\x10\x00data\x00\x00\x00\x00"
     )
     html = generar_preview_html(None, str(wav), VERSOS)
-    assert "data:audio" in html
+    # Audio is now referenced via Gradio /file= URL (not base64) for performance
+    assert "/file=" in html
+    assert "data:audio" not in html
 
 
 def test_html_verso_unico():
@@ -67,7 +69,7 @@ def test_html_verso_unico():
 def test_html_hasaudio_false_sin_audio():
     """La variable JS hasAudio debe ser false cuando no hay audio."""
     html = generar_preview_html(None, None, VERSOS)
-    assert "const hasAudio = false" in html
+    assert "var hasAudio = false" in html
 
 
 def test_html_hasaudio_true_con_audio(tmp_path):
@@ -78,4 +80,4 @@ def test_html_hasaudio_true_con_audio(tmp_path):
         b"D\xac\x00\x00\x88X\x01\x00\x02\x00\x10\x00data\x00\x00\x00\x00"
     )
     html = generar_preview_html(None, str(wav), VERSOS)
-    assert "const hasAudio = true" in html
+    assert "var hasAudio = true" in html

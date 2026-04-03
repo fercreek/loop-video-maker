@@ -8,6 +8,7 @@ from __future__ import annotations
 import os
 import math
 import random
+from datetime import datetime
 
 
 # ─── Presets visuales ──────────────────────────────────────────────────────────
@@ -183,7 +184,8 @@ def _generar_gradiente(prompt: str, output_dir: str, preset_key: str = None) -> 
     # Viñeta siempre
     img = _apply_vignette(img, width, height)
 
-    path = os.path.join(output_dir, "imagen_fondo.jpg")
+    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    path = os.path.join(output_dir, f"imagen_{ts}.jpg")
     img.save(path, quality=95)
     return os.path.abspath(path)
 
@@ -517,7 +519,8 @@ def _generar_con_gemini(prompt: str, api_key: str, output_dir: str) -> str:
 
     for part in response.parts:
         if hasattr(part, "inline_data") and part.inline_data:
-            path = os.path.join(output_dir, "imagen_fondo_gemini.jpg")
+            ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+            path = os.path.join(output_dir, f"imagen_gemini_{ts}.jpg")
             with open(path, "wb") as f:
                 f.write(part.inline_data.data)
             return os.path.abspath(path)

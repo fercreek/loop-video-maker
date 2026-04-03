@@ -20,6 +20,7 @@ from core.verse_gen import (
 from core.image_gen import generar_imagen, generar_imagen_rapida, PRESET_LABELS
 from core.music_gen import generar_musica, MOODS
 from preview.preview_engine import generar_preview_html
+import core.db as db
 
 # ─── Configuración ──────────────────────────────────────────────
 
@@ -52,6 +53,7 @@ def guardar_config(cfg: dict) -> None:
 
 config = cargar_config()
 os.makedirs(config.get("output_dir", OUTPUT_DIR), exist_ok=True)
+db.init_db()
 
 # ─── Estado global ──────────────────────────────────────────────
 
@@ -61,6 +63,8 @@ estado = {
     "tema_actual": None,
     "versiculos": [],
     "datos_tema": None,
+    "imagen_id": None,
+    "audio_id": None,
 }
 
 
@@ -118,15 +122,19 @@ def generar_mas_con_ia(tema, cantidad, tabla_actual):
 
 
 def listar_imagenes_guardadas():
-    out_dir = config.get("output_dir", OUTPUT_DIR)
-    if not os.path.exists(out_dir):
-        return [], "Sin imágenes guardadas"
-    exts = {".jpg", ".jpeg", ".png", ".webp"}
-    imgs = sorted(
-        [os.path.join(out_dir, f) for f in os.listdir(out_dir)
-         if os.path.splitext(f)[1].lower() in exts],
-        key=os.path.getmtime, reverse=True,
-    )
+    """Load image list from DB (newest first). Falls back to filesystem scan."""
+    records = db.get_images(limit=50)
+    imgs = [r["path"] for r in records if os.path.exists(r["path"])]
+    if not imgs:
+        # Fallback: scan filesystem for images not yet in DB
+        out_dir = config.get("output_dir", OUTPUT_DIR)
+        if os.path.exists(out_dir):
+            exts = {".jpg", ".jpeg", ".png", ".webp"}
+            imgs = sorted(
+                [os.path.join(out_dir, f) for f in os.listdir(out_dir)
+                 if os.path.splitext(f)[1].lower() in exts],
+                key=os.path.getmtime, reverse=True,
+            )
     label = f"{len(imgs)} imagen{'es' if len(imgs) != 1 else ''} guardada{'s' if len(imgs) != 1 else ''}"
     return imgs, label
 
@@ -152,6 +160,11 @@ def al_generar_imagen(prompt, estilo):
     try:
         path = generar_imagen(prompt, api_key, out_dir, preset_key=preset_key)
         estado["imagen_path"] = path
+        generator = "gemini" if api_key else "preset"
+        estado["imagen_id"] = db.record_image(
+            path=path, style=estilo, prompt=prompt,
+            theme=estado.get("tema_actual", ""),
+        )
         return path, f"✓ Imagen generada — {estilo}"
     except Exception as e:
         gr.Warning(f"Error al generar imagen: {str(e)}")
@@ -165,6 +178,9 @@ def al_generar_musica(mood, duracion_min):
     try:
         path = generar_musica(mood, duracion_seg, "", out_dir)
         estado["musica_path"] = path
+        estado["audio_id"] = db.record_audio(
+            path=path, mood=mood, duration_sec=duracion_seg, generator="ambient",
+        )
         return path, f"✓ Audio generado ({duracion_min} min)"
     except Exception as e:
         gr.Warning(f"Error al generar música: {str(e)}")
@@ -196,6 +212,9 @@ def al_subir_audio(archivo):
     if archivo is None:
         return None, "❌ No se seleccionó archivo"
     estado["musica_path"] = archivo
+    estado["audio_id"] = db.record_audio(
+        path=archivo, mood="", duration_sec=0, generator="upload",
+    )
     return archivo, "✓ Audio cargado"
 
 
@@ -203,6 +222,10 @@ def subir_imagen(archivo):
     if archivo is None:
         return None, "❌ No se seleccionó archivo"
     estado["imagen_path"] = archivo
+    estado["imagen_id"] = db.record_image(
+        path=archivo, style="upload", prompt="",
+        theme=estado.get("tema_actual", ""),
+    )
     return archivo, "✓ Imagen cargada"
 
 
@@ -293,6 +316,16 @@ def al_generar_video(tabla, seg_por_verso, duracion_min, posicion, tamano,
             efecto_imagen=efecto_imagen or "Sin efecto",
             progress_callback=progress_cb,
         )
+        db.record_video(
+            path=path,
+            theme=estado.get("tema_actual", ""),
+            duration_min=int(duracion_min),
+            seconds_per_verse=int(seg_por_verso),
+            image_id=estado.get("imagen_id"),
+            audio_id=estado.get("audio_id"),
+            efecto_imagen=efecto_imagen or "Sin efecto",
+            verses_count=len(versiculos),
+        )
         return f"✓ Video listo: {path}"
     except Exception as e:
         return f"❌ Error: {str(e)}"
@@ -311,6 +344,40 @@ def abrir_carpeta_salida():
         return f"✓ Carpeta abierta: {out_dir}"
     except Exception as e:
         return f"Error: {str(e)}"
+
+
+def cargar_historial():
+    """Loads history data from DB for the Historial tab."""
+    imgs = db.get_images(limit=50)
+    audios = db.get_audio(limit=20)
+    videos = db.get_videos(limit=20)
+
+    # Images gallery (paths that still exist)
+    img_paths = [r["path"] for r in imgs if os.path.exists(r["path"])]
+
+    # Audio markdown table
+    if audios:
+        audio_md = "| # | Mood | Duración | Generador | Fecha |\n|---|---|---|---|---|\n"
+        for i, r in enumerate(audios, 1):
+            mins = r["duration_sec"] // 60 if r["duration_sec"] else "?"
+            fname = os.path.basename(r["path"])
+            audio_md += f"| {i} | {r['mood'] or '—'} | {mins} min | {r['generator']} | {r['created_at'][:16]} |\n"
+    else:
+        audio_md = "_No hay música generada aún._"
+
+    # Videos markdown table
+    if videos:
+        video_md = "| # | Tema | Duración | Efecto | Versículos | Fecha |\n|---|---|---|---|---|---|\n"
+        for i, r in enumerate(videos, 1):
+            fname = os.path.basename(r["path"])
+            video_md += (f"| {i} | {r['theme'] or '—'} | {r['duration_min']} min"
+                         f" | {r['efecto_imagen'] or '—'} | {r['verses_count']}"
+                         f" | {r['created_at'][:16]} |\n")
+    else:
+        video_md = "_No hay videos generados aún._"
+
+    total = f"**{len(imgs)}** imágenes · **{len(audios)}** audios · **{len(videos)}** videos"
+    return img_paths, audio_md, video_md, total
 
 
 def guardar_configuracion(gemini_key, claude_key):
@@ -611,8 +678,8 @@ with gr.Blocks(
                             scale=3,
                         )
                         duracion_render = gr.Radio(
-                            choices=["30", "60", "90", "120"],
-                            value="60",
+                            choices=["10", "30", "60", "90", "120"],
+                            value="10",
                             label="¿Cuántos minutos durará el video?",
                             scale=2,
                         )
@@ -624,6 +691,22 @@ with gr.Blocks(
                     )
                     info_render = gr.Textbox(label="", interactive=False, lines=1, elem_classes=["status-box"])
                     btn_abrir = gr.Button("📂  Ver mis videos guardados", variant="secondary", size="sm")
+
+        # ═══ TAB HISTORIAL ════════════════════════════════════════
+        with gr.Tab("📋 Historial"):
+            gr.HTML("<h3 style='margin:12px 0 4px;color:#ccc'>Historial de generación</h3>")
+            hist_totales = gr.Markdown("Cargando...")
+            btn_refresh_hist = gr.Button("↻  Actualizar historial", variant="secondary", size="sm")
+
+            gr.HTML("<h4 style='margin:16px 0 6px;color:#bbb'>🖼️ Imágenes generadas</h4>")
+            hist_galeria = gr.Gallery(label="", columns=4, height=240, object_fit="cover",
+                                      allow_preview=True)
+
+            gr.HTML("<h4 style='margin:16px 0 6px;color:#bbb'>🎵 Música generada</h4>")
+            hist_audio_md = gr.Markdown("_Cargando..._")
+
+            gr.HTML("<h4 style='margin:16px 0 6px;color:#bbb'>🎬 Videos generados</h4>")
+            hist_video_md = gr.Markdown("_Cargando..._")
 
         # ═══ TAB CONFIGURACIÓN ════════════════════════════════════
         with gr.Tab("Configuración"):
@@ -736,7 +819,11 @@ with gr.Blocks(
     )
 
 
+    hist_outputs = [hist_galeria, hist_audio_md, hist_video_md, hist_totales]
+    btn_refresh_hist.click(fn=cargar_historial, outputs=hist_outputs)
+
     app.load(fn=listar_imagenes_guardadas, outputs=[galeria_imgs, info_galeria])
+    app.load(fn=cargar_historial, outputs=hist_outputs)
 
 # ─── Launch ─────────────────────────────────────────────────────
 
