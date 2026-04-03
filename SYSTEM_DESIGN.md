@@ -2,210 +2,194 @@
 
 ## 1. Objetivo
 
-Herramienta de escritorio local que genera videos .mp4 de versiculos
-biblicos para YouTube. Corre 100% local, abre UI en navegador.
+Herramienta de escritorio local que genera videos `.mp4` de versículos bíblicos
+para YouTube. Corre 100% local (sin servidor externo), UI en navegador vía Gradio.
 
-## 2. Entorno Actual Verificado
+---
 
-```
-Python:    3.9.6 (system, macOS)
-ffmpeg:    imageio-ffmpeg bundled (v7.1, aarch64)
-Gradio:    4.36.0 (funcional, HTTP 200 verificado)
-MoviePy:   2.1.2 (render test OK, genera .mp4 con libx264)
-Pillow:    10.4.0 (text rendering OK)
-NumPy:     2.0.2
-Requests:  2.32.5
-Anthropic: en requirements (para Claude API)
-Fonts:     202 system fonts disponibles, assets/fonts/ vacio
-```
+## 2. Estado del Proyecto
 
-## 3. Stack Definitivo con Evaluacion
-
-### UI: Gradio 4.36.0 — CONFIRMADO
-
-| Aspecto       | Estado |
-|---------------|--------|
-| Funciona      | Si, HTTP 200 en localhost:7860 |
-| Python 3.9    | Si, con esta version especifica |
-| Dark theme    | Si |
-| Limitacion    | No usar Gradio >4.44 con Py 3.9 (bug huggingface_hub) |
-
-**Decision**: Mantener `gradio==4.36.0` pin exacto en requirements.txt.
-
-### Video Render: MoviePy 2.x + Pillow — CONFIRMADO
-
-| Aspecto            | Estado |
-|--------------------|--------|
-| Genera .mp4        | Si, test de render exitoso (libx264) |
-| ffmpeg             | Bundled via imageio-ffmpeg, NO necesita instalacion |
-| TextClip           | Disponible, usa Pillow internamente en v2 |
-| Audio              | AudioFileClip soporta WAV y MP3 |
-| Python 3.9         | Si |
-
-**Decision**: Usar MoviePy 2.x con Pillow para generar text overlays como
-ImageClip (mas control que TextClip nativo). Esto evita dependencias de
-ImageMagick que MoviePy 1.x requeria.
-
-**Approach para texto en video**:
-```
-Pillow genera imagen PNG del texto con sombra
-  -> numpy array
-  -> MoviePy ImageClip con .with_position() y .with_opacity()
-  -> CompositeVideoClip
-```
-
-### Imagenes: Gemini API via google-generativeai — NECESITA INSTALACION
-
-| Opcion                    | Pros                              | Contras                        |
-|---------------------------|-----------------------------------|--------------------------------|
-| Gemini 2.0 Flash          | Gratis (tier free), genera imgs   | Requiere SDK + API key         |
-| Imagen 3 (Vertex AI)      | Alta calidad                      | Requiere GCP project + billing |
-| Placeholder Pillow         | Sin dependencias, offline         | Solo gradientes, no fotos      |
-| Subir imagen propia       | Maximo control                    | Usuario debe tener la imagen   |
-
-**Decision**: Estrategia dual:
-1. **Placeholder mejorado** con Pillow (gradientes mas elaborados) para funcionar SIN API key
-2. **Gemini 2.0 Flash** como opcion cuando el usuario configure su key
-3. **Subir imagen propia** siempre disponible (ya implementado)
-
-Paquete: `google-generativeai` (agregar a requirements.txt)
-
-### Musica: Mubert API — PROBLEMATICO
-
-| Aspecto            | Estado |
-|--------------------|--------|
-| API online         | Parcial — TTM endpoint responde pero requiere "application" token |
-| Acceso free        | NO CLARO — su API parece ser enterprise/partnership only ahora |
-| Alternativas cloud | Suno API (de pago), Udio (no API publica) |
-
-**PROBLEMA CRITICO**: Mubert no tiene un tier gratuito accesible. Su API
-requiere un token de "application" que se obtiene por partnership.
-
-**Decision — 3 niveles**:
-1. **Nivel 0 (offline, siempre funciona)**: Generar ambient drone con NumPy
-   - Acordes suaves con sine waves + reverb simple
-   - Fade in/out, capas de armonicos
-   - NO es musica de calidad pero permite que el video se genere
-2. **Nivel 1 (con archivo propio)**: Subir MP3/WAV propio
-   - Muchos canales de YouTube usan musica royalty-free descargada
-   - Loop automatico si el audio es mas corto que el video
-3. **Nivel 2 (con API key)**: Mubert API si el usuario tiene acceso
-   - Mantener el adaptador pero NO depender de el
-
-### Versiculos: JSONs locales + Claude API — CONFIRMADO
-
-| Aspecto            | Estado |
-|--------------------|--------|
-| 10 JSONs           | Si, 469 versiculos totales (43-59 por tema) |
-| Estructura         | Consistente (id, texto, referencia, version) |
-| Claude API         | Implementado en verse_gen.py |
-| Funciona offline   | Si, los JSONs son suficientes sin API |
-
-**Decision**: Mantener como esta. Funcional con y sin API key.
-
-### Fonts: Necesitan descarga local
-
-| Aspecto            | Estado |
-|--------------------|--------|
-| Preview HTML       | Usa Google Fonts CDN (requiere internet) |
-| Video render       | Necesita .ttf local para Pillow |
-| assets/fonts/      | Directorio existe pero VACIO |
-
-**Decision**:
-- Descargar EB Garamond Italic y Cinzel Regular de Google Fonts (OFL license)
-- Bundlearlos en assets/fonts/
-- Fallback a system fonts si no estan (Georgia italic, Times New Roman)
-
-## 4. Diagrama de Componentes
+**Funcional y probado.** 19/19 tests pasan (pipeline + preview + render).
 
 ```
-                    +------------------+
-                    |     app.py       |
-                    |  (Gradio 4.36)   |
-                    +--------+---------+
-                             |
-              +--------------+--------------+
-              |              |              |
-     +--------+--+   +------+-----+  +-----+-------+
-     | verse_gen  |   | image_gen  |  | music_gen   |
-     | (JSON +    |   | (Pillow +  |  | (NumPy +    |
-     |  Claude)   |   |  Gemini)   |  |  MP3 upload)|
-     +--------+---+   +------+-----+  +------+------+
-              |              |               |
-              +-------+------+-------+-------+
-                      |              |
-              +-------+----+  +------+-------+
-              |preview_eng |  |video_render  |
-              |(HTML/JS/   |  |(MoviePy 2.x +|
-              | CSS base64)|  | Pillow text) |
-              +------------+  +--------------+
-                                     |
-                              +------+------+
-                              |  ffmpeg     |
-                              | (bundled)   |
-                              +-------------+
+Python:          3.9.6 (system, macOS aarch64)
+Gradio:          4.36.0  — UI en localhost:7860
+MoviePy:         2.1.2   — render .mp4 con libx264
+ffmpeg:          imageio-ffmpeg bundled v7.1 (aarch64), sin instalación manual
+Pillow:          10.4.0  — texto en video, gradientes, presets
+NumPy:           2.0.2   — síntesis de audio
+SQLite:          stdlib  — historial local (data/history.db)
 ```
 
-## 5. Data Flow — Generacion de Video
+---
+
+## 3. Arquitectura de Componentes
 
 ```
-1. Usuario selecciona tema
-   -> cargar_versiculos() -> JSON -> tabla editable
+app.py (Gradio 4.36)
+│
+├── core/db.py          — SQLite: historial images/audio/videos
+├── core/verse_gen.py   — Carga versículos desde JSONs locales (10 temas)
+├── core/image_gen.py   — Genera fondo 1920×1080 (presets Pillow | Gemini API)
+├── core/music_gen.py   — Síntesis ambient orquestal (piano + cuerdas + coro)
+├── core/video_render.py — Renderiza MP4 final con MoviePy + Pillow
+└── preview/
+    └── preview_engine.py — HTML/JS/CSS preview inline (Ken Burns, audio /file=)
+```
 
-2. Usuario genera/sube imagen
-   -> Pillow gradient | Gemini API | archivo subido -> .jpg 1920x1080
+---
 
-3. Usuario genera/sube musica
-   -> NumPy ambient | archivo .mp3 subido | Mubert API -> .wav/.mp3
+## 4. Flujo de Datos
+
+```
+1. Seleccionar tema
+   → verse_gen.py → JSON local → tabla editable de versículos
+
+2. Imagen de fondo
+   → image_gen.py:
+     a. Preset (12 gradientes Pillow, nombre único con timestamp)
+     b. Gemini 2.0 Flash API (opcional, requiere API key)
+     c. Subir imagen propia (.jpg/.png)
+   → output/imagen_YYYYMMDD_HHMMSS.jpg (1920×1080)
+   → db.record_image()
+
+3. Música de fondo
+   → music_gen.py:
+     a. Ambient orquestal (NumPy, offline): piano + cuerdas + coro, acordes cada 8s
+     b. Subir MP3/WAV propio
+     c. MusicGen IA (experimental)
+   → output/musica_YYYYMMDD_HHMMSS.wav (stereo, 44100 Hz)
+   → db.record_audio()
 
 4. Preview
-   -> preview_engine convierte img+audio a base64
-   -> HTML autocontenido con JS animation engine
-   -> Gradio gr.HTML renderiza inline
+   → preview_engine.py:
+     - Recorta audio a ≤90s (wave stdlib) → musica_preview.wav
+     - Sirve audio via URL Gradio /file= (no base64)
+     - HTML autocontenido con:
+         · Ken Burns CSS (@keyframes kenburns, activa con .playing)
+         · tryPlayAudio() con promise + canplay event (respeta autoplay policy)
+         · Badge "Vista previa · Baja calidad"
+         · Botones Play/Pause/Prev/Next + velocidades
 
 5. Render final
-   -> ImageClip(imagen, duracion=total)
-   -> Para cada versiculo:
-      Pillow genera texto+sombra como RGBA image
-      -> ImageClip con fade in (1.5s) + visible + fade out (1.5s)
-   -> AudioFileClip(musica)
-   -> CompositeVideoClip(fondo + [texto_clips])
-   -> .write_videofile(codec=libx264, audio_codec=aac, bitrate=8000k)
-   -> output/{nombre}.mp4
+   → video_render.py:
+     - bg_clip = ImageClip(imagen, duración total) → _apply_bg_effect()
+         · "Zoom lento ↗": scale 1.0→1.06 con clip.transform()
+         · "Zoom lento ↙": scale inverso
+         · "Paneo suave →": translate X 6%
+         · "Sin efecto": estático
+     - Por cada versículo: Pillow genera RGBA con texto+sombra → ImageClip con fade
+     - CompositeVideoClip(fondo + textos) + AudioFileClip(música)
+     - write_videofile(codec=libx264, bitrate=8000k, preset=medium)
+   → output/{nombre}.mp4
+   → db.record_video()
 ```
 
-## 6. Cambios Requeridos al Plan Original
+---
 
-| Componente       | Plan Original          | Cambio                                    | Razon                           |
-|------------------|------------------------|-------------------------------------------|---------------------------------|
-| requirements.txt | gradio>=4.0.0          | gradio==4.36.0                            | Compatibilidad Python 3.9       |
-| requirements.txt | (no tenia)             | + google-generativeai                     | SDK para Gemini image gen       |
-| Mubert           | Dependencia principal  | Opcional, agregar upload MP3 + NumPy gen  | API no es accesible gratis      |
-| Fonts            | "Descargar de Google"  | Bundlear con el proyecto                  | Necesario para render offline   |
-| image_gen.py     | Solo placeholder       | Placeholder mejorado + subir propia       | Funcional sin API key           |
-| music_gen.py     | Solo Mubert            | NumPy ambient + subir MP3 + Mubert opt.   | Funcional sin API key           |
-| video_render     | TextClip directo       | Pillow -> numpy -> ImageClip              | Mas control, sin ImageMagick    |
+## 5. Base de Datos (SQLite — data/history.db)
 
-## 7. Orden de Implementacion (Sprints revisados)
+```sql
+images  (id, path, style, prompt, theme, width, height, created_at)
+audio   (id, path, mood, duration_sec, generator, created_at)
+videos  (id, path, theme, duration_min, seconds_per_verse,
+         image_id → images.id, audio_id → audio.id,
+         efecto_imagen, verses_count, created_at)
+```
 
-### Sprint 2A — Hacer funcional sin APIs (PRIORIDAD)
-1. Descargar fonts y bundlear en assets/fonts/
-2. Mejorar image_gen.py: gradientes mas bonitos con Pillow
-3. Implementar music_gen.py: ambient con NumPy (acordes + pads)
-4. Agregar boton "Subir mi propio audio" en app.py
-5. Implementar video_render.py completo con MoviePy
+API pública en `core/db.py`:
+- `init_db(path)` — crea tablas si no existen
+- `record_image / record_audio / record_video` → retornan `id`
+- `get_images / get_audio / get_videos(limit)` → `list[dict]`
+- `get_last_image_id / get_last_audio_id` — helpers para `app.py`
 
-### Sprint 2B — APIs opcionales
-1. Conectar Gemini API en image_gen.py
-2. Mantener Mubert como opcion si hay API key
-3. Claude API ya funciona para generar versiculos
+---
 
-## 8. Riesgos y Mitigaciones
+## 6. Estructura de Archivos
 
-| Riesgo                                    | Impacto | Mitigacion                                |
-|-------------------------------------------|---------|-------------------------------------------|
-| Video de 60min tarda mucho en renderizar   | Alto    | Progress bar, estimar tiempo, render async|
-| Fonts no disponibles en Windows           | Medio   | Bundlear .ttf, fallback a system fonts    |
-| Python 3.9 deprecated                     | Bajo    | Codigo compatible 3.9-3.12 con __future__ |
-| Memoria en videos largos (60-120 min)     | Alto    | Render por segmentos, no todo en RAM      |
-| Mubert API inaccesible                    | Alto    | Ya mitigado: NumPy gen + upload propio    |
+```
+loop-video-maker/
+├── app.py                   # UI Gradio — handlers, estado, tabs
+├── core/
+│   ├── db.py                # SQLite history
+│   ├── verse_gen.py         # Carga versículos desde data/versiculos/
+│   ├── image_gen.py         # Generación de imagen de fondo
+│   ├── music_gen.py         # Síntesis ambient + MusicGen
+│   └── video_render.py      # Render MP4 con MoviePy
+├── preview/
+│   └── preview_engine.py    # HTML/JS/CSS preview
+├── data/
+│   ├── versiculos/          # 10 JSONs (paz, fe, amor, ...)
+│   └── history.db           # SQLite (gitignored)
+├── output/                  # Videos e imágenes generadas (gitignored)
+├── assets/
+│   └── fonts/               # Fuentes para render de texto
+├── tests/
+│   ├── test_pipeline.py     # 11 tests de integración (sin servidor)
+│   ├── test_preview_engine.py # 7 tests unitarios del preview
+│   └── test_flow.py         # 6 tests Playwright (requiere app en :7860)
+├── requirements.txt
+├── pytest.ini
+├── run.sh / run.bat
+└── config_template.json     # Plantilla de config (sin secrets)
+```
+
+---
+
+## 7. Configuración (config.json — gitignored)
+
+```json
+{
+  "gemini_api_key": "",
+  "output_dir": "output",
+  "db_path": "data/history.db"
+}
+```
+
+Sin `config.json` la app funciona en modo offline (presets + síntesis local).
+
+---
+
+## 8. Tests
+
+```bash
+# Tests rápidos (sin render de video) — ~2 min
+.venv/bin/pytest tests/test_pipeline.py tests/test_preview_engine.py -v -m "not slow"
+
+# Tests Playwright (requiere app corriendo en :7860)
+.venv/bin/pytest tests/test_flow.py -v -m "not slow" --timeout=120
+
+# Todo incluyendo render de 10 min
+.venv/bin/pytest tests/ -v --timeout=900
+```
+
+| Suite | Tests | Cobertura |
+|-------|-------|-----------|
+| `test_pipeline.py` | 11 | DB, image gen, audio gen, preview engine, video render |
+| `test_preview_engine.py` | 7 | HTML structure, audio URL, hasAudio flag |
+| `test_flow.py` | 6 (+1 slow) | E2E Playwright contra UI real |
+
+---
+
+## 9. Decisiones de Diseño
+
+| Decisión | Alternativa descartada | Razón |
+|----------|----------------------|-------|
+| Gradio 4.36.0 pin exacto | gradio>=4.44 | Bug huggingface_hub con Python 3.9 |
+| Audio via `/file=` URL | base64 embed | WAV de 60 min = ~600MB de base64, el browser no lo carga |
+| Trim audio a 90s para preview | Audio completo | Performance — preview es solo visual |
+| NumPy síntesis offline | Solo APIs externas | Funciona sin internet ni API keys |
+| Pillow text → ImageClip | TextClip de MoviePy | Más control tipográfico, sin ImageMagick |
+| Nombres únicos con timestamp | Sobrescribir mismo archivo | Historial y galería de assets generados |
+| SQLite stdlib | ORM externo | Sin dependencias extras, suficiente para uso local |
+
+---
+
+## 10. Limitaciones Conocidas
+
+| Limitación | Impacto | Mitigación |
+|-----------|---------|-----------|
+| Render de 60 min tarda ~15-20 min | Alto | Barra de progreso Gradio, opción de 10 min para pruebas |
+| Python 3.9 (sistema macOS) | Bajo | Todo el código es compatible 3.9–3.12 |
+| Autoplay bloqueado en browser | Medio | `tryPlayAudio()` + evento `canplay` + hint visual al usuario |
+| Gemini API requiere key | Bajo | 12 presets offline siempre disponibles |
