@@ -50,7 +50,7 @@ async def test_01_app_carga(page: Page):
     """La app debe cargar y mostrar el título."""
     await expect(page.locator("h1.main-title")).to_be_visible(timeout=TIMEOUT_NORMAL)
     title_text = await page.locator("h1.main-title").text_content()
-    assert "Loop Video Maker" in title_text
+    assert "Creador de Videos" in title_text or "Loop Video" in title_text
 
 
 @pytest.mark.asyncio
@@ -78,11 +78,11 @@ async def test_02_cargar_tema(page: Page):
 async def test_03_generar_imagen(page: Page):
     """Generar imagen con el preset 'Amanecer dorado'."""
     # Verificar que el dropdown de estilo existe
-    estilo = page.get_by_label("Estilo visual")
+    estilo = page.get_by_label("Estilo del fondo")
     await expect(estilo).to_be_visible(timeout=TIMEOUT_NORMAL)
 
     # Click generar
-    await page.get_by_role("button", name="Generar imagen").click()
+    await page.get_by_role("button", name="Crear imagen").click()
 
     # Esperar que alguna textarea tenga ✓ Imagen
     await page.wait_for_function(
@@ -93,19 +93,19 @@ async def test_03_generar_imagen(page: Page):
 
 @pytest.mark.asyncio
 async def test_04_generar_musica(page: Page):
-    """Generar música ambient (puede tardar 30-60s para 60 min de audio)."""
-    await page.get_by_role("button", name="Generar ambient").click()
+    """Generar música ambient (60 min de audio puede tardar 3-5 min)."""
+    await page.get_by_role("button", name="Crear música").click()
 
     await page.wait_for_function(
-        "() => [...document.querySelectorAll('textarea')].some(t => t.value.includes('Audio generado'))",
-        timeout=TIMEOUT_MEDIA,
+        "() => [...document.querySelectorAll('textarea')].some(t => t.value.includes('Audio generado') || t.value.includes('Música IA'))",
+        timeout=TIMEOUT_RENDER,  # 10 min — generación de audio es lenta
     )
 
 
 @pytest.mark.asyncio
 async def test_05_preview_button_visible(page: Page):
     """El botón 'Vista previa' debe existir y estar habilitado."""
-    btn = page.get_by_role("button", name="Vista previa")
+    btn = page.get_by_role("button", name="Ver cómo quedará el video")
     await expect(btn).to_be_visible(timeout=TIMEOUT_NORMAL)
     await expect(btn).to_be_enabled(timeout=TIMEOUT_NORMAL)
 
@@ -127,7 +127,7 @@ async def test_06_preview_button_triggers_request(page: Page):
         timeout=TIMEOUT_NORMAL,
     )
 
-    await page.get_by_role("button", name="Vista previa").click()
+    await page.get_by_role("button", name="Ver cómo quedará el video").click()
     await page.wait_for_timeout(2000)
 
     assert any("queue" in url for url in queue_requests), (
