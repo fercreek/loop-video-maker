@@ -86,6 +86,9 @@ def al_cargar_tema(tema):
 
     estado["datos_tema"] = datos
     estado["tema_actual"] = tema
+    # Reset media IDs so video DB record doesn't link to previous session's media
+    estado["imagen_id"] = None
+    estado["audio_id"] = None
 
     versiculos = versiculos_a_lista(datos)
     estado["versiculos"] = versiculos
@@ -149,6 +152,12 @@ def al_seleccionar_imagen_guardada(evt: gr.SelectData):
     if not os.path.exists(path):
         return None, f"❌ No encontrado: {path}"
     estado["imagen_path"] = path
+    # Look up image_id in DB so video record links correctly
+    abs_path = os.path.abspath(path)
+    records = db.get_images(limit=200)
+    estado["imagen_id"] = next(
+        (r["id"] for r in records if r["path"] == abs_path), None
+    )
     return path, f"✓ {os.path.basename(path)}"
 
 
@@ -203,6 +212,9 @@ def al_generar_musica_ia(mood, duracion_min):
             duracion_total=duracion_seg, output_dir=out_dir,
         )
         estado["musica_path"] = path
+        estado["audio_id"] = db.record_audio(
+            path=path, mood=mood, duration_sec=duracion_seg, generator="musicgen",
+        )
         return path, f"✓ Música IA generada ({duracion_min} min)"
     except Exception as e:
         return None, f"❌ Error: {str(e)}"
@@ -211,22 +223,36 @@ def al_generar_musica_ia(mood, duracion_min):
 def al_subir_audio(archivo):
     if archivo is None:
         return None, "❌ No se seleccionó archivo"
-    estado["musica_path"] = archivo
+    # Copy to output_dir so path persists after Gradio cleans temp files
+    import shutil
+    out_dir = config.get("output_dir", OUTPUT_DIR)
+    os.makedirs(out_dir, exist_ok=True)
+    dest = os.path.join(out_dir, os.path.basename(archivo))
+    if os.path.abspath(archivo) != os.path.abspath(dest):
+        shutil.copy2(archivo, dest)
+    estado["musica_path"] = dest
     estado["audio_id"] = db.record_audio(
-        path=archivo, mood="", duration_sec=0, generator="upload",
+        path=dest, mood="", duration_sec=0, generator="upload",
     )
-    return archivo, "✓ Audio cargado"
+    return dest, f"✓ Audio cargado — {os.path.basename(dest)}"
 
 
 def subir_imagen(archivo):
     if archivo is None:
         return None, "❌ No se seleccionó archivo"
-    estado["imagen_path"] = archivo
+    # Copy to output_dir so path persists after Gradio cleans temp files
+    import shutil
+    out_dir = config.get("output_dir", OUTPUT_DIR)
+    os.makedirs(out_dir, exist_ok=True)
+    dest = os.path.join(out_dir, os.path.basename(archivo))
+    if os.path.abspath(archivo) != os.path.abspath(dest):
+        shutil.copy2(archivo, dest)
+    estado["imagen_path"] = dest
     estado["imagen_id"] = db.record_image(
-        path=archivo, style="upload", prompt="",
+        path=dest, style="upload", prompt="",
         theme=estado.get("tema_actual", ""),
     )
-    return archivo, "✓ Imagen cargada"
+    return dest, f"✓ Imagen cargada — {os.path.basename(dest)}"
 
 
 def al_actualizar_preview(tabla, seg_por_verso, fade_dur, posicion, tamano,
@@ -611,12 +637,6 @@ with gr.Blocks(
                         value=list(MOODS.keys())[0],
                         label="Tipo de música",
                     )
-                    duracion_radio = gr.Radio(
-                        choices=["30", "60", "90", "120"],
-                        value="60",
-                        label="Duración del video (minutos)",
-                        visible=False,
-                    )
                     with gr.Row():
                         btn_gen_musica = gr.Button("🎵  Crear música", variant="primary", size="sm")
                         btn_gen_musica_ia = gr.Button("🤖  Música con IA", variant="secondary", size="sm")
@@ -747,13 +767,13 @@ with gr.Blocks(
         fn=al_generar_imagen,
         inputs=[prompt_imagen, estilo_imagen],
         outputs=[preview_img, info_imagen],
-    )
+    ).then(fn=listar_imagenes_guardadas, outputs=[galeria_imgs, info_galeria])
 
     btn_subir_img.upload(
         fn=subir_imagen,
         inputs=[btn_subir_img],
         outputs=[preview_img, info_imagen],
-    )
+    ).then(fn=listar_imagenes_guardadas, outputs=[galeria_imgs, info_galeria])
 
     btn_refresh_imgs.click(
         fn=listar_imagenes_guardadas,
@@ -808,7 +828,7 @@ with gr.Blocks(
             fade_dur, efecto_imagen, nombre_archivo,
         ],
         outputs=[info_render],
-    )
+    ).then(fn=cargar_historial, outputs=[hist_galeria, hist_audio_md, hist_video_md, hist_totales])
 
     btn_abrir.click(fn=abrir_carpeta_salida, outputs=[info_render])
 

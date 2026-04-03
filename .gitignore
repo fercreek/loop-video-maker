@@ -1,5 +1,7 @@
 config.json
 output/
+data/history.db
+data/*.db
 __pycache__/
 *.pyc
 .env

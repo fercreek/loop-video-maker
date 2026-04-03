@@ -132,7 +132,8 @@ def generar_imagen_rapida(color_hex: str = "#1a1a3e", output_dir: str = "output"
     color_hex = color_hex.lstrip("#")
     r, g, b = int(color_hex[0:2], 16), int(color_hex[2:4], 16), int(color_hex[4:6], 16)
     img = Image.new("RGB", (1920, 1080), (r, g, b))
-    path = os.path.join(output_dir, "imagen_fondo_rapida.jpg")
+    # Fixed name — intentional: rapid preview placeholder, one per color, reused across sessions
+    path = os.path.join(output_dir, "imagen_rapida_preview.jpg")
     img.save(path, quality=95)
     return os.path.abspath(path)
 
