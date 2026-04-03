@@ -1,0 +1,276 @@
+{
+  "tema": "gratitud",
+  "titulo_sugerido": "Versículos de Gratitud — Música Cristiana de Alabanza",
+  "descripcion_youtube": "Da gracias al Señor con estos hermosos versículos de gratitud de la Biblia Reina Valera 1960, acompañados de música instrumental cristiana.",
+  "tags_youtube": [
+    "versículos bíblicos",
+    "gratitud",
+    "acción de gracias",
+    "música cristiana",
+    "biblia",
+    "RVR1960"
+  ],
+  "prompt_imagen": "Beautiful golden wheat field at sunset, warm light, thankfulness, biblical harvest, cinematic, photorealistic, 4K",
+  "mood_mubert": "grateful joyful gentle worship praise acoustic",
+  "color_acento": "#DAA520",
+  "versiculos": [
+    {
+      "referencia": "1 Tesalonicenses 5:18",
+      "texto": "Dad gracias en todo, porque esta es la voluntad de Dios para con vosotros en Cristo Jesús.",
+      "id": 1,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 100:4",
+      "texto": "Entrad por sus puertas con acción de gracias, por sus atrios con alabanza; alabadle, bendecid su nombre.",
+      "id": 2,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Colosenses 3:17",
+      "texto": "Y todo lo que hacéis, sea de palabra o de hecho, hacedlo todo en el nombre del Señor Jesús, dando gracias a Dios Padre por medio de él.",
+      "id": 3,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 107:1",
+      "texto": "Alabad a Jehová, porque él es bueno; porque para siempre es su misericordia.",
+      "id": 4,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 118:1",
+      "texto": "Alabad a Jehová, porque él es bueno; porque para siempre es su misericordia.",
+      "id": 5,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 136:1",
+      "texto": "Alabad a Jehová, porque él es bueno, porque para siempre es su misericordia.",
+      "id": 6,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 95:2",
+      "texto": "Lleguemos ante su presencia con alabanza; aclamémosle con cánticos.",
+      "id": 7,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 69:30",
+      "texto": "Alabaré yo el nombre de Dios con cántico, lo exaltaré con alabanza.",
+      "id": 8,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 9:1",
+      "texto": "Te alabaré, oh Jehová, con todo mi corazón; contaré todas tus maravillas.",
+      "id": 9,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 28:7",
+      "texto": "Jehová es mi fortaleza y mi escudo; en él confió mi corazón, y fui ayudado, por lo que se gozó mi corazón, y con mi cántico le alabaré.",
+      "id": 10,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 30:12",
+      "texto": "Por tanto, a ti cantaré, gloria mía, y no estaré callado. Jehová Dios mío, te alabaré para siempre.",
+      "id": 11,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 34:1",
+      "texto": "Bendeciré a Jehová en todo tiempo; su alabanza estará de continuo en mi boca.",
+      "id": 12,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 50:14",
+      "texto": "Sacrifica a Dios alabanza, y paga tus votos al Altísimo.",
+      "id": 13,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 75:1",
+      "texto": "Gracias te damos, oh Dios, gracias te damos, pues cercano está tu nombre; los hombres cuentan tus maravillas.",
+      "id": 14,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 92:1",
+      "texto": "Bueno es alabarte, oh Jehová, y cantar salmos a tu nombre, oh Altísimo.",
+      "id": 15,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 100:1-2",
+      "texto": "Cantad alegres a Dios, habitantes de toda la tierra. Servid a Jehová con alegría; venid ante su presencia con regocijo.",
+      "id": 16,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 103:1-2",
+      "texto": "Bendice, alma mía, a Jehová, y bendiga todo mi ser su santo nombre. Bendice, alma mía, a Jehová, y no olvides ninguno de sus beneficios.",
+      "id": 17,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 105:1",
+      "texto": "Alabad a Jehová, invocad su nombre; dad a conocer sus obras en los pueblos.",
+      "id": 18,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 106:1",
+      "texto": "Aleluya. Alabad a Jehová, porque él es bueno; porque para siempre es su misericordia.",
+      "id": 19,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 107:8-9",
+      "texto": "Alaben la misericordia de Jehová, y sus maravillas para con los hijos de los hombres. Porque sacia al alma menesterosa, y llena de bien al alma hambrienta.",
+      "id": 20,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 111:1",
+      "texto": "Aleluya. Alabaré a Jehová con todo el corazón en la compañía y congregación de los rectos.",
+      "id": 21,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 116:12-13",
+      "texto": "¿Qué pagaré a Jehová por todos sus beneficios para conmigo? Tomaré la copa de la salvación, e invocaré el nombre de Jehová.",
+      "id": 22,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 118:24",
+      "texto": "Este es el día que hizo Jehová; nos gozaremos y alegraremos en él.",
+      "id": 23,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 118:28-29",
+      "texto": "Mi Dios eres tú, y te alabaré; Dios mío, te exaltaré. Alabad a Jehová, porque él es bueno; porque para siempre es su misericordia.",
+      "id": 24,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 138:1",
+      "texto": "Te alabaré con todo mi corazón; delante de los dioses te cantaré salmos.",
+      "id": 25,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 145:2-3",
+      "texto": "Cada día te bendeciré, y alabaré tu nombre eternamente y para siempre. Grande es Jehová, y digno de suprema alabanza; y su grandeza es inescrutable.",
+      "id": 26,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "1 Crónicas 16:34",
+      "texto": "Aclamad a Jehová, porque él es bueno; porque su misericordia es para siempre.",
+      "id": 27,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "1 Crónicas 29:13",
+      "texto": "Ahora pues, Dios nuestro, nosotros te damos gracias, y alabamos tu glorioso nombre.",
+      "id": 28,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Efesios 5:20",
+      "texto": "Dando siempre gracias por todo al Dios y Padre, en el nombre de nuestro Señor Jesucristo.",
+      "id": 29,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Filipenses 4:6",
+      "texto": "Por nada estéis afanosos, sino sean conocidas vuestras peticiones delante de Dios en toda oración y ruego, con acción de gracias.",
+      "id": 30,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Colosenses 2:7",
+      "texto": "Arraigados y sobreedificados en él, y confirmados en la fe, así como habéis sido enseñados, abundando en acciones de gracias.",
+      "id": 31,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Colosenses 3:15",
+      "texto": "Y la paz de Dios gobierne en vuestros corazones, a la que asimismo fuisteis llamados en un solo cuerpo; y sed agradecidos.",
+      "id": 32,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Colosenses 4:2",
+      "texto": "Perseverad en la oración, velando en ella con acción de gracias.",
+      "id": 33,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "1 Timoteo 4:4-5",
+      "texto": "Porque todo lo que Dios creó es bueno, y nada es de desecharse, si se toma con acción de gracias; porque por la palabra de Dios y por la oración es santificado.",
+      "id": 34,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Hebreos 12:28",
+      "texto": "Así que, recibiendo nosotros un reino inconmovible, tengamos gratitud, y mediante ella sirvamos a Dios agradándole con temor y reverencia.",
+      "id": 35,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Daniel 2:23",
+      "texto": "A ti, oh Dios de mis padres, te doy gracias y te alabo, porque me diste sabiduría y fuerza, y ahora me has revelado lo que te pedimos; pues nos has dado a conocer el asunto del rey.",
+      "id": 36,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Jonás 2:9",
+      "texto": "Pero yo con voz de alabanza te ofreceré sacrificios; pagaré lo que prometí. La salvación es de Jehová.",
+      "id": 37,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Romanos 1:21",
+      "texto": "Pues habiendo conocido a Dios, no le glorificaron como a Dios, ni le dieron gracias, sino que se envanecieron en sus razonamientos, y su necio corazón fue entenebrecido.",
+      "id": 38,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "2 Corintios 2:14",
+      "texto": "Mas a Dios gracias, el cual nos lleva siempre en triunfo en Cristo Jesús, y por medio de nosotros manifiesta en todo lugar el olor de su conocimiento.",
+      "id": 39,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "2 Corintios 4:15",
+      "texto": "Porque todas estas cosas padecemos por amor a vosotros, para que abundando la gracia por medio de muchos, la acción de gracias sobreabunde para gloria de Dios.",
+      "id": 40,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "2 Corintios 9:11",
+      "texto": "Para que estéis enriquecidos en todo para toda liberalidad, la cual produce por medio de nosotros acción de gracias a Dios.",
+      "id": 41,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "2 Corintios 9:15",
+      "texto": "¡Gracias a Dios por su don inefable!",
+      "id": 42,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Apocalipsis 7:12",
+      "texto": "Diciendo: Amén. La bendición y la gloria y la sabiduría y la acción de gracias y la honra y el poder y la fortaleza, sean a nuestro Dios por los siglos de los siglos. Amén.",
+      "id": 43,
+      "version": "RVR1960"
+    }
+  ]
+}

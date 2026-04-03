@@ -1,0 +1,284 @@
+{
+  "tema": "fuerza",
+  "titulo_sugerido": "Versículos de Fuerza y Fortaleza — Música Instrumental Cristiana",
+  "descripcion_youtube": "Encuentra fuerza y fortaleza en estos versículos de la Biblia Reina Valera 1960, acompañados de música instrumental cristiana para edificar tu fe.",
+  "tags_youtube": [
+    "versículos bíblicos",
+    "fuerza",
+    "fortaleza",
+    "música cristiana",
+    "biblia",
+    "RVR1960",
+    "ánimo",
+    "esperanza"
+  ],
+  "prompt_imagen": "Mighty eagle soaring above mountains, powerful sunrise, strength, biblical, cinematic, 4K",
+  "mood_mubert": "powerful uplifting orchestral strength courageous",
+  "color_acento": "#B8860B",
+  "versiculos": [
+    {
+      "referencia": "Filipenses 4:13",
+      "texto": "Todo lo puedo en Cristo que me fortalece.",
+      "id": 1,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Isaías 40:31",
+      "texto": "Pero los que esperan a Jehová tendrán nuevas fuerzas; levantarán alas como las águilas; correrán, y no se cansarán; caminarán, y no se fatigarán.",
+      "id": 2,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Josué 1:9",
+      "texto": "Mira que te mando que te esfuerces y seas valiente; no temas ni desmayes, porque Jehová tu Dios estará contigo en dondequiera que vayas.",
+      "id": 3,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Deuteronomio 31:6",
+      "texto": "Esforzaos y cobrad ánimo; no temáis, ni os amedrentéis ante ellos, porque Jehová tu Dios es el que va contigo; no te dejará, ni te desamparará.",
+      "id": 4,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 18:2",
+      "texto": "Jehová, roca mía y castillo mío, y mi libertador; Dios mío, fortaleza mía, en él confiaré; mi escudo, y la fuerza de mi salvación, mi alto refugio.",
+      "id": 5,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 27:1",
+      "texto": "Jehová es mi luz y mi salvación; ¿a quién temeré? Jehová es la fortaleza de mi vida; ¿de quién me he de atemorizarme?",
+      "id": 6,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 28:7",
+      "texto": "Jehová es mi fortaleza y mi escudo; en él confió mi corazón, y fui ayudado, por lo que se gozó mi corazón, y con mi cántico le alabaré.",
+      "id": 7,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 29:11",
+      "texto": "Jehová dará poder a su pueblo; Jehová bendecirá a su pueblo con paz.",
+      "id": 8,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 31:24",
+      "texto": "Esforzaos todos vosotros los que esperáis en Jehová, y tome aliento vuestro corazón.",
+      "id": 9,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 46:1",
+      "texto": "Dios es nuestro amparo y fortaleza, nuestro pronto auxilio en las tribulaciones.",
+      "id": 10,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 73:26",
+      "texto": "Mi carne y mi corazón desfallecen; mas la roca de mi corazón y mi porción es Dios para siempre.",
+      "id": 11,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 89:13",
+      "texto": "Tuyo es el brazo potente; fuerte es tu mano, exaltada tu diestra.",
+      "id": 12,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 93:4",
+      "texto": "Jehová en las alturas es más poderoso que el estruendo de las muchas aguas, más que las recias ondas del mar.",
+      "id": 13,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 118:14",
+      "texto": "Mi fortaleza y mi cántico es JAH, y él me ha sido por salvación.",
+      "id": 14,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 138:3",
+      "texto": "El día que clamé, me respondiste; me fortaleciste con vigor en mi alma.",
+      "id": 15,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 144:1",
+      "texto": "Bendito sea Jehová, mi roca, quien adiestra mis manos para la batalla, y mis dedos para la guerra.",
+      "id": 16,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Isaías 12:2",
+      "texto": "He aquí Dios es salvación mía; me aseguraré y no temeré; porque mi fortaleza y mi canción es JAH Jehová, quien ha sido salvación para mí.",
+      "id": 17,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Isaías 26:4",
+      "texto": "Confiad en Jehová perpetuamente, porque en Jehová el Señor está la fortaleza de los siglos.",
+      "id": 18,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Isaías 30:15",
+      "texto": "Porque así dijo Jehová el Señor, el Santo de Israel: En descanso y en reposo seréis salvos; en quietud y en confianza será vuestra fortaleza.",
+      "id": 19,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Isaías 40:29",
+      "texto": "Él da esfuerzo al cansado, y multiplica las fuerzas al que no tiene ningunas.",
+      "id": 20,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Isaías 41:10",
+      "texto": "No temas, porque yo estoy contigo; no desmayes, porque yo soy tu Dios que te esfuerzo; siempre te ayudaré, siempre te sustentaré con la diestra de mi justicia.",
+      "id": 21,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Isaías 41:13",
+      "texto": "Porque yo Jehová soy tu Dios, quien te sostiene de tu mano derecha, y te dice: No temas, yo te ayudo.",
+      "id": 22,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Isaías 54:17",
+      "texto": "Ninguna arma forjada contra ti prosperará, y condenarás toda lengua que se levante contra ti en juicio. Esta es la herencia de los siervos de Jehová, y su salvación de mí vendrá, dijo Jehová.",
+      "id": 23,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Jeremías 32:17",
+      "texto": "¡Oh Señor Jehová! he aquí que tú hiciste el cielo y la tierra con tu gran poder, y con tu brazo extendido, ni hay nada que sea difícil para ti.",
+      "id": 24,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Habacuc 3:19",
+      "texto": "Jehová el Señor es mi fortaleza, el cual hace mis pies como de ciervas, y en mis alturas me hace andar.",
+      "id": 25,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Nehemías 8:10",
+      "texto": "Luego les dijo: Id, comed grosuras, y bebed vino dulce, y enviad porciones a los que no tienen nada preparado; porque día santo es a nuestro Señor; no os entristezcáis, porque el gozo de Jehová es vuestra fuerza.",
+      "id": 26,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "2 Samuel 22:33",
+      "texto": "Dios es el que me ciñe de fuerza, y quien despeja mi camino.",
+      "id": 27,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "1 Crónicas 16:11",
+      "texto": "Buscad a Jehová y su poder; buscad su rostro continuamente.",
+      "id": 28,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "2 Crónicas 16:9",
+      "texto": "Porque los ojos de Jehová contemplan toda la tierra, para mostrar su poder a favor de los que tienen corazón perfecto para con él.",
+      "id": 29,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Éxodo 15:2",
+      "texto": "Jehová es mi fortaleza y mi cántico, y ha sido mi salvación. Este es mi Dios, y le alabaré; Dios de mi padre, y le exaltaré.",
+      "id": 30,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Nahúm 1:7",
+      "texto": "Jehová es bueno, fortaleza en el día de la angustia; y conoce a los que en él confían.",
+      "id": 31,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Efesios 3:16",
+      "texto": "Para que os dé, conforme a las riquezas de su gloria, el ser fortalecidos con poder en el hombre interior por su Espíritu.",
+      "id": 32,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Efesios 6:10",
+      "texto": "Por lo demás, hermanos míos, fortaleceos en el Señor, y en el poder de su fuerza.",
+      "id": 33,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "2 Timoteo 1:7",
+      "texto": "Porque no nos ha dado Dios espíritu de cobardía, sino de poder, de amor y de dominio propio.",
+      "id": 34,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "2 Corintios 12:9",
+      "texto": "Y me ha dicho: Bástate mi gracia; porque mi poder se perfecciona en la debilidad. Por tanto, de buena gana me gloriaré más bien en mis debilidades, para que repose sobre mí el poder de Cristo.",
+      "id": 35,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "2 Corintios 12:10",
+      "texto": "Por lo cual, por amor a Cristo me gozo en las debilidades, en afrentas, en necesidades, en persecuciones, en angustias; porque cuando soy débil, entonces soy fuerte.",
+      "id": 36,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "2 Corintios 4:16",
+      "texto": "Por tanto, no desmayamos; antes aunque este nuestro hombre exterior se va desgastando, el interior no obstante se renueva de día en día.",
+      "id": 37,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Romanos 8:31",
+      "texto": "¿Qué, pues, diremos a esto? Si Dios es por nosotros, ¿quién contra nosotros?",
+      "id": 38,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Hebreos 13:6",
+      "texto": "De manera que podemos decir confiadamente: El Señor es mi ayudador; no temeré lo que me pueda hacer el hombre.",
+      "id": 39,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "1 Pedro 5:10",
+      "texto": "Mas el Dios de toda gracia, que nos llamó a su gloria eterna en Jesucristo, después que hayáis padecido un poco de tiempo, él mismo os perfeccione, afirme, fortalezca y establezca.",
+      "id": 40,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Zacarías 4:6",
+      "texto": "Entonces respondió y me habló diciendo: Esta es palabra de Jehová a Zorobabel, que dice: No con ejército, ni con fuerza, sino con mi Espíritu, ha dicho Jehová de los ejércitos.",
+      "id": 41,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Miqueas 3:8",
+      "texto": "Mas yo estoy lleno de poder del Espíritu de Jehová, y de juicio y de fuerza, para denunciar a Jacob su rebelión, y a Israel su pecado.",
+      "id": 42,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Colosenses 1:11",
+      "texto": "Fortalecidos con todo poder, conforme a la potencia de su gloria, para toda paciencia y longanimidad; con gozo.",
+      "id": 43,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Daniel 10:19",
+      "texto": "Y dijo: No temas, varón muy amado; paz a ti; esfuérzate y aliéntate. Y mientras me hablaba, recobré las fuerzas, y dije: Hable mi señor, porque me has fortalecido.",
+      "id": 44,
+      "version": "RVR1960"
+    }
+  ]
+}

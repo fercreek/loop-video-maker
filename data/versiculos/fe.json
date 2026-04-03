@@ -1,0 +1,317 @@
+{
+  "tema": "fe",
+  "titulo_sugerido": "Versículos de Fe — Música Cristiana para Fortalecer tu Confianza en Dios",
+  "descripcion_youtube": "Fortalece tu fe con versículos poderosos de la Biblia Reina Valera 1960 acompañados de música instrumental cristiana. Ideal para momentos de oración, devocional y crecimiento espiritual.",
+  "tags_youtube": ["versículos bíblicos", "fe", "música cristiana", "biblia", "RVR1960", "confianza en Dios", "meditación cristiana"],
+  "prompt_imagen": "Majestic mountain peak above clouds, golden sunrise, faith, biblical, cinematic, 4K",
+  "mood_mubert": "hopeful uplifting gentle orchestral faith",
+  "color_acento": "#F0C987",
+  "versiculos": [
+    {
+      "id": 1,
+      "texto": "Es, pues, la fe la certeza de lo que se espera, la convicción de lo que no se ve.",
+      "referencia": "Hebreos 11:1",
+      "version": "RVR1960"
+    },
+    {
+      "id": 2,
+      "texto": "Pero sin fe es imposible agradar a Dios; porque es necesario que el que se acerca a Dios crea que le hay, y que es galardonador de los que le buscan.",
+      "referencia": "Hebreos 11:6",
+      "version": "RVR1960"
+    },
+    {
+      "id": 3,
+      "texto": "Así que la fe es por el oír, y el oír, por la palabra de Dios.",
+      "referencia": "Romanos 10:17",
+      "version": "RVR1960"
+    },
+    {
+      "id": 4,
+      "texto": "Respondiendo Jesús, les dijo: Tened fe en Dios. Porque de cierto os digo que cualquiera que dijere a este monte: Quítate y échate en el mar, y no dudare en su corazón, sino creyere que será hecho lo que dice, lo que diga le será hecho. Por tanto, os digo que todo lo que pidiereis orando, creed que lo recibiréis, y os vendrá.",
+      "referencia": "Marcos 11:22-24",
+      "version": "RVR1960"
+    },
+    {
+      "id": 5,
+      "texto": "Jesús les dijo: Por vuestra poca fe; porque de cierto os digo, que si tuviereis fe como un grano de mostaza, diréis a este monte: Pásate de aquí allá, y se pasará; y nada os será imposible.",
+      "referencia": "Mateo 17:20",
+      "version": "RVR1960"
+    },
+    {
+      "id": 6,
+      "texto": "Y todo lo que pidiereis en oración, creyendo, lo recibiréis.",
+      "referencia": "Mateo 21:22",
+      "version": "RVR1960"
+    },
+    {
+      "id": 7,
+      "texto": "Porque por fe andamos, no por vista.",
+      "referencia": "2 Corintios 5:7",
+      "version": "RVR1960"
+    },
+    {
+      "id": 8,
+      "texto": "Con Cristo estoy juntamente crucificado, y ya no vivo yo, mas vive Cristo en mí; y lo que ahora vivo en la carne, lo vivo en la fe del Hijo de Dios, el cual me amó y se entregó a sí mismo por mí.",
+      "referencia": "Gálatas 2:20",
+      "version": "RVR1960"
+    },
+    {
+      "id": 9,
+      "texto": "Porque por gracia sois salvos por medio de la fe; y esto no de vosotros, pues es don de Dios.",
+      "referencia": "Efesios 2:8",
+      "version": "RVR1960"
+    },
+    {
+      "id": 10,
+      "texto": "Pero pida con fe, no dudando nada; porque el que duda es semejante a la ola del mar, que es arrastrada por el viento y echada de una parte a otra.",
+      "referencia": "Santiago 1:6",
+      "version": "RVR1960"
+    },
+    {
+      "id": 11,
+      "texto": "Así también la fe, si no tiene obras, es muerta en sí misma.",
+      "referencia": "Santiago 2:17",
+      "version": "RVR1960"
+    },
+    {
+      "id": 12,
+      "texto": "Porque como el cuerpo sin espíritu está muerto, así también la fe sin obras está muerta.",
+      "referencia": "Santiago 2:26",
+      "version": "RVR1960"
+    },
+    {
+      "id": 13,
+      "texto": "Para que sometida a prueba vuestra fe, mucho más preciosa que el oro, el cual aunque perecedero se prueba con fuego, sea hallada en alabanza, gloria y honra cuando sea manifestado Jesucristo.",
+      "referencia": "1 Pedro 1:7",
+      "version": "RVR1960"
+    },
+    {
+      "id": 14,
+      "texto": "Obteniendo el fin de vuestra fe, que es la salvación de vuestras almas.",
+      "referencia": "1 Pedro 1:9",
+      "version": "RVR1960"
+    },
+    {
+      "id": 15,
+      "texto": "Porque todo lo que es nacido de Dios vence al mundo; y esta es la victoria que ha vencido al mundo, nuestra fe.",
+      "referencia": "1 Juan 5:4",
+      "version": "RVR1960"
+    },
+    {
+      "id": 16,
+      "texto": "Como está escrito: Mas el justo por la fe vivirá.",
+      "referencia": "Romanos 1:17",
+      "version": "RVR1960"
+    },
+    {
+      "id": 17,
+      "texto": "Concluimos, pues, que el hombre es justificado por fe sin las obras de la ley.",
+      "referencia": "Romanos 3:28",
+      "version": "RVR1960"
+    },
+    {
+      "id": 18,
+      "texto": "Tampoco dudó, por incredulidad, de la promesa de Dios, sino que se fortaleció en fe, dando gloria a Dios, plenamente convencido de que era también poderoso para hacer todo lo que había prometido.",
+      "referencia": "Romanos 4:20-21",
+      "version": "RVR1960"
+    },
+    {
+      "id": 19,
+      "texto": "Justificados, pues, por la fe, tenemos paz para con Dios por medio de nuestro Señor Jesucristo; por quien también tenemos entrada por la fe a esta gracia en la cual estamos firmes, y nos gloriamos en la esperanza de la gloria de Dios.",
+      "referencia": "Romanos 5:1-2",
+      "version": "RVR1960"
+    },
+    {
+      "id": 20,
+      "texto": "He aquí que aquel cuya alma no es recta, se enorgullece; mas el justo por su fe vivirá.",
+      "referencia": "Habacuc 2:4",
+      "version": "RVR1960"
+    },
+    {
+      "id": 21,
+      "texto": "Mas el justo vivirá por fe; y si retrocediere, no agradará a mi alma.",
+      "referencia": "Hebreos 10:38",
+      "version": "RVR1960"
+    },
+    {
+      "id": 22,
+      "texto": "Por la fe entendemos haber sido constituido el universo por la palabra de Dios, de modo que lo que se ve fue hecho de lo que no se veía.",
+      "referencia": "Hebreos 11:3",
+      "version": "RVR1960"
+    },
+    {
+      "id": 23,
+      "texto": "Por la fe Noé, cuando fue advertido por Dios acerca de cosas que aún no se veían, con temor preparó el arca en que su casa se salvase; y por esa fe condenó al mundo, y fue hecho heredero de la justicia que viene por la fe.",
+      "referencia": "Hebreos 11:7",
+      "version": "RVR1960"
+    },
+    {
+      "id": 24,
+      "texto": "Por la fe Abraham, siendo llamado, obedeció para salir al lugar que había de recibir como herencia; y salió sin saber a dónde iba.",
+      "referencia": "Hebreos 11:8",
+      "version": "RVR1960"
+    },
+    {
+      "id": 25,
+      "texto": "Por la fe también la misma Sara, siendo estéril, recibió fuerza para concebir; y dio a luz aun fuera del tiempo de la edad, porque creyó que era fiel quien lo había prometido.",
+      "referencia": "Hebreos 11:11",
+      "version": "RVR1960"
+    },
+    {
+      "id": 26,
+      "texto": "Por la fe Abraham, cuando fue probado, ofreció a Isaac; y el que había recibido las promesas ofrecía su unigénito.",
+      "referencia": "Hebreos 11:17",
+      "version": "RVR1960"
+    },
+    {
+      "id": 27,
+      "texto": "Por la fe Moisés, hecho ya grande, rehusó llamarse hijo de la hija de Faraón, escogiendo antes ser maltratado con el pueblo de Dios, que gozar de los deleites temporales del pecado.",
+      "referencia": "Hebreos 11:24-25",
+      "version": "RVR1960"
+    },
+    {
+      "id": 28,
+      "texto": "Por la fe pasaron el Mar Rojo como por tierra seca; e intentando los egipcios hacer lo mismo, fueron ahogados.",
+      "referencia": "Hebreos 11:29",
+      "version": "RVR1960"
+    },
+    {
+      "id": 29,
+      "texto": "Por la fe cayeron los muros de Jericó después de rodearlos siete días.",
+      "referencia": "Hebreos 11:30",
+      "version": "RVR1960"
+    },
+    {
+      "id": 30,
+      "texto": "Que por fe conquistaron reinos, hicieron justicia, alcanzaron promesas, taparon bocas de leones.",
+      "referencia": "Hebreos 11:33",
+      "version": "RVR1960"
+    },
+    {
+      "id": 31,
+      "texto": "Puestos los ojos en Jesús, el autor y consumador de la fe, el cual por el gozo puesto delante de él sufrió la cruz, menospreciando el oprobio, y se sentó a la diestra del trono de Dios.",
+      "referencia": "Hebreos 12:2",
+      "version": "RVR1960"
+    },
+    {
+      "id": 32,
+      "texto": "Pero Jesús le dijo: Hija, tu fe te ha hecho salva; ve en paz, y queda sana de tu azote.",
+      "referencia": "Marcos 5:34",
+      "version": "RVR1960"
+    },
+    {
+      "id": 33,
+      "texto": "Jesús le dijo: Si puedes creer, al que cree todo le es posible.",
+      "referencia": "Marcos 9:23",
+      "version": "RVR1960"
+    },
+    {
+      "id": 34,
+      "texto": "Y Jesús le dijo: Vete, tu fe te ha salvado. Y en seguida recobró la vista, y seguía a Jesús en el camino.",
+      "referencia": "Marcos 10:52",
+      "version": "RVR1960"
+    },
+    {
+      "id": 35,
+      "texto": "Dijeron los apóstoles al Señor: Auméntanos la fe. Entonces el Señor dijo: Si tuvierais fe como un grano de mostaza, podríais decir a este sicómoro: Desarráigate, y plántate en el mar; y os obedecería.",
+      "referencia": "Lucas 17:5-6",
+      "version": "RVR1960"
+    },
+    {
+      "id": 36,
+      "texto": "Pero cuando venga el Hijo del Hombre, ¿hallará fe en la tierra?",
+      "referencia": "Lucas 18:8",
+      "version": "RVR1960"
+    },
+    {
+      "id": 37,
+      "texto": "Al oírlo Jesús, se maravilló, y dijo a los que le seguían: De cierto os digo, que ni aun en Israel he hallado tanta fe.",
+      "referencia": "Mateo 8:10",
+      "version": "RVR1960"
+    },
+    {
+      "id": 38,
+      "texto": "Y Jesús dijo al centurión: Ve, y como creíste, te sea hecho. Y su criado fue sanado en aquella misma hora.",
+      "referencia": "Mateo 8:13",
+      "version": "RVR1960"
+    },
+    {
+      "id": 39,
+      "texto": "Jesús, volviéndose, y mirándola, dijo: Ten ánimo, hija; tu fe te ha salvado. Y la mujer fue salva desde aquella hora.",
+      "referencia": "Mateo 9:22",
+      "version": "RVR1960"
+    },
+    {
+      "id": 40,
+      "texto": "Entonces tocó los ojos de ellos, diciendo: Conforme a vuestra fe os sea hecho.",
+      "referencia": "Mateo 9:29",
+      "version": "RVR1960"
+    },
+    {
+      "id": 41,
+      "texto": "Entonces respondiendo Jesús, dijo: Oh mujer, grande es tu fe; hágase contigo como quieres. Y su hija fue sanada desde aquella hora.",
+      "referencia": "Mateo 15:28",
+      "version": "RVR1960"
+    },
+    {
+      "id": 42,
+      "texto": "Jesús les respondió y dijo: Esta es la obra de Dios, que creáis en el que él ha enviado.",
+      "referencia": "Juan 6:29",
+      "version": "RVR1960"
+    },
+    {
+      "id": 43,
+      "texto": "Jesús le dijo: ¿No te he dicho que si crees, verás la gloria de Dios?",
+      "referencia": "Juan 11:40",
+      "version": "RVR1960"
+    },
+    {
+      "id": 44,
+      "texto": "Jesús le dijo: Porque me has visto, Tomás, creíste; bienaventurados los que no vieron, y creyeron.",
+      "referencia": "Juan 20:29",
+      "version": "RVR1960"
+    },
+    {
+      "id": 45,
+      "texto": "Y por la fe en su nombre, a este que vosotros veis y conocéis, le ha confirmado su nombre; y la fe que es por él ha dado a este esta completa sanidad en presencia de todos vosotros.",
+      "referencia": "Hechos 3:16",
+      "version": "RVR1960"
+    },
+    {
+      "id": 46,
+      "texto": "No mirando nosotros las cosas que se ven, sino las que no se ven; pues las cosas que se ven son temporales, pero las que no se ven son eternas.",
+      "referencia": "2 Corintios 4:18",
+      "version": "RVR1960"
+    },
+    {
+      "id": 47,
+      "texto": "Y que por la ley ninguno se justifica para con Dios, es evidente, porque: El justo por la fe vivirá.",
+      "referencia": "Gálatas 3:11",
+      "version": "RVR1960"
+    },
+    {
+      "id": 48,
+      "texto": "Porque en Cristo Jesús ni la circuncisión vale algo, ni la incircuncisión, sino la fe que obra por el amor.",
+      "referencia": "Gálatas 5:6",
+      "version": "RVR1960"
+    },
+    {
+      "id": 49,
+      "texto": "Y ser hallado en él, no teniendo mi propia justicia, que es por la ley, sino la que es por la fe de Cristo, la justicia que es de Dios por la fe.",
+      "referencia": "Filipenses 3:9",
+      "version": "RVR1960"
+    },
+    {
+      "id": 50,
+      "texto": "Por tanto, de la manera que habéis recibido al Señor Jesucristo, andad en él; arraigados y sobreedificados en él, y confirmados en la fe, así como habéis sido enseñados, abundando en acciones de gracias.",
+      "referencia": "Colosenses 2:6-7",
+      "version": "RVR1960"
+    },
+    {
+      "id": 51,
+      "texto": "Pelea la buena batalla de la fe, echa mano de la vida eterna, a la cual asimismo fuiste llamado, habiendo hecho la buena profesión delante de muchos testigos.",
+      "referencia": "1 Timoteo 6:12",
+      "version": "RVR1960"
+    }
+  ]
+}

@@ -1,0 +1,278 @@
+{
+  "tema": "sanacion",
+  "titulo_sugerido": "Versículos de Sanación — Música Instrumental de Paz",
+  "descripcion_youtube": "Recibe sanidad y restauración a través de estos versículos de la Biblia Reina Valera 1960 acompañados de música instrumental de paz.",
+  "tags_youtube": [
+    "versículos bíblicos",
+    "sanación",
+    "sanidad",
+    "música cristiana",
+    "biblia",
+    "RVR1960",
+    "paz",
+    "restauración"
+  ],
+  "prompt_imagen": "Gentle waterfall in lush garden, healing light, peaceful nature, biblical, cinematic, 4K",
+  "mood_mubert": "healing peaceful gentle ambient nature",
+  "color_acento": "#A8E6CF",
+  "versiculos": [
+    {
+      "ref": "Éxodo 15:26",
+      "texto": "Y dijo: Si oyeres atentamente la voz de Jehová tu Dios, e hicieres lo recto delante de sus ojos, y dieres oído a sus mandamientos, y guardares todos sus estatutos, ninguna enfermedad de las que envié a los egipcios te enviaré a ti; porque yo soy Jehová tu sanador.",
+      "id": 1,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Salmos 103:2-3",
+      "texto": "Bendice, alma mía, a Jehová, y no olvides ninguno de sus beneficios. Él es quien perdona todas tus iniquidades, el que sana todas tus dolencias.",
+      "id": 2,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Salmos 107:20",
+      "texto": "Envió su palabra, y los sanó, y los libró de su ruina.",
+      "id": 3,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Salmos 147:3",
+      "texto": "Él sana a los quebrantados de corazón, y venda sus heridas.",
+      "id": 4,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Salmos 30:2",
+      "texto": "Jehová Dios mío, a ti clamé, y me sanaste.",
+      "id": 5,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Salmos 41:3",
+      "texto": "Jehová lo sustentará sobre el lecho del dolor; mullirás toda su cama en su enfermedad.",
+      "id": 6,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Salmos 6:2",
+      "texto": "Ten misericordia de mí, oh Jehová, porque estoy enfermo; sáname, oh Jehová, porque mis huesos se estremecen.",
+      "id": 7,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Proverbios 3:7-8",
+      "texto": "No seas sabio en tu propia opinión; teme a Jehová, y apártate del mal; porque será medicina a tu cuerpo, y refrigerio para tus huesos.",
+      "id": 8,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Proverbios 4:20-22",
+      "texto": "Hijo mío, está atento a mis palabras; inclina tu oído a mis razones. No se aparten de tus ojos; guárdalas en medio de tu corazón; porque son vida a los que las hallan, y medicina a todo su cuerpo.",
+      "id": 9,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Proverbios 12:18",
+      "texto": "Hay hombres cuyas palabras son como golpes de espada; mas la lengua de los sabios es medicina.",
+      "id": 10,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Proverbios 13:17",
+      "texto": "El mal mensajero acarrea desgracia; mas el mensajero fiel acarrea salud.",
+      "id": 11,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Proverbios 16:24",
+      "texto": "Panal de miel son los dichos suaves; suavidad al alma y medicina para los huesos.",
+      "id": 12,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Proverbios 17:22",
+      "texto": "El corazón alegre constituye buen remedio; mas el espíritu triste seca los huesos.",
+      "id": 13,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Isaías 53:5",
+      "texto": "Mas él herido fue por nuestras rebeliones, molido por nuestros pecados; el castigo de nuestra paz fue sobre él, y por su llaga fuimos nosotros curados.",
+      "id": 14,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Isaías 57:18-19",
+      "texto": "He visto sus caminos; pero le sanaré, y le pastorearé, y le daré consuelo a él y a sus enlutados; produciré fruto de labios: Paz, paz al que está lejos y al cercano, dijo Jehová; y lo sanaré.",
+      "id": 15,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Isaías 58:8",
+      "texto": "Entonces nacerá tu luz como el alba, y tu salvación se dejará ver pronto; e irá tu justicia delante de ti, y la gloria de Jehová será tu retaguardia.",
+      "id": 16,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Isaías 61:1",
+      "texto": "El Espíritu de Jehová el Señor está sobre mí, porque me ungió Jehová; me ha enviado a predicar buenas nuevas a los abatidos, a vendar a los quebrantados de corazón, a publicar libertad a los cautivos, y a los presos apertura de la cárcel.",
+      "id": 17,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Jeremías 17:14",
+      "texto": "Sáname, oh Jehová, y seré sano; sálvame, y seré salvo; porque tú eres mi alabanza.",
+      "id": 18,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Jeremías 30:17",
+      "texto": "Mas yo haré venir sanidad para ti, y sanaré tus heridas, dice Jehová; porque desechada te llamaron, diciendo: Esta es Sion, de la que nadie se acuerda.",
+      "id": 19,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Jeremías 33:6",
+      "texto": "He aquí que yo les traeré sanidad y medicina; y los curaré, y les revelaré abundancia de paz y de verdad.",
+      "id": 20,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Ezequiel 47:12",
+      "texto": "Y junto al río, en la ribera, a uno y otro lado, crecerá toda clase de árboles frutales; sus hojas nunca caerán, ni faltará su fruto. A su tiempo madurará, porque sus aguas salen del santuario; y su fruto será para comer, y su hoja para medicina.",
+      "id": 21,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Oseas 6:1",
+      "texto": "Venid y volvamos a Jehová; porque él arrebató, y nos curará; hirió, y nos vendará.",
+      "id": 22,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Malaquías 4:2",
+      "texto": "Mas a vosotros los que teméis mi nombre, nacerá el Sol de justicia, y en sus alas traerá salvación; y saldréis, y saltaréis como becerros de la manada.",
+      "id": 23,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Mateo 4:23",
+      "texto": "Y recorrió Jesús toda Galilea, enseñando en las sinagogas de ellos, y predicando el evangelio del reino, y sanando toda enfermedad y toda dolencia en el pueblo.",
+      "id": 24,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Mateo 8:16-17",
+      "texto": "Y cuando llegó la noche, trajeron a él muchos endemoniados; y con la palabra echó fuera a los demonios, y sanó a todos los enfermos; para que se cumpliese lo dicho por el profeta Isaías, cuando dijo: Él mismo tomó nuestras enfermedades, y llevó nuestras dolencias.",
+      "id": 25,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Mateo 9:35",
+      "texto": "Recorría Jesús todas las ciudades y aldeas, enseñando en las sinagogas de ellos, y predicando el evangelio del reino, y sanando toda enfermedad y toda dolencia en el pueblo.",
+      "id": 26,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Mateo 10:1",
+      "texto": "Entonces llamando a sus doce discípulos, les dio autoridad sobre los espíritus inmundos, para que los echasen fuera, y para sanar toda enfermedad y toda dolencia.",
+      "id": 27,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Mateo 14:14",
+      "texto": "Y saliendo Jesús, vio una gran multitud, y tuvo compasión de ellos, y sanó a los que de ellos estaban enfermos.",
+      "id": 28,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Marcos 5:34",
+      "texto": "Pero él le dijo: Hija, tu fe te ha hecho salva; ve en paz, y queda sana de tu azote.",
+      "id": 29,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Marcos 16:18",
+      "texto": "Sobre los enfermos pondrán sus manos, y sanarán.",
+      "id": 30,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Lucas 4:18",
+      "texto": "El Espíritu del Señor está sobre mí, por cuanto me ha ungido para dar buenas nuevas a los pobres; me ha enviado a sanar a los quebrantados de corazón; a pregonar libertad a los cautivos, y vista a los ciegos; a poner en libertad a los oprimidos.",
+      "id": 31,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Lucas 6:19",
+      "texto": "Y toda la gente procuraba tocarle, porque poder salía de él y sanaba a todos.",
+      "id": 32,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Lucas 9:11",
+      "texto": "Y cuando la gente lo supo, le siguió; y él les recibió, y les habló del reino de Dios, y sanó a los que necesitaban ser curados.",
+      "id": 33,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Hechos 10:38",
+      "texto": "Cómo Dios ungió con el Espíritu Santo y con poder a Jesús de Nazaret, y cómo éste anduvo haciendo bienes y sanando a todos los oprimidos por el diablo, porque Dios estaba con él.",
+      "id": 34,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Romanos 8:11",
+      "texto": "Y si el Espíritu de aquel que levantó de los muertos a Jesús mora en vosotros, el que levantó de los muertos a Cristo Jesús vivificará también vuestros cuerpos mortales por su Espíritu que mora en vosotros.",
+      "id": 35,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "1 Corintios 6:19-20",
+      "texto": "¿O ignoráis que vuestro cuerpo es templo del Espíritu Santo, el cual está en vosotros, el cual tenéis de Dios, y que no sois vuestros? Porque habéis sido comprados por precio; glorificad, pues, a Dios en vuestro cuerpo y en vuestro espíritu, los cuales son de Dios.",
+      "id": 36,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "2 Corintios 4:16",
+      "texto": "Por tanto, no desmayamos; antes aunque este nuestro hombre exterior se va desgastando, el interior no obstante se renueva de día en día.",
+      "id": 37,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Santiago 5:14-15",
+      "texto": "¿Está alguno enfermo entre vosotros? Llame a los ancianos de la iglesia, y oren por él, ungiéndole con aceite en el nombre del Señor. Y la oración de fe salvará al enfermo, y el Señor lo levantará; y si hubiere cometido pecados, le serán perdonados.",
+      "id": 38,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Santiago 5:16",
+      "texto": "Confesaos vuestras ofensas unos a otros, y orad unos por otros, para que seáis sanados. La oración eficaz del justo puede mucho.",
+      "id": 39,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "1 Pedro 2:24",
+      "texto": "Quien llevó él mismo nuestros pecados en su cuerpo sobre el madero, para que nosotros, estando muertos a los pecados, vivamos a la justicia; y por cuya herida fuisteis sanados.",
+      "id": 40,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "3 Juan 1:2",
+      "texto": "Amado, yo deseo que tú seas prosperado en todas las cosas, y que tengas salud, así como prospera tu alma.",
+      "id": 41,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Apocalipsis 21:4",
+      "texto": "Enjugará Dios toda lágrima de los ojos de ellos; y ya no habrá muerte, ni habrá más llanto, ni clamor, ni dolor; porque las primeras cosas pasaron.",
+      "id": 42,
+      "version": "RVR1960"
+    },
+    {
+      "ref": "Apocalipsis 22:2",
+      "texto": "En medio de la calle de la ciudad, y a uno y otro lado del río, estaba el árbol de la vida, que produce doce frutos, dando cada mes su fruto; y las hojas del árbol eran para la sanidad de las naciones.",
+      "id": 43,
+      "version": "RVR1960"
+    }
+  ]
+}

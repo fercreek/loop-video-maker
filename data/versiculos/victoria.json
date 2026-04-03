@@ -1,0 +1,277 @@
+{
+  "tema": "victoria",
+  "titulo_sugerido": "Versículos de Victoria en Cristo — Música Instrumental Cristiana",
+  "descripcion_youtube": "Declara la victoria que tenemos en Cristo con estos versículos de la Biblia Reina Valera 1960 acompañados de música instrumental cristiana de fondo.",
+  "tags_youtube": [
+    "versículos bíblicos",
+    "victoria",
+    "triunfo",
+    "más que vencedores",
+    "música cristiana",
+    "biblia",
+    "RVR1960"
+  ],
+  "prompt_imagen": "Glorious crown with golden light, triumphant sunrise over battlefield, victory, biblical, cinematic, 4K",
+  "mood_mubert": "triumphant powerful uplifting orchestral victory praise",
+  "color_acento": "#FFD700",
+  "versiculos": [
+    {
+      "referencia": "Romanos 8:37",
+      "texto": "Antes, en todas estas cosas somos más que vencedores por medio de aquel que nos amó.",
+      "id": 1,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "1 Corintios 15:57",
+      "texto": "Mas gracias sean dadas a Dios, que nos da la victoria por medio de nuestro Señor Jesucristo.",
+      "id": 2,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "1 Juan 5:4-5",
+      "texto": "Porque todo lo que es nacido de Dios vence al mundo; y esta es la victoria que ha vencido al mundo, nuestra fe. ¿Quién es el que vence al mundo, sino el que cree que Jesús es el Hijo de Dios?",
+      "id": 3,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Deuteronomio 20:4",
+      "texto": "Porque Jehová vuestro Dios va con vosotros, para pelear por vosotros contra vuestros enemigos, para salvaros.",
+      "id": 4,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Josué 1:9",
+      "texto": "Mira que te mando que te esfuerces y seas valiente; no temas ni desmayes, porque Jehová tu Dios estará contigo en dondequiera que vayas.",
+      "id": 5,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "2 Samuel 22:4",
+      "texto": "Invocaré a Jehová, quien es digno de ser alabado, y seré salvo de mis enemigos.",
+      "id": 6,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "2 Crónicas 20:15",
+      "texto": "Y dijo: Oíd, Judá todo, y vosotros moradores de Jerusalén, y tú, rey Josafat. Jehová os dice así: No temáis ni os amedrentéis delante de esta multitud tan grande, porque no es vuestra la guerra, sino de Dios.",
+      "id": 7,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "2 Crónicas 20:17",
+      "texto": "No habrá para qué peleéis vosotros en este caso; paraos, estad quietos, y ved la salvación de Jehová con vosotros. Oh Judá y Jerusalén, no temáis ni desmayéis; salid mañana contra ellos, porque Jehová estará con vosotros.",
+      "id": 8,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 18:29",
+      "texto": "Contigo desbarataré ejércitos, y con mi Dios asaltaré muros.",
+      "id": 9,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 20:7-8",
+      "texto": "Estos confían en carros, y aquéllos en caballos; mas nosotros del nombre de Jehová nuestro Dios tendremos memoria. Ellos flaquean y caen, mas nosotros nos levantamos, y estamos en pie.",
+      "id": 10,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 44:5-6",
+      "texto": "Contigo sacudiremos a nuestros enemigos; en tu nombre hollaremos a nuestros adversarios. Porque no me valdré de mi arco, ni mi espada me salvará.",
+      "id": 11,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 60:12",
+      "texto": "Con Dios haremos proezas, y él hollará a nuestros enemigos.",
+      "id": 12,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 98:1",
+      "texto": "Cantad a Jehová cántico nuevo, porque ha hecho maravillas; su diestra lo ha salvado, y su santo brazo.",
+      "id": 13,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 108:13",
+      "texto": "Con Dios haremos proezas, y él hollará a nuestros adversarios.",
+      "id": 14,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 118:15-16",
+      "texto": "Voz de júbilo y de salvación hay en las tiendas de los justos; la diestra de Jehová hace proezas. La diestra de Jehová es sublime; la diestra de Jehová hace valentías.",
+      "id": 15,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Salmos 144:1",
+      "texto": "Bendito sea Jehová, mi roca, quien adiestra mis manos para la batalla, y mis dedos para la guerra.",
+      "id": 16,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Proverbios 2:7",
+      "texto": "Él provee de sana sabiduría a los rectos; es escudo a los que caminan rectamente.",
+      "id": 17,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Proverbios 21:31",
+      "texto": "El caballo se alista para el día de la batalla; mas Jehová es el que da la victoria.",
+      "id": 18,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Isaías 25:8",
+      "texto": "Destruirá a la muerte para siempre; y enjugará Jehová el Señor toda lágrima de todos los rostros; y quitará la afrenta de su pueblo de toda la tierra; porque Jehová lo ha dicho.",
+      "id": 19,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Isaías 41:10",
+      "texto": "No temas, porque yo estoy contigo; no desmayes, porque yo soy tu Dios que te esfuerzo; siempre te ayudaré, siempre te sustentaré con la diestra de mi justicia.",
+      "id": 20,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Isaías 41:13",
+      "texto": "Porque yo Jehová soy tu Dios, quien te sostiene de tu mano derecha, y te dice: No temas, yo te ayudo.",
+      "id": 21,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Isaías 54:17",
+      "texto": "Ninguna arma forjada contra ti prosperará, y condenarás toda lengua que se levante contra ti en juicio. Esta es la herencia de los siervos de Jehová, y su salvación de mí vendrá, dijo Jehová.",
+      "id": 22,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Jeremías 1:19",
+      "texto": "Y pelearán contra ti, pero no te vencerán; porque yo estoy contigo, dice Jehová, para librarte.",
+      "id": 23,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Romanos 8:28",
+      "texto": "Y sabemos que a los que aman a Dios, todas las cosas les ayudan a bien, esto es, a los que conforme a su propósito son llamados.",
+      "id": 24,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Romanos 8:31",
+      "texto": "¿Qué, pues, diremos a esto? Si Dios es por nosotros, ¿quién contra nosotros?",
+      "id": 25,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "1 Corintios 15:54-55",
+      "texto": "Y cuando esto corruptible se haya vestido de incorrupción, y esto mortal se haya vestido de inmortalidad, entonces se cumplirá la palabra que está escrita: Sorbida es la muerte en victoria. ¿Dónde está, oh muerte, tu aguijón? ¿Dónde, oh sepulcro, tu victoria?",
+      "id": 26,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "2 Corintios 2:14",
+      "texto": "Mas a Dios gracias, el cual nos lleva siempre en triunfo en Cristo Jesús, y por medio de nosotros manifiesta en todo lugar el olor de su conocimiento.",
+      "id": 27,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "2 Corintios 4:8-9",
+      "texto": "Que estamos atribulados en todo, mas no angustiados; en apuros, mas no desesperados; perseguidos, mas no desamparados; derribados, pero no destruidos.",
+      "id": 28,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "2 Corintios 10:4",
+      "texto": "Porque las armas de nuestra milicia no son carnales, sino poderosas en Dios para la destrucción de fortalezas.",
+      "id": 29,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Efesios 6:11",
+      "texto": "Vestíos de toda la armadura de Dios, para que podáis estar firmes contra las asechanzas del diablo.",
+      "id": 30,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Efesios 6:13",
+      "texto": "Por tanto, tomad toda la armadura de Dios, para que podáis resistir en el día malo, y habiendo acabado todo, estar firmes.",
+      "id": 31,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Filipenses 1:6",
+      "texto": "Estando persuadido de esto, que el que comenzó en vosotros la buena obra, la perfeccionará hasta el día de Jesucristo.",
+      "id": 32,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Filipenses 4:13",
+      "texto": "Todo lo puedo en Cristo que me fortalece.",
+      "id": 33,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Colosenses 2:15",
+      "texto": "Y despojando a los principados y a las potestades, los exhibió públicamente, triunfando sobre ellos en la cruz.",
+      "id": 34,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "2 Timoteo 4:7-8",
+      "texto": "He peleado la buena batalla, he acabado la carrera, he guardado la fe. Por lo demás, me está guardada la corona de justicia, la cual me dará el Señor, juez justo, en aquel día; y no sólo a mí, sino también a todos los que aman su venida.",
+      "id": 35,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Hebreos 2:14-15",
+      "texto": "Así que, por cuanto los hijos participaron de carne y sangre, él también participó de lo mismo, para destruir por medio de la muerte al que tenía el imperio de la muerte, esto es, al diablo, y librar a todos los que por el temor de la muerte estaban durante toda la vida sujetos a servidumbre.",
+      "id": 36,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Santiago 4:7",
+      "texto": "Someteos, pues, a Dios; resistid al diablo, y huirá de vosotros.",
+      "id": 37,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "1 Pedro 5:8-9",
+      "texto": "Sed sobrios, y velad; porque vuestro adversario el diablo, como león rugiente, anda alrededor buscando a quien devorar; al cual resistid firmes en la fe, sabiendo que los mismos padecimientos se van cumpliendo en vuestros hermanos en todo el mundo.",
+      "id": 38,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "1 Juan 4:4",
+      "texto": "Hijitos, vosotros sois de Dios, y los habéis vencido; porque mayor es el que está en vosotros, que el que está en el mundo.",
+      "id": 39,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Apocalipsis 3:21",
+      "texto": "Al que venciere, le daré que se siente conmigo en mi trono, así como yo he vencido, y me he sentado con mi Padre en su trono.",
+      "id": 40,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Apocalipsis 12:11",
+      "texto": "Y ellos le han vencido por medio de la sangre del Cordero y de la palabra del testimonio de ellos, y menospreciaron sus vidas hasta la muerte.",
+      "id": 41,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Apocalipsis 17:14",
+      "texto": "Pelearán contra el Cordero, y el Cordero los vencerá, porque él es Señor de señores y Rey de reyes; y los que están con él son llamados y elegidos y fieles.",
+      "id": 42,
+      "version": "RVR1960"
+    },
+    {
+      "referencia": "Apocalipsis 21:7",
+      "texto": "El que venciere heredará todas las cosas, y yo seré su Dios, y él será mi hijo.",
+      "id": 43,
+      "version": "RVR1960"
+    }
+  ]
+}

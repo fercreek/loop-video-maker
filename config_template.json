@@ -1,0 +1,13 @@
+{
+  "gemini_api_key": "",
+  "mubert_api_key": "",
+  "claude_api_key": "",
+  "output_dir": "output",
+  "default_font_size": 52,
+  "default_seconds_per_verse": 12,
+  "default_fade_duration": 1.5,
+  "default_video_duration_minutes": 60,
+  "default_resolution": [1920, 1080],
+  "default_fps": 24,
+  "default_text_position": "bottom"
+}
