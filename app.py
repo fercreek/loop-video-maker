@@ -20,6 +20,8 @@ from core.verse_gen import (
 from core.image_gen import generar_imagen, generar_imagen_rapida, PRESET_LABELS
 from core.music_gen import generar_musica, MOODS
 from preview.preview_engine import generar_preview_html
+from core.formats import FORMAT_DEFS, LAYOUT_PRESETS
+from core.batch_gen import BatchConfig, generar_batch
 import core.db as db
 
 # ─── Configuración ──────────────────────────────────────────────
@@ -355,6 +357,61 @@ def al_generar_video(tabla, seg_por_verso, duracion_min, posicion, tamano,
         return f"✓ Video listo: {path}"
     except Exception as e:
         return f"❌ Error: {str(e)}"
+
+
+def al_generar_batch(tema, formatos, num_verses, layout, img_source, preset_label,
+                     mood, seconds, efecto, watermark, progress=gr.Progress()):
+    """Handler for the batch generation button."""
+    if not formatos:
+        return "⚠️ Selecciona al menos un formato.", "_Selecciona formatos para generar._"
+
+    try:
+        use_gemini = img_source == "gemini"
+        preset_key = PRESET_LABELS.get(preset_label) if preset_label else None
+
+        batch_config = BatchConfig(
+            theme=tema,
+            formats=formatos,
+            num_verses=int(num_verses),
+            layout_preset=layout,
+            watermark_text=watermark or "",
+            use_gemini=use_gemini,
+            gemini_api_key=config.get("gemini_api_key", "") if use_gemini else "",
+            image_preset_key=preset_key,
+            audio_mood=mood,
+            seconds_per_verse=int(seconds),
+            efecto_imagen=efecto,
+            output_base_dir=config.get("output_dir", OUTPUT_DIR),
+        )
+
+        status_text = "Iniciando generación..."
+
+        def update_progress(pct, msg):
+            nonlocal status_text
+            status_text = f"({int(pct * 100)}%) {msg}"
+            progress(pct, desc=msg)
+
+        results = generar_batch(batch_config, progress_callback=update_progress)
+
+        # Build results summary
+        lines = [f"### ✅ Lote completado — {results['total']} archivos\n"]
+        if results["posts"]:
+            lines.append(f"- **{len(results['posts'])} posts** (JPG 1080×1080)")
+        if results["reels"]:
+            lines.append(f"- **{len(results['reels'])} reels** (MP4 9:16)")
+        if results["shorts"]:
+            lines.append(f"- **{len(results['shorts'])} shorts** (MP4 9:16)")
+        if results["youtube"]:
+            lines.append(f"- **{len(results['youtube'])} videos YouTube** (MP4 16:9)")
+        if results["captions"]:
+            lines.append(f"- **{len(results['captions'])} captions** (TXT)")
+        lines.append(f"\n📂 Carpeta: `{results['batch_dir']}`")
+        lines.append("\n_Importa esta carpeta a Metricool para programar tu contenido._")
+
+        return f"✅ {results['total']} archivos generados", "\n".join(lines)
+
+    except Exception as e:
+        return f"❌ Error: {str(e)}", f"_Error: {str(e)}_"
 
 
 def abrir_carpeta_salida():
@@ -712,6 +769,95 @@ with gr.Blocks(
                     info_render = gr.Textbox(label="", interactive=False, lines=1, elem_classes=["status-box"])
                     btn_abrir = gr.Button("📂  Ver mis videos guardados", variant="secondary", size="sm")
 
+        # ═══ TAB GENERACIÓN MASIVA ════════════════════════════════
+        with gr.Tab("🚀 Generación Masiva"):
+            gr.HTML("<h3 style='margin:12px 0 4px;color:#E8D5A3'>Genera contenido para múltiples plataformas en lote</h3>")
+            gr.HTML("<p style='color:#aaa;margin:0 0 16px'>Genera posts, reels y shorts para un mes completo de contenido.</p>")
+
+            with gr.Row():
+                with gr.Column(scale=1):
+                    gr.HTML("<div class='step-header'><div class='step-num'>1</div><div class='step-title'>Configuración del lote</div></div>")
+
+                    batch_tema = gr.Dropdown(
+                        choices=cargar_temas(),
+                        label="Tema bíblico",
+                        value="paz",
+                    )
+
+                    batch_formats = gr.CheckboxGroup(
+                        choices=[
+                            ("Posts 1:1 (Instagram/Facebook)", "post_1080"),
+                            ("Reels 9:16 (Instagram/TikTok/Shorts)", "reel_1080"),
+                            ("YouTube 16:9", "youtube_1080"),
+                        ],
+                        label="Formatos a generar",
+                        value=["post_1080"],
+                    )
+
+                    batch_num_verses = gr.Slider(
+                        minimum=1, maximum=50, value=5, step=1,
+                        label="Cantidad de versículos",
+                    )
+
+                    batch_layout = gr.Radio(
+                        choices=[
+                            ("Centrado bajo", "centrado_bajo"),
+                            ("Centrado alto", "centrado_alto"),
+                            ("Centro absoluto", "centro_absoluto"),
+                        ],
+                        label="Layout del texto",
+                        value="centrado_bajo",
+                    )
+
+                with gr.Column(scale=1):
+                    gr.HTML("<div class='step-header'><div class='step-num'>2</div><div class='step-title'>Opciones adicionales</div></div>")
+
+                    batch_img_source = gr.Radio(
+                        choices=[("Preset local", "preset"), ("Gemini API", "gemini")],
+                        label="Fuente de imagen",
+                        value="preset",
+                    )
+
+                    batch_preset = gr.Dropdown(
+                        choices=list(PRESET_LABELS.keys()),
+                        label="Preset de imagen (si no es Gemini)",
+                        value=list(PRESET_LABELS.keys())[0] if PRESET_LABELS else None,
+                    )
+
+                    batch_mood = gr.Dropdown(
+                        choices=MOODS,
+                        label="Mood musical (para videos)",
+                        value=MOODS[0] if MOODS else "Paz profunda",
+                    )
+
+                    batch_seconds = gr.Slider(
+                        minimum=10, maximum=60, value=15, step=5,
+                        label="Segundos por versículo (videos)",
+                    )
+
+                    batch_efecto = gr.Radio(
+                        choices=["Zoom lento ↗", "Zoom lento ↙", "Paneo suave →", "Sin efecto"],
+                        label="Efecto de imagen (videos)",
+                        value="Zoom lento ↗",
+                    )
+
+                    batch_watermark = gr.Textbox(
+                        label="Marca de agua (opcional)",
+                        placeholder="Nombre de tu canal...",
+                        value="",
+                    )
+
+            gr.HTML("<hr style='border-color:#2a2a2a;margin:16px 0'>")
+
+            btn_batch = gr.Button(
+                "🚀  Generar lote completo",
+                variant="primary",
+                size="lg",
+                elem_classes=["render-btn"],
+            )
+            batch_progress = gr.Textbox(label="Progreso", interactive=False, lines=2, elem_classes=["status-box"])
+            batch_results = gr.Markdown("_Selecciona opciones y genera tu primer lote._")
+
         # ═══ TAB HISTORIAL ════════════════════════════════════════
         with gr.Tab("📋 Historial"):
             gr.HTML("<h3 style='margin:12px 0 4px;color:#ccc'>Historial de generación</h3>")
@@ -831,6 +977,16 @@ with gr.Blocks(
     ).then(fn=cargar_historial, outputs=[hist_galeria, hist_audio_md, hist_video_md, hist_totales])
 
     btn_abrir.click(fn=abrir_carpeta_salida, outputs=[info_render])
+
+    btn_batch.click(
+        fn=al_generar_batch,
+        inputs=[
+            batch_tema, batch_formats, batch_num_verses, batch_layout,
+            batch_img_source, batch_preset, batch_mood, batch_seconds,
+            batch_efecto, batch_watermark,
+        ],
+        outputs=[batch_progress, batch_results],
+    ).then(fn=cargar_historial, outputs=[hist_galeria, hist_audio_md, hist_video_md, hist_totales])
 
     btn_guardar_config.click(
         fn=guardar_configuracion,

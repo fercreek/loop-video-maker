@@ -1,6 +1,7 @@
 """
 Renderizado de video con MoviePy 2.x + Pillow.
-Genera .mp4 1920x1080 con versículos bíblicos sobre imagen de fondo.
+Genera .mp4 con versículos bíblicos sobre imagen de fondo.
+Soporta múltiples formatos (16:9, 9:16, 1:1) y estilos de texto.
 """
 from __future__ import annotations
 
@@ -17,35 +18,18 @@ from moviepy import (
     concatenate_videoclips,
 )
 
-# Paths de fonts
-FONTS_DIR = Path(__file__).parent.parent / "assets" / "fonts"
-FONT_VERSE = FONTS_DIR / "EBGaramond-Italic.ttf"
-FONT_REF = FONTS_DIR / "Cinzel-Regular.ttf"
-
-# Fallbacks de sistema
-SYSTEM_FONTS = [
-    "/System/Library/Fonts/Supplemental/Times New Roman Italic.ttf",
-    "/System/Library/Fonts/Times.ttc",
-    "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Italic.ttf",
-    "C:/Windows/Fonts/timesi.ttf",
-]
-
-SYSTEM_FONTS_REF = [
-    "/System/Library/Fonts/Supplemental/Times New Roman.ttf",
-    "/System/Library/Fonts/Times.ttc",
-    "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf",
-    "C:/Windows/Fonts/times.ttf",
-]
-
-
-def _get_font(font_path: Path, fallbacks: list, size: int) -> ImageFont.FreeTypeFont:
-    """Carga font con fallback a system fonts."""
-    if font_path.exists():
-        return ImageFont.truetype(str(font_path), size)
-    for fb in fallbacks:
-        if os.path.exists(fb):
-            return ImageFont.truetype(fb, size)
-    return ImageFont.load_default()
+from core.formats import get_dimensions
+from core.text_style import (
+    render_fea_frame,
+    render_simple_frame,
+    _get_font,
+    _wrap_text,
+    FONT_VERSE,
+    FONT_REF,
+    FONTS_DIR,
+    SYSTEM_FONTS,
+    SYSTEM_FONTS_REF,
+)
 
 
 def _render_text_frame(
@@ -177,7 +161,7 @@ def _wrap_text(draw, text: str, font, max_width: int) -> str:
     return "\n".join(lines)
 
 
-def _apply_bg_effect(clip, efecto: str):
+def _apply_bg_effect(clip, efecto: str, target_w: int = 1920, target_h: int = 1080):
     """
     Aplica efecto de movimiento al clip de fondo.
     - "Zoom lento ↗": zoom in lento (6% de escala sobre toda la duración)
@@ -189,7 +173,7 @@ def _apply_bg_effect(clip, efecto: str):
         return clip
 
     duration = clip.duration
-    W, H = 1920, 1080
+    W, H = target_w, target_h
     zoom_ratio = 0.06  # 6% de escala — sutil, no mareante
 
     if efecto == "Zoom lento ↗":
@@ -241,6 +225,9 @@ def renderizar_video(
     output_path: str,
     efecto_imagen: str = "Zoom lento ↗",
     progress_callback=None,
+    format_key: str = "youtube_1080",
+    text_style: str = "simple",
+    layout_preset: str = "centrado_bajo",
 ) -> str:
     """
     Renderiza el video final .mp4.
@@ -250,9 +237,14 @@ def renderizar_video(
     - Audio de fondo
     - Codec: libx264, audio: aac, bitrate: 8000k
 
+    Args:
+        format_key: "youtube_1080", "reel_1080", etc. Controls output resolution.
+        text_style: "simple" (legacy) or "fea" (Fe en Acción style).
+        layout_preset: Layout for fea style ("centrado_bajo", "centrado_alto", etc.)
+
     Retorna el path del .mp4 generado.
     """
-    width, height = 1920, 1080
+    width, height = get_dimensions(format_key)
     fps = 24
     fade_dur = config_texto.get("fade_duration", 1.5)
 
@@ -283,7 +275,7 @@ def renderizar_video(
 
     # 2. Clip de fondo + efecto Ken Burns / paneo
     bg_clip = ImageClip(bg_array, duration=actual_duration).with_fps(fps)
-    bg_clip = _apply_bg_effect(bg_clip, efecto_imagen)
+    bg_clip = _apply_bg_effect(bg_clip, efecto_imagen, width, height)
 
     # 3. Crear clips de texto para cada versículo
     text_clips = []
@@ -294,7 +286,17 @@ def renderizar_video(
         referencia = v.get("referencia", "")
 
         # Renderizar frame de texto con Pillow
-        text_frame = _render_text_frame(texto, referencia, width, height, config_texto)
+        if text_style == "fea":
+            text_frame = render_fea_frame(
+                texto, referencia, width, height,
+                layout_preset=layout_preset,
+                format_key=format_key,
+                config_overrides=config_texto,
+            )
+        else:
+            text_frame = _render_text_frame(
+                texto, referencia, width, height, config_texto,
+            )
 
         # Crear clip de texto con fade in/out manual via transform
         start_time = i * segundos_por_versiculo

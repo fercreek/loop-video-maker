@@ -66,7 +66,41 @@ def init_db(db_path: Optional[str] = None) -> None:
                 verses_count      INTEGER DEFAULT 0,
                 created_at        TEXT    NOT NULL
             );
+
+            CREATE TABLE IF NOT EXISTS batch_jobs (
+                id          INTEGER PRIMARY KEY AUTOINCREMENT,
+                theme       TEXT    DEFAULT '',
+                formats     TEXT    DEFAULT '',
+                total_items INTEGER DEFAULT 0,
+                completed   INTEGER DEFAULT 0,
+                status      TEXT    DEFAULT 'pending',
+                created_at  TEXT    NOT NULL
+            );
+
+            CREATE TABLE IF NOT EXISTS posts (
+                id           INTEGER PRIMARY KEY AUTOINCREMENT,
+                path         TEXT    NOT NULL,
+                format_key   TEXT    DEFAULT 'post_1080',
+                theme        TEXT    DEFAULT '',
+                verse_ref    TEXT    DEFAULT '',
+                caption_path TEXT    DEFAULT '',
+                batch_id     INTEGER REFERENCES batch_jobs(id),
+                image_id     INTEGER REFERENCES images(id),
+                width        INTEGER DEFAULT 1080,
+                height       INTEGER DEFAULT 1080,
+                created_at   TEXT    NOT NULL
+            );
         """)
+
+        # Add new columns to videos table (idempotent)
+        for col_sql in [
+            "ALTER TABLE videos ADD COLUMN format_key TEXT DEFAULT 'youtube_1080'",
+            "ALTER TABLE videos ADD COLUMN batch_id INTEGER REFERENCES batch_jobs(id)",
+        ]:
+            try:
+                conn.execute(col_sql)
+            except sqlite3.OperationalError:
+                pass  # Column already exists
 
 
 @contextmanager
@@ -190,3 +224,73 @@ def get_last_audio_id() -> Optional[int]:
             "SELECT id FROM audio ORDER BY id DESC LIMIT 1"
         ).fetchone()
     return row["id"] if row else None
+
+
+# ─── Batch & post helpers ─────────────────────────────────────────
+
+def record_batch_job(
+    theme: str = "",
+    formats: str = "",
+    total_items: int = 0,
+) -> int:
+    """Create a new batch job record. Returns the new row id."""
+    with _connect() as conn:
+        cur = conn.execute(
+            "INSERT INTO batch_jobs (theme, formats, total_items, completed, status, created_at) "
+            "VALUES (?, ?, ?, 0, 'running', ?)",
+            (theme, formats, total_items, _now()),
+        )
+        return cur.lastrowid
+
+
+def update_batch_progress(batch_id: int, completed: int, status: str = "running") -> None:
+    """Update batch job progress."""
+    with _connect() as conn:
+        conn.execute(
+            "UPDATE batch_jobs SET completed = ?, status = ? WHERE id = ?",
+            (completed, status, batch_id),
+        )
+
+
+def record_post(
+    path: str,
+    format_key: str = "post_1080",
+    theme: str = "",
+    verse_ref: str = "",
+    caption_path: str = "",
+    batch_id: Optional[int] = None,
+    image_id: Optional[int] = None,
+    width: int = 1080,
+    height: int = 1080,
+) -> int:
+    """Insert a post record. Returns the new row id."""
+    with _connect() as conn:
+        cur = conn.execute(
+            "INSERT INTO posts "
+            "(path, format_key, theme, verse_ref, caption_path, batch_id, image_id, "
+            " width, height, created_at) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (
+                os.path.abspath(path), format_key, theme, verse_ref,
+                caption_path, batch_id, image_id, width, height, _now(),
+            ),
+        )
+        return cur.lastrowid
+
+
+def get_posts(limit: int = 50) -> list[dict]:
+    """Return newest posts first."""
+    with _connect() as conn:
+        rows = conn.execute(
+            "SELECT * FROM posts ORDER BY id DESC LIMIT ?", (limit,)
+        ).fetchall()
+    return [dict(r) for r in rows]
+
+
+def get_batch_jobs(limit: int = 20) -> list[dict]:
+    """Return newest batch jobs first."""
+    with _connect() as conn:
+        rows = conn.execute(
+            "SELECT * FROM batch_jobs ORDER BY id DESC LIMIT ?", (limit,)
+        ).fetchall()
+    return [dict(r) for r in rows]

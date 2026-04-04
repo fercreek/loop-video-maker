@@ -107,31 +107,36 @@ PRESET_LABELS = {v["label"]: k for k, v in STYLE_PRESETS.items()}
 # ─── API pública ───────────────────────────────────────────────────────────────
 
 def generar_imagen(prompt: str, api_key: str, output_dir: str = "output",
-                   preset_key: str = None) -> str:
+                   preset_key: str = None,
+                   resolution: tuple = (1920, 1080),
+                   theme: str = "") -> str:
     """
-    Genera imagen de fondo 1920x1080.
-    Si hay API key de Gemini, intenta usarla.
+    Genera imagen de fondo al tamaño indicado.
+    Si hay API key de Gemini, intenta usarla (con prompts temáticos si theme se provee).
     Si no, genera con el preset local seleccionado.
     """
     os.makedirs(output_dir, exist_ok=True)
 
     if api_key:
         try:
-            return _generar_con_gemini(prompt, api_key, output_dir)
+            return _generar_con_gemini(prompt, api_key, output_dir,
+                                       resolution=resolution, theme=theme)
         except Exception as e:
             print(f"Gemini falló ({e}), usando preset local...")
 
-    return _generar_gradiente(prompt, output_dir, preset_key=preset_key)
+    return _generar_gradiente(prompt, output_dir, preset_key=preset_key,
+                              resolution=resolution)
 
 
-def generar_imagen_rapida(color_hex: str = "#1a1a3e", output_dir: str = "output") -> str:
+def generar_imagen_rapida(color_hex: str = "#1a1a3e", output_dir: str = "output",
+                          resolution: tuple = (1920, 1080)) -> str:
     """Genera una imagen sólida rápida para preview sin música/imagen configurada."""
     from PIL import Image
 
     os.makedirs(output_dir, exist_ok=True)
     color_hex = color_hex.lstrip("#")
     r, g, b = int(color_hex[0:2], 16), int(color_hex[2:4], 16), int(color_hex[4:6], 16)
-    img = Image.new("RGB", (1920, 1080), (r, g, b))
+    img = Image.new("RGB", resolution, (r, g, b))
     # Fixed name — intentional: rapid preview placeholder, one per color, reused across sessions
     path = os.path.join(output_dir, "imagen_rapida_preview.jpg")
     img.save(path, quality=95)
@@ -140,12 +145,13 @@ def generar_imagen_rapida(color_hex: str = "#1a1a3e", output_dir: str = "output"
 
 # ─── Dispatcher ────────────────────────────────────────────────────────────────
 
-def _generar_gradiente(prompt: str, output_dir: str, preset_key: str = None) -> str:
+def _generar_gradiente(prompt: str, output_dir: str, preset_key: str = None,
+                       resolution: tuple = (1920, 1080)) -> str:
     """Dispatcher: elige preset y llama al renderer correspondiente."""
     from PIL import Image, ImageFilter
     import numpy as np
 
-    width, height = 1920, 1080
+    width, height = resolution
     preset = _elegir_preset(prompt, preset_key)
     style = preset["style"]
     colors = preset["colors"]
@@ -505,14 +511,24 @@ def _elegir_preset(prompt: str, preset_key: str = None) -> dict:
 
 # ─── Gemini ────────────────────────────────────────────────────────────────────
 
-def _generar_con_gemini(prompt: str, api_key: str, output_dir: str) -> str:
+def _generar_con_gemini(prompt: str, api_key: str, output_dir: str,
+                        resolution: tuple = (1920, 1080),
+                        theme: str = "") -> str:
     import google.generativeai as genai
+    from PIL import Image as PILImage
+    import io
+
+    # Use theme-specific prompt if available and no custom prompt given
+    effective_prompt = prompt
+    if theme and (not prompt or prompt == theme):
+        from core.prompts import get_prompt_for_theme
+        effective_prompt = get_prompt_for_theme(theme)
 
     genai.configure(api_key=api_key)
     model = genai.GenerativeModel("gemini-2.0-flash-exp")
 
     response = model.generate_content(
-        f"Generate a beautiful, cinematic background image for a biblical YouTube video: {prompt}",
+        f"Generate a beautiful, cinematic background image for a biblical YouTube video: {effective_prompt}",
         generation_config=genai.GenerationConfig(
             response_mime_type="image/jpeg",
         ),
@@ -522,8 +538,12 @@ def _generar_con_gemini(prompt: str, api_key: str, output_dir: str) -> str:
         if hasattr(part, "inline_data") and part.inline_data:
             ts = datetime.now().strftime("%Y%m%d_%H%M%S")
             path = os.path.join(output_dir, f"imagen_gemini_{ts}.jpg")
-            with open(path, "wb") as f:
-                f.write(part.inline_data.data)
+
+            # Resize to target resolution if needed
+            img = PILImage.open(io.BytesIO(part.inline_data.data))
+            if img.size != resolution:
+                img = img.resize(resolution, PILImage.LANCZOS)
+            img.save(path, quality=95)
             return os.path.abspath(path)
 
     raise RuntimeError("Gemini no retornó una imagen")
