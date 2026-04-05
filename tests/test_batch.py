@@ -44,6 +44,7 @@ class TestBatchGenPosts:
 
     def test_batch_produces_posts(self, tmp_dir):
         config = BatchConfig(
+            client_name="Test Canal",
             theme="paz",
             formats=["post_1080"],
             num_verses=3,
@@ -58,6 +59,7 @@ class TestBatchGenPosts:
 
     def test_batch_produces_captions(self, tmp_dir):
         config = BatchConfig(
+            client_name="Test Canal",
             theme="paz",
             formats=["post_1080"],
             num_verses=3,
@@ -72,6 +74,7 @@ class TestBatchGenPosts:
 
     def test_batch_total_count(self, tmp_dir):
         config = BatchConfig(
+            client_name="Test Canal",
             theme="fe",
             formats=["post_1080"],
             num_verses=5,
@@ -82,6 +85,7 @@ class TestBatchGenPosts:
 
     def test_batch_db_records(self, tmp_dir):
         config = BatchConfig(
+            client_name="Test Canal",
             theme="paz",
             formats=["post_1080"],
             num_verses=2,
@@ -103,6 +107,7 @@ class TestBatchGenPosts:
             progress_calls.append((pct, msg))
 
         config = BatchConfig(
+            client_name="Test Canal",
             theme="paz",
             formats=["post_1080"],
             num_verses=2,
@@ -115,6 +120,7 @@ class TestBatchGenPosts:
 
     def test_batch_with_watermark(self, tmp_dir):
         config = BatchConfig(
+            client_name="Test Canal",
             theme="amor",
             formats=["post_1080"],
             num_verses=1,
@@ -127,6 +133,7 @@ class TestBatchGenPosts:
     def test_batch_different_layouts(self, tmp_dir):
         for layout in ["centrado_bajo", "centrado_alto", "centro_absoluto"]:
             config = BatchConfig(
+                client_name="Test Canal",
                 theme="paz",
                 formats=["post_1080"],
                 num_verses=1,
@@ -135,3 +142,36 @@ class TestBatchGenPosts:
             )
             results = generar_batch(config)
             assert len(results["posts"]) == 1
+
+    def test_batch_organized_by_client(self, tmp_dir):
+        """Output files are nested under client folder."""
+        config = BatchConfig(
+            client_name="Fe en Acción",
+            theme="paz",
+            formats=["post_1080"],
+            num_verses=1,
+            output_base_dir=tmp_dir,
+        )
+        results = generar_batch(config)
+
+        batch_dir = results["batch_dir"]
+        # batch_dir should be under tmp_dir/fe_en_acción/batch_paz_*
+        assert "/fe_en_acción/" in batch_dir or "/fe_en_accin/" in batch_dir \
+            or "fe_en_acci" in batch_dir
+        assert os.path.isdir(batch_dir)
+
+    def test_different_clients_separate_folders(self, tmp_dir):
+        """Different clients get separate folder trees."""
+        for name in ["Canal A", "Canal B"]:
+            config = BatchConfig(
+                client_name=name,
+                theme="paz",
+                formats=["post_1080"],
+                num_verses=1,
+                output_base_dir=tmp_dir,
+            )
+            generar_batch(config)
+
+        # Both client folders should exist
+        assert os.path.isdir(os.path.join(tmp_dir, "canal_a"))
+        assert os.path.isdir(os.path.join(tmp_dir, "canal_b"))

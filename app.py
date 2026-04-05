@@ -359,17 +359,22 @@ def al_generar_video(tabla, seg_por_verso, duracion_min, posicion, tamano,
         return f"❌ Error: {str(e)}"
 
 
-def al_generar_batch(tema, formatos, num_verses, layout, img_source, preset_label,
-                     mood, seconds, efecto, watermark, progress=gr.Progress()):
+def al_generar_batch(client_name, tema, formatos, num_verses, layout, img_source,
+                     preset_label, mood, seconds, efecto, watermark,
+                     progress=gr.Progress()):
     """Handler for the batch generation button."""
     if not formatos:
         return "⚠️ Selecciona al menos un formato.", "_Selecciona formatos para generar._"
+
+    if not client_name or not client_name.strip():
+        return "⚠️ Escribe el nombre del cliente o canal.", "_Escribe un nombre para organizar los archivos._"
 
     try:
         use_gemini = img_source == "gemini"
         preset_key = PRESET_LABELS.get(preset_label) if preset_label else None
 
         batch_config = BatchConfig(
+            client_name=client_name.strip(),
             theme=tema,
             formats=formatos,
             num_verses=int(num_verses),
@@ -406,6 +411,7 @@ def al_generar_batch(tema, formatos, num_verses, layout, img_source, preset_labe
         if results["captions"]:
             lines.append(f"- **{len(results['captions'])} captions** (TXT)")
         lines.append(f"\n📂 Carpeta: `{results['batch_dir']}`")
+        lines.append(f"\n👤 Cliente: **{client_name.strip()}**")
         lines.append("\n_Importa esta carpeta a Metricool para programar tu contenido._")
 
         return f"✅ {results['total']} archivos generados", "\n".join(lines)
@@ -772,11 +778,20 @@ with gr.Blocks(
         # ═══ TAB GENERACIÓN MASIVA ════════════════════════════════
         with gr.Tab("🚀 Generación Masiva"):
             gr.HTML("<h3 style='margin:12px 0 4px;color:#E8D5A3'>Genera contenido para múltiples plataformas en lote</h3>")
-            gr.HTML("<p style='color:#aaa;margin:0 0 16px'>Genera posts, reels y shorts para un mes completo de contenido.</p>")
+            gr.HTML("<p style='color:#aaa;margin:0 0 16px'>Genera posts, reels y shorts para un mes completo de contenido. Organizado por cliente/canal.</p>")
 
             with gr.Row():
                 with gr.Column(scale=1):
-                    gr.HTML("<div class='step-header'><div class='step-num'>1</div><div class='step-title'>Configuración del lote</div></div>")
+                    gr.HTML("<div class='step-header'><div class='step-num'>1</div><div class='step-title'>Cliente / Canal</div></div>")
+
+                    batch_client = gr.Textbox(
+                        label="Nombre del cliente o canal",
+                        placeholder="Ej: Fe en Acción, Mi Canal, etc.",
+                        value="",
+                        info="Los archivos se guardan en output/<nombre_cliente>/batch_tema_fecha/",
+                    )
+
+                    gr.HTML("<div class='step-header'><div class='step-num'>2</div><div class='step-title'>Configuración del lote</div></div>")
 
                     batch_tema = gr.Dropdown(
                         choices=cargar_temas(),
@@ -810,7 +825,7 @@ with gr.Blocks(
                     )
 
                 with gr.Column(scale=1):
-                    gr.HTML("<div class='step-header'><div class='step-num'>2</div><div class='step-title'>Opciones adicionales</div></div>")
+                    gr.HTML("<div class='step-header'><div class='step-num'>3</div><div class='step-title'>Opciones adicionales</div></div>")
 
                     batch_img_source = gr.Radio(
                         choices=[("Preset local", "preset"), ("Gemini API", "gemini")],
@@ -981,9 +996,9 @@ with gr.Blocks(
     btn_batch.click(
         fn=al_generar_batch,
         inputs=[
-            batch_tema, batch_formats, batch_num_verses, batch_layout,
-            batch_img_source, batch_preset, batch_mood, batch_seconds,
-            batch_efecto, batch_watermark,
+            batch_client, batch_tema, batch_formats, batch_num_verses,
+            batch_layout, batch_img_source, batch_preset, batch_mood,
+            batch_seconds, batch_efecto, batch_watermark,
         ],
         outputs=[batch_progress, batch_results],
     ).then(fn=cargar_historial, outputs=[hist_galeria, hist_audio_md, hist_video_md, hist_totales])

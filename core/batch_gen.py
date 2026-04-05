@@ -23,6 +23,7 @@ from core import db
 @dataclass
 class BatchConfig:
     """Configuration for a batch generation run."""
+    client_name: str = ""
     theme: str = "paz"
     formats: list = field(default_factory=lambda: ["post_1080"])
     num_verses: int = 10
@@ -55,9 +56,10 @@ def generar_batch(config: BatchConfig, progress_callback=None) -> dict:
     if not verses_to_use:
         raise ValueError(f"No hay versículos para el tema '{config.theme}'")
 
-    # 2. Create output directories
+    # 2. Create output directories — organized by client
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-    batch_dir = os.path.join(config.output_base_dir, f"batch_{ts}")
+    client_slug = _sanitize_folder_name(config.client_name) if config.client_name else "default"
+    batch_dir = os.path.join(config.output_base_dir, client_slug, f"batch_{config.theme}_{ts}")
     dirs = _create_output_dirs(batch_dir, config.formats)
 
     # 3. Create batch job record
@@ -67,6 +69,7 @@ def generar_batch(config: BatchConfig, progress_callback=None) -> dict:
         theme=config.theme,
         formats=formats_str,
         total_items=total_items,
+        client_name=config.client_name,
     )
 
     # 4. Generate background image (one per batch)
@@ -226,6 +229,16 @@ def generar_batch(config: BatchConfig, progress_callback=None) -> dict:
         progress_callback(1.0, f"¡Batch completado! {completed} archivos en {batch_dir}")
 
     return results
+
+
+def _sanitize_folder_name(name: str) -> str:
+    """Convert a client/channel name into a safe folder name."""
+    import re
+    # Lowercase, replace spaces and special chars with underscores
+    name = name.strip().lower()
+    name = re.sub(r'[^\w\s-]', '', name)
+    name = re.sub(r'[\s-]+', '_', name)
+    return name or "default"
 
 
 def _create_output_dirs(batch_dir: str, formats: list) -> dict:

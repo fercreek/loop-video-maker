@@ -69,6 +69,7 @@ def init_db(db_path: Optional[str] = None) -> None:
 
             CREATE TABLE IF NOT EXISTS batch_jobs (
                 id          INTEGER PRIMARY KEY AUTOINCREMENT,
+                client_name TEXT    DEFAULT '',
                 theme       TEXT    DEFAULT '',
                 formats     TEXT    DEFAULT '',
                 total_items INTEGER DEFAULT 0,
@@ -92,10 +93,11 @@ def init_db(db_path: Optional[str] = None) -> None:
             );
         """)
 
-        # Add new columns to videos table (idempotent)
+        # Add new columns to existing tables (idempotent)
         for col_sql in [
             "ALTER TABLE videos ADD COLUMN format_key TEXT DEFAULT 'youtube_1080'",
             "ALTER TABLE videos ADD COLUMN batch_id INTEGER REFERENCES batch_jobs(id)",
+            "ALTER TABLE batch_jobs ADD COLUMN client_name TEXT DEFAULT ''",
         ]:
             try:
                 conn.execute(col_sql)
@@ -232,13 +234,14 @@ def record_batch_job(
     theme: str = "",
     formats: str = "",
     total_items: int = 0,
+    client_name: str = "",
 ) -> int:
     """Create a new batch job record. Returns the new row id."""
     with _connect() as conn:
         cur = conn.execute(
-            "INSERT INTO batch_jobs (theme, formats, total_items, completed, status, created_at) "
-            "VALUES (?, ?, ?, 0, 'running', ?)",
-            (theme, formats, total_items, _now()),
+            "INSERT INTO batch_jobs (client_name, theme, formats, total_items, completed, status, created_at) "
+            "VALUES (?, ?, ?, ?, 0, 'running', ?)",
+            (client_name, theme, formats, total_items, _now()),
         )
         return cur.lastrowid
 
