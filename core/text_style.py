@@ -140,8 +140,12 @@ def render_fea_frame(
     img = Image.new("RGBA", (width, height), (0, 0, 0, 0))
     draw = ImageDraw.Draw(img)
 
+    align = layout.get("align", "center")
+    is_left = align == "left"
+
     center_x = width // 2
-    max_text_width = int(width * 0.72)
+    max_text_width = int(width * (layout.get("text_width", 0.72) if is_left else 0.72))
+    text_x_base = int(width * layout.get("left_margin", 0.12)) if is_left else None
 
     # Colors
     gold = palette["gold_primary_rgba"]
@@ -151,71 +155,84 @@ def render_fea_frame(
     shadow_ref = palette["shadow_ref_rgba"]
     brand_color = palette["brand_text"]
 
-    # ── 1. "VERSÍCULO DEL DÍA" label ──
-    label_text = cfg.get("label_text", "VERSÍCULO DEL DÍA")
-    label_y = int(height * layout["label_y"])
+    # ── 0. Vertical gold accent bar (lateral template) ──────────────────────
+    if is_left and layout.get("show_vertical_bar", False):
+        bar_x = int(width * layout.get("bar_x", 0.09))
+        bar_top = int(height * (layout["verse_y"] - 0.04))
+        bar_thick = max(2, int(4 * scale))
+        bar_len = int(height * 0.36)
+        for dy in range(bar_len):
+            t = dy / bar_len
+            # Fade in at top 15%, full in middle, fade out at bottom 15%
+            if t < 0.15:
+                alpha = int(gold[3] * (t / 0.15))
+            elif t > 0.85:
+                alpha = int(gold[3] * ((1.0 - t) / 0.15))
+            else:
+                alpha = gold[3]
+            c = (gold[0], gold[1], gold[2], alpha)
+            draw.line(
+                [(bar_x, bar_top + dy), (bar_x + bar_thick, bar_top + dy)],
+                fill=c,
+            )
 
-    if layout.get("ornament_top", False):
-        _render_gold_line(draw, center_x, label_y - int(16 * scale),
-                          top_line_length, scale, gold)
+    # ── 1. "VERSÍCULO DEL DÍA" label (centered template only) ───────────────
+    if layout.get("show_label", True):
+        label_text = cfg.get("label_text", "VERSÍCULO DEL DÍA")
+        label_y = int(height * layout["label_y"])
 
-    _render_letter_spaced(draw, label_text, font_label,
-                          center_x, label_y, letter_spacing, gold)
+        if layout.get("ornament_top", False):
+            _render_gold_line(draw, center_x, label_y - int(16 * scale),
+                              top_line_length, scale, gold)
 
-    # ── 2. Verse text ──
+        _render_letter_spaced(draw, label_text, font_label,
+                              center_x, label_y, letter_spacing, gold)
+
+    # ── 2. Verse text ────────────────────────────────────────────────────────
     verse_y = int(height * layout["verse_y"])
     wrapped = _wrap_text(draw, texto, font_verse, max_text_width)
 
-    # Measure verse text
     text_bbox = draw.multiline_textbbox((0, 0), wrapped, font=font_verse)
     text_w = text_bbox[2] - text_bbox[0]
     text_h = text_bbox[3] - text_bbox[1]
-    text_x = (width - text_w) // 2
+
+    if is_left:
+        text_x = text_x_base
+        pil_align = "left"
+    else:
+        text_x = (width - text_w) // 2
+        pil_align = "center"
 
     # Shadow
     draw.multiline_text(
         (text_x + 2, verse_y + 3), wrapped,
-        font=font_verse, fill=shadow_color, align="center",
+        font=font_verse, fill=shadow_color, align=pil_align,
     )
     # Main verse text
     draw.multiline_text(
         (text_x, verse_y), wrapped,
-        font=font_verse, fill=white, align="center",
+        font=font_verse, fill=white, align=pil_align,
     )
 
-    # ── 3. Diamond + lines separator ──
-    if layout.get("ornament_divider", False) and referencia:
+    # ── 3. Separator + Reference ─────────────────────────────────────────────
+    if referencia:
         sep_y = verse_y + text_h + ref_gap
-        _render_diamond(draw, center_x, sep_y, diamond_size, gold)
-        _render_gold_line(draw, center_x - diamond_size - 8 - line_length,
-                          sep_y, line_length, scale, gold, direction="right")
-        _render_gold_line(draw, center_x + diamond_size + 8,
-                          sep_y, line_length, scale, gold, direction="left")
 
-        # ── 4. Reference ──
-        ref_text = f"— {referencia} —"
+        if not is_left and layout.get("ornament_divider", False):
+            # Centered diamond + lines
+            _render_diamond(draw, center_x, sep_y, diamond_size, gold)
+            _render_gold_line(draw, center_x - diamond_size - 8 - line_length,
+                              sep_y, line_length, scale, gold, direction="right")
+            _render_gold_line(draw, center_x + diamond_size + 8,
+                              sep_y, line_length, scale, gold, direction="left")
+            ref_y = sep_y + int(16 * scale)
+        else:
+            ref_y = sep_y
+
+        ref_text = f"— {referencia} —" if not is_left else referencia.upper()
         ref_bbox = draw.textbbox((0, 0), ref_text, font=font_ref)
         ref_w = ref_bbox[2] - ref_bbox[0]
-        ref_x = (width - ref_w) // 2
-        ref_y = sep_y + int(16 * scale)
-
-        # Reference shadow
-        draw.text(
-            (ref_x + 1, ref_y + 2), ref_text,
-            font=font_ref, fill=shadow_ref,
-        )
-        # Reference text
-        draw.text(
-            (ref_x, ref_y), ref_text,
-            font=font_ref, fill=gold_soft,
-        )
-    elif referencia:
-        # No ornament divider — simple reference below verse
-        ref_text = f"— {referencia} —"
-        ref_bbox = draw.textbbox((0, 0), ref_text, font=font_ref)
-        ref_w = ref_bbox[2] - ref_bbox[0]
-        ref_x = (width - ref_w) // 2
-        ref_y = verse_y + text_h + ref_gap
+        ref_x = text_x_base if is_left else (width - ref_w) // 2
 
         draw.text(
             (ref_x + 1, ref_y + 2), ref_text,
@@ -226,13 +243,18 @@ def render_fea_frame(
             font=font_ref, fill=gold_soft,
         )
 
-    # ── 5. Brand watermark ──
+    # ── 4. Brand watermark ───────────────────────────────────────────────────
     watermark = cfg.get("watermark_text", "")
     if watermark:
         brand_y = int(height * layout["brand_y"])
         brand_text = watermark.upper()
-        _render_letter_spaced(draw, brand_text, font_brand,
-                              center_x, brand_y, int(4 * scale), brand_color)
+        if is_left:
+            # Left-aligned watermark
+            bx = text_x_base
+            draw.text((bx, brand_y), brand_text, font=font_brand, fill=brand_color)
+        else:
+            _render_letter_spaced(draw, brand_text, font_brand,
+                                  center_x, brand_y, int(4 * scale), brand_color)
 
     return np.array(img)
 

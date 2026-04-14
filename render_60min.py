@@ -35,6 +35,12 @@ PARALLEL_JOBS      = 6        # ffmpeg subprocesses in parallel (tune to CPU cor
 WATERMARK          = "@FeEnAcción"
 OUTPUT_BASE        = "output/youtube_60min"
 
+# Verse-by-verse visual alternation: A (centrado, ornamentos) ↔ B (lateral, cinemático)
+VISUAL_TEMPLATES = [
+    {"layout_preset": "centrado_bajo", "text_style": "fea"},
+    {"layout_preset": "lateral_izq",   "text_style": "fea"},
+]
+
 # Oil paintings pool (all 11)
 BG_IMAGES = sorted([
     p for p in glob.glob("output/fondos/*.jpg")
@@ -141,14 +147,13 @@ def render_video(theme: str, moods: list, label: str):
             output_path=output_path,
             efecto_imagen="Zoom lento ↗",
             format_key="youtube_1080",
-            text_style="fea",
-            layout_preset="centrado_bajo",
             background_images=BG_IMAGES,
             verses_per_background=1,
             random_ken_burns=True,
             render_fps=RENDER_FPS,
             parallel_jobs=PARALLEL_JOBS,
             progress_callback=progress,
+            visual_templates=VISUAL_TEMPLATES,
         )
         elapsed = time.time() - t0
         size_mb = os.path.getsize(output_path) / 1024 / 1024

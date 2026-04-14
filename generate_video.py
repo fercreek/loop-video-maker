@@ -32,6 +32,14 @@ THEME_MOODS: dict[str, list[str]] = {
 
 DEFAULT_MOODS = ["Paz profunda", "Meditacion", "Adoración"]
 
+# ─── Visual templates — alternated verse-by-verse ─────────────────────────────
+# A = centrado_bajo: gold ornaments, label, diamond separator (devotional)
+# B = lateral_izq:   cinematic left-aligned, vertical gold bar, no label
+VISUAL_TEMPLATES = [
+    {"layout_preset": "centrado_bajo", "text_style": "fea"},
+    {"layout_preset": "lateral_izq",   "text_style": "fea"},
+]
+
 
 def get_moods(theme: str) -> list[str]:
     return THEME_MOODS.get(theme.lower(), DEFAULT_MOODS)
@@ -136,14 +144,13 @@ def render_one(
             output_path=output_path,
             efecto_imagen="Zoom lento ->",
             format_key="youtube_1080",
-            text_style="fea",
-            layout_preset="centrado_bajo",
             background_images=bg_images,
             verses_per_background=1,
             random_ken_burns=True,
             render_fps=fps,
             parallel_jobs=workers,
             progress_callback=progress,
+            visual_templates=VISUAL_TEMPLATES,
         )
         elapsed = time.time() - t0
         size_mb = os.path.getsize(output_path) / 1024 / 1024

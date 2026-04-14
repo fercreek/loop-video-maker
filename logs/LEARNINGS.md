@@ -10,6 +10,7 @@ Después de cada render, revisar el log y mover las mejores lecciones aquí.
 | Fecha | Tema | Engine | Render | Tamaño | Duración | Moods | Log |
 |-------|------|--------|--------|--------|----------|-------|-----|
 | 2026-04-14 | salmos | v3.2-d37b529 | 0.2min render | 26MB | 1min video | Paz profunda + Meditacion + Adoración | [log](renders/2026-04-14_14-31_salmos.md) |
+| 2026-04-14 | paz | v3.2-470e901 | 0.2min render | 25MB | 1min video | Paz profunda + Meditacion + Sanacion | [log](renders/2026-04-14_14-35_paz.md) |
 <!-- renders-table-end -->
 
 ---

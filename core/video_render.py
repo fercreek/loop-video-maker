@@ -578,6 +578,7 @@ def renderizar_video_fast(
     random_ken_burns: bool = True,
     render_fps: int = 12,
     parallel_jobs: int = 4,
+    visual_templates: list | None = None,
 ) -> str:
     """
     Fast video renderer using ffmpeg native filters (10-20× faster than MoviePy).
@@ -632,6 +633,13 @@ def renderizar_video_fast(
     full_verses = full_verses[:target_count]
 
     # 3. Pre-render text overlays — one RGBA PNG per verse (fast Pillow, runs once)
+    # visual_templates lets you alternate 2+ visual styles verse-by-verse.
+    # Each entry: {"layout_preset": "...", "text_style": "fea"} (text_style optional).
+    # Falls back to single layout_preset/text_style when not provided.
+    _templates = visual_templates or [
+        {"layout_preset": layout_preset, "text_style": text_style}
+    ]
+
     if progress_callback:
         progress_callback(0.05, f"Pre-renderizando {len(full_verses)} textos...")
 
@@ -639,11 +647,14 @@ def renderizar_video_fast(
     for i, v in enumerate(full_verses):
         png_path = os.path.join(work_dir, f"txt_{i:04d}.png")
         if not os.path.exists(png_path):
-            if text_style == "fea":
+            tpl = _templates[i % len(_templates)]
+            tpl_style = tpl.get("text_style", "fea")
+            tpl_layout = tpl.get("layout_preset", layout_preset)
+            if tpl_style == "fea":
                 frame = render_fea_frame(
                     v.get("texto", ""), v.get("referencia", ""),
                     width, height,
-                    layout_preset=layout_preset,
+                    layout_preset=tpl_layout,
                     format_key=format_key,
                     config_overrides=config_texto,
                 )

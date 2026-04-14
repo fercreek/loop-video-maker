@@ -66,6 +66,25 @@ LAYOUT_PRESETS = {
         "ornament_top": True,
         "ornament_divider": True,
     },
+    # ── Cinematic left-aligned template ──────────────────────────────────────
+    # Large italic verse left-aligned with a vertical gold accent bar.
+    # No label, no diamond ornaments — clean film-quote aesthetic.
+    "lateral_izq": {
+        "label": "Lateral izquierdo",
+        "label_y": 0.0,           # unused (show_label=False)
+        "verse_y": 0.35,
+        "ref_gap": 24,
+        "brand_y": 0.96,
+        "ornament_top": False,
+        "ornament_divider": False,
+        # Left-align specific keys
+        "align": "left",
+        "show_label": False,
+        "left_margin": 0.12,      # verse starts at 12% from left edge
+        "text_width": 0.58,       # verse wraps within 58% of frame width
+        "show_vertical_bar": True,
+        "bar_x": 0.09,            # vertical gold bar at 9% from left
+    },
 }
 
 
