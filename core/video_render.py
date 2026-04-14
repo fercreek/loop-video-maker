@@ -32,6 +32,42 @@ from core.text_style import (
 )
 
 
+def _apply_warm_grade(img: Image.Image) -> Image.Image:
+    """
+    Warm color grade: boost R channel slightly, reduce B channel.
+    Mimics the golden-hour look used by top Christian YouTube channels.
+    """
+    arr = np.array(img, dtype=np.float32)
+    arr[..., 0] = np.clip(arr[..., 0] + 12, 0, 255)  # R +12
+    arr[..., 2] = np.clip(arr[..., 2] - 10, 0, 255)  # B -10
+    return Image.fromarray(arr.astype(np.uint8))
+
+
+def _apply_vignette(img: Image.Image, strength: float = 0.35) -> Image.Image:
+    """
+    Add a subtle dark vignette around the edges.
+    strength: 0.0 = no vignette, 1.0 = fully black edges.
+    """
+    w, h = img.size
+    arr = np.array(img, dtype=np.float32)
+
+    # Build an elliptical gradient mask (1 = center, 0 = edge)
+    cx, cy = w / 2.0, h / 2.0
+    y_idx, x_idx = np.mgrid[0:h, 0:w]
+    # Normalise to [-1, 1] range (slightly tighter horizontally for 16:9)
+    nx = (x_idx - cx) / (cx * 1.05)
+    ny = (y_idx - cy) / (cy * 1.05)
+    dist = np.clip(nx ** 2 + ny ** 2, 0, 1)  # 0 = center, 1 = corner
+
+    # Smoothstep curve: gentle centre, fast falloff at edges
+    t = dist
+    smooth = t * t * (3 - 2 * t)
+    vignette = 1.0 - smooth * strength  # 1 at center, (1-strength) at corner
+
+    arr[..., :3] *= vignette[..., np.newaxis]
+    return Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8))
+
+
 def _render_text_frame(
     texto: str,
     referencia: str,
@@ -84,31 +120,46 @@ def _render_text_frame(
     else:  # bottom
         y_start = height - total_content_h - int(height * 0.08)
 
-    # Sombra/fondo detrás del texto
-    padding = 24
-    bg_left = (width - max(text_w, 200)) // 2 - padding
-    bg_top = y_start - padding
-    bg_right = (width + max(text_w, 200)) // 2 + padding
-    bg_bottom = y_start + total_content_h + padding
+    # Subtle shadow only directly behind the text block — not a full-width band
+    padding_v = 24
+    padding_h = 60
+    strip_top = max(0, y_start - padding_v)
+    strip_bot = min(height, y_start + total_content_h + padding_v)
+    text_center_x = width // 2
+    text_half_w = min(int(width * 0.42), max(text_w, 300) // 2 + padding_h)
+    strip_left = max(0, text_center_x - text_half_w)
+    strip_right = min(width, text_center_x + text_half_w)
+    strip_h = strip_bot - strip_top
+    strip_w = strip_right - strip_left
 
-    # Rectángulo negro 40% opacidad
-    shadow_img = Image.new("RGBA", (width, height), (0, 0, 0, 0))
-    shadow_draw = ImageDraw.Draw(shadow_img)
-    shadow_draw.rounded_rectangle(
-        [bg_left, bg_top, bg_right, bg_bottom],
-        radius=12,
-        fill=(0, 0, 0, 102),  # 40% opacity
-    )
-    img = Image.alpha_composite(img, shadow_img)
-    draw = ImageDraw.Draw(img)
+    if strip_h > 0 and strip_w > 0:
+        shadow_arr = np.zeros((height, width, 4), dtype=np.uint8)
+        # Vertical gradient: transparent → dark (max 45%) → transparent
+        for row_i in range(strip_h):
+            rel = row_i / max(strip_h - 1, 1)
+            v_alpha = 4 * rel * (1 - rel)  # parabola, peaks at 1.0 at center
+            # Horizontal gradient: fade to transparent at left/right edges
+            for col_i in range(strip_w):
+                h_rel = col_i / max(strip_w - 1, 1)
+                h_alpha = min(1.0, 4 * h_rel * (1 - h_rel) + 0.5)  # wider flat top
+                alpha = int(115 * v_alpha * min(1.0, h_alpha))  # max ~45% opacity
+                shadow_arr[strip_top + row_i, strip_left + col_i, 3] = alpha
+        shadow_img = Image.fromarray(shadow_arr, "RGBA")
+        img = Image.alpha_composite(img, shadow_img)
+        draw = ImageDraw.Draw(img)
 
-    # Sombra del texto
+    # Stroke (contorno negro) para legibilidad sobre cualquier fondo
     x_text = (width - text_w) // 2
-    draw.multiline_text(
-        (x_text + 2, y_start + 2), wrapped,
-        font=font_verse, fill=(0, 0, 0, 180), align="center",
-    )
-    # Texto principal
+    stroke = 3
+    for dx in range(-stroke, stroke + 1):
+        for dy in range(-stroke, stroke + 1):
+            if dx == 0 and dy == 0:
+                continue
+            draw.multiline_text(
+                (x_text + dx, y_start + dy), wrapped,
+                font=font_verse, fill=(0, 0, 0, 220), align="center",
+            )
+    # Texto principal blanco
     draw.multiline_text(
         (x_text, y_start), wrapped,
         font=font_verse, fill=color_texto, align="center",
@@ -127,10 +178,12 @@ def _render_text_frame(
         ref_w = ref_bbox[2] - ref_bbox[0]
         ref_x = (width - ref_w) // 2
         ref_y = sep_y + 12
-        draw.text(
-            (ref_x + 1, ref_y + 1), ref_text,
-            font=font_ref, fill=(0, 0, 0, 150),
-        )
+        # Stroke fino en referencia
+        for dx2, dy2 in [(-2,0),(2,0),(0,-2),(0,2),(-1,-1),(1,-1),(-1,1),(1,1)]:
+            draw.text(
+                (ref_x + dx2, ref_y + dy2), ref_text,
+                font=font_ref, fill=(0, 0, 0, 200),
+            )
         draw.text(
             (ref_x, ref_y), ref_text,
             font=font_ref, fill=color_ref,
@@ -212,7 +265,41 @@ def _apply_bg_effect(clip, efecto: str, target_w: int = 1920, target_h: int = 10
             return np.array(img.crop((offset_x, top, offset_x + W, top + H)))
         return clip.transform(pan_right, apply_to="video")
 
+    elif efecto == "Paneo suave ←":
+        def pan_left(get_frame, t):
+            frame = get_frame(t)
+            img = Image.fromarray(frame)
+            scale = 1.0 + zoom_ratio
+            new_w, new_h = int(W * scale), int(H * scale)
+            img = img.resize((new_w, new_h), Image.LANCZOS)
+            offset_x = int((new_w - W) * (1.0 - t / duration))
+            top = (new_h - H) // 2
+            return np.array(img.crop((offset_x, top, offset_x + W, top + H)))
+        return clip.transform(pan_left, apply_to="video")
+
+    elif efecto == "Paneo suave ↑":
+        def pan_up(get_frame, t):
+            frame = get_frame(t)
+            img = Image.fromarray(frame)
+            scale = 1.0 + zoom_ratio
+            new_w, new_h = int(W * scale), int(H * scale)
+            img = img.resize((new_w, new_h), Image.LANCZOS)
+            left = (new_w - W) // 2
+            offset_y = int((new_h - H) * (1.0 - t / duration))
+            return np.array(img.crop((left, offset_y, left + W, offset_y + H)))
+        return clip.transform(pan_up, apply_to="video")
+
     return clip
+
+
+# All available Ken Burns / pan effects for random selection
+BG_EFFECTS = [
+    "Zoom lento ↗",
+    "Zoom lento ↙",
+    "Paneo suave →",
+    "Paneo suave ←",
+    "Paneo suave ↑",
+]
 
 
 def renderizar_video(
@@ -228,32 +315,48 @@ def renderizar_video(
     format_key: str = "youtube_1080",
     text_style: str = "simple",
     layout_preset: str = "centrado_bajo",
+    background_images: list = None,
+    verses_per_background: int = 1,
+    random_ken_burns: bool = True,
+    render_fps: int = 24,
 ) -> str:
     """
     Renderiza el video final .mp4.
 
-    - Imagen de fondo estática durante todo el video
-    - Cada versículo: fade in (1.5s) → visible → fade out (1.5s) → siguiente
-    - Audio de fondo
+    - Cada versículo: fade in → visible → fade out → siguiente
+    - Si background_images se provee, rota fondos cada verses_per_background versículos
+    - Si random_ken_burns=True, cada fondo recibe un efecto Ken Burns/paneo distinto
+    - Audio de fondo con loop automático
     - Codec: libx264, audio: aac, bitrate: 8000k
 
     Args:
-        format_key: "youtube_1080", "reel_1080", etc. Controls output resolution.
-        text_style: "simple" (legacy) or "fea" (Fe en Acción style).
-        layout_preset: Layout for fea style ("centrado_bajo", "centrado_alto", etc.)
-
-    Retorna el path del .mp4 generado.
+        format_key: "youtube_1080", "reel_1080", etc.
+        background_images: List of image paths to cycle through. Falls back to imagen_path.
+        verses_per_background: How many verses share the same background (1 = change every verse).
+        random_ken_burns: Randomize pan/zoom direction per background clip.
     """
+    import random as _random
+
     width, height = get_dimensions(format_key)
-    fps = 24
+    fps = render_fps
     fade_dur = config_texto.get("fade_duration", 1.5)
 
     if progress_callback:
-        progress_callback(0.05, "Preparando imagen de fondo...")
+        progress_callback(0.05, "Preparando imágenes de fondo...")
 
-    # 1. Imagen de fondo
-    bg_img = Image.open(imagen_path).resize((width, height), Image.LANCZOS)
-    bg_array = np.array(bg_img)
+    # 1. Build background image pool — apply warm grade + vignette to all
+    all_bg_paths = background_images if background_images else [imagen_path]
+    # Always include the primary image
+    if imagen_path not in all_bg_paths:
+        all_bg_paths = [imagen_path] + list(all_bg_paths)
+
+    def _load_bg(path: str) -> np.ndarray:
+        img = Image.open(path).resize((width, height), Image.LANCZOS).convert("RGB")
+        img = _apply_warm_grade(img)
+        img = _apply_vignette(img, strength=0.35)
+        return np.array(img)
+
+    bg_pool = [_load_bg(p) for p in all_bg_paths]
 
     # Calcular cuántos versículos necesitamos para la duración total
     num_verses_needed = duracion_total_segundos // segundos_por_versiculo
@@ -273,9 +376,33 @@ def renderizar_video(
     if progress_callback:
         progress_callback(0.1, f"Renderizando {len(full_verses)} versículos...")
 
-    # 2. Clip de fondo + efecto Ken Burns / paneo
-    bg_clip = ImageClip(bg_array, duration=actual_duration).with_fps(fps)
-    bg_clip = _apply_bg_effect(bg_clip, efecto_imagen, width, height)
+    # 2. Background clips — one per group of verses, each with its own Ken Burns
+    bg_clips = []
+    _rng = _random.Random(42)  # deterministic seed for reproducibility
+    num_bg_groups = (len(full_verses) + verses_per_background - 1) // verses_per_background
+
+    for group_idx in range(num_bg_groups):
+        verse_start = group_idx * verses_per_background
+        verse_end = min(verse_start + verses_per_background, len(full_verses))
+        group_dur = (verse_end - verse_start) * segundos_por_versiculo
+        group_start_time = verse_start * segundos_por_versiculo
+
+        # Pick background from pool (cycle through)
+        bg_arr = bg_pool[group_idx % len(bg_pool)]
+
+        # Pick Ken Burns effect
+        if random_ken_burns:
+            effect = _rng.choice(BG_EFFECTS)
+        else:
+            effect = efecto_imagen
+
+        bg_clip = (
+            ImageClip(bg_arr, duration=group_dur)
+            .with_fps(fps)
+            .with_start(group_start_time)
+        )
+        bg_clip = _apply_bg_effect(bg_clip, effect, width, height)
+        bg_clips.append(bg_clip)
 
     # 3. Crear clips de texto para cada versículo
     text_clips = []
@@ -334,7 +461,7 @@ def renderizar_video(
         progress_callback(0.7, "Componiendo video...")
 
     # 4. Componer video
-    final = CompositeVideoClip([bg_clip] + text_clips, size=(width, height))
+    final = CompositeVideoClip(bg_clips + text_clips, size=(width, height))
 
     # 5. Audio
     if musica_path and os.path.exists(musica_path):
@@ -358,8 +485,8 @@ def renderizar_video(
         fps=fps,
         codec="libx264",
         audio_codec="aac",
-        bitrate="8000k",
-        preset="medium",
+        bitrate="4000k",
+        preset="fast",
         logger="bar",
     )
 
@@ -373,3 +500,242 @@ def renderizar_video(
     return os.path.abspath(output_path)
 
 
+# ─── Fast ffmpeg-native renderer ─────────────────────────────────────────────
+
+def _zoompan_expr(effect: str, total_frames: int) -> tuple:
+    """
+    Return (z_expr, x_expr, y_expr) for ffmpeg zoompan filter.
+    Source images are at native output size (e.g. 1920×1080).
+    z > 1.0 gives room for panning without black bars.
+    'on' = output frame counter, starting from 0.
+    """
+    T = max(total_frames - 1, 1)
+
+    if effect == "Zoom lento ↗":
+        return (
+            f"min(1.05+on/{T}*0.10,1.15)",
+            f"max(0,(iw-iw/zoom)/2+on/{T}*40)",
+            f"max(0,(ih-ih/zoom)/2-on/{T}*25)",
+        )
+    elif effect == "Zoom lento ↙":
+        return (
+            f"min(1.05+on/{T}*0.10,1.15)",
+            f"max(0,(iw-iw/zoom)/2-on/{T}*40)",
+            f"min(ih-ih/zoom,(ih-ih/zoom)/2+on/{T}*25)",
+        )
+    elif effect == "Paneo suave →":
+        return "1.12", f"on/{T}*(iw-iw/zoom)", "(ih-ih/zoom)/2"
+    elif effect == "Paneo suave ←":
+        return "1.12", f"(iw-iw/zoom)*(1-on/{T})", "(ih-ih/zoom)/2"
+    elif effect == "Paneo suave ↑":
+        return "1.12", "(iw-iw/zoom)/2", f"(ih-ih/zoom)*(1-on/{T})"
+    else:
+        return "1.10", "(iw-iw/zoom)/2", "(ih-ih/zoom)/2"
+
+
+def renderizar_video_fast(
+    imagen_path: str,
+    musica_path: str,
+    versiculos: list,
+    duracion_total_segundos: int,
+    segundos_por_versiculo: int,
+    config_texto: dict,
+    output_path: str,
+    efecto_imagen: str = "Zoom lento ↗",
+    progress_callback=None,
+    format_key: str = "youtube_1080",
+    text_style: str = "fea",
+    layout_preset: str = "centrado_bajo",
+    background_images: list = None,
+    verses_per_background: int = 1,
+    random_ken_burns: bool = True,
+    render_fps: int = 12,
+    parallel_jobs: int = 4,
+) -> str:
+    """
+    Fast video renderer using ffmpeg native filters (10-20× faster than MoviePy).
+
+    Strategy:
+      1. Pre-process backgrounds with warm grade + vignette → temp JPGs
+      2. Pre-render each verse as a transparent text PNG (Pillow, once per verse)
+      3. Per verse: ffmpeg zoompan Ken Burns + text overlay + fade → short clip
+         (clips run in parallel via ThreadPoolExecutor)
+      4. ffmpeg concat all clips (stream copy, no re-encode)
+      5. ffmpeg mix audio
+    """
+    import subprocess
+    import random as _random
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
+    width, height = get_dimensions(format_key)
+    fps = render_fps
+    fade_dur = float(config_texto.get("fade_duration", 1.5))
+    dur = segundos_por_versiculo
+    fade_out_start = dur - fade_dur
+
+    work_dir = output_path.replace(".mp4", "_work")
+    os.makedirs(work_dir, exist_ok=True)
+
+    # 1. Pre-process background images → warm grade + vignette → save as temp JPGs
+    all_bg_paths = list(background_images) if background_images else [imagen_path]
+    if imagen_path not in all_bg_paths:
+        all_bg_paths.insert(0, imagen_path)
+
+    processed_bg = []
+    for i, bg_path in enumerate(all_bg_paths):
+        out_p = os.path.join(work_dir, f"bg_{i:03d}.jpg")
+        if not os.path.exists(out_p):
+            img = Image.open(bg_path).resize((width, height), Image.LANCZOS).convert("RGB")
+            img = _apply_warm_grade(img)
+            img = _apply_vignette(img, strength=0.35)
+            img.save(out_p, quality=95)
+        processed_bg.append(out_p)
+
+    if progress_callback:
+        progress_callback(0.03, f"{len(processed_bg)} fondos preparados.")
+
+    # 2. Cycle verses to fill total duration
+    target_count = duracion_total_segundos // dur or 1
+    full_verses = []
+    while len(full_verses) < target_count:
+        full_verses.extend(versiculos)
+    full_verses = full_verses[:target_count]
+
+    # 3. Pre-render text overlays — one RGBA PNG per verse (fast Pillow, runs once)
+    if progress_callback:
+        progress_callback(0.05, f"Pre-renderizando {len(full_verses)} textos...")
+
+    text_pngs = []
+    for i, v in enumerate(full_verses):
+        png_path = os.path.join(work_dir, f"txt_{i:04d}.png")
+        if not os.path.exists(png_path):
+            if text_style == "fea":
+                frame = render_fea_frame(
+                    v.get("texto", ""), v.get("referencia", ""),
+                    width, height,
+                    layout_preset=layout_preset,
+                    format_key=format_key,
+                    config_overrides=config_texto,
+                )
+            else:
+                frame = _render_text_frame(
+                    v.get("texto", ""), v.get("referencia", ""),
+                    width, height, config_texto,
+                )
+            Image.fromarray(frame).save(png_path)
+        text_pngs.append(png_path)
+
+    if progress_callback:
+        progress_callback(0.10, "Textos pre-renderizados. Iniciando clips ffmpeg...")
+
+    # 4. Assign Ken Burns effect per verse (deterministic)
+    _rng = _random.Random(42)
+    verse_effects = []
+    groups = (len(full_verses) + verses_per_background - 1) // verses_per_background
+    for g in range(groups):
+        eff = _rng.choice(BG_EFFECTS) if random_ken_burns else efecto_imagen
+        verse_effects.extend([eff] * verses_per_background)
+    verse_effects = verse_effects[:len(full_verses)]
+
+    # 5. Render each verse clip with ffmpeg (parallel)
+    total_frames = dur * fps
+
+    def render_clip(args):
+        idx, bg_p, txt_p, effect = args
+        out_clip = os.path.join(work_dir, f"clip_{idx:04d}.mp4")
+        if os.path.exists(out_clip):
+            return idx, True, out_clip
+
+        zp_z, zp_x, zp_y = _zoompan_expr(effect, total_frames)
+        # Note: applying fade to the text layer with zoompan causes timestamp
+        # drift that makes the text invisible. Fade the full composite instead.
+        filt = (
+            f"[0:v]"
+            f"zoompan=z='{zp_z}':x='{zp_x}':y='{zp_y}'"
+            f":d=1:s={width}x{height}:fps={fps}"
+            f"[bg];"
+            f"[bg][1:v]overlay=0:0,"
+            f"fade=t=in:st=0:d={fade_dur},"
+            f"fade=t=out:st={fade_out_start}:d={fade_dur}"
+            f"[out]"
+        )
+        cmd = [
+            "ffmpeg", "-y",
+            "-loop", "1", "-i", bg_p,
+            "-i", txt_p,
+            "-filter_complex", filt,
+            "-map", "[out]",
+            "-t", str(dur),
+            "-r", str(fps),
+            "-c:v", "libx264", "-preset", "ultrafast",
+            "-b:v", "3500k", "-maxrate", "4000k", "-bufsize", "8000k",
+            "-pix_fmt", "yuv420p",
+            "-an",
+            out_clip,
+        ]
+        r = subprocess.run(cmd, capture_output=True, text=True)
+        if r.returncode != 0:
+            return idx, False, r.stderr[-800:]
+        return idx, True, out_clip
+
+    clip_args = [
+        (i, processed_bg[i % len(processed_bg)], text_pngs[i], verse_effects[i])
+        for i in range(len(full_verses))
+    ]
+
+    clip_map = {}
+    done = 0
+    report_every = max(1, len(full_verses) // 20)
+
+    with ThreadPoolExecutor(max_workers=parallel_jobs) as exe:
+        futs = {exe.submit(render_clip, a): a[0] for a in clip_args}
+        for fut in as_completed(futs):
+            idx, ok, result = fut.result()
+            if not ok:
+                raise RuntimeError(f"ffmpeg failed clip {idx}: {result}")
+            clip_map[idx] = result
+            done += 1
+            if progress_callback and done % report_every == 0:
+                pct = 0.10 + 0.75 * (done / len(full_verses))
+                progress_callback(pct, f"Clips: {done}/{len(full_verses)}")
+
+    if progress_callback:
+        progress_callback(0.86, "Concatenando clips...")
+
+    # 6. Concat all clips (stream copy — no re-encode)
+    concat_list = os.path.join(work_dir, "concat.txt")
+    with open(concat_list, "w") as f:
+        for idx in range(len(full_verses)):
+            f.write(f"file '{os.path.abspath(clip_map[idx])}'\n")
+
+    concat_silent = os.path.join(work_dir, "video_silent.mp4")
+    subprocess.run(
+        ["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", concat_list,
+         "-c", "copy", concat_silent],
+        capture_output=True, check=True,
+    )
+
+    # 7. Add audio
+    if progress_callback:
+        progress_callback(0.93, "Añadiendo audio...")
+
+    actual_dur = len(full_verses) * dur
+    os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
+
+    if musica_path and os.path.exists(musica_path):
+        subprocess.run(
+            ["ffmpeg", "-y",
+             "-i", concat_silent, "-i", musica_path,
+             "-c:v", "copy", "-c:a", "aac", "-b:a", "192k",
+             "-t", str(actual_dur), "-shortest",
+             output_path],
+            capture_output=True, check=True,
+        )
+    else:
+        import shutil
+        shutil.copy(concat_silent, output_path)
+
+    if progress_callback:
+        progress_callback(1.0, "¡Video completado!")
+
+    return os.path.abspath(output_path)

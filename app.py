@@ -18,7 +18,7 @@ from core.verse_gen import (
     versiculos_a_lista,
 )
 from core.image_gen import generar_imagen, generar_imagen_rapida, PRESET_LABELS
-from core.music_gen import generar_musica, MOODS
+from core.music_gen import generar_musica, MOODS, get_available_loops
 from preview.preview_engine import generar_preview_html
 from core.formats import FORMAT_DEFS, LAYOUT_PRESETS
 from core.batch_gen import BatchConfig, generar_batch
@@ -189,10 +189,12 @@ def al_generar_musica(mood, duracion_min):
     try:
         path = generar_musica(mood, duracion_seg, "", out_dir)
         estado["musica_path"] = path
+        generator = "loop" if "loop" in os.path.basename(path) else "ambient"
         estado["audio_id"] = db.record_audio(
-            path=path, mood=mood, duration_sec=duracion_seg, generator="ambient",
+            path=path, mood=mood, duration_sec=duracion_seg, generator=generator,
         )
-        return path, f"✓ Audio generado ({duracion_min} min)"
+        source = "loop de alta calidad" if generator == "loop" else "sintetizador"
+        return path, f"✓ Audio generado ({duracion_min} min) — {source}"
     except Exception as e:
         gr.Warning(f"Error al generar música: {str(e)}")
         return None, f"❌ Error: {str(e)}"
@@ -360,7 +362,7 @@ def al_generar_video(tabla, seg_por_verso, duracion_min, posicion, tamano,
 
 
 def al_generar_batch(client_name, tema, formatos, num_verses, layout, img_source,
-                     preset_label, mood, seconds, efecto, watermark,
+                     preset_label, mood, batch_audio, seconds, efecto, watermark,
                      progress=gr.Progress()):
     """Handler for the batch generation button."""
     if not formatos:
@@ -384,6 +386,7 @@ def al_generar_batch(client_name, tema, formatos, num_verses, layout, img_source
             gemini_api_key=config.get("gemini_api_key", "") if use_gemini else "",
             image_preset_key=preset_key,
             audio_mood=mood,
+            audio_file=batch_audio or "",
             seconds_per_verse=int(seconds),
             efecto_imagen=efecto,
             output_base_dir=config.get("output_dir", OUTPUT_DIR),
@@ -845,6 +848,12 @@ with gr.Blocks(
                         value=MOODS[0] if MOODS else "Paz profunda",
                     )
 
+                    batch_audio_upload = gr.File(
+                        label="Subir audio propio (opcional — reemplaza mood)",
+                        file_types=[".mp3", ".wav", ".ogg", ".flac", ".m4a"],
+                        type="filepath",
+                    )
+
                     batch_seconds = gr.Slider(
                         minimum=10, maximum=60, value=15, step=5,
                         label="Segundos por versículo (videos)",
@@ -998,7 +1007,7 @@ with gr.Blocks(
         inputs=[
             batch_client, batch_tema, batch_formats, batch_num_verses,
             batch_layout, batch_img_source, batch_preset, batch_mood,
-            batch_seconds, batch_efecto, batch_watermark,
+            batch_audio_upload, batch_seconds, batch_efecto, batch_watermark,
         ],
         outputs=[batch_progress, batch_results],
     ).then(fn=cargar_historial, outputs=[hist_galeria, hist_audio_md, hist_video_md, hist_totales])

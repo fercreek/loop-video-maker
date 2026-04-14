@@ -13,7 +13,7 @@ from datetime import datetime
 from core.formats import FORMAT_DEFS, get_dimensions
 from core.verse_gen import cargar_versiculos, versiculos_a_lista
 from core.image_gen import generar_imagen
-from core.music_gen import generar_musica
+from core.music_gen import generar_musica, generate_playlist, _get_loop_path
 from core.post_gen import generar_post
 from core.caption_gen import generar_caption, guardar_caption
 from core.video_render import renderizar_video
@@ -33,6 +33,8 @@ class BatchConfig:
     gemini_api_key: str = ""
     image_preset_key: str = None
     audio_mood: str = "Paz profunda"
+    audio_moods: list = field(default_factory=list)  # if set, overrides audio_mood with playlist
+    audio_file: str = ""
     seconds_per_verse: int = 15
     efecto_imagen: str = "Zoom lento ↗"
     output_base_dir: str = "output"
@@ -108,15 +110,33 @@ def generar_batch(config: BatchConfig, progress_callback=None) -> dict:
 
         # Generate enough audio for the longest video
         max_duration = config.seconds_per_verse * len(verses_to_use)
-        audio_path = generar_musica(
-            mood=config.audio_mood,
-            duracion_segundos=max_duration,
-            api_key="",
-            output_dir=batch_dir,
-        )
+        audio_file = config.audio_file if config.audio_file else None
+        moods_list = config.audio_moods if config.audio_moods else None
+
+        if moods_list and len(moods_list) > 1:
+            # Multi-track playlist: alternate moods with crossfade
+            audio_path = generate_playlist(
+                moods=moods_list,
+                total_seconds=max_duration,
+                output_dir=batch_dir,
+            )
+            generator = "playlist"
+            active_mood = "+".join(moods_list)
+        else:
+            mood = (moods_list[0] if moods_list else None) or config.audio_mood
+            audio_path = generar_musica(
+                mood=mood,
+                duracion_segundos=max_duration,
+                api_key="",
+                output_dir=batch_dir,
+                audio_file=audio_file,
+            )
+            generator = "upload" if audio_file else "loop" if _get_loop_path(mood) else "ambient"
+            active_mood = mood
+
         audio_id = db.record_audio(
-            path=audio_path, mood=config.audio_mood,
-            duration_sec=max_duration, generator="ambient",
+            path=audio_path, mood=active_mood,
+            duration_sec=max_duration, generator=generator,
         )
 
     # 6. Generate content for each verse × format

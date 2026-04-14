@@ -1,0 +1,12 @@
+{
+  "_comment": "Maps mood names to loop audio files. Kevin MacLeod CC-BY 4.0 (incompetech.com). Credit in video description.",
+  "moods": {
+    "Paz profunda":  { "file": "paz_profunda.mp3",  "description": "Meditation Impromptu 02 — Kevin MacLeod" },
+    "Adoración":     { "file": "adoracion.mp3",     "description": "Enchanted Valley — Kevin MacLeod" },
+    "Meditación":    { "file": "meditacion.mp3",    "description": "Peaceful Desolation — Kevin MacLeod" },
+    "Devoción":      { "file": "devocion.mp3",      "description": "Healing — Kevin MacLeod" },
+    "Esperanza":     { "file": "esperanza.mp3",     "description": "Healing (alt) — Kevin MacLeod" },
+    "Sanación":      { "file": "sanacion.mp3",      "description": "Meditation Impromptu 02 — Kevin MacLeod" },
+    "Salmos":        { "file": "paz_profunda.mp3",  "description": "Meditation Impromptu 02 — Kevin MacLeod" }
+  }
+}

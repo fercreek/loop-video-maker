@@ -21,7 +21,7 @@ from core.formats import (
 # ─── Font paths ───────────────────────────────────────────────────────────────
 
 FONTS_DIR = Path(__file__).parent.parent / "assets" / "fonts"
-FONT_VERSE = FONTS_DIR / "EBGaramond-Italic.ttf"
+FONT_VERSE = FONTS_DIR / "CormorantGaramond-Italic.ttf"
 FONT_REF = FONTS_DIR / "Cinzel-Regular.ttf"
 
 SYSTEM_FONTS = [
