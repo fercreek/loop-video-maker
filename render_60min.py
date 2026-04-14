@@ -25,6 +25,7 @@ sys.path.insert(0, ".")
 from core.verse_gen import cargar_versiculos, versiculos_a_lista
 from core.music_gen import generate_playlist
 from core.video_render import renderizar_video_fast
+from core.render_logger import RenderLogger
 
 # ─── Config ─────────────────────────────────────────────────────────────────
 SECONDS_PER_VERSE  = 20       # 20s per verse = 180 verses for 60 min
@@ -74,9 +75,10 @@ def render_video(theme: str, moods: list, label: str):
     # Load verses (engine will cycle them internally)
     datos = cargar_versiculos(theme)
     verses = versiculos_a_lista(datos)
+    unique_count = len(verses)
     total_seconds = TARGET_MINUTES * 60
     target_count = total_seconds // SECONDS_PER_VERSE
-    print(f"  Versos: {len(verses)} únicos → {target_count} ciclados = {total_seconds//60} min")
+    print(f"  Versos: {unique_count} únicos → {target_count} ciclados = {total_seconds//60} min")
 
     # Output paths
     video_dir = os.path.join(OUTPUT_BASE, theme)
@@ -101,8 +103,24 @@ def render_video(theme: str, moods: list, label: str):
     )
     print(f"  Audio listo en {time.time()-t0:.0f}s → {audio_path}")
 
+    # Start learning log
+    logger = RenderLogger(
+        theme=theme,
+        config={
+            "duration_min": TARGET_MINUTES,
+            "fps": RENDER_FPS,
+            "seconds_per_verse": SECONDS_PER_VERSE,
+            "watermark": WATERMARK,
+            "workers": PARALLEL_JOBS,
+            "moods": moods,
+            "background_images": BG_IMAGES,
+            "text_style": "fea",
+        },
+    )
+    logger.start()
+
     # Render video
-    print(f"  Renderizando video ({len(verses)} versos × {SECONDS_PER_VERSE}s, {RENDER_FPS}fps)...")
+    print(f"  Renderizando video ({unique_count} versos × {SECONDS_PER_VERSE}s, {RENDER_FPS}fps)...")
     print(f"  Fondos: {len(BG_IMAGES)} pinturas rotando cada verso")
     t0 = time.time()
 
@@ -112,28 +130,40 @@ def render_video(theme: str, moods: list, label: str):
         eta = (elapsed / pct * (1 - pct)) if pct > 0.01 else 0
         print(f"\r  [{bar}] {pct*100:.0f}%  ETA {eta/60:.0f}min  {msg[:40]}", end="", flush=True)
 
-    renderizar_video_fast(
-        imagen_path=BG_IMAGES[0],
-        musica_path=audio_path,
-        versiculos=verses,
-        duracion_total_segundos=total_seconds,
-        segundos_por_versiculo=SECONDS_PER_VERSE,
-        config_texto={"fade_duration": 2.0, "watermark_text": WATERMARK},
-        output_path=output_path,
-        efecto_imagen="Zoom lento ↗",
-        format_key="youtube_1080",
-        text_style="fea",
-        layout_preset="centrado_bajo",
-        background_images=BG_IMAGES,
-        verses_per_background=1,
-        random_ken_burns=True,
-        render_fps=RENDER_FPS,
-        parallel_jobs=PARALLEL_JOBS,
-        progress_callback=progress,
-    )
-    elapsed = time.time() - t0
-    size_mb = os.path.getsize(output_path) / 1024 / 1024
-    print(f"\n  ✅ Completado en {elapsed/60:.0f} min  —  {output_path}  ({size_mb:.0f} MB)")
+    try:
+        renderizar_video_fast(
+            imagen_path=BG_IMAGES[0],
+            musica_path=audio_path,
+            versiculos=verses,
+            duracion_total_segundos=total_seconds,
+            segundos_por_versiculo=SECONDS_PER_VERSE,
+            config_texto={"fade_duration": 2.0, "watermark_text": WATERMARK},
+            output_path=output_path,
+            efecto_imagen="Zoom lento ↗",
+            format_key="youtube_1080",
+            text_style="fea",
+            layout_preset="centrado_bajo",
+            background_images=BG_IMAGES,
+            verses_per_background=1,
+            random_ken_burns=True,
+            render_fps=RENDER_FPS,
+            parallel_jobs=PARALLEL_JOBS,
+            progress_callback=progress,
+        )
+        elapsed = time.time() - t0
+        size_mb = os.path.getsize(output_path) / 1024 / 1024
+        print(f"\n  ✅ Completado en {elapsed/60:.0f} min  —  {output_path}  ({size_mb:.0f} MB)")
+        logger.end(
+            output_path=output_path,
+            elapsed_sec=elapsed,
+            unique_verses=unique_count,
+            total_verses=target_count,
+        )
+    except Exception as exc:
+        elapsed = time.time() - t0
+        logger.end(output_path=output_path, elapsed_sec=elapsed, error=str(exc))
+        raise
+
     return output_path
 
 

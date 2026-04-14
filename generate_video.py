@@ -20,6 +20,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from core.verse_gen import cargar_versiculos, versiculos_a_lista
 from core.music_gen import generate_playlist
 from core.video_render import renderizar_video_fast
+from core.render_logger import RenderLogger
 
 # ─── Mood mapping per theme ────────────────────────────────────────────────────
 
@@ -78,7 +79,8 @@ def render_one(
     datos = cargar_versiculos(theme)
     verses = versiculos_a_lista(datos)
     target_count = total_seconds // seconds_per_verse or 1
-    print(f"  Versos: {len(verses)} unicos -> {target_count} ciclados = {duration_min} min")
+    unique_count = len(verses)
+    print(f"  Versos: {unique_count} unicos -> {target_count} ciclados = {duration_min} min")
 
     # Generate audio
     moods = get_moods(theme)
@@ -91,6 +93,22 @@ def render_one(
         crossfade_seconds=8.0,
     )
     print(f"  Audio listo en {time.time() - t0:.0f}s -> {audio_path}")
+
+    # Start learning log
+    logger = RenderLogger(
+        theme=theme,
+        config={
+            "duration_min": duration_min,
+            "fps": fps,
+            "seconds_per_verse": seconds_per_verse,
+            "watermark": watermark,
+            "workers": workers,
+            "moods": moods,
+            "background_images": bg_images,
+            "text_style": "fea",
+        },
+    )
+    logger.start()
 
     # Render video
     print(f"  Renderizando video ({fps}fps, {seconds_per_verse}s/verso, {len(bg_images)} fondos)...")
@@ -107,29 +125,40 @@ def render_one(
             flush=True,
         )
 
-    renderizar_video_fast(
-        imagen_path=bg_images[0],
-        musica_path=audio_path,
-        versiculos=verses,
-        duracion_total_segundos=total_seconds,
-        segundos_por_versiculo=seconds_per_verse,
-        config_texto={"fade_duration": 2.0, "watermark_text": watermark},
-        output_path=output_path,
-        efecto_imagen="Zoom lento ->",
-        format_key="youtube_1080",
-        text_style="fea",
-        layout_preset="centrado_bajo",
-        background_images=bg_images,
-        verses_per_background=1,
-        random_ken_burns=True,
-        render_fps=fps,
-        parallel_jobs=workers,
-        progress_callback=progress,
-    )
+    try:
+        renderizar_video_fast(
+            imagen_path=bg_images[0],
+            musica_path=audio_path,
+            versiculos=verses,
+            duracion_total_segundos=total_seconds,
+            segundos_por_versiculo=seconds_per_verse,
+            config_texto={"fade_duration": 2.0, "watermark_text": watermark},
+            output_path=output_path,
+            efecto_imagen="Zoom lento ->",
+            format_key="youtube_1080",
+            text_style="fea",
+            layout_preset="centrado_bajo",
+            background_images=bg_images,
+            verses_per_background=1,
+            random_ken_burns=True,
+            render_fps=fps,
+            parallel_jobs=workers,
+            progress_callback=progress,
+        )
+        elapsed = time.time() - t0
+        size_mb = os.path.getsize(output_path) / 1024 / 1024
+        print(f"\n  Completado en {elapsed / 60:.0f} min  ->  {output_path}  ({size_mb:.0f} MB)")
+        logger.end(
+            output_path=output_path,
+            elapsed_sec=elapsed,
+            unique_verses=unique_count,
+            total_verses=target_count,
+        )
+    except Exception as exc:
+        elapsed = time.time() - t0
+        logger.end(output_path=output_path, elapsed_sec=elapsed, error=str(exc))
+        raise
 
-    elapsed = time.time() - t0
-    size_mb = os.path.getsize(output_path) / 1024 / 1024
-    print(f"\n  Completado en {elapsed / 60:.0f} min  ->  {output_path}  ({size_mb:.0f} MB)")
     return output_path
 
 
