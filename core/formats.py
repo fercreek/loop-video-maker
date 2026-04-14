@@ -87,7 +87,7 @@ FEA_PALETTE = {
     "brand_text": (201, 168, 76, 100),
     # Shadows
     "shadow_rgba": (0, 0, 0, 200),
-    "shadow_ref_rgba": (0, 0, 0, 150),
+    "shadow_ref_rgba": (0, 0, 0, 240),
 }
 
 

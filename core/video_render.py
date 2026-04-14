@@ -32,6 +32,29 @@ from core.text_style import (
 )
 
 
+def _autocrop_borders(img: Image.Image, threshold: int = 8) -> Image.Image:
+    """
+    Remove uniform light borders (white/gray museum scan margins) from an image.
+    Detects columns and rows where pixel std-dev is below threshold — those are
+    solid-color margins. Crops to the content bounding box.
+    """
+    arr = np.array(img)
+    # A column/row is 'content' if it has meaningful variation (std > threshold)
+    col_std = arr.std(axis=(0, 2))   # std per column across all rows and channels
+    row_std = arr.std(axis=(1, 2))   # std per row across all columns and channels
+    content_cols = np.where(col_std > threshold)[0]
+    content_rows = np.where(row_std > threshold)[0]
+    if len(content_cols) == 0 or len(content_rows) == 0:
+        return img  # can't detect border, return as-is
+    left, right = int(content_cols[0]), int(content_cols[-1])
+    top, bottom = int(content_rows[0]), int(content_rows[-1])
+    # Only crop if the border takes up more than 5% on any side
+    w, h = img.size
+    if left > w * 0.05 or right < w * 0.95 or top > h * 0.05 or bottom < h * 0.95:
+        return img.crop((left, top, right + 1, bottom + 1))
+    return img
+
+
 def _apply_warm_grade(img: Image.Image) -> Image.Image:
     """
     Warm color grade: boost R channel slightly, reduce B channel.
@@ -179,10 +202,11 @@ def _render_text_frame(
         ref_x = (width - ref_w) // 2
         ref_y = sep_y + 12
         # Stroke fino en referencia
-        for dx2, dy2 in [(-2,0),(2,0),(0,-2),(0,2),(-1,-1),(1,-1),(-1,1),(1,1)]:
+        for dx2, dy2 in [(-2,0),(2,0),(0,-2),(0,2),(-1,-1),(1,-1),(-1,1),(1,1),
+                         (-3,0),(3,0),(0,-3),(0,3)]:
             draw.text(
                 (ref_x + dx2, ref_y + dy2), ref_text,
-                font=font_ref, fill=(0, 0, 0, 200),
+                font=font_ref, fill=(0, 0, 0, 240),
             )
         draw.text(
             (ref_x, ref_y), ref_text,
@@ -351,7 +375,10 @@ def renderizar_video(
         all_bg_paths = [imagen_path] + list(all_bg_paths)
 
     def _load_bg(path: str) -> np.ndarray:
-        img = Image.open(path).resize((width, height), Image.LANCZOS).convert("RGB")
+        from PIL import ImageOps
+        img = Image.open(path).convert("RGB")
+        img = _autocrop_borders(img)
+        img = ImageOps.fit(img, (width, height), Image.LANCZOS)
         img = _apply_warm_grade(img)
         img = _apply_vignette(img, strength=0.35)
         return np.array(img)
@@ -585,7 +612,10 @@ def renderizar_video_fast(
     for i, bg_path in enumerate(all_bg_paths):
         out_p = os.path.join(work_dir, f"bg_{i:03d}.jpg")
         if not os.path.exists(out_p):
-            img = Image.open(bg_path).resize((width, height), Image.LANCZOS).convert("RGB")
+            from PIL import ImageOps
+            img = Image.open(bg_path).convert("RGB")
+            img = _autocrop_borders(img)
+            img = ImageOps.fit(img, (width, height), Image.LANCZOS)
             img = _apply_warm_grade(img)
             img = _apply_vignette(img, strength=0.35)
             img.save(out_p, quality=95)

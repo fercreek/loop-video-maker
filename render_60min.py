@@ -45,6 +45,11 @@ VIDEOS = [
     ("paz",       ["Paz profunda", "Meditacion", "Sanacion"],    "Paz de Dios"),
     ("fe",        ["Adoración", "Devoción", "Paz profunda"],     "Fe que mueve montañas"),
     ("esperanza", ["Sanacion", "Adoración", "Meditacion"],       "Esperanza en Dios"),
+    ("amor",      ["Adoración", "Paz profunda", "Sanacion"],     "El Amor de Dios"),
+    ("gratitud",  ["Meditacion", "Adoración", "Paz profunda"],   "Gratitud a Dios"),
+    ("victoria",  ["Devoción", "Adoración", "Sanacion"],         "Victoria en Cristo"),
+    ("fuerza",    ["Sanacion", "Devoción", "Paz profunda"],      "Fuerza en Dios"),
+    ("salmos",    ["Paz profunda", "Adoración", "Meditacion"],   "Salmos — Adoración"),
 ]
 
 os.makedirs(OUTPUT_BASE, exist_ok=True)
