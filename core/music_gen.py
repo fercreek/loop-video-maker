@@ -96,10 +96,12 @@ def _read_wav_samples(wav_path: str) -> tuple[np.ndarray, np.ndarray, int]:
 def _crossfade_loop_stereo(
     left: np.ndarray, right: np.ndarray, sr: int,
     target_seconds: int, crossfade_sec: float = 3.0,
+    apply_fade: bool = True,
 ) -> tuple[np.ndarray, np.ndarray]:
     """
     Extend a stereo audio clip to target duration using crossfade looping.
-    Applies fade-in at start and fade-out at end.
+    apply_fade=False skips the per-segment fade-in/out — use this when the
+    segment will be crossfaded into a larger playlist (avoids double-fade dip).
     """
     target_samples = target_seconds * sr
     xf = min(int(crossfade_sec * sr), len(left) // 2)
@@ -122,13 +124,13 @@ def _crossfade_loop_stereo(
     out_l = out_l[:target_samples]
     out_r = out_r[:target_samples]
 
-    # Fade in/out
-    fade_in_samples = min(sr * 3, target_samples)
-    out_l[:fade_in_samples] *= np.linspace(0, 1, fade_in_samples, dtype=np.float32)
-    out_r[:fade_in_samples] *= np.linspace(0, 1, fade_in_samples, dtype=np.float32)
-    fade_out_samples = min(sr * 4, target_samples)
-    out_l[-fade_out_samples:] *= np.linspace(1, 0, fade_out_samples, dtype=np.float32)
-    out_r[-fade_out_samples:] *= np.linspace(1, 0, fade_out_samples, dtype=np.float32)
+    if apply_fade:
+        fade_in_samples = min(sr * 3, target_samples)
+        out_l[:fade_in_samples] *= np.linspace(0, 1, fade_in_samples, dtype=np.float32)
+        out_r[:fade_in_samples] *= np.linspace(0, 1, fade_in_samples, dtype=np.float32)
+        fade_out_samples = min(sr * 4, target_samples)
+        out_l[-fade_out_samples:] *= np.linspace(1, 0, fade_out_samples, dtype=np.float32)
+        out_r[-fade_out_samples:] *= np.linspace(1, 0, fade_out_samples, dtype=np.float32)
 
     return out_l, out_r
 
@@ -155,11 +157,13 @@ def _write_stereo_wav(
 
 
 def _generar_from_loop(
-    mood: str, duracion_segundos: int, output_dir: str, loop_path: str = None,
+    mood: str, duracion_segundos: int, output_dir: str,
+    loop_path: str = None, apply_fade: bool = True,
 ) -> str:
     """
     Generate audio from a bundled loop or user-provided file.
     Decodes to WAV, loops with crossfade, writes output.
+    apply_fade=False skips per-segment fade for playlist use.
     """
     import tempfile
 
@@ -187,7 +191,8 @@ def _generar_from_loop(
             pass
 
     # Loop to target duration
-    out_l, out_r = _crossfade_loop_stereo(left, right, sr, duracion_segundos)
+    out_l, out_r = _crossfade_loop_stereo(left, right, sr, duracion_segundos,
+                                           apply_fade=apply_fade)
 
     out_path = os.path.join(output_dir, "musica_loop.wav")
     return _write_stereo_wav(out_path, out_l, out_r, sr)
@@ -473,10 +478,12 @@ def _chorus(signal, sr, rate_l=0.45, rate_r=0.53, depth_ms=4.0):
 
 def generar_musica(mood: str, duracion_segundos: int, api_key: str,
                    output_dir: str = "output",
-                   audio_file: str = None) -> str:
+                   audio_file: str = None,
+                   apply_fade: bool = True) -> str:
     """
     Genera música instrumental de fondo.
     Priority: user file > bundled loop > NumPy synth fallback.
+    apply_fade=False skips per-segment fade — use when generating for a playlist.
     Retorna: path al archivo .wav
     """
     os.makedirs(output_dir, exist_ok=True)
@@ -484,20 +491,22 @@ def generar_musica(mood: str, duracion_segundos: int, api_key: str,
     # 1. User-provided audio file
     if audio_file and os.path.isfile(audio_file):
         try:
-            return _generar_from_loop(mood, duracion_segundos, output_dir, loop_path=audio_file)
+            return _generar_from_loop(mood, duracion_segundos, output_dir,
+                                      loop_path=audio_file, apply_fade=apply_fade)
         except Exception:
-            pass  # Fall through to other options
+            pass
 
     # 2. Bundled loop for this mood
     loop_path = _get_loop_path(mood)
     if loop_path:
         try:
-            return _generar_from_loop(mood, duracion_segundos, output_dir)
+            return _generar_from_loop(mood, duracion_segundos, output_dir,
+                                      apply_fade=apply_fade)
         except Exception:
-            pass  # Fall through to synth
+            pass
 
     # 3. Fallback: NumPy ambient synth
-    return _generar_ambient(mood, duracion_segundos, output_dir)
+    return _generar_ambient(mood, duracion_segundos, output_dir, apply_fade=apply_fade)
 
 
 def generar_musica_musicgen(prompt: str, duracion_clip: int = 15,
@@ -561,12 +570,14 @@ def _crossfade_loop(audio, sr: int, duracion_total: int, crossfade_sec: float = 
     return output[:target_samples]
 
 
-def _generar_ambient(mood: str, duracion_segundos: int, output_dir: str) -> str:
+def _generar_ambient(mood: str, duracion_segundos: int, output_dir: str,
+                     apply_fade: bool = True) -> str:
     """
     Two-pass ambient generator: piano, strings, choir, arpeggio, sub-bass.
 
     Pass 1: Render all chord blocks into memory with overlap regions.
     Pass 2: Crossfade overlaps, apply global normalization, reverb, chorus, write WAV.
+    apply_fade=False skips global fade-in/out for playlist segment use.
 
     This eliminates per-block normalization pumping and abrupt chord transitions.
     """
@@ -702,11 +713,12 @@ def _generar_ambient(mood: str, duracion_segundos: int, output_dir: str) -> str:
     if len(merged) < total_samples:
         merged = np.concatenate([merged, np.zeros(total_samples - len(merged), dtype=np.float32)])
 
-    # ── Global fade in/out ──────────────────────────────────────
-    fade_in_samples = min(sr * 4, total_samples)
-    merged[:fade_in_samples] *= np.linspace(0, 1, fade_in_samples, dtype=np.float32)
-    fade_out_samples = min(sr * 5, total_samples)
-    merged[-fade_out_samples:] *= np.linspace(1, 0, fade_out_samples, dtype=np.float32)
+    # ── Global fade in/out (skip for playlist segments) ─────────
+    if apply_fade:
+        fade_in_samples = min(sr * 4, total_samples)
+        merged[:fade_in_samples] *= np.linspace(0, 1, fade_in_samples, dtype=np.float32)
+        fade_out_samples = min(sr * 5, total_samples)
+        merged[-fade_out_samples:] *= np.linspace(1, 0, fade_out_samples, dtype=np.float32)
 
     # ── Reverb (applied globally — consistent tail) ─────────────
     merged = _reverb(merged, sr, room_size=0.55, damping=0.35)
@@ -769,11 +781,14 @@ def generate_playlist(
     xf_samples = int(crossfade_seconds * sr)
     segment_seconds = max(total_seconds // len(moods), 10)
 
-    # Generate each mood segment into a temp sub-dir
+    # Generate each mood segment — no per-segment fade so crossfade
+    # between segments sounds smooth (no double-fade dip).
+    segment_dirs = []
     segment_paths = []
     for i, mood in enumerate(moods):
         seg_dir = os.path.join(output_dir, f"_seg_{i}")
         os.makedirs(seg_dir, exist_ok=True)
+        segment_dirs.append(seg_dir)
         override = (audio_files or {}).get(mood)
         path = generar_musica(
             mood=mood,
@@ -781,6 +796,7 @@ def generate_playlist(
             api_key="",
             output_dir=seg_dir,
             audio_file=override,
+            apply_fade=False,   # playlist handles fade-in/out on final output
         )
         segment_paths.append(path)
 
@@ -836,7 +852,17 @@ def generate_playlist(
     out_r[-fo:] *= np.linspace(1, 0, fo, dtype=np.float32)
 
     out_path = os.path.join(output_dir, "playlist.wav")
-    return _write_stereo_wav(out_path, out_l, out_r, sr=sr)
+    result = _write_stereo_wav(out_path, out_l, out_r, sr=sr)
+
+    # Clean up temp segment dirs (already baked into playlist.wav)
+    import shutil as _shutil
+    for seg_dir in segment_dirs:
+        try:
+            _shutil.rmtree(seg_dir)
+        except OSError:
+            pass
+
+    return result
 
 
 def _generar_silencio(duracion_segundos: int, output_dir: str) -> str:
