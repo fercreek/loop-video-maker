@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from core.verse_gen import cargar_versiculos, versiculos_a_lista
 from core.music_gen import generate_playlist
 from core.video_render import renderizar_video_fast
-from core.render_logger import RenderLogger
+from core.render_logger import RenderLogger, clean_file, clean_dir
 
 # ─── Mood mapping per theme ────────────────────────────────────────────────────
 
@@ -161,6 +161,15 @@ def render_one(
             unique_verses=unique_count,
             total_verses=target_count,
         )
+        # Clean up audio WAV (baked into MP4, no longer needed — can regenerate)
+        freed = clean_file(audio_path, label="audio playlist post-render")
+        if freed:
+            print(f"  [clean] Audio WAV eliminado ({freed:.0f} MB liberados)")
+        # Clean up empty audio dir
+        try:
+            os.rmdir(audio_dir)
+        except OSError:
+            pass
     except Exception as exc:
         elapsed = time.time() - t0
         logger.end(output_path=output_path, elapsed_sec=elapsed, error=str(exc))

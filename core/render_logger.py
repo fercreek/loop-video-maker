@@ -1,9 +1,10 @@
 """
-core/render_logger.py — Per-render learning logs + cumulative LEARNINGS.md
+core/render_logger.py — Per-render learning logs, file event log, LEARNINGS.md
 
 Every render session writes:
   logs/renders/YYYY-MM-DD_HH-MM_<theme>.md   ← config + metrics + auto-verdict
-  logs/LEARNINGS.md                           ← append one-line summary per render
+  logs/LEARNINGS.md                           ← running render index + lessons
+  logs/files.log                              ← every CREATE / CLEAN / SKIP event
 
 After watching the video, fill in the "Mejoras para próxima iteración" section
 at the bottom of the render log. Those notes feed future iterations.
@@ -11,10 +12,77 @@ at the bottom of the render log. Those notes feed future iterations.
 from __future__ import annotations
 
 import os
+import shutil
 import subprocess
 import time
 from datetime import datetime
 from typing import Any
+
+
+# ─── File event log ───────────────────────────────────────────────────────────
+
+def log_file_event(
+    event: str,          # "CREATE" | "CLEAN" | "SKIP" | "ERROR"
+    path: str,
+    size_mb: float | None = None,
+    note: str = "",
+    log_dir: str = "logs",
+) -> None:
+    """
+    Append one line to logs/files.log.
+
+    Format:
+      2026-04-14 14:31  CREATE   output/youtube_60min/paz/paz_60min.mp4  1820 MB
+      2026-04-14 14:31  CLEAN    output/youtube_60min/paz/paz_60min_work/ 320 MB freed
+    """
+    os.makedirs(log_dir, exist_ok=True)
+    log_path = os.path.join(log_dir, "files.log")
+    ts = datetime.now().strftime("%Y-%m-%d %H:%M")
+    size_str = f"  {size_mb:.0f} MB" if size_mb is not None else ""
+    note_str = f"  — {note}" if note else ""
+    rel = os.path.relpath(path) if os.path.isabs(path) else path
+    line = f"{ts}  {event:<8} {rel}{size_str}{note_str}\n"
+    with open(log_path, "a") as f:
+        f.write(line)
+
+
+def clean_dir(path: str, label: str = "", log_dir: str = "logs") -> float:
+    """
+    Delete a directory tree, log the event, return MB freed.
+    Safe no-op if path doesn't exist.
+    """
+    if not os.path.exists(path):
+        return 0.0
+    size_mb = _dir_size_mb(path)
+    shutil.rmtree(path)
+    log_file_event("CLEAN", path, size_mb,
+                   note=label or "temp dir removed", log_dir=log_dir)
+    return size_mb
+
+
+def clean_file(path: str, label: str = "", log_dir: str = "logs") -> float:
+    """
+    Delete a single file, log the event, return MB freed.
+    Safe no-op if file doesn't exist.
+    """
+    if not os.path.exists(path):
+        return 0.0
+    size_mb = os.path.getsize(path) / 1024 / 1024
+    os.remove(path)
+    log_file_event("CLEAN", path, size_mb,
+                   note=label or "removed", log_dir=log_dir)
+    return size_mb
+
+
+def _dir_size_mb(path: str) -> float:
+    total = 0
+    for dirpath, _, files in os.walk(path):
+        for f in files:
+            try:
+                total += os.path.getsize(os.path.join(dirpath, f))
+            except OSError:
+                pass
+    return total / 1024 / 1024
 
 
 # ─── Engine version ────────────────────────────────────────────────────────────
@@ -214,6 +282,9 @@ class RenderLogger:
 
         with open(self.log_path, "a") as f:
             f.write("\n".join(lines))
+
+        # Log file creation event
+        log_file_event("CREATE", output_path, size_mb, log_dir=self.log_dir)
 
         # Update LEARNINGS.md index line
         self._append_to_learnings_index(ended_at, elapsed_sec, size_mb, output_path)

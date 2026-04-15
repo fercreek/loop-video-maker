@@ -579,6 +579,7 @@ def renderizar_video_fast(
     render_fps: int = 12,
     parallel_jobs: int = 4,
     visual_templates: list | None = None,
+    cleanup_work_dir: bool = True,
 ) -> str:
     """
     Fast video renderer using ffmpeg native filters (10-20× faster than MoviePy).
@@ -778,5 +779,13 @@ def renderizar_video_fast(
 
     if progress_callback:
         progress_callback(1.0, "¡Video completado!")
+
+    # Clean up temp work dir (clips + PNGs — already baked into the output)
+    if cleanup_work_dir and os.path.exists(work_dir):
+        import shutil as _shutil
+        from core.render_logger import clean_dir
+        freed = clean_dir(work_dir, label="_work temp clips")
+        if freed > 0:
+            print(f"  [clean] _work/ eliminado ({freed:.0f} MB liberados)")
 
     return os.path.abspath(output_path)

@@ -1,0 +1,3 @@
+2026-04-14 18:14  CLEAN    output/test_cleanup/fuerza/fuerza_1min_work  55 MB  — _work temp clips
+2026-04-14 18:14  CREATE   output/test_cleanup/fuerza/fuerza_1min.mp4  25 MB
+2026-04-14 18:14  CLEAN    output/test_cleanup/fuerza/audio/playlist.wav  10 MB  — audio playlist post-render

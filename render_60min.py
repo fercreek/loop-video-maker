@@ -25,7 +25,7 @@ sys.path.insert(0, ".")
 from core.verse_gen import cargar_versiculos, versiculos_a_lista
 from core.music_gen import generate_playlist
 from core.video_render import renderizar_video_fast
-from core.render_logger import RenderLogger
+from core.render_logger import RenderLogger, clean_file
 
 # ─── Config ─────────────────────────────────────────────────────────────────
 SECONDS_PER_VERSE  = 20       # 20s per verse = 180 verses for 60 min
@@ -164,6 +164,14 @@ def render_video(theme: str, moods: list, label: str):
             unique_verses=unique_count,
             total_verses=target_count,
         )
+        # Clean up audio WAV (baked into MP4, can regenerate if needed)
+        freed = clean_file(audio_path, label="audio playlist post-render")
+        if freed:
+            print(f"  [clean] Audio WAV eliminado ({freed:.0f} MB liberados)")
+        try:
+            os.rmdir(audio_dir)
+        except OSError:
+            pass
     except Exception as exc:
         elapsed = time.time() - t0
         logger.end(output_path=output_path, elapsed_sec=elapsed, error=str(exc))
