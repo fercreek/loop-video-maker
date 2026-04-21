@@ -1,0 +1,45 @@
+{
+  "path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/youtube_60min/fuerza/fuerza_60min.mp4",
+  "theme": "fuerza",
+  "evaluated_at": "2026-04-21T03:12:05",
+  "duration_sec": 3600.0,
+  "nominal_minutes": 60,
+  "video_bitrate_kbps": 3386,
+  "total_bitrate_kbps": 3581,
+  "fps": 12.0,
+  "resolution": "1920x1080",
+  "size_mb": 1537.1,
+  "mb_per_min": 25.62,
+  "loudness_lufs": -17.7,
+  "silences": [
+    [
+      1707.062925,
+      4.457392
+    ],
+    [
+      2224.147029,
+      4.445147
+    ],
+    [
+      3583.418594,
+      16.603175
+    ]
+  ],
+  "audio_dips": [],
+  "thumbnail_exists": false,
+  "checks": {
+    "duration": true,
+    "video_bitrate": true,
+    "fps": true,
+    "size_per_min": true,
+    "loudness": true,
+    "no_silences": false,
+    "no_dips": true,
+    "thumbnail": false
+  },
+  "issues": [
+    "3 silencios >2.0s: [(1707.062925, 4.457392), (2224.147029, 4.445147), (3583.418594, 16.603175)]",
+    "Thumbnail no encontrado: /Users/fernandocastaneda/Documents/loop-video-maker/output/youtube_60min/fuerza/fuerza_thumb.jpg"
+  ],
+  "score": 75
+}

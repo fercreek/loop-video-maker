@@ -1,0 +1,45 @@
+{
+  "path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/youtube_60min/upload/fe_60min.mp4",
+  "theme": "fe",
+  "evaluated_at": "2026-04-21T03:20:10",
+  "duration_sec": 3600.0,
+  "nominal_minutes": 60,
+  "video_bitrate_kbps": 4031,
+  "total_bitrate_kbps": 4163,
+  "fps": 12.0,
+  "resolution": "1920x1080",
+  "size_mb": 1786.9,
+  "mb_per_min": 29.78,
+  "loudness_lufs": -17.8,
+  "silences": [
+    [
+      1707.062925,
+      4.457415
+    ],
+    [
+      2224.134762,
+      4.457392
+    ],
+    [
+      3583.418594,
+      16.603175
+    ]
+  ],
+  "audio_dips": [],
+  "thumbnail_exists": false,
+  "checks": {
+    "duration": true,
+    "video_bitrate": true,
+    "fps": true,
+    "size_per_min": true,
+    "loudness": true,
+    "no_silences": false,
+    "no_dips": true,
+    "thumbnail": false
+  },
+  "issues": [
+    "3 silencios >2.0s: [(1707.062925, 4.457415), (2224.134762, 4.457392), (3583.418594, 16.603175)]",
+    "Thumbnail no encontrado: /Users/fernandocastaneda/Documents/loop-video-maker/output/youtube_60min/upload/fe_thumb.jpg"
+  ],
+  "score": 75
+}

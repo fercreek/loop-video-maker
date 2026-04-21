@@ -1,0 +1,49 @@
+{
+  "path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/youtube_60min/victoria/victoria_60min.mp4",
+  "theme": "victoria",
+  "evaluated_at": "2026-04-21T03:23:14",
+  "duration_sec": 3600.0,
+  "nominal_minutes": 60,
+  "video_bitrate_kbps": 3395,
+  "total_bitrate_kbps": 3591,
+  "fps": 12.0,
+  "resolution": "1920x1080",
+  "size_mb": 1541.1,
+  "mb_per_min": 25.69,
+  "loudness_lufs": -17.3,
+  "silences": [
+    [
+      0.0,
+      2.460975
+    ],
+    [
+      515.062925,
+      4.457392
+    ],
+    [
+      1032.134762,
+      4.457415
+    ],
+    [
+      3583.782653,
+      16.239116
+    ]
+  ],
+  "audio_dips": [],
+  "thumbnail_exists": false,
+  "checks": {
+    "duration": true,
+    "video_bitrate": true,
+    "fps": true,
+    "size_per_min": true,
+    "loudness": true,
+    "no_silences": false,
+    "no_dips": true,
+    "thumbnail": false
+  },
+  "issues": [
+    "4 silencios >2.0s: [(0.0, 2.460975), (515.062925, 4.457392), (1032.134762, 4.457415)]",
+    "Thumbnail no encontrado: /Users/fernandocastaneda/Documents/loop-video-maker/output/youtube_60min/victoria/victoria_thumb.jpg"
+  ],
+  "score": 75
+}

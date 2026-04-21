@@ -1,0 +1,37 @@
+{
+  "path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/youtube_60min/upload/gratitud_40min.mp4",
+  "theme": "gratitud_40min",
+  "evaluated_at": "2026-04-21T03:21:42",
+  "duration_sec": 2400.0,
+  "nominal_minutes": 40,
+  "video_bitrate_kbps": 3388,
+  "total_bitrate_kbps": 3583,
+  "fps": 12.0,
+  "resolution": "1920x1080",
+  "size_mb": 1025.2,
+  "mb_per_min": 25.63,
+  "loudness_lufs": -19.0,
+  "silences": [
+    [
+      2383.418594,
+      16.603175
+    ]
+  ],
+  "audio_dips": [],
+  "thumbnail_exists": false,
+  "checks": {
+    "duration": true,
+    "video_bitrate": true,
+    "fps": true,
+    "size_per_min": true,
+    "loudness": true,
+    "no_silences": false,
+    "no_dips": true,
+    "thumbnail": false
+  },
+  "issues": [
+    "1 silencios >2.0s: [(2383.418594, 16.603175)]",
+    "Thumbnail no encontrado: /Users/fernandocastaneda/Documents/loop-video-maker/output/youtube_60min/upload/gratitud_40min_thumb.jpg"
+  ],
+  "score": 75
+}

@@ -1,0 +1,37 @@
+{
+  "path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/youtube_60min/salmos/salmos_60min.mp4",
+  "theme": "salmos",
+  "evaluated_at": "2026-04-21T03:16:18",
+  "duration_sec": 3600.0,
+  "nominal_minutes": 60,
+  "video_bitrate_kbps": 3392,
+  "total_bitrate_kbps": 3588,
+  "fps": 12.0,
+  "resolution": "1920x1080",
+  "size_mb": 1539.9,
+  "mb_per_min": 25.66,
+  "loudness_lufs": -18.4,
+  "silences": [
+    [
+      3583.794127,
+      16.227642
+    ]
+  ],
+  "audio_dips": [],
+  "thumbnail_exists": false,
+  "checks": {
+    "duration": true,
+    "video_bitrate": true,
+    "fps": true,
+    "size_per_min": true,
+    "loudness": true,
+    "no_silences": false,
+    "no_dips": true,
+    "thumbnail": false
+  },
+  "issues": [
+    "1 silencios >2.0s: [(3583.794127, 16.227642)]",
+    "Thumbnail no encontrado: /Users/fernandocastaneda/Documents/loop-video-maker/output/youtube_60min/salmos/salmos_thumb.jpg"
+  ],
+  "score": 75
+}

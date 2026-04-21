@@ -1,0 +1,37 @@
+{
+  "path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/youtube_60min/amor/amor_60min.mp4",
+  "theme": "amor",
+  "evaluated_at": "2026-04-21T03:06:22",
+  "duration_sec": 3600.0,
+  "nominal_minutes": 60,
+  "video_bitrate_kbps": 3390,
+  "total_bitrate_kbps": 3585,
+  "fps": 12.0,
+  "resolution": "1920x1080",
+  "size_mb": 1538.8,
+  "mb_per_min": 25.65,
+  "loudness_lufs": -18.5,
+  "silences": [
+    [
+      3584.0,
+      16.021769
+    ]
+  ],
+  "audio_dips": [],
+  "thumbnail_exists": false,
+  "checks": {
+    "duration": true,
+    "video_bitrate": true,
+    "fps": true,
+    "size_per_min": true,
+    "loudness": true,
+    "no_silences": false,
+    "no_dips": true,
+    "thumbnail": false
+  },
+  "issues": [
+    "1 silencios >2.0s: [(3584.0, 16.021769)]",
+    "Thumbnail no encontrado: /Users/fernandocastaneda/Documents/loop-video-maker/output/youtube_60min/amor/amor_thumb.jpg"
+  ],
+  "score": 75
+}
