@@ -54,20 +54,54 @@ def get_available_loops() -> list[str]:
     return available
 
 
+def _normalize_mood(name: str) -> str:
+    """Strip accents + lowercase for tolerant mood lookup."""
+    import unicodedata
+    return "".join(
+        c for c in unicodedata.normalize("NFD", name or "")
+        if unicodedata.category(c) != "Mn"
+    ).lower().strip()
+
+
 def _get_loop_path(mood: str) -> str | None:
-    """Return the path to a loop file for the given mood, or None."""
+    """Return the path to a loop file for the given mood, or None.
+
+    Accent-insensitive: "Meditacion" matches manifest key "Meditación".
+    """
     manifest = _load_manifest()
-    info = manifest.get("moods", {}).get(mood)
+    moods = manifest.get("moods", {})
+    info = moods.get(mood)
+    if not info:
+        key_norm = _normalize_mood(mood)
+        for k, v in moods.items():
+            if _normalize_mood(k) == key_norm:
+                info = v
+                break
     if not info:
         return None
     loop_path = os.path.join(_LOOPS_DIR, info["file"])
     return loop_path if os.path.isfile(loop_path) else None
 
 
-def _decode_audio_to_wav(input_path: str, output_path: str, sr: int = 44100) -> str:
-    """Decode any audio format to 16-bit stereo WAV using ffmpeg."""
-    cmd = [
-        "ffmpeg", "-y", "-i", input_path,
+def _decode_audio_to_wav(
+    input_path: str, output_path: str, sr: int = 44100,
+    trim_silence: bool = True,
+) -> str:
+    """Decode any audio format to 16-bit stereo WAV using ffmpeg.
+
+    trim_silence=True strips leading and trailing silence (>-40dB, >0.3s).
+    Required for loops that embed fade-in/out in the source file — otherwise
+    crossfade-looping produces audible dips at boundaries (~5s each).
+    """
+    cmd = ["ffmpeg", "-y", "-i", input_path]
+    if trim_silence:
+        cmd += ["-af",
+            "silenceremove="
+            "start_periods=1:start_duration=0.3:start_threshold=-40dB:"
+            "stop_periods=1:stop_duration=0.3:stop_threshold=-40dB:"
+            "detection=peak"
+        ]
+    cmd += [
         "-ar", str(sr), "-ac", "2", "-sample_fmt", "s16",
         "-f", "wav", output_path,
     ]
@@ -779,7 +813,12 @@ def generate_playlist(
     os.makedirs(output_dir, exist_ok=True)
     sr = 44100
     xf_samples = int(crossfade_seconds * sr)
-    segment_seconds = max(total_seconds // len(moods), 10)
+    # Compensate: N segments crossfaded N-1 times lose (N-1)*xf seconds.
+    # Without this, output is short and gets zero-padded (silent tail).
+    n = len(moods)
+    overlap_budget = (n - 1) * crossfade_seconds
+    # +2s safety margin — absorbed by final trim
+    segment_seconds = max(int((total_seconds + overlap_budget) / n) + 2, 10)
 
     # Generate each mood segment — no per-segment fade so crossfade
     # between segments sounds smooth (no double-fade dip).
