@@ -1,6 +1,7 @@
 # VERSION — Loop Video Maker
 
-**Current baseline:** `v3.2-baseline` (commit `9b42956`, 2026-04-15)
+**Current:** `v3.3-audio-fix` (commit `e495ff1`, 2026-04-21) — victoria re-render 100/100
+**Prev baseline:** `v3.2-baseline` (commit `9b42956`, 2026-04-15)
 
 Tag inmovil. Checkout: `git checkout v3.2-baseline`. Revert work: `git reset --hard v3.2-baseline`.
 
@@ -45,8 +46,15 @@ Tag inmovil. Checkout: `git checkout v3.2-baseline`. Revert work: `git reset --h
 ## Known issues abiertos
 
 1. **Render lento ocasional** — `paz` tomó 42min, `esperanza` 43min vs 3-4min típico. Causa no identificada. Revisar si coincide con contención de I/O o thermal throttling.
-2. **Re-render pendiente** — videos pre-9b42956 (`esperanza`, `victoria`, `salmos`, `paz`) tienen dip de crossfade en min 20/40. Ya hay re-render de `amor`.
+2. **Re-render pendiente con v3.3** — videos renderizados con v3.2 (`amor`, `esperanza`, `fe`, `fuerza`, `gratitud`, `paz`, `salmos`) heredan silencio 16s final + dips mid. Solo `victoria` re-renderizado con v3.3.
 3. **Thumbnails con foto** — pinturas al óleo funcionan pero pueden tener CTR bajo vs fotos de personas. Idea pendiente.
+
+## Fixed en v3.3-audio-fix
+
+- ✅ Silencio 16s al final (playlist math compensa N-1 crossfades)
+- ✅ Silencios mid-video 4.5s (silenceremove sobre loops con fade embebido)
+- ✅ victoria arranca mudo (mismo fix #2 trim head silence)
+- ✅ Mood lookup tolerante a acentos (`Meditacion` == `Meditación`)
 
 ---
 
