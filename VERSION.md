@@ -58,6 +58,43 @@ Tag inmovil. Checkout: `git checkout v3.2-baseline`. Revert work: `git reset --h
 
 ---
 
+## Tabla de métricas por versión
+
+Actualizar cada vez que se corre `eval_render.py` sobre batch nuevo o se crea tag nuevo.
+
+| Versión | Fecha | Videos eval | Score avg | Render time 60min | Música | Estado |
+|---|---|---|---|---|---|---|
+| v3.2-baseline | 2026-04-15 | 14 | **77/100** | 3.4min (rango 3.1–43.9min) | Kevin MacLeod loops + synth fallback | 🟡 bugs audio |
+| v3.3-audio-fix | 2026-04-21 | 1 (victoria) | **100/100** | 4.0min | Kevin MacLeod loops (head/tail trim) | ✅ validado |
+| v3.3 (batch pending) | — | 0/7 | — | — | — | ⏳ re-render pendiente |
+
+**Render time outliers v3.2:** `paz` 42.5min, `esperanza` 43.9min. Causa no identificada.
+
+### Música usada (todos los videos 60min)
+
+| Tema | Moods (orden) | Fuente |
+|---|---|---|
+| paz | Paz profunda + Meditacion + Sanacion | Meditation Impromptu 02 + Peaceful Desolation + Meditation Impromptu 02 |
+| fe | Adoración + Devoción + Paz profunda | Enchanted Valley + Healing + Meditation Impromptu 02 |
+| esperanza | Sanacion + Adoración + Meditacion | Meditation Impromptu 02 + Enchanted Valley + Peaceful Desolation |
+| amor | Adoración + Paz profunda + Sanacion | Enchanted Valley + Meditation Impromptu 02 + Meditation Impromptu 02 |
+| gratitud | Meditacion + Adoración + Paz profunda | Peaceful Desolation + Enchanted Valley + Meditation Impromptu 02 |
+| victoria | Devoción + Adoración + Sanacion | Healing + Enchanted Valley + Meditation Impromptu 02 |
+| fuerza | Sanacion + Devoción + Paz profunda | Meditation Impromptu 02 + Healing + Meditation Impromptu 02 |
+| salmos | Paz profunda + Adoración + Meditacion | Meditation Impromptu 02 + Enchanted Valley + Peaceful Desolation |
+
+**Composición playlist**: cada video = 3 segmentos × ~20min cada uno, crossfade 8s. Todos los tracks son Kevin MacLeod CC-BY 4.0 (incompetech.com). Manifest: [audio/loops/manifest.json](audio/loops/manifest.json).
+
+**Loops bundled** (después de v3.3 fix — silencio head/tail removido):
+- paz_profunda.mp3 — Meditation Impromptu 02 (249s)
+- adoracion.mp3 — Enchanted Valley (190s)
+- meditacion.mp3 — Peaceful Desolation (91s)
+- devocion.mp3 — Healing (520s)
+- esperanza.mp3 — Healing alt (520s)
+- sanacion.mp3 — Meditation Impromptu 02 (249s)
+
+---
+
 ## Roadmap post-baseline
 
 Branch `feature/120min`:
