@@ -29,7 +29,7 @@ from collections import Counter, defaultdict
 
 sys.path.insert(0, ".")
 
-from config import THEME_MOODS, THEME_LABELS, BATCH_SIZE, ALL_THEMES as _CONFIG_THEMES
+from config import THEME_MOODS, THEME_LABELS, BATCH_SIZE, ALL_THEMES as _CONFIG_THEMES, OUTPUT_BASE_60MIN
 
 # Rotación alfabética estable (histórica) — ver iterations/iter_01.md
 ALL_THEMES = sorted(_CONFIG_THEMES)
@@ -82,7 +82,7 @@ def render_batch(themes: list[str]) -> list[dict]:
     info = []
     for theme in themes:
         # Force re-render: delete existing
-        out_path = f"output/youtube_60min/{theme}/{theme}_60min.mp4"
+        out_path = f"{OUTPUT_BASE_60MIN}/{theme}/{theme}_60min.mp4"
         existed = os.path.exists(out_path)
         if existed:
             os.remove(out_path)
@@ -114,7 +114,7 @@ def eval_batch(themes: list[str]) -> list[dict]:
     from eval_render import evaluate_video, write_json, append_summary
     results = []
     for theme in themes:
-        path = f"output/youtube_60min/{theme}/{theme}_60min.mp4"
+        path = f"{OUTPUT_BASE_60MIN}/{theme}/{theme}_60min.mp4"
         if not os.path.exists(path):
             continue
         try:
@@ -329,7 +329,7 @@ def main():
         print("📹 Renderizando...")
         render_info = render_batch(themes)
     else:
-        render_info = [{"theme": t, "path": f"output/youtube_60min/{t}/{t}_60min.mp4",
+        render_info = [{"theme": t, "path": f"{OUTPUT_BASE_60MIN}/{t}/{t}_60min.mp4",
                         "render_sec": 0, "moods": THEME_MOODS[t], "ok": True} for t in themes]
 
     print("\n📊 Evaluando...")

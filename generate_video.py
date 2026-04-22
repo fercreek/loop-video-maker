@@ -165,12 +165,29 @@ def render_one(
             print(f"  [thumb] Thumbnail generado → {thumb_path}")
         except Exception as exc:
             print(f"  [thumb] Warning: no se pudo generar thumbnail: {exc}")
+
+        # Quality gate — eval + auto-fix LUFS si necesario
+        try:
+            from core.quality_gate import gate as _qgate
+            qg = _qgate(output_path, nominal_min=duration_min)
+            icon = "✅" if qg["pass"] else "⚠️ "
+            fix_msg = (
+                f"  [LUFS fix: {qg['lufs_before']:.1f}→{qg['lufs_after']:.1f}]"
+                if qg["fixed"] else ""
+            )
+            print(f"  {icon} Quality gate: {qg['score']}/100{fix_msg}")
+            for iss in qg["issues"]:
+                print(f"       ⚠ {iss}")
+            return output_path, qg
+        except Exception as exc:
+            print(f"  [quality-gate] warning: {exc}")
+
     except Exception as exc:
         elapsed = time.time() - t0
         logger.end(output_path=output_path, elapsed_sec=elapsed, error=str(exc))
         raise
 
-    return output_path
+    return output_path, None
 
 
 # ─── CLI ──────────────────────────────────────────────────────────────────────
@@ -229,6 +246,7 @@ def main() -> None:
     all_start = time.time()
     completed = []
     failed = []
+    gate_results = []
 
     for theme in themes:
         print(f"\n{'='*60}")
@@ -236,7 +254,7 @@ def main() -> None:
         print(f"{'='*60}")
         theme_dir = os.path.join(args.output, theme)
         try:
-            out = render_one(
+            out_path, qg = render_one(
                 theme=theme,
                 duration_min=args.duration,
                 output_dir=theme_dir,
@@ -247,7 +265,9 @@ def main() -> None:
                 force=args.force,
                 bg_images=bg_images,
             )
-            completed.append(out)
+            completed.append(out_path)
+            if qg is not None:
+                gate_results.append(qg)
         except Exception as exc:
             print(f"\n  ERROR en tema '{theme}': {exc}", file=sys.stderr)
             failed.append(theme)
@@ -260,6 +280,12 @@ def main() -> None:
         print(f"  Carpeta: {os.path.abspath(args.output)}")
     if failed:
         print(f"  Temas con error: {', '.join(failed)}", file=sys.stderr)
+
+    if gate_results:
+        from core.quality_gate import print_batch_report
+        print_batch_report(gate_results)
+
+    if failed:
         sys.exit(1)
 
 

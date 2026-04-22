@@ -57,6 +57,8 @@ BG_IMAGES = sorted([
 
 os.makedirs(OUTPUT_BASE, exist_ok=True)
 
+_gate_results: list = []   # acumula quality gate results del batch
+
 
 def render_video(theme: str, moods: list[str], label: str) -> str:
     """Generate a single 120-minute relaxation video."""
@@ -160,6 +162,23 @@ def render_video(theme: str, moods: list[str], label: str) -> str:
             print(f"  [thumb] Thumbnail generado → {thumb_path}")
         except Exception as exc:
             print(f"  [thumb] Warning: {exc}")
+
+        # Quality gate — eval + auto-fix LUFS si necesario
+        try:
+            from core.quality_gate import gate as _qgate
+            qg = _qgate(output_path, nominal_min=TARGET_MINUTES)
+            icon = "✅" if qg["pass"] else "⚠️ "
+            fix_msg = (
+                f"  [LUFS fix: {qg['lufs_before']:.1f}→{qg['lufs_after']:.1f}]"
+                if qg["fixed"] else ""
+            )
+            print(f"  {icon} Quality gate: {qg['score']}/100{fix_msg}")
+            for iss in qg["issues"]:
+                print(f"       ⚠ {iss}")
+            _gate_results.append(qg)
+        except Exception as exc:
+            print(f"  [quality-gate] warning: {exc}")
+
     except Exception as exc:
         elapsed = time.time() - t0
         logger.end(output_path=output_path, elapsed_sec=elapsed, error=str(exc))
@@ -210,9 +229,15 @@ if __name__ == "__main__":
     total_elapsed = time.time() - all_start
     print(f"\n{'='*60}")
     print(f"  Completados: {len(completed)}  |  Fallidos: {len(failed)}")
-    print(f"  Tiempo total: {total_elapsed / 3600:.2f} horas  (~{total_elapsed/len(completed)/60:.1f} min/video)")
     if completed:
+        print(f"  Tiempo total: {total_elapsed / 3600:.2f} horas  (~{total_elapsed/len(completed)/60:.1f} min/video)")
         print(f"  Carpeta: {os.path.abspath(OUTPUT_BASE)}")
     if failed:
         print(f"  Errores: {', '.join(failed)}", file=sys.stderr)
+
+    if _gate_results:
+        from core.quality_gate import print_batch_report
+        print_batch_report(_gate_results)
+
+    if failed:
         sys.exit(1)

@@ -95,3 +95,7 @@ EVAL_TARGETS = {
 
 # ─── Iter loop ──────────────────────────────────────────────────────────────
 BATCH_SIZE = 5                              # videos por iteración
+
+# ─── Quality gate (core/quality_gate.py) ────────────────────────────────────
+QUALITY_GATE_THRESHOLD = 80         # score mínimo para "pass" (0-100)
+QUALITY_GATE_AUTO_FIX_LUFS = True   # auto-aplicar loudnorm si LUFS fuera de rango
