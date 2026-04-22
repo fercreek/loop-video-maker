@@ -9,7 +9,6 @@ Produces 1280×720 JPEG thumbnails with:
   - Subtitle with auto-wrap
   - Accent divider line
   - Channel watermark
-  - Diagonal arrow pointing into the painting
 """
 from __future__ import annotations
 
@@ -466,11 +465,6 @@ def make_thumbnail(
     # Channel watermark bottom-left
     _outlined_text(draw, (68, H - 52), channel, font=font_ch,
                    fill=(255, 255, 255), stroke_w=3)
-
-    # Diagonal ↘ arrow — positioned in center-right of dark zone
-    arrow_cx = int(W * 0.62)
-    arrow_cy = int(H * 0.68)
-    _draw_diagonal_arrow(draw, arrow_cx, arrow_cy, accent, size=80)
 
     os.makedirs(os.path.dirname(output_path) or ".", exist_ok=True)
     composite.save(output_path, "JPEG", quality=95)
