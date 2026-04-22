@@ -12,3 +12,6 @@ dist/
 build/
 .DS_Store
 Thumbs.db
+.claude/
+logs/renders/
+eval/*.json
