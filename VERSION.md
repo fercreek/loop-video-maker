@@ -1,6 +1,8 @@
 # VERSION — Loop Video Maker
 
-**Current:** `v3.4-clean` (commit `963230a`, 2026-04-22) — config central + loudnorm fix + clip instrumentation
+**Current:** `v3.6-thumbs-variants` (commit `1bbe856`, 2026-04-22) — thumbnail templates B/C para A/B CTR testing
+**Prev:** `v3.5-120min` (commit `b83d8f1`) — render_120min.py batch 2hrs sleep/relajación
+**Prev:** `v3.4-clean` (commit `963230a`) — config.py central + loudnorm fix + clip instrumentation
 **Prev:** `v3.3.1-docs` (commit `422ddea`) — docs milestone
 **Prev:** `v3.3-audio-fix` (commit `e495ff1`, 2026-04-21) — victoria re-render 100/100
 **Prev baseline:** `v3.2-baseline` (commit `9b42956`, 2026-04-15)
@@ -46,11 +48,34 @@ Tag inmovil. Checkout: `git checkout v3.2-baseline`. Revert work: `git reset --h
 
 ---
 
+## Productos disponibles
+
+| Producto | Script | Comando |
+|---|---|---|
+| 60min devotional (8 temas) | `render_60min.py` | `.venv/bin/python3 render_60min.py` |
+| 120min sleep/relajación (8 temas) | `render_120min.py` | `.venv/bin/python3 render_120min.py` |
+| 1 video custom duración | `generate_video.py` | `--theme paz --duration 60` |
+| Thumbnails (template A/B/C) | `generate_thumbnails.py` | `--all-variants` |
+
+---
+
 ## Known issues abiertos
 
-1. **Render lento ocasional** — `paz` tomó 42min, `esperanza` 43min vs 3-4min típico. Causa no identificada. Revisar si coincide con contención de I/O o thermal throttling.
-2. **Re-render pendiente con v3.3** — videos renderizados con v3.2 (`amor`, `esperanza`, `fe`, `fuerza`, `gratitud`, `paz`, `salmos`) heredan silencio 16s final + dips mid. Solo `victoria` re-renderizado con v3.3.
-3. **Thumbnails con foto** — pinturas al óleo funcionan pero pueden tener CTR bajo vs fotos de personas. Idea pendiente.
+1. **Render lento ocasional** — `paz` tomó 42min, `esperanza` 43min vs 3-4min típico. v3.4 agregó per-clip timing — próximo render lento tendrá top-5 clip data en stdout.
+2. **Re-render pendiente con v3.3** — videos v3.2 (`amor`, `esperanza`, `fe`, `fuerza`, `gratitud`, `paz`, `salmos`) heredan silencio 16s final. Solo `victoria` re-renderizado. LUFS fix en v3.4 requiere nuevo render para aplicar.
+3. **A/B CTR test pendiente** — templates B y C listos (`generate_thumbnails.py --all-variants`), falta publicar y medir CTR en YouTube Studio.
+
+## Fixed en v3.6-thumbs-variants
+
+- ✅ Thumbnails con layout único — 3 templates A/B/C para CTR testing
+- ✅ Template B: centered/vignette radial — sleep/meditación audience
+- ✅ Template C: bottom-third bold — feed YouTube más agresivo
+- ✅ generate_thumbnails.py --all-variants — batch 8 temas × 3 = 24 thumbs
+
+## Fixed en v3.5-120min
+
+- ✅ Videos 120min no existían — render_120min.py con 25s/verso, moods solo relajantes
+- ✅ CLI --themes y --force para re-render parcial
 
 ## Fixed en v3.4-clean
 
