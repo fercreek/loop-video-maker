@@ -1,0 +1,32 @@
+{
+  "path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/youtube_60min/upload/fixed/fuerza_40min_fixed.mp4",
+  "theme": "fuerza_40min_fixed",
+  "evaluated_at": "2026-04-22T04:16:35",
+  "duration_sec": 2374.0,
+  "nominal_minutes": 40,
+  "video_bitrate_kbps": 3359,
+  "total_bitrate_kbps": 3556,
+  "fps": 12.0,
+  "resolution": "1920x1080",
+  "size_mb": 1006.4,
+  "mb_per_min": 25.44,
+  "loudness_lufs": -18.0,
+  "silences": [],
+  "audio_dips": [],
+  "thumbnail_exists": false,
+  "checks": {
+    "duration": false,
+    "video_bitrate": true,
+    "fps": true,
+    "size_per_min": true,
+    "loudness": true,
+    "no_silences": true,
+    "no_dips": true,
+    "thumbnail": false
+  },
+  "issues": [
+    "Duración 2374s vs nominal 2400s (Δ 26s)",
+    "Thumbnail no encontrado: /Users/fernandocastaneda/Documents/loop-video-maker/output/youtube_60min/upload/fixed/fuerza_40min_fixed_thumb.jpg"
+  ],
+  "score": 75
+}

@@ -1,0 +1,31 @@
+{
+  "path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/youtube_60min/paz/paz_60min.mp4",
+  "theme": "paz",
+  "evaluated_at": "2026-04-22T04:28:30",
+  "duration_sec": 3600.0,
+  "nominal_minutes": 60,
+  "video_bitrate_kbps": 3390,
+  "total_bitrate_kbps": 3586,
+  "fps": 12.0,
+  "resolution": "1920x1080",
+  "size_mb": 1539.2,
+  "mb_per_min": 25.65,
+  "loudness_lufs": -20.5,
+  "silences": [],
+  "audio_dips": [],
+  "thumbnail_exists": true,
+  "checks": {
+    "duration": true,
+    "video_bitrate": true,
+    "fps": true,
+    "size_per_min": true,
+    "loudness": false,
+    "no_silences": true,
+    "no_dips": true,
+    "thumbnail": true
+  },
+  "issues": [
+    "Loudness -20.5 LUFS vs target -16.0±3.0"
+  ],
+  "score": 80
+}

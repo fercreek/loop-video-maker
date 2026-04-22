@@ -1,0 +1,29 @@
+{
+  "path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/youtube_60min/esperanza/esperanza_60min.mp4",
+  "theme": "esperanza",
+  "evaluated_at": "2026-04-22T04:23:42",
+  "duration_sec": 3600.0,
+  "nominal_minutes": 60,
+  "video_bitrate_kbps": 3391,
+  "total_bitrate_kbps": 3588,
+  "fps": 12.0,
+  "resolution": "1920x1080",
+  "size_mb": 1540.0,
+  "mb_per_min": 25.67,
+  "loudness_lufs": -18.7,
+  "silences": [],
+  "audio_dips": [],
+  "thumbnail_exists": true,
+  "checks": {
+    "duration": true,
+    "video_bitrate": true,
+    "fps": true,
+    "size_per_min": true,
+    "loudness": true,
+    "no_silences": true,
+    "no_dips": true,
+    "thumbnail": true
+  },
+  "issues": [],
+  "score": 100
+}

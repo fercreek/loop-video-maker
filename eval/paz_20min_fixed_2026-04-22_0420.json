@@ -1,0 +1,31 @@
+{
+  "path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/youtube_60min/upload/fixed/paz_20min_fixed.mp4",
+  "theme": "paz_20min_fixed",
+  "evaluated_at": "2026-04-22T04:20:37",
+  "duration_sec": 1200.1,
+  "nominal_minutes": 20,
+  "video_bitrate_kbps": 3393,
+  "total_bitrate_kbps": 3591,
+  "fps": 12.0,
+  "resolution": "1920x1080",
+  "size_mb": 513.8,
+  "mb_per_min": 25.69,
+  "loudness_lufs": -16.6,
+  "silences": [],
+  "audio_dips": [],
+  "thumbnail_exists": false,
+  "checks": {
+    "duration": true,
+    "video_bitrate": true,
+    "fps": true,
+    "size_per_min": true,
+    "loudness": true,
+    "no_silences": true,
+    "no_dips": true,
+    "thumbnail": false
+  },
+  "issues": [
+    "Thumbnail no encontrado: /Users/fernandocastaneda/Documents/loop-video-maker/output/youtube_60min/upload/fixed/paz_20min_fixed_thumb.jpg"
+  ],
+  "score": 90
+}
