@@ -21,6 +21,7 @@ from core.verse_gen import cargar_versiculos, versiculos_a_lista
 from core.music_gen import generate_playlist
 from core.video_render import renderizar_video_fast
 from core.render_logger import RenderLogger, clean_file, clean_dir
+from core.thumbnail_gen import generate_thumbnail_for_theme
 
 # ─── Mood mapping per theme ────────────────────────────────────────────────────
 
@@ -170,6 +171,12 @@ def render_one(
             os.rmdir(audio_dir)
         except OSError:
             pass
+        # Auto-generate thumbnail
+        try:
+            thumb_path = generate_thumbnail_for_theme(theme, output_dir)
+            print(f"  [thumb] Thumbnail generado → {thumb_path}")
+        except Exception as exc:
+            print(f"  [thumb] Warning: no se pudo generar thumbnail: {exc}")
     except Exception as exc:
         elapsed = time.time() - t0
         logger.end(output_path=output_path, elapsed_sec=elapsed, error=str(exc))
