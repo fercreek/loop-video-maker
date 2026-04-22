@@ -147,6 +147,200 @@ def _draw_diagonal_arrow(draw: ImageDraw.ImageDraw, cx: int, cy: int, accent: tu
     draw.polygon(head, outline=(0, 0, 0))
 
 
+# ─── Template B helpers ───────────────────────────────────────────────────────
+
+def _make_thumbnail_b(
+    theme: str, output_path: str,
+    title: str, subtitle: str,
+    bg_abs: str, accent: tuple, channel: str,
+) -> str:
+    """
+    Template B — Centered layout / meditación / sleep.
+
+    Layout:
+    - Full-bleed background with radial dark vignette (center stays bright)
+    - Title CENTERED, 110px Impact — accent line 1, white line 2
+    - Centered subtitle below
+    - Horizontal accent bar under subtitle (centered)
+    - 60min / 120min badge top-right
+    - Channel tag bottom-right
+    No arrow — clean, minimal energy for sleep/relaxation audience.
+    """
+    W, H = THUMB_SIZE
+
+    bg = Image.open(bg_abs).convert("RGB").resize((W, H), Image.LANCZOS)
+
+    # Radial vignette — edges dark, center brighter
+    overlay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    ov_draw = ImageDraw.Draw(overlay)
+    cx_v, cy_v = W // 2, H // 2
+    max_r = (W**2 + H**2) ** 0.5 / 2
+    for x in range(0, W, 2):
+        for y in range(0, H, 2):
+            r = ((x - cx_v)**2 + (y - cy_v)**2) ** 0.5
+            t = r / max_r
+            alpha = int(200 * t * t)
+            ov_draw.point([(x, y), (x+1, y), (x, y+1), (x+1, y+1)],
+                          fill=(0, 0, 0, alpha))
+    canvas = Image.alpha_composite(bg.convert("RGBA"), overlay)
+
+    try:
+        font_title = ImageFont.truetype(FONT_BOLD, 110)
+        font_sub   = ImageFont.truetype(FONT_SUB,  40)
+        font_ch    = ImageFont.truetype(FONT_SUB,  30)
+    except Exception:
+        font_title = font_sub = font_ch = ImageFont.load_default()
+
+    title_lines  = title.split("\n")
+    tmp_draw     = ImageDraw.Draw(canvas)
+    line_heights = [tmp_draw.textbbox((0, 0), ln, font=font_title)[3]
+                    - tmp_draw.textbbox((0, 0), ln, font=font_title)[1]
+                    for ln in title_lines]
+    total_title_h = sum(line_heights) + 12 * (len(title_lines) - 1)
+
+    title_block_top = H // 2 - total_title_h // 2 - 40
+
+    # Glow layer
+    glow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    glow_draw = ImageDraw.Draw(glow)
+    y = title_block_top
+    for i, line in enumerate(title_lines):
+        bbox = glow_draw.textbbox((0, 0), line, font=font_title)
+        lw = bbox[2] - bbox[0]
+        glow_draw.text((W // 2 - lw // 2, y), line, font=font_title, fill=(*accent, 170))
+        y += line_heights[i] + 12
+    glow = glow.filter(ImageFilter.GaussianBlur(radius=22))
+    canvas = Image.alpha_composite(canvas, glow)
+
+    composite = canvas.convert("RGB")
+    draw = ImageDraw.Draw(composite)
+
+    # Title centered
+    y = title_block_top
+    for i, line in enumerate(title_lines):
+        bbox = draw.textbbox((0, 0), line, font=font_title)
+        lw = bbox[2] - bbox[0]
+        _outlined_text(draw, (W // 2 - lw // 2, y), line,
+                       font=font_title,
+                       fill=accent if i == 0 else (255, 255, 255),
+                       stroke_w=7)
+        y += line_heights[i] + 12
+
+    # Subtitle centered
+    sub_y = y + 18
+    bbox = draw.textbbox((0, 0), subtitle, font=font_sub)
+    sw = bbox[2] - bbox[0]
+    _outlined_text(draw, (W // 2 - sw // 2, sub_y), subtitle,
+                   font=font_sub, fill=(220, 220, 220), stroke_w=3)
+
+    # Horizontal accent bar centered
+    bar_y = int(sub_y + 48)
+    draw.rectangle([(W // 2 - 180, bar_y), (W // 2 + 180, bar_y + 5)], fill=accent)
+
+    # Channel bottom-right
+    bbox = draw.textbbox((0, 0), channel, font=font_ch)
+    cw = bbox[2] - bbox[0]
+    _outlined_text(draw, (W - cw - 28, H - 44), channel,
+                   font=font_ch, fill=(255, 255, 255), stroke_w=3)
+
+    os.makedirs(os.path.dirname(output_path) or ".", exist_ok=True)
+    composite.save(output_path, "JPEG", quality=95)
+    return output_path
+
+
+def _make_thumbnail_c(
+    theme: str, output_path: str,
+    title: str, subtitle: str,
+    bg_abs: str, accent: tuple, channel: str,
+) -> str:
+    """
+    Template C — Bottom-third / modern / impact-first.
+
+    Layout:
+    - Large oil painting dominates top 60% (attracts eye, no text)
+    - Bottom strip: dark gradient, huge title (left-aligned), no subtitle
+    - Top accent color pill badge (e.g. "60 MIN BÍBLICO")
+    - Accent left bar (4px)
+    High CTR variant for viewers who respond to bold bottom-text overlays.
+    """
+    W, H = THUMB_SIZE
+    split_y = int(H * 0.52)    # painting above, text strip below
+
+    bg = Image.open(bg_abs).convert("RGB").resize((W, H), Image.LANCZOS)
+
+    # Full-bleed bottom darkening (split_y downward)
+    overlay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    ov_draw = ImageDraw.Draw(overlay)
+    for y in range(split_y, H):
+        t = (y - split_y) / (H - split_y)
+        alpha = int(220 * (0.4 + 0.6 * t))
+        ov_draw.line([(0, y), (W, y)], fill=(0, 0, 0, alpha))
+    # Subtle top vignette
+    for y in range(0, int(H * 0.15)):
+        t = 1.0 - y / (H * 0.15)
+        ov_draw.line([(0, y), (W, y)], fill=(0, 0, 0, int(80 * t)))
+
+    canvas = Image.alpha_composite(bg.convert("RGBA"), overlay)
+
+    try:
+        font_huge  = ImageFont.truetype(FONT_BOLD, 115)
+        font_badge = ImageFont.truetype(FONT_SUB,  30)
+        font_ch    = ImageFont.truetype(FONT_SUB,  28)
+    except Exception:
+        font_huge = font_badge = font_ch = ImageFont.load_default()
+
+    # Glow layer — title only
+    title_lines  = title.split("\n")
+    tmp_draw     = ImageDraw.Draw(canvas)
+    line_heights = [tmp_draw.textbbox((0, 0), ln, font=font_huge)[3]
+                    - tmp_draw.textbbox((0, 0), ln, font=font_huge)[1]
+                    for ln in title_lines]
+    total_title_h = sum(line_heights) + 10 * (len(title_lines) - 1)
+    title_y = H - total_title_h - 64
+
+    glow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    glow_draw = ImageDraw.Draw(glow)
+    y = title_y
+    for i, line in enumerate(title_lines):
+        glow_draw.text((60, y), line, font=font_huge, fill=(*accent, 170))
+        y += line_heights[i] + 10
+    glow = glow.filter(ImageFilter.GaussianBlur(radius=20))
+    canvas = Image.alpha_composite(canvas, glow)
+
+    composite = canvas.convert("RGB")
+    draw = ImageDraw.Draw(composite)
+
+    # Accent left bar (4px)
+    draw.rectangle([(0, 0), (4, H)], fill=accent)
+
+    # Title bottom-aligned, left
+    y = title_y
+    for i, line in enumerate(title_lines):
+        _outlined_text(draw, (64, y), line, font=font_huge,
+                       fill=accent if i == 0 else (255, 255, 255),
+                       stroke_w=6)
+        y += line_heights[i] + 10
+
+    # Accent badge pill top-left
+    badge_text = subtitle[:28] if subtitle else "VERSÍCULOS BÍBLICOS"
+    bbox = draw.textbbox((0, 0), badge_text, font=font_badge)
+    bw = bbox[2] - bbox[0] + 28
+    bh = bbox[3] - bbox[1] + 14
+    draw.rounded_rectangle([(50, 22), (50 + bw, 22 + bh)],
+                            radius=8, fill=(*accent, 220))
+    draw.text((64, 22 + 7), badge_text, font=font_badge, fill=(0, 0, 0))
+
+    # Channel bottom-right
+    bbox = draw.textbbox((0, 0), channel, font=font_ch)
+    cw = bbox[2] - bbox[0]
+    _outlined_text(draw, (W - cw - 28, H - 38), channel,
+                   font=font_ch, fill=(255, 255, 255), stroke_w=3)
+
+    os.makedirs(os.path.dirname(output_path) or ".", exist_ok=True)
+    composite.save(output_path, "JPEG", quality=95)
+    return output_path
+
+
 # ─── Core function ────────────────────────────────────────────────────────────
 
 def make_thumbnail(
@@ -157,6 +351,7 @@ def make_thumbnail(
     bg_path: str | None = None,
     accent_hex: str | None = None,
     channel: str = CHANNEL_TAG,
+    template: str = "A",
 ) -> str:
     """
     Generate a YouTube thumbnail for the given theme.
@@ -169,18 +364,27 @@ def make_thumbnail(
         bg_path:     Override background image path.
         accent_hex:  Override accent color ("#RRGGBB").
         channel:     Channel watermark string.
+        template:    "A" (default, left-aligned), "B" (centered/sleep),
+                     "C" (bottom-third/modern). Used for A/B CTR testing.
 
     Returns:
         output_path
     """
-    W, H = THUMB_SIZE
-
-    copy    = THEME_COPY.get(theme, {"title": theme.upper(), "subtitle": ""})
-    title   = title   or copy["title"]
+    copy     = THEME_COPY.get(theme, {"title": theme.upper(), "subtitle": ""})
+    title    = title    or copy["title"]
     subtitle = subtitle or copy["subtitle"]
-    bg_rel  = bg_path or THEME_BG.get(theme, "output/fondos/fondo_light.jpg")
-    bg_abs  = bg_rel if os.path.isabs(bg_rel) else os.path.join(PROJECT_DIR, bg_rel)
-    accent  = _hex(accent_hex or THEME_ACCENT.get(theme, "#FFD700"))
+    bg_rel   = bg_path or THEME_BG.get(theme, "output/fondos/fondo_light.jpg")
+    bg_abs   = bg_rel if os.path.isabs(bg_rel) else os.path.join(PROJECT_DIR, bg_rel)
+    accent   = _hex(accent_hex or THEME_ACCENT.get(theme, "#FFD700"))
+
+    # Dispatch to template-specific renderer
+    if template == "B":
+        return _make_thumbnail_b(theme, output_path, title, subtitle, bg_abs, accent, channel)
+    if template == "C":
+        return _make_thumbnail_c(theme, output_path, title, subtitle, bg_abs, accent, channel)
+
+    # Template A (original) — continue below
+    W, H = THUMB_SIZE
 
     # ── Background ──────────────────────────────────────────────────────────
     bg = Image.open(bg_abs).convert("RGB").resize((W, H), Image.LANCZOS)
@@ -273,12 +477,23 @@ def make_thumbnail(
     return output_path
 
 
-def generate_thumbnail_for_theme(theme: str, output_dir: str) -> str:
+def generate_thumbnail_for_theme(theme: str, output_dir: str, all_variants: bool = False) -> str:
     """
-    Convenience wrapper: generate thumbnail for theme into output_dir.
-    Filename: {theme}_thumb.jpg
-    Returns absolute path.
+    Generate thumbnail(s) for theme into output_dir.
+
+    Default (all_variants=False): generates template A only → {theme}_thumb.jpg
+    With all_variants=True: generates A + B + C:
+        {theme}_thumb.jpg       ← Template A (canonical, left-aligned)
+        {theme}_thumb_b.jpg     ← Template B (centered/sleep)
+        {theme}_thumb_c.jpg     ← Template C (bottom-third/modern)
+
+    Returns absolute path of primary thumbnail (template A).
     """
-    out = os.path.join(output_dir, f"{theme}_thumb.jpg")
-    path = make_thumbnail(theme=theme, output_path=out)
-    return path
+    out_a = os.path.join(output_dir, f"{theme}_thumb.jpg")
+    make_thumbnail(theme=theme, output_path=out_a, template="A")
+    if all_variants:
+        make_thumbnail(theme=theme, output_path=os.path.join(output_dir, f"{theme}_thumb_b.jpg"),
+                       template="B")
+        make_thumbnail(theme=theme, output_path=os.path.join(output_dir, f"{theme}_thumb_c.jpg"),
+                       template="C")
+    return out_a
