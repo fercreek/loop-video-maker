@@ -1,0 +1,102 @@
+
+🎬 Iniciando renders 60 minutos
+   Fondos: 11 pinturas
+   FPS: 12  |  20s/verso  |  60 min/video
+   Output: output/youtube_60min/
+
+
+============================================================
+  VIDEO: Paz de Dios  (tema: paz)
+============================================================
+  Versos: 59 únicos → 180 ciclados = 60 min
+  ⚠️  Ya existe (1786 MB) — saltando.
+
+============================================================
+  VIDEO: Fe que mueve montañas  (tema: fe)
+============================================================
+  Versos: 51 únicos → 180 ciclados = 60 min
+  ⚠️  Ya existe (1787 MB) — saltando.
+
+============================================================
+  VIDEO: Esperanza en Dios  (tema: esperanza)
+============================================================
+  Versos: 46 únicos → 180 ciclados = 60 min
+  ⚠️  Ya existe (1362 MB) — saltando.
+
+============================================================
+  VIDEO: El Amor de Dios  (tema: amor)
+============================================================
+  Versos: 52 únicos → 180 ciclados = 60 min
+  Generando audio playlist (Adoración+Paz profunda+Sanacion, 3600s)...
+  Audio listo en 193s → /Users/fernandocastaneda/Documents/loop-video-maker/output/youtube_60min/amor/audio/playlist.wav
+  [log] logs/renders/2026-04-14_18-31_amor.md
+  Renderizando video (52 versos × 20s, 12fps)...
+  Fondos: 11 pinturas rotando cada verso
+  [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 3%  ETA 3min  11 fondos preparados.  [█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 5%  ETA 2min  Pre-renderizando 180 textos...  [███░░░░░░░░░░░░░░░░░░░░░░░░░░░] 10%  ETA 4min  Textos pre-renderizados. Iniciando clips  [████░░░░░░░░░░░░░░░░░░░░░░░░░░] 14%  ETA 3min  Clips: 9/180  [█████░░░░░░░░░░░░░░░░░░░░░░░░░] 18%  ETA 3min  Clips: 18/180  [██████░░░░░░░░░░░░░░░░░░░░░░░░] 21%  ETA 3min  Clips: 27/180  [███████░░░░░░░░░░░░░░░░░░░░░░░] 25%  ETA 3min  Clips: 36/180  [████████░░░░░░░░░░░░░░░░░░░░░░] 29%  ETA 3min  Clips: 45/180  [█████████░░░░░░░░░░░░░░░░░░░░░] 32%  ETA 2min  Clips: 54/180  [██████████░░░░░░░░░░░░░░░░░░░░] 36%  ETA 2min  Clips: 63/180  [████████████░░░░░░░░░░░░░░░░░░] 40%  ETA 2min  Clips: 72/180  [█████████████░░░░░░░░░░░░░░░░░] 44%  ETA 2min  Clips: 81/180  [██████████████░░░░░░░░░░░░░░░░] 48%  ETA 2min  Clips: 90/180  [███████████████░░░░░░░░░░░░░░░] 51%  ETA 2min  Clips: 99/180  [████████████████░░░░░░░░░░░░░░] 55%  ETA 1min  Clips: 108/180  [█████████████████░░░░░░░░░░░░░] 59%  ETA 1min  Clips: 117/180  [██████████████████░░░░░░░░░░░░] 62%  ETA 1min  Clips: 126/180  [███████████████████░░░░░░░░░░░] 66%  ETA 1min  Clips: 135/180  [█████████████████████░░░░░░░░░] 70%  ETA 1min  Clips: 144/180  [██████████████████████░░░░░░░░] 74%  ETA 1min  Clips: 153/180  [███████████████████████░░░░░░░] 78%  ETA 1min  Clips: 162/180  [████████████████████████░░░░░░] 81%  ETA 1min  Clips: 171/180  [█████████████████████████░░░░░] 85%  ETA 0min  Clips: 180/180  [█████████████████████████░░░░░] 86%  ETA 0min  Concatenando clips...  [███████████████████████████░░░] 93%  ETA 0min  Añadiendo audio...  [██████████████████████████████] 100%  ETA 0min  ¡Video completado!  [clean] _work/ eliminado (2924 MB liberados)
+
+  ✅ Completado en 3 min  —  output/youtube_60min/amor/amor_60min.mp4  (1538 MB)
+  [log] Veredicto guardado → logs/renders/2026-04-14_18-31_amor.md
+  [clean] Audio WAV eliminado (606 MB liberados)
+
+============================================================
+  VIDEO: Gratitud a Dios  (tema: gratitud)
+============================================================
+  Versos: 43 únicos → 180 ciclados = 60 min
+  Generando audio playlist (Meditacion+Adoración+Paz profunda, 3600s)...
+  Audio listo en 193s → /Users/fernandocastaneda/Documents/loop-video-maker/output/youtube_60min/gratitud/audio/playlist.wav
+  [log] logs/renders/2026-04-14_18-38_gratitud.md
+  Renderizando video (43 versos × 20s, 12fps)...
+  Fondos: 11 pinturas rotando cada verso
+  [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 3%  ETA 3min  11 fondos preparados.  [█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 5%  ETA 2min  Pre-renderizando 180 textos...  [███░░░░░░░░░░░░░░░░░░░░░░░░░░░] 10%  ETA 4min  Textos pre-renderizados. Iniciando clips  [████░░░░░░░░░░░░░░░░░░░░░░░░░░] 14%  ETA 4min  Clips: 9/180  [█████░░░░░░░░░░░░░░░░░░░░░░░░░] 18%  ETA 3min  Clips: 18/180  [██████░░░░░░░░░░░░░░░░░░░░░░░░] 21%  ETA 3min  Clips: 27/180  [███████░░░░░░░░░░░░░░░░░░░░░░░] 25%  ETA 3min  Clips: 36/180  [████████░░░░░░░░░░░░░░░░░░░░░░] 29%  ETA 2min  Clips: 45/180  [█████████░░░░░░░░░░░░░░░░░░░░░] 32%  ETA 2min  Clips: 54/180  [██████████░░░░░░░░░░░░░░░░░░░░] 36%  ETA 2min  Clips: 63/180  [████████████░░░░░░░░░░░░░░░░░░] 40%  ETA 2min  Clips: 72/180  [█████████████░░░░░░░░░░░░░░░░░] 44%  ETA 2min  Clips: 81/180  [██████████████░░░░░░░░░░░░░░░░] 48%  ETA 2min  Clips: 90/180  [███████████████░░░░░░░░░░░░░░░] 51%  ETA 2min  Clips: 99/180  [████████████████░░░░░░░░░░░░░░] 55%  ETA 1min  Clips: 108/180  [█████████████████░░░░░░░░░░░░░] 59%  ETA 1min  Clips: 117/180  [██████████████████░░░░░░░░░░░░] 62%  ETA 1min  Clips: 126/180  [███████████████████░░░░░░░░░░░] 66%  ETA 1min  Clips: 135/180  [█████████████████████░░░░░░░░░] 70%  ETA 1min  Clips: 144/180  [██████████████████████░░░░░░░░] 74%  ETA 1min  Clips: 153/180  [███████████████████████░░░░░░░] 78%  ETA 1min  Clips: 162/180  [████████████████████████░░░░░░] 81%  ETA 1min  Clips: 171/180  [█████████████████████████░░░░░] 85%  ETA 0min  Clips: 180/180  [█████████████████████████░░░░░] 86%  ETA 0min  Concatenando clips...  [███████████████████████████░░░] 93%  ETA 0min  Añadiendo audio...  [██████████████████████████████] 100%  ETA 0min  ¡Video completado!  [clean] _work/ eliminado (2923 MB liberados)
+
+  ✅ Completado en 3 min  —  output/youtube_60min/gratitud/gratitud_60min.mp4  (1537 MB)
+  [log] Veredicto guardado → logs/renders/2026-04-14_18-38_gratitud.md
+  [clean] Audio WAV eliminado (606 MB liberados)
+
+============================================================
+  VIDEO: Victoria en Cristo  (tema: victoria)
+============================================================
+  Versos: 43 únicos → 180 ciclados = 60 min
+  Generando audio playlist (Devoción+Adoración+Sanacion, 3600s)...
+  Audio listo en 197s → /Users/fernandocastaneda/Documents/loop-video-maker/output/youtube_60min/victoria/audio/playlist.wav
+  [log] logs/renders/2026-04-14_18-44_victoria.md
+  Renderizando video (43 versos × 20s, 12fps)...
+  Fondos: 11 pinturas rotando cada verso
+  [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 3%  ETA 3min  11 fondos preparados.  [█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 5%  ETA 2min  Pre-renderizando 180 textos...  [███░░░░░░░░░░░░░░░░░░░░░░░░░░░] 10%  ETA 4min  Textos pre-renderizados. Iniciando clips  [████░░░░░░░░░░░░░░░░░░░░░░░░░░] 14%  ETA 4min  Clips: 9/180  [█████░░░░░░░░░░░░░░░░░░░░░░░░░] 18%  ETA 3min  Clips: 18/180  [██████░░░░░░░░░░░░░░░░░░░░░░░░] 21%  ETA 3min  Clips: 27/180  [███████░░░░░░░░░░░░░░░░░░░░░░░] 25%  ETA 3min  Clips: 36/180  [████████░░░░░░░░░░░░░░░░░░░░░░] 29%  ETA 2min  Clips: 45/180  [█████████░░░░░░░░░░░░░░░░░░░░░] 32%  ETA 2min  Clips: 54/180  [██████████░░░░░░░░░░░░░░░░░░░░] 36%  ETA 2min  Clips: 63/180  [████████████░░░░░░░░░░░░░░░░░░] 40%  ETA 2min  Clips: 72/180  [█████████████░░░░░░░░░░░░░░░░░] 44%  ETA 2min  Clips: 81/180  [██████████████░░░░░░░░░░░░░░░░] 48%  ETA 2min  Clips: 90/180  [███████████████░░░░░░░░░░░░░░░] 51%  ETA 1min  Clips: 99/180  [████████████████░░░░░░░░░░░░░░] 55%  ETA 1min  Clips: 108/180  [█████████████████░░░░░░░░░░░░░] 59%  ETA 1min  Clips: 117/180  [██████████████████░░░░░░░░░░░░] 62%  ETA 1min  Clips: 126/180  [███████████████████░░░░░░░░░░░] 66%  ETA 1min  Clips: 135/180  [█████████████████████░░░░░░░░░] 70%  ETA 1min  Clips: 144/180  [██████████████████████░░░░░░░░] 74%  ETA 1min  Clips: 153/180  [███████████████████████░░░░░░░] 78%  ETA 1min  Clips: 162/180  [████████████████████████░░░░░░] 81%  ETA 1min  Clips: 171/180  [█████████████████████████░░░░░] 85%  ETA 0min  Clips: 180/180  [█████████████████████████░░░░░] 86%  ETA 0min  Concatenando clips...  [███████████████████████████░░░] 93%  ETA 0min  Añadiendo audio...  [██████████████████████████████] 100%  ETA 0min  ¡Video completado!  [clean] _work/ eliminado (2932 MB liberados)
+
+  ✅ Completado en 3 min  —  output/youtube_60min/victoria/victoria_60min.mp4  (1541 MB)
+  [log] Veredicto guardado → logs/renders/2026-04-14_18-44_victoria.md
+  [clean] Audio WAV eliminado (606 MB liberados)
+
+============================================================
+  VIDEO: Fuerza en Dios  (tema: fuerza)
+============================================================
+  Versos: 44 únicos → 180 ciclados = 60 min
+  Generando audio playlist (Sanacion+Devoción+Paz profunda, 3600s)...
+  Audio listo en 191s → /Users/fernandocastaneda/Documents/loop-video-maker/output/youtube_60min/fuerza/audio/playlist.wav
+  [log] logs/renders/2026-04-14_18-51_fuerza.md
+  Renderizando video (44 versos × 20s, 12fps)...
+  Fondos: 11 pinturas rotando cada verso
+  [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 3%  ETA 3min  11 fondos preparados.  [█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 5%  ETA 2min  Pre-renderizando 180 textos...  [███░░░░░░░░░░░░░░░░░░░░░░░░░░░] 10%  ETA 4min  Textos pre-renderizados. Iniciando clips  [████░░░░░░░░░░░░░░░░░░░░░░░░░░] 14%  ETA 4min  Clips: 9/180  [█████░░░░░░░░░░░░░░░░░░░░░░░░░] 18%  ETA 3min  Clips: 18/180  [██████░░░░░░░░░░░░░░░░░░░░░░░░] 21%  ETA 3min  Clips: 27/180  [███████░░░░░░░░░░░░░░░░░░░░░░░] 25%  ETA 3min  Clips: 36/180  [████████░░░░░░░░░░░░░░░░░░░░░░] 29%  ETA 3min  Clips: 45/180  [█████████░░░░░░░░░░░░░░░░░░░░░] 32%  ETA 2min  Clips: 54/180  [██████████░░░░░░░░░░░░░░░░░░░░] 36%  ETA 2min  Clips: 63/180  [████████████░░░░░░░░░░░░░░░░░░] 40%  ETA 2min  Clips: 72/180  [█████████████░░░░░░░░░░░░░░░░░] 44%  ETA 2min  Clips: 81/180  [██████████████░░░░░░░░░░░░░░░░] 48%  ETA 2min  Clips: 90/180  [███████████████░░░░░░░░░░░░░░░] 51%  ETA 2min  Clips: 99/180  [████████████████░░░░░░░░░░░░░░] 55%  ETA 1min  Clips: 108/180  [█████████████████░░░░░░░░░░░░░] 59%  ETA 1min  Clips: 117/180  [██████████████████░░░░░░░░░░░░] 62%  ETA 1min  Clips: 126/180  [███████████████████░░░░░░░░░░░] 66%  ETA 1min  Clips: 135/180  [█████████████████████░░░░░░░░░] 70%  ETA 1min  Clips: 144/180  [██████████████████████░░░░░░░░] 74%  ETA 1min  Clips: 153/180  [███████████████████████░░░░░░░] 78%  ETA 1min  Clips: 162/180  [████████████████████████░░░░░░] 81%  ETA 1min  Clips: 171/180  [█████████████████████████░░░░░] 85%  ETA 0min  Clips: 180/180  [█████████████████████████░░░░░] 86%  ETA 0min  Concatenando clips...  [███████████████████████████░░░] 93%  ETA 0min  Añadiendo audio...  [██████████████████████████████] 100%  ETA 0min  ¡Video completado!  [clean] _work/ eliminado (2923 MB liberados)
+
+  ✅ Completado en 3 min  —  output/youtube_60min/fuerza/fuerza_60min.mp4  (1537 MB)
+  [log] Veredicto guardado → logs/renders/2026-04-14_18-51_fuerza.md
+  [clean] Audio WAV eliminado (606 MB liberados)
+
+============================================================
+  VIDEO: Salmos — Adoración  (tema: salmos)
+============================================================
+  Versos: 45 únicos → 180 ciclados = 60 min
+  Generando audio playlist (Paz profunda+Adoración+Meditacion, 3600s)...
+  Audio listo en 193s → /Users/fernandocastaneda/Documents/loop-video-maker/output/youtube_60min/salmos/audio/playlist.wav
+  [log] logs/renders/2026-04-14_18-57_salmos.md
+  Renderizando video (45 versos × 20s, 12fps)...
+  Fondos: 11 pinturas rotando cada verso
+  [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 3%  ETA 3min  11 fondos preparados.  [█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 5%  ETA 2min  Pre-renderizando 180 textos...  [███░░░░░░░░░░░░░░░░░░░░░░░░░░░] 10%  ETA 4min  Textos pre-renderizados. Iniciando clips  [████░░░░░░░░░░░░░░░░░░░░░░░░░░] 14%  ETA 4min  Clips: 9/180  [█████░░░░░░░░░░░░░░░░░░░░░░░░░] 18%  ETA 3min  Clips: 18/180  [██████░░░░░░░░░░░░░░░░░░░░░░░░] 21%  ETA 3min  Clips: 27/180  [███████░░░░░░░░░░░░░░░░░░░░░░░] 25%  ETA 2min  Clips: 36/180  [████████░░░░░░░░░░░░░░░░░░░░░░] 29%  ETA 2min  Clips: 45/180  [█████████░░░░░░░░░░░░░░░░░░░░░] 32%  ETA 2min  Clips: 54/180  [██████████░░░░░░░░░░░░░░░░░░░░] 36%  ETA 2min  Clips: 63/180  [████████████░░░░░░░░░░░░░░░░░░] 40%  ETA 2min  Clips: 72/180  [█████████████░░░░░░░░░░░░░░░░░] 44%  ETA 2min  Clips: 81/180  [██████████████░░░░░░░░░░░░░░░░] 48%  ETA 2min  Clips: 90/180  [███████████████░░░░░░░░░░░░░░░] 51%  ETA 1min  Clips: 99/180  [████████████████░░░░░░░░░░░░░░] 55%  ETA 1min  Clips: 108/180  [█████████████████░░░░░░░░░░░░░] 59%  ETA 1min  Clips: 117/180  [██████████████████░░░░░░░░░░░░] 62%  ETA 1min  Clips: 126/180  [███████████████████░░░░░░░░░░░] 66%  ETA 1min  Clips: 135/180  [█████████████████████░░░░░░░░░] 70%  ETA 1min  Clips: 144/180  [██████████████████████░░░░░░░░] 74%  ETA 1min  Clips: 153/180  [███████████████████████░░░░░░░] 78%  ETA 1min  Clips: 162/180  [████████████████████████░░░░░░] 81%  ETA 1min  Clips: 171/180  [█████████████████████████░░░░░] 85%  ETA 0min  Clips: 180/180  [█████████████████████████░░░░░] 86%  ETA 0min  Concatenando clips...  [███████████████████████████░░░] 93%  ETA 0min  Añadiendo audio...  [██████████████████████████████] 100%  ETA 0min  ¡Video completado!  [clean] _work/ eliminado (2929 MB liberados)
+
+  ✅ Completado en 3 min  —  output/youtube_60min/salmos/salmos_60min.mp4  (1540 MB)
+  [log] Veredicto guardado → logs/renders/2026-04-14_18-57_salmos.md
+  [clean] Audio WAV eliminado (606 MB liberados)
+
+🎉 TODOS LOS VIDEOS COMPLETADOS en 0.5 horas
+   Carpeta: /Users/fernandocastaneda/Documents/loop-video-maker/output/youtube_60min

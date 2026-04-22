@@ -1,3 +1,51 @@
 2026-04-14 18:14  CLEAN    output/test_cleanup/fuerza/fuerza_1min_work  55 MB  — _work temp clips
 2026-04-14 18:14  CREATE   output/test_cleanup/fuerza/fuerza_1min.mp4  25 MB
 2026-04-14 18:14  CLEAN    output/test_cleanup/fuerza/audio/playlist.wav  10 MB  — audio playlist post-render
+2026-04-14 18:35  CLEAN    output/youtube_60min/amor/amor_60min_work  2924 MB  — _work temp clips
+2026-04-14 18:35  CREATE   output/youtube_60min/amor/amor_60min.mp4  1538 MB
+2026-04-14 18:35  CLEAN    output/youtube_60min/amor/audio/playlist.wav  606 MB  — audio playlist post-render
+2026-04-14 18:41  CLEAN    output/youtube_60min/gratitud/gratitud_60min_work  2923 MB  — _work temp clips
+2026-04-14 18:41  CREATE   output/youtube_60min/gratitud/gratitud_60min.mp4  1537 MB
+2026-04-14 18:41  CLEAN    output/youtube_60min/gratitud/audio/playlist.wav  606 MB  — audio playlist post-render
+2026-04-14 18:48  CLEAN    output/youtube_60min/victoria/victoria_60min_work  2932 MB  — _work temp clips
+2026-04-14 18:48  CREATE   output/youtube_60min/victoria/victoria_60min.mp4  1541 MB
+2026-04-14 18:48  CLEAN    output/youtube_60min/victoria/audio/playlist.wav  606 MB  — audio playlist post-render
+2026-04-14 18:54  CLEAN    output/youtube_60min/fuerza/fuerza_60min_work  2923 MB  — _work temp clips
+2026-04-14 18:54  CREATE   output/youtube_60min/fuerza/fuerza_60min.mp4  1537 MB
+2026-04-14 18:54  CLEAN    output/youtube_60min/fuerza/audio/playlist.wav  606 MB  — audio playlist post-render
+2026-04-14 19:01  CLEAN    output/youtube_60min/salmos/salmos_60min_work  2929 MB  — _work temp clips
+2026-04-14 19:01  CREATE   output/youtube_60min/salmos/salmos_60min.mp4  1540 MB
+2026-04-14 19:01  CLEAN    output/youtube_60min/salmos/audio/playlist.wav  606 MB  — audio playlist post-render
+2026-04-14 20:01  CLEAN    output/youtube_60min/paz/paz_60min_work  2921 MB  — _work temp clips
+2026-04-14 20:01  CREATE   output/youtube_60min/paz/paz_60min.mp4  1536 MB
+2026-04-14 20:01  CLEAN    output/youtube_60min/paz/audio/playlist.wav  606 MB  — audio playlist post-render
+2026-04-14 22:15  CLEAN    output/youtube_60min/esperanza/esperanza_60min_work  2926 MB  — _work temp clips
+2026-04-14 22:15  CREATE   output/youtube_60min/esperanza/esperanza_60min.mp4  1538 MB
+2026-04-14 22:15  CLEAN    output/youtube_60min/esperanza/audio/playlist.wav  606 MB  — audio playlist post-render
+2026-04-15 03:41  CLEAN    output/youtube_60min/amor/amor_60min_work  2926 MB  — _work temp clips
+2026-04-15 03:41  CREATE   output/youtube_60min/amor/amor_60min.mp4  1539 MB
+2026-04-15 03:41  CLEAN    output/youtube_60min/amor/audio/playlist.wav  606 MB  — audio playlist post-render
+2026-04-21 13:03  CLEAN    output/youtube_60min/victoria/victoria_60min_work  2934 MB  — _work temp clips
+2026-04-21 13:03  CREATE   output/youtube_60min/victoria/victoria_60min.mp4  1543 MB
+2026-04-21 13:03  CLEAN    output/youtube_60min/victoria/audio/playlist.wav  606 MB  — audio playlist post-render
+2026-04-22 03:57  CLEAN    output/youtube_60min/paz/paz_60min_work  2926 MB  — _work temp clips
+2026-04-22 03:57  CREATE   output/youtube_60min/paz/paz_60min.mp4  1539 MB
+2026-04-22 03:57  CLEAN    output/youtube_60min/paz/audio/playlist.wav  606 MB  — audio playlist post-render
+2026-04-22 04:01  CLEAN    output/youtube_60min/fe/fe_60min_work  2932 MB  — _work temp clips
+2026-04-22 04:01  CREATE   output/youtube_60min/fe/fe_60min.mp4  1542 MB
+2026-04-22 04:01  CLEAN    output/youtube_60min/fe/audio/playlist.wav  606 MB  — audio playlist post-render
+2026-04-22 04:05  CLEAN    output/youtube_60min/esperanza/esperanza_60min_work  2928 MB  — _work temp clips
+2026-04-22 04:05  CREATE   output/youtube_60min/esperanza/esperanza_60min.mp4  1540 MB
+2026-04-22 04:05  CLEAN    output/youtube_60min/esperanza/audio/playlist.wav  606 MB  — audio playlist post-render
+2026-04-22 04:08  CLEAN    output/youtube_60min/amor/amor_60min_work  2921 MB  — _work temp clips
+2026-04-22 04:08  CREATE   output/youtube_60min/amor/amor_60min.mp4  1537 MB
+2026-04-22 04:08  CLEAN    output/youtube_60min/amor/audio/playlist.wav  606 MB  — audio playlist post-render
+2026-04-22 04:12  CLEAN    output/youtube_60min/gratitud/gratitud_60min_work  2925 MB  — _work temp clips
+2026-04-22 04:12  CREATE   output/youtube_60min/gratitud/gratitud_60min.mp4  1539 MB
+2026-04-22 04:12  CLEAN    output/youtube_60min/gratitud/audio/playlist.wav  606 MB  — audio playlist post-render
+2026-04-22 04:16  CLEAN    output/youtube_60min/fuerza/fuerza_60min_work  2930 MB  — _work temp clips
+2026-04-22 04:16  CREATE   output/youtube_60min/fuerza/fuerza_60min.mp4  1541 MB
+2026-04-22 04:16  CLEAN    output/youtube_60min/fuerza/audio/playlist.wav  606 MB  — audio playlist post-render
+2026-04-22 04:21  CLEAN    output/youtube_60min/salmos/salmos_60min_work  2922 MB  — _work temp clips
+2026-04-22 04:21  CREATE   output/youtube_60min/salmos/salmos_60min.mp4  1537 MB
+2026-04-22 04:21  CLEAN    output/youtube_60min/salmos/audio/playlist.wav  606 MB  — audio playlist post-render
