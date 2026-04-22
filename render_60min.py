@@ -27,38 +27,30 @@ from core.music_gen import generate_playlist
 from core.video_render import renderizar_video_fast
 from core.render_logger import RenderLogger, clean_file
 from core.thumbnail_gen import generate_thumbnail_for_theme
+from config import (
+    SECONDS_PER_VERSE,
+    RENDER_FPS,
+    PARALLEL_JOBS,
+    WATERMARK,
+    CROSSFADE_SECONDS,
+    VISUAL_TEMPLATES,
+    OUTPUT_BASE_60MIN as OUTPUT_BASE,
+    FONDOS_GLOB,
+    THEME_MOODS,
+    THEME_LABELS,
+    ALL_THEMES,
+)
 
-# ─── Config ─────────────────────────────────────────────────────────────────
-SECONDS_PER_VERSE  = 20       # 20s per verse = 180 verses for 60 min
-TARGET_MINUTES     = 60
-RENDER_FPS         = 12       # 12fps — fine for slow Ken Burns pans
-PARALLEL_JOBS      = 6        # ffmpeg subprocesses in parallel (tune to CPU cores)
-WATERMARK          = "@FeEnAcción"
-OUTPUT_BASE        = "output/youtube_60min"
-
-# Verse-by-verse visual alternation: A (centrado, ornamentos) ↔ B (lateral, cinemático)
-VISUAL_TEMPLATES = [
-    {"layout_preset": "centrado_bajo", "text_style": "fea"},
-    {"layout_preset": "lateral_izq",   "text_style": "fea"},
-]
+TARGET_MINUTES = 60
 
 # Oil paintings pool (all 11)
 BG_IMAGES = sorted([
-    p for p in glob.glob("output/fondos/*.jpg")
+    p for p in glob.glob(FONDOS_GLOB)
     if not os.path.basename(p).startswith("imagen_")
 ])
 
-# Videos to render: (theme, audio_moods, label)
-VIDEOS = [
-    ("paz",       ["Paz profunda", "Meditacion", "Sanacion"],    "Paz de Dios"),
-    ("fe",        ["Adoración", "Devoción", "Paz profunda"],     "Fe que mueve montañas"),
-    ("esperanza", ["Sanacion", "Adoración", "Meditacion"],       "Esperanza en Dios"),
-    ("amor",      ["Adoración", "Paz profunda", "Sanacion"],     "El Amor de Dios"),
-    ("gratitud",  ["Meditacion", "Adoración", "Paz profunda"],   "Gratitud a Dios"),
-    ("victoria",  ["Devoción", "Adoración", "Sanacion"],         "Victoria en Cristo"),
-    ("fuerza",    ["Sanacion", "Devoción", "Paz profunda"],      "Fuerza en Dios"),
-    ("salmos",    ["Paz profunda", "Adoración", "Meditacion"],   "Salmos — Adoración"),
-]
+# Videos to render: (theme, audio_moods, label) — sourced from config
+VIDEOS = [(t, THEME_MOODS[t], THEME_LABELS[t]) for t in ALL_THEMES]
 
 os.makedirs(OUTPUT_BASE, exist_ok=True)
 
@@ -106,7 +98,7 @@ def render_video(theme: str, moods: list, label: str):
         moods=moods,
         total_seconds=total_seconds,
         output_dir=audio_dir,
-        crossfade_seconds=8.0,
+        crossfade_seconds=CROSSFADE_SECONDS,
     )
     print(f"  Audio listo en {time.time()-t0:.0f}s → {audio_path}")
 

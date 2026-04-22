@@ -22,28 +22,16 @@ from core.music_gen import generate_playlist
 from core.video_render import renderizar_video_fast
 from core.render_logger import RenderLogger, clean_file, clean_dir
 from core.thumbnail_gen import generate_thumbnail_for_theme
-
-# ─── Mood mapping per theme ────────────────────────────────────────────────────
-
-THEME_MOODS: dict[str, list[str]] = {
-    "paz":       ["Paz profunda", "Meditacion", "Sanacion"],
-    "fe":        ["Adoración", "Devoción", "Paz profunda"],
-    "esperanza": ["Sanacion", "Adoración", "Meditacion"],
-}
-
-DEFAULT_MOODS = ["Paz profunda", "Meditacion", "Adoración"]
-
-# ─── Visual templates — alternated verse-by-verse ─────────────────────────────
-# A = centrado_bajo: gold ornaments, label, diamond separator (devotional)
-# B = lateral_izq:   cinematic left-aligned, vertical gold bar, no label
-VISUAL_TEMPLATES = [
-    {"layout_preset": "centrado_bajo", "text_style": "fea"},
-    {"layout_preset": "lateral_izq",   "text_style": "fea"},
-]
-
-
-def get_moods(theme: str) -> list[str]:
-    return THEME_MOODS.get(theme.lower(), DEFAULT_MOODS)
+from config import (
+    VISUAL_TEMPLATES,
+    CROSSFADE_SECONDS,
+    SECONDS_PER_VERSE as DEFAULT_SECONDS_PER_VERSE,
+    RENDER_FPS as DEFAULT_FPS,
+    PARALLEL_JOBS as DEFAULT_WORKERS,
+    WATERMARK as DEFAULT_WATERMARK,
+    FONDOS_GLOB,
+    get_moods,
+)
 
 
 # ─── Background pool ──────────────────────────────────────────────────────────
@@ -52,7 +40,7 @@ def get_bg_images() -> list[str]:
     """Return all oil painting backgrounds (exclude imagen_* files)."""
     project_dir = os.path.dirname(os.path.abspath(__file__))
     paths = sorted([
-        p for p in glob.glob(os.path.join(project_dir, "output", "fondos", "*.jpg"))
+        p for p in glob.glob(os.path.join(project_dir, FONDOS_GLOB))
         if not os.path.basename(p).startswith("imagen_")
     ])
     return paths
@@ -99,7 +87,7 @@ def render_one(
         moods=moods,
         total_seconds=total_seconds,
         output_dir=audio_dir,
-        crossfade_seconds=8.0,
+        crossfade_seconds=CROSSFADE_SECONDS,
     )
     print(f"  Audio listo en {time.time() - t0:.0f}s -> {audio_path}")
 
@@ -206,15 +194,15 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--output", default="output/youtube/",
                    metavar="DIR",
                    help="Directorio de salida (default: output/youtube/)")
-    p.add_argument("--fps", type=int, default=12,
-                   help="Frames por segundo (default: 12)")
-    p.add_argument("--seconds-per-verse", type=int, default=20,
+    p.add_argument("--fps", type=int, default=DEFAULT_FPS,
+                   help=f"Frames por segundo (default: {DEFAULT_FPS})")
+    p.add_argument("--seconds-per-verse", type=int, default=DEFAULT_SECONDS_PER_VERSE,
                    dest="seconds_per_verse",
-                   help="Segundos por versiculo (default: 20)")
-    p.add_argument("--watermark", default="@FeEnAccion",
-                   help="Texto de marca de agua (default: @FeEnAccion)")
-    p.add_argument("--workers", type=int, default=6,
-                   help="Trabajos ffmpeg en paralelo (default: 6)")
+                   help=f"Segundos por versiculo (default: {DEFAULT_SECONDS_PER_VERSE})")
+    p.add_argument("--watermark", default=DEFAULT_WATERMARK,
+                   help=f"Texto de marca de agua (default: {DEFAULT_WATERMARK})")
+    p.add_argument("--workers", type=int, default=DEFAULT_WORKERS,
+                   help=f"Trabajos ffmpeg en paralelo (default: {DEFAULT_WORKERS})")
     p.add_argument("--force", action="store_true",
                    help="Sobreescribir videos existentes")
     return p

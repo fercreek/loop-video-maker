@@ -23,21 +23,11 @@ import re
 from datetime import datetime
 from pathlib import Path
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from config import EVAL_TARGETS as TARGETS
+
 EVAL_DIR = "eval"
 os.makedirs(EVAL_DIR, exist_ok=True)
-
-# ─── Targets ─────────────────────────────────────────────────────────────────
-TARGETS = {
-    "duration_tolerance_sec": 5.0,          # ±5s vs nominal
-    "min_bitrate_kbps": 3000,
-    "expected_fps": 12,
-    "mb_per_min_min": 18,
-    "mb_per_min_max": 32,
-    "lufs_target": -16.0,                    # relaxing music sweet spot (YouTube normalizes >-14)
-    "lufs_tolerance": 3.0,
-    "max_silence_sec": 2.0,
-    "max_dip_db": 6.0,                       # crossfade boundary dip
-}
 
 
 def ffprobe(path: str) -> dict:
@@ -205,10 +195,11 @@ def evaluate_video(path: str, nominal_minutes: int | None = None) -> dict:
     if dips:
         issues.append(f"{len(dips)} dips audio >{TARGETS['max_dip_db']}dB: {[(f'{t:.0f}s', f'-{d:.1f}dB') for t,d in dips[:5]]}")
 
-    # 8. Thumbnail
+    # 8. Thumbnail (existencia + tamaño válido YouTube)
     video_dir = os.path.dirname(path)
-    theme = Path(path).stem.replace("_60min", "").replace("_120min", "")
-    # thumbnail_gen uses {theme}_thumb.jpg
+    # Strip any _Nmin suffix (e.g. _5min, _60min, _120min) to get theme
+    stem = Path(path).stem
+    theme = re.sub(r"_\d+min$", "", stem)
     thumb_candidates = [
         os.path.join(video_dir, f"{theme}_thumb.jpg"),
         os.path.join(video_dir, f"{theme}_thumbnail.jpg"),
@@ -218,15 +209,44 @@ def evaluate_video(path: str, nominal_minutes: int | None = None) -> dict:
     if not checks["thumbnail"]:
         issues.append(f"Thumbnail no encontrado: {thumb_path}")
 
+    # 8b. Thumbnail specs (solo si existe)
+    thumb_specs: dict = {}
+    if checks["thumbnail"] and os.path.exists(thumb_path):
+        thumb_size_mb = os.path.getsize(thumb_path) / 1024 / 1024
+        thumb_specs["size_mb"] = round(thumb_size_mb, 2)
+        checks["thumbnail_size"] = thumb_size_mb <= TARGETS["thumbnail_max_mb"]
+        if not checks["thumbnail_size"]:
+            issues.append(
+                f"Thumbnail {thumb_size_mb:.2f}MB > {TARGETS['thumbnail_max_mb']}MB (YouTube limit)"
+            )
+        # Dimensiones vía PIL (cheap)
+        try:
+            from PIL import Image
+            with Image.open(thumb_path) as img:
+                w, h = img.size
+            thumb_specs["resolution"] = f"{w}x{h}"
+            checks["thumbnail_resolution"] = (
+                w == TARGETS["thumbnail_width"] and h == TARGETS["thumbnail_height"]
+            )
+            if not checks["thumbnail_resolution"]:
+                issues.append(
+                    f"Thumbnail {w}x{h} != {TARGETS['thumbnail_width']}x{TARGETS['thumbnail_height']}"
+                )
+        except Exception:
+            checks["thumbnail_resolution"] = True   # no penalizar si PIL no disponible
+
     # Score: weighted average
     weights = {
         "duration": 15, "video_bitrate": 10, "fps": 5,
         "size_per_min": 5, "loudness": 20, "no_silences": 15,
-        "no_dips": 20, "thumbnail": 10,
+        "no_dips": 20, "thumbnail": 7,
+        "thumbnail_size": 1.5, "thumbnail_resolution": 1.5,
     }
-    total_w = sum(weights.values())
-    earned = sum(weights[k] for k, ok in checks.items() if ok)
-    score = round(earned / total_w * 100)
+    # Solo cuentan checks ejecutados (ej: thumbnail_size no aplica si no hay thumb)
+    applicable = {k: w for k, w in weights.items() if k in checks}
+    total_w = sum(applicable.values())
+    earned = sum(w for k, w in applicable.items() if checks.get(k))
+    score = round(earned / total_w * 100) if total_w else 0
 
     return {
         "path": path,
@@ -244,6 +264,7 @@ def evaluate_video(path: str, nominal_minutes: int | None = None) -> dict:
         "silences": silences,
         "audio_dips": [(round(t, 1), round(d, 2)) for t, d in dips],
         "thumbnail_exists": checks["thumbnail"],
+        "thumbnail_specs": thumb_specs,
         "checks": checks,
         "issues": issues,
         "score": score,

@@ -29,32 +29,13 @@ from collections import Counter, defaultdict
 
 sys.path.insert(0, ".")
 
+from config import THEME_MOODS, THEME_LABELS, BATCH_SIZE, ALL_THEMES as _CONFIG_THEMES
+
+# Rotación alfabética estable (histórica) — ver iterations/iter_01.md
+ALL_THEMES = sorted(_CONFIG_THEMES)
+
 ITER_DIR = "iterations"
 EVAL_DIR = "eval"
-ALL_THEMES = ["amor", "esperanza", "fe", "fuerza", "gratitud", "paz", "salmos", "victoria"]
-BATCH_SIZE = 5
-
-THEME_MOODS = {
-    "amor":      ["Adoración", "Paz profunda", "Sanacion"],
-    "esperanza": ["Sanacion", "Adoración", "Meditacion"],
-    "fe":        ["Adoración", "Devoción", "Paz profunda"],
-    "fuerza":    ["Sanacion", "Devoción", "Paz profunda"],
-    "gratitud":  ["Meditacion", "Adoración", "Paz profunda"],
-    "paz":       ["Paz profunda", "Meditacion", "Sanacion"],
-    "salmos":    ["Paz profunda", "Adoración", "Meditacion"],
-    "victoria":  ["Devoción", "Adoración", "Sanacion"],
-}
-
-THEME_LABELS = {
-    "amor": "El Amor de Dios",
-    "esperanza": "Esperanza en Dios",
-    "fe": "Fe que mueve montañas",
-    "fuerza": "Fuerza en Dios",
-    "gratitud": "Gratitud a Dios",
-    "paz": "Paz de Dios",
-    "salmos": "Salmos — Adoración",
-    "victoria": "Victoria en Cristo",
-}
 
 
 def get_last_iter() -> tuple[int, dict | None]:

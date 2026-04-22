@@ -344,6 +344,8 @@ def renderizar_video(
     random_ken_burns: bool = True,
     render_fps: int = 24,
 ) -> str:
+    # DEPRECATED (v3.4): MoviePy renderer. Uso producción: renderizar_video_fast.
+    # Conservado para compat con app.py (Gradio) + tests legacy.
     """
     Renderiza el video final .mp4.
 
@@ -594,6 +596,7 @@ def renderizar_video_fast(
     """
     import subprocess
     import random as _random
+    import time
     from concurrent.futures import ThreadPoolExecutor, as_completed
 
     width, height = get_dimensions(format_key)
@@ -715,10 +718,12 @@ def renderizar_video_fast(
             "-an",
             out_clip,
         ]
+        t_start = time.time()
         r = subprocess.run(cmd, capture_output=True, text=True)
+        elapsed = time.time() - t_start
         if r.returncode != 0:
-            return idx, False, r.stderr[-800:]
-        return idx, True, out_clip
+            return idx, False, r.stderr[-800:], elapsed
+        return idx, True, out_clip, elapsed
 
     clip_args = [
         (i, processed_bg[i % len(processed_bg)], text_pngs[i], verse_effects[i])
@@ -726,20 +731,38 @@ def renderizar_video_fast(
     ]
 
     clip_map = {}
+    clip_times: list[tuple[int, float]] = []   # (clip_idx, seconds) for instrumentation
     done = 0
     report_every = max(1, len(full_verses) // 20)
+    SLOW_CLIP_THRESHOLD_SEC = 30.0   # umbral para log detallado de outliers
 
     with ThreadPoolExecutor(max_workers=parallel_jobs) as exe:
         futs = {exe.submit(render_clip, a): a[0] for a in clip_args}
         for fut in as_completed(futs):
-            idx, ok, result = fut.result()
+            result = fut.result()
+            # Backward compat: new tuple (idx, ok, result, elapsed)
+            if len(result) == 4:
+                idx, ok, payload, elapsed = result
+            else:
+                idx, ok, payload = result
+                elapsed = 0.0
             if not ok:
-                raise RuntimeError(f"ffmpeg failed clip {idx}: {result}")
-            clip_map[idx] = result
+                raise RuntimeError(f"ffmpeg failed clip {idx}: {payload}")
+            clip_map[idx] = payload
+            clip_times.append((idx, elapsed))
+            if elapsed > SLOW_CLIP_THRESHOLD_SEC:
+                print(f"  [slow-clip] idx={idx} took {elapsed:.1f}s (>30s threshold)")
             done += 1
             if progress_callback and done % report_every == 0:
                 pct = 0.10 + 0.75 * (done / len(full_verses))
                 progress_callback(pct, f"Clips: {done}/{len(full_verses)}")
+
+    # Top-5 slowest clips — útil para identificar outliers (paz/esperanza 42min bug)
+    if clip_times:
+        top5 = sorted(clip_times, key=lambda t: t[1], reverse=True)[:5]
+        avg = sum(t[1] for t in clip_times) / len(clip_times)
+        print(f"  [clip-stats] avg={avg:.2f}s  top-5 slowest: " +
+              ", ".join(f"#{i}:{s:.1f}s" for i, s in top5))
 
     if progress_callback:
         progress_callback(0.86, "Concatenando clips...")
@@ -765,10 +788,15 @@ def renderizar_video_fast(
     os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
 
     if musica_path and os.path.exists(musica_path):
+        # v3.4-clean: loudnorm a -16 LUFS en el mux final.
+        # Fix para amor/paz v3.3 que quedaron a -19/-20 LUFS (YouTube sube volumen visible).
+        # Target I=-16, True Peak -1.5, Loudness Range 11 — sweet spot para música relajante.
         subprocess.run(
             ["ffmpeg", "-y",
              "-i", concat_silent, "-i", musica_path,
-             "-c:v", "copy", "-c:a", "aac", "-b:a", "192k",
+             "-c:v", "copy",
+             "-af", "loudnorm=I=-16:TP=-1.5:LRA=11",
+             "-c:a", "aac", "-b:a", "192k",
              "-t", str(actual_dur), "-shortest",
              output_path],
             capture_output=True, check=True,
