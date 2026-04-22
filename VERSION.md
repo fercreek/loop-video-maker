@@ -1,6 +1,8 @@
 # VERSION — Loop Video Maker
 
-**Current:** `v3.3-audio-fix` (commit `e495ff1`, 2026-04-21) — victoria re-render 100/100
+**Current:** `v3.4-clean` (commit `963230a`, 2026-04-22) — config central + loudnorm fix + clip instrumentation
+**Prev:** `v3.3.1-docs` (commit `422ddea`) — docs milestone
+**Prev:** `v3.3-audio-fix` (commit `e495ff1`, 2026-04-21) — victoria re-render 100/100
 **Prev baseline:** `v3.2-baseline` (commit `9b42956`, 2026-04-15)
 
 Tag inmovil. Checkout: `git checkout v3.2-baseline`. Revert work: `git reset --hard v3.2-baseline`.
@@ -20,16 +22,17 @@ Tag inmovil. Checkout: `git checkout v3.2-baseline`. Revert work: `git reset --h
 
 ## Config canónica (60min)
 
-| Parámetro | Valor | Dónde |
+| Parámetro | Valor | Dónde (desde v3.4) |
 |---|---|---|
-| Duración | 60 min | `render_60min.py:33` |
-| Segundos/verso | 20 | `render_60min.py:32` |
+| Duración default | 60 min | `config.py:TARGET_MINUTES_DEFAULT` |
+| Segundos/verso | 20 | `config.py:SECONDS_PER_VERSE` |
 | Verses totales | 180 (ciclados) | engine |
-| FPS render | 12 | `render_60min.py:34` |
-| Bitrate | 3500k (maxrate 4000k) | `core/video_render.py:713` |
-| Preset x264 | ultrafast | `core/video_render.py:712` |
-| Workers paralelos | 6 | `render_60min.py:35` |
-| Crossfade audio | 8.0s | `render_60min.py:109` |
+| FPS render | 12 | `config.py:RENDER_FPS` |
+| Bitrate | 3500k (maxrate 4000k) | `core/video_render.py:714` |
+| Preset x264 | ultrafast | `config.py:X264_PRESET` |
+| Workers paralelos | 6 | `config.py:PARALLEL_JOBS` |
+| Crossfade audio | 8.0s | `config.py:CROSSFADE_SECONDS` |
+| Loudnorm target | -16 LUFS / TP -1.5 / LRA 11 | `core/video_render.py` mux step |
 | Output típico | ~1.5 GB / 60min | — |
 | Tiempo render | 3–4 min típico | logs |
 
@@ -48,6 +51,14 @@ Tag inmovil. Checkout: `git checkout v3.2-baseline`. Revert work: `git reset --h
 1. **Render lento ocasional** — `paz` tomó 42min, `esperanza` 43min vs 3-4min típico. Causa no identificada. Revisar si coincide con contención de I/O o thermal throttling.
 2. **Re-render pendiente con v3.3** — videos renderizados con v3.2 (`amor`, `esperanza`, `fe`, `fuerza`, `gratitud`, `paz`, `salmos`) heredan silencio 16s final + dips mid. Solo `victoria` re-renderizado con v3.3.
 3. **Thumbnails con foto** — pinturas al óleo funcionan pero pueden tener CTR bajo vs fotos de personas. Idea pendiente.
+
+## Fixed en v3.4-clean
+
+- ✅ LUFS bajo (amor -19.8 / paz -20.5 en v3.3) — loudnorm=I=-16:TP=-1.5:LRA=11 en mux
+- ✅ Config duplicado en 3 scripts — `config.py` central fuente única
+- ✅ Outliers render 42min no instrumentados — per-clip timing + top-5 slowest + warning >30s
+- ✅ Eval score penalizaba _5min sin thumb — regex `\d+min$` soporta cualquier duración
+- ✅ Eval sin validar specs thumbnail — checks `thumbnail_size` (<2MB) y `thumbnail_resolution` (1280x720)
 
 ## Fixed en v3.3-audio-fix
 
