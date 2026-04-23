@@ -1,17 +1,31 @@
+# ── Secrets / config local ──────────────────────────────────────────────────
 config.json
+.env
+
+# ── Output (videos, thumbnails, fondos — demasiado grandes para git) ────────
 output/
+
+# ── Render logs / eval JSONs (generados en cada run, no son código) ─────────
+logs/renders/
+logs/*.log
+logs/files.log
+eval/*.json
+
+# ── Data / DB ────────────────────────────────────────────────────────────────
 data/history.db
 data/*.db
+
+# ── Python ───────────────────────────────────────────────────────────────────
 __pycache__/
 *.pyc
-.env
-.venv/
-venv/
+*.pyo
 *.egg-info/
 dist/
 build/
+.venv/
+venv/
+
+# ── OS / IDE ─────────────────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
 .claude/
-logs/renders/
-eval/*.json
