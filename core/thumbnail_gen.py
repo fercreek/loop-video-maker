@@ -72,6 +72,18 @@ THEME_COPY: dict[str, dict] = {
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Copy override for 120-min (Template B, sleep/rest angle)
+COPY_120MIN: dict[str, dict] = {
+    "fe":        {"title": "¡FE QUE MUEVE\nMONTAÑAS! 2H",  "subtitle": "Música Cristiana · 2 Horas de Adoración"},
+    "amor":      {"title": "¡EL AMOR\nDE DIOS! 2H",         "subtitle": "Música Suave para Descansar en Su Amor"},
+    "esperanza": {"title": "¡ESPERANZA\nEN DIOS! 2H",        "subtitle": "Música para Dormir con Paz y Esperanza"},
+    "fuerza":    {"title": "¡FUERZA\nEN DIOS! 2H",           "subtitle": "Música para Restaurarte mientras Duermes"},
+    "gratitud":  {"title": "¡GRATITUD\nA DIOS! 2H",          "subtitle": "Música para Alabar mientras Descansas"},
+    "paz":       {"title": "¡PAZ SOBRENATURAL!\n2 HORAS",    "subtitle": "Música para Dormir y Descansar en Dios"},
+    "salmos":    {"title": "¡SALMOS DE\nADORACIÓN! 2H",      "subtitle": "Música para Orar y Descansar en Dios"},
+    "victoria":  {"title": "¡VICTORIA\nEN CRISTO! 2H",       "subtitle": "Música para Dormir como Vencedor"},
+}
+
 THEME_BG: dict[str, str] = {
     "fe":        "output/fondos/fondo_light.jpg",
     "amor":      "output/fondos/fondo_sunset.jpg",

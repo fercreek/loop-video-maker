@@ -20,7 +20,7 @@ Canal: https://studio.youtube.com/channel/UC2l5TZjHzRtaRjH8kT_yQ2w
 
 ---
 
-## ⏳ PENDIENTE (upgrades de versiones viejas)
+## ⏳ PENDIENTE — 60min (upgrades de versiones viejas)
 
 | # | Video local | Reemplaza en canal | Estado |
 |---|-------------|--------------------|--------|
@@ -31,10 +31,29 @@ Canal: https://studio.youtube.com/channel/UC2l5TZjHzRtaRjH8kT_yQ2w
 
 ---
 
+## ⏳ PENDIENTE — 120min (nuevo batch, ángulo dormir/descansar)
+
+Renderizado: 2026-04-22 · Score: 100/100 · LUFS: -15.9 · Template B
+
+| # | Video local | Estado canal |
+|---|-------------|--------------|
+| 1 | paz_120min | No existe |
+| 2 | fe_120min | No existe |
+| 3 | esperanza_120min | No existe |
+| 4 | amor_120min | No existe |
+| 5 | gratitud_120min | No existe |
+| 6 | victoria_120min | No existe |
+| 7 | fuerza_120min | No existe |
+| 8 | salmos_120min | No existe |
+
+---
+
 ## Workflow
 
 Cuando subes un video:
 1. Dile a Claude: "subí [tema], URL: youtube.com/watch?v=XXX"
 2. Claude actualiza este log + mueve symlink en output/SUBIR/
 
-## Copy completo → docs/COPY_YOUTUBE.md
+## Copy completo
+- 60min → docs/COPY_YOUTUBE.md
+- 120min → docs/COPY_YOUTUBE_120MIN.md
