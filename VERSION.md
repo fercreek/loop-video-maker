@@ -1,6 +1,7 @@
 # VERSION — Loop Video Maker
 
-**Current:** `v3.6-thumbs-variants` (commit `1bbe856`, 2026-04-22) — thumbnail templates B/C para A/B CTR testing
+**Current:** `v3.7-quality-gate` (commit `d8812bd`, 2026-04-22) — quality gate automático post-render + COPY_120MIN dict + docs completas
+**Prev:** `v3.6-thumbs-variants` (commit `1bbe856`, 2026-04-22) — thumbnail templates B/C para A/B CTR testing
 **Prev:** `v3.5-120min` (commit `b83d8f1`) — render_120min.py batch 2hrs sleep/relajación
 **Prev:** `v3.4-clean` (commit `963230a`) — config.py central + loudnorm fix + clip instrumentation
 **Prev:** `v3.3.1-docs` (commit `422ddea`) — docs milestone
@@ -102,7 +103,8 @@ Actualizar cada vez que se corre `eval_render.py` sobre batch nuevo o se crea ta
 |---|---|---|---|---|---|---|
 | v3.2-baseline | 2026-04-15 | 14 | **77/100** | 3.4min (rango 3.1–43.9min) | Kevin MacLeod loops + synth fallback | 🟡 bugs audio |
 | v3.3-audio-fix | 2026-04-21 | 1 (victoria) | **100/100** | 4.0min | Kevin MacLeod loops (head/tail trim) | ✅ validado |
-| v3.3 (batch pending) | — | 0/7 | — | — | — | ⏳ re-render pendiente |
+| v3.4-clean (batch) | 2026-04-22 | 8 (todos 60min) | **100/100** | 3.5min avg | loudnorm -16 LUFS | ✅ producción |
+| v3.7 (120min batch) | 2026-04-23 | 8 (todos 120min) | **100/100** | 10.4min avg | Paz profunda+Meditacion+Sanacion | ✅ producción |
 
 **Render time outliers v3.2:** `paz` 42.5min, `esperanza` 43.9min. Causa no identificada.
 
