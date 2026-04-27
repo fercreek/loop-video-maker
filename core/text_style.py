@@ -1,5 +1,5 @@
 """
-core/text_style.py — Fe en Acción text overlay renderer.
+core/text_style.py — VersiculoDeDios text overlay renderer.
 
 Renders RGBA text frames with gold ornaments, diamond separators,
 letter-spaced labels, and elegant typography for biblical verse content.
@@ -76,7 +76,7 @@ def _wrap_text(draw: ImageDraw.ImageDraw, text: str, font, max_width: int) -> st
     return "\n".join(lines)
 
 
-# ─── Fe en Acción style renderer ──────────────────────────────────────────────
+# ─── VersiculoDeDios style renderer ──────────────────────────────────────────────
 
 # Base font sizes (for 1080×1080 post format)
 _BASE_LABEL_SIZE = 16
@@ -102,7 +102,7 @@ def render_fea_frame(
     config_overrides: dict | None = None,
 ) -> np.ndarray:
     """
-    Render a Fe en Acción style RGBA text overlay.
+    Render a VersiculoDeDios style RGBA text overlay.
 
     Returns numpy array (height, width, 4) with alpha channel.
     """

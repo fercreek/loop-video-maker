@@ -1,4 +1,4 @@
-# COPY DE SUBIDA — @FeEnAcción — 120 MIN (Para Dormir / Descansar)
+# COPY DE SUBIDA — @VersiculoDeDios — 120 MIN (Para Dormir / Descansar)
 # Orden sugerido de subida (intercalar con 60min para variedad)
 
 Ángulo diferenciador vs 60min:
@@ -34,12 +34,12 @@ Dos horas de versículos bíblicos sobre la paz de Dios con música instrumental
 💬 ¿Qué versículo calma tu corazón?
 ━━━━━━━━━━━━━━━━━━━━
 
-@FeEnAcción
+@VersiculoDeDios
 ```
 
 **Tags:**
 ```
-música cristiana para dormir, paz de Dios, versículos para dormir, meditación nocturna cristiana, Filipenses 4:7, música para descansar, música instrumental cristiana, relajación cristiana, versículos bíblicos, Fe en Acción, 2 horas música cristiana
+música cristiana para dormir, paz de Dios, versículos para dormir, meditación nocturna cristiana, Filipenses 4:7, música para descansar, música instrumental cristiana, relajación cristiana, versículos bíblicos, VersiculoDeDios, 2 horas música cristiana
 ```
 
 ---
@@ -69,12 +69,12 @@ Dos horas de versículos sobre la fe y las promesas de Dios. Para entregarte a S
 🔔 Suscríbete · 👍 Like · 💬 ¿Qué versículo fortalece tu fe?
 ━━━━━━━━━━━━━━━━━━━━
 
-@FeEnAcción
+@VersiculoDeDios
 ```
 
 **Tags:**
 ```
-música cristiana para dormir, fe en Dios, versículos de fe, Hebreos 11, música para descansar en Dios, 2 horas música cristiana, meditación nocturna, relajación cristiana, versículos bíblicos, Fe en Acción
+música cristiana para dormir, fe en Dios, versículos de fe, Hebreos 11, música para descansar en Dios, 2 horas música cristiana, meditación nocturna, relajación cristiana, versículos bíblicos, VersiculoDeDios
 ```
 
 ---
@@ -105,12 +105,12 @@ Dos horas de versículos sobre esperanza y restauración para acompañarte al do
 💬 ¿Qué versículo te da esperanza antes de dormir?
 ━━━━━━━━━━━━━━━━━━━━
 
-@FeEnAcción
+@VersiculoDeDios
 ```
 
 **Tags:**
 ```
-música cristiana para dormir, esperanza en Dios, versículos de esperanza, Jeremías 29:11, promesas de Dios, música nocturna cristiana, 2 horas música cristiana, relajación cristiana, versículos bíblicos, Fe en Acción
+música cristiana para dormir, esperanza en Dios, versículos de esperanza, Jeremías 29:11, promesas de Dios, música nocturna cristiana, 2 horas música cristiana, relajación cristiana, versículos bíblicos, VersiculoDeDios
 ```
 
 ---
@@ -140,12 +140,12 @@ Dos horas de versículos sobre el amor incondicional de Dios para acompañarte a
 🔔 Suscríbete · 💬 ¿Qué versículo te recuerda que eres amado?
 ━━━━━━━━━━━━━━━━━━━━
 
-@FeEnAcción
+@VersiculoDeDios
 ```
 
 **Tags:**
 ```
-música cristiana para dormir, amor de Dios, versículos de amor, Romanos 8, gracia de Dios, música nocturna cristiana, 2 horas música cristiana, relajación cristiana, versículos bíblicos, Fe en Acción
+música cristiana para dormir, amor de Dios, versículos de amor, Romanos 8, gracia de Dios, música nocturna cristiana, 2 horas música cristiana, relajación cristiana, versículos bíblicos, VersiculoDeDios
 ```
 
 ---
@@ -175,12 +175,12 @@ Dos horas de versículos sobre gratitud y alabanza para el final del día. Para 
 🔔 Suscríbete · 💬 ¿Por qué le das gracias a Dios hoy?
 ━━━━━━━━━━━━━━━━━━━━
 
-@FeEnAcción
+@VersiculoDeDios
 ```
 
 **Tags:**
 ```
-música cristiana para dormir, gratitud a Dios, versículos de gratitud, 1 Tesalonicenses 5:18, alabanza nocturna, 2 horas música cristiana, música devocional para dormir, relajación cristiana, versículos bíblicos, Fe en Acción
+música cristiana para dormir, gratitud a Dios, versículos de gratitud, 1 Tesalonicenses 5:18, alabanza nocturna, 2 horas música cristiana, música devocional para dormir, relajación cristiana, versículos bíblicos, VersiculoDeDios
 ```
 
 ---
@@ -210,12 +210,12 @@ Dos horas de versículos sobre la victoria espiritual para acompañarte al dormi
 🔔 Suscríbete · 💬 ¿En qué área declaras tu victoria?
 ━━━━━━━━━━━━━━━━━━━━
 
-@FeEnAcción
+@VersiculoDeDios
 ```
 
 **Tags:**
 ```
-música cristiana para dormir, victoria en Cristo, más que vencedores, Romanos 8:37, versículos de victoria, música nocturna cristiana, 2 horas música cristiana, guerra espiritual, versículos bíblicos, Fe en Acción
+música cristiana para dormir, victoria en Cristo, más que vencedores, Romanos 8:37, versículos de victoria, música nocturna cristiana, 2 horas música cristiana, guerra espiritual, versículos bíblicos, VersiculoDeDios
 ```
 
 ---
@@ -245,12 +245,12 @@ Dos horas de versículos sobre la fortaleza de Dios para acompañarte al dormir.
 🔔 Suscríbete · 👍 Like si necesitabas restauración hoy
 ━━━━━━━━━━━━━━━━━━━━
 
-@FeEnAcción
+@VersiculoDeDios
 ```
 
 **Tags:**
 ```
-música cristiana para dormir, fuerza en Dios, versículos de fortaleza, Isaías 40:31, restauración espiritual, música nocturna cristiana, 2 horas música cristiana, perseverancia, versículos bíblicos, Fe en Acción
+música cristiana para dormir, fuerza en Dios, versículos de fortaleza, Isaías 40:31, restauración espiritual, música nocturna cristiana, 2 horas música cristiana, perseverancia, versículos bíblicos, VersiculoDeDios
 ```
 
 ---
@@ -280,10 +280,10 @@ Dos horas de versículos del libro de los Salmos con música instrumental suave.
 🔔 Suscríbete · 👍 Like · 💬 ¿Cuál es tu Salmo para dormir?
 ━━━━━━━━━━━━━━━━━━━━
 
-@FeEnAcción
+@VersiculoDeDios
 ```
 
 **Tags:**
 ```
-música cristiana para dormir, salmos bíblicos, Salmo 23, oración nocturna cristiana, 2 horas música cristiana, música para los salmos, meditación bíblica nocturna, relajación cristiana, versículos bíblicos, Fe en Acción
+música cristiana para dormir, salmos bíblicos, Salmo 23, oración nocturna cristiana, 2 horas música cristiana, música para los salmos, meditación bíblica nocturna, relajación cristiana, versículos bíblicos, VersiculoDeDios
 ```

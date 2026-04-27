@@ -1,7 +1,7 @@
 """
 core/post_gen.py — Static image post generation (JPG).
 
-Generates 1080×1080 (or other format) images with Fe en Acción style
+Generates 1080×1080 (or other format) images with VersiculoDeDios style
 text overlay for Instagram, Facebook, and other platforms.
 """
 from __future__ import annotations
@@ -26,7 +26,7 @@ def generar_post(
     watermark_text: str = "",
 ) -> str:
     """
-    Generate a static JPG image post with Fe en Acción style text overlay.
+    Generate a static JPG image post with VersiculoDeDios style text overlay.
 
     Args:
         texto: Verse text.
@@ -46,7 +46,7 @@ def generar_post(
     bg = Image.open(imagen_fondo_path).convert("RGB")
     bg = _center_crop_resize(bg, width, height)
 
-    # Render Fe en Acción text overlay
+    # Render VersiculoDeDios text overlay
     config = {}
     if watermark_text:
         config["watermark_text"] = watermark_text

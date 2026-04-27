@@ -1,5 +1,5 @@
 # System Overview — Loop Video Maker
-**Version:** v3.7-quality-gate · Canal: @FeEnAcción
+**Version:** v3.7-quality-gate · Canal: @VersiculoDeDios
 
 ---
 

@@ -1,5 +1,5 @@
 """
-scripts/yt_stats.py — CLI para ver métricas del canal @FeEnAcción.
+scripts/yt_stats.py — CLI para ver métricas del canal @VersiculoDeDios.
 
 Uso:
     .venv/bin/python3 scripts/yt_stats.py                  # resumen completo
@@ -42,7 +42,7 @@ def fmt_num(n: int) -> str:
 
 
 def print_channel_summary():
-    print("\n📺 CANAL @FeEnAcción")
+    print("\n📺 CANAL @VersiculoDeDios")
     print("─" * 50)
     s = get_channel_summary()
     print(f"  Suscriptores:  {fmt_num(s['subscribers'])}")
@@ -106,7 +106,7 @@ def print_recommendations():
 
 
 def main():
-    ap = argparse.ArgumentParser(description="YouTube stats para @FeEnAcción")
+    ap = argparse.ArgumentParser(description="YouTube stats para @VersiculoDeDios")
     ap.add_argument("--videos",    action="store_true", help="Lista todos los videos")
     ap.add_argument("--analytics", action="store_true", help="Analytics por video")
     ap.add_argument("--recommend", action="store_true", help="Qué subir ahora")

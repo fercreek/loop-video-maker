@@ -1,5 +1,5 @@
 """
-core/formats.py — Format definitions, layout presets, and Fe en Acción palette.
+core/formats.py — Format definitions, layout presets, and VersiculoDeDios palette.
 
 Centralized constants used by video_render, image_gen, post_gen, batch_gen, and the UI.
 """
@@ -36,7 +36,7 @@ FORMAT_DEFS = {
 }
 
 
-# ─── Layout presets (Fe en Acción style) ──────────────────────────────────────
+# ─── Layout presets (VersiculoDeDios style) ──────────────────────────────────────
 
 LAYOUT_PRESETS = {
     "centrado_bajo": {
@@ -88,7 +88,7 @@ LAYOUT_PRESETS = {
 }
 
 
-# ─── Fe en Acción color palette ───────────────────────────────────────────────
+# ─── VersiculoDeDios color palette ───────────────────────────────────────────────
 
 FEA_PALETTE = {
     # Gold accents

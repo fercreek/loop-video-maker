@@ -146,7 +146,7 @@ class TestBatchGenPosts:
     def test_batch_organized_by_client(self, tmp_dir):
         """Output files are nested under client folder."""
         config = BatchConfig(
-            client_name="Fe en Acción",
+            client_name="VersiculoDeDios",
             theme="paz",
             formats=["post_1080"],
             num_verses=1,

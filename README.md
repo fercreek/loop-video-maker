@@ -2,7 +2,7 @@
 
 Genera videos de **60 minutos** para YouTube con versículos bíblicos, música instrumental relajante y pinturas al óleo como fondo. 100% local, sin servidor externo.
 
-**Canal objetivo:** [@FeEnAcción](https://youtube.com/@FeEnAcción) — contenido devocional en español.
+**Canal objetivo:** [@VersiculoDeDios](https://youtube.com/@VersiculoDeDios) — contenido devocional en español.
 
 Versión actual: **`v3.3-audio-fix`** · Score calidad promedio: **88.6/100** (ver [VERSION.md](VERSION.md)).
 

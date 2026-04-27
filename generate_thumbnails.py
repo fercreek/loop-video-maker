@@ -46,7 +46,7 @@ FILE_SUFFIX: dict[str, str] = {
 
 
 def main():
-    p = argparse.ArgumentParser(description="Genera thumbnails YouTube para Fe en Acción.")
+    p = argparse.ArgumentParser(description="Genera thumbnails YouTube para VersiculoDeDios.")
     p.add_argument("--themes", nargs="+", default=ALL_THEMES,
                    metavar="THEME", help="Temas a generar (default: todos)")
     p.add_argument("--out", default="output/thumbnails",

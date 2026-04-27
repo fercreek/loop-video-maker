@@ -1,4 +1,4 @@
-"""Tests for core/text_style.py — Fe en Acción text overlay renderer."""
+"""Tests for core/text_style.py — VersiculoDeDios text overlay renderer."""
 import numpy as np
 import pytest
 
@@ -7,7 +7,7 @@ from core.formats import get_font_size, get_layout, LAYOUT_PRESETS, FORMAT_DEFS
 
 
 class TestFeaFrame:
-    """Tests for the Fe en Acción style renderer."""
+    """Tests for the VersiculoDeDios style renderer."""
 
     def test_correct_dimensions_1080x1080(self):
         frame = render_fea_frame("Texto de prueba", "Juan 3:16", 1080, 1080)

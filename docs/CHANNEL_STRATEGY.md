@@ -1,4 +1,4 @@
-# Channel Strategy — @FeEnAcción
+# Channel Strategy — @VersiculoDeDios
 **Fecha:** 2026-04-25 · Estado: activo, construyendo biblioteca
 
 ---
@@ -108,7 +108,7 @@ Ejemplos aplicados:
 2. Variante con duración (ej: "música cristiana dormir")
 3. Versículo clave del video (ej: "Filipenses 4:7")
 4. Categorías amplias (ej: "música instrumental cristiana", "versículos bíblicos")
-5. Canal (ej: "Fe en Acción")
+5. Canal (ej: "VersiculoDeDios")
 
 ### Descripción (estructura)
 1. Hook emocional 1 línea (emoji + beneficio)
@@ -116,7 +116,7 @@ Ejemplos aplicados:
 3. Versículo clave en comillas + referencia
 4. 3 bullets con íconos: versículos / música / visual
 5. Línea separadora + CTA: suscribir, like, pregunta para comentarios
-6. Mención canal @FeEnAcción
+6. Mención canal @VersiculoDeDios
 
 ---
 

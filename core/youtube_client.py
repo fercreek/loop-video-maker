@@ -120,7 +120,7 @@ def get_channel_summary() -> dict:
     Returns basic channel stats.
 
     {
-        "title": "Fe en Acción",
+        "title": "VersiculoDeDios",
         "subscribers": 1234,
         "total_views": 56789,
         "video_count": 8,

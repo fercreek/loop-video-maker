@@ -1,5 +1,5 @@
 # Analytics Setup — YouTube Data API v3
-**Canal:** @FeEnAcción · `UC2l5TZjHzRtaRjH8kT_yQ2w`
+**Canal:** @VersiculoDeDios · `UC2l5TZjHzRtaRjH8kT_yQ2w`
 
 ---
 

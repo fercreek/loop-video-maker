@@ -1,4 +1,4 @@
-# COPY DE SUBIDA — @FeEnAcción
+# COPY DE SUBIDA — @VersiculoDeDios
 # Orden = mismo orden que carpeta pendiente/
 
 ---
@@ -30,12 +30,12 @@ Una hora de versículos bíblicos sobre esperanza y restauración. Para los mome
 💬 ¿Cuál versículo te dio esperanza?
 ━━━━━━━━━━━━━━━━━━━━
 
-@FeEnAcción
+@VersiculoDeDios
 ```
 
 **Tags:**
 ```
-esperanza en Dios, versículos de esperanza, música cristiana, restauración, Jeremías 29:11, promesas de Dios, música devocional cristiana, meditación cristiana, versículos bíblicos, Fe en Acción
+esperanza en Dios, versículos de esperanza, música cristiana, restauración, Jeremías 29:11, promesas de Dios, música devocional cristiana, meditación cristiana, versículos bíblicos, VersiculoDeDios
 ```
 
 ---
@@ -65,12 +65,12 @@ Una hora de versículos del libro de los Salmos con música instrumental cristia
 🔔 Suscríbete · 👍 Like · 💬 ¿Cuál es tu Salmo favorito?
 ━━━━━━━━━━━━━━━━━━━━
 
-@FeEnAcción
+@VersiculoDeDios
 ```
 
 **Tags:**
 ```
-salmos bíblicos, música para los salmos, adoración cristiana, oración con salmos, Salmo 23, música instrumental cristiana, meditación bíblica, versículos bíblicos, Fe en Acción
+salmos bíblicos, música para los salmos, adoración cristiana, oración con salmos, Salmo 23, música instrumental cristiana, meditación bíblica, versículos bíblicos, VersiculoDeDios
 ```
 
 ---
@@ -100,12 +100,12 @@ Una hora de versículos sobre la victoria espiritual. Para cuando necesitas reco
 🔔 Suscríbete · 💬 Declara tu victoria en los comentarios
 ━━━━━━━━━━━━━━━━━━━━
 
-@FeEnAcción
+@VersiculoDeDios
 ```
 
 **Tags:**
 ```
-victoria en Cristo, más que vencedores, música cristiana victoria, versículos de victoria, guerra espiritual, Romanos 8, música devocional, versículos bíblicos, Fe en Acción
+victoria en Cristo, más que vencedores, música cristiana victoria, versículos de victoria, guerra espiritual, Romanos 8, música devocional, versículos bíblicos, VersiculoDeDios
 ```
 
 ---
@@ -136,12 +136,12 @@ Una hora de música cristiana instrumental con versículos sobre la paz de Dios.
 🔔 Suscríbete · 👍 Like · 💬 ¿Qué versículo calma tu corazón?
 ━━━━━━━━━━━━━━━━━━━━
 
-@FeEnAcción
+@VersiculoDeDios
 ```
 
 **Tags:**
 ```
-paz de Dios, música cristiana dormir, meditación cristiana, versículos de paz, Filipenses 4:7, música para meditar, música instrumental cristiana, versículos bíblicos, Fe en Acción
+paz de Dios, música cristiana dormir, meditación cristiana, versículos de paz, Filipenses 4:7, música para meditar, música instrumental cristiana, versículos bíblicos, VersiculoDeDios
 ```
 
 ---
@@ -172,12 +172,12 @@ Una hora de versículos sobre el amor incondicional de Dios. Para cuando te sien
 🔔 Suscríbete · 💬 ¿Qué versículo te recuerda que eres amado?
 ━━━━━━━━━━━━━━━━━━━━
 
-@FeEnAcción
+@VersiculoDeDios
 ```
 
 **Tags:**
 ```
-amor de Dios, música cristiana amor, versículos de amor, Romanos 8, gracia de Dios, música para orar, música instrumental cristiana, versículos bíblicos, Fe en Acción
+amor de Dios, música cristiana amor, versículos de amor, Romanos 8, gracia de Dios, música para orar, música instrumental cristiana, versículos bíblicos, VersiculoDeDios
 ```
 
 ---
@@ -208,12 +208,12 @@ Una hora de versículos sobre la fuerza de Dios. Para los días que estás a pun
 🔔 Suscríbete · 👍 Like si necesitabas esto hoy
 ━━━━━━━━━━━━━━━━━━━━
 
-@FeEnAcción
+@VersiculoDeDios
 ```
 
 **Tags:**
 ```
-fuerza en Dios, música cristiana fuerza, versículos de fortaleza, Isaías 40:31, música motivacional cristiana, perseverancia, fortaleza espiritual, versículos bíblicos, Fe en Acción
+fuerza en Dios, música cristiana fuerza, versículos de fortaleza, Isaías 40:31, música motivacional cristiana, perseverancia, fortaleza espiritual, versículos bíblicos, VersiculoDeDios
 ```
 
 ---
@@ -244,12 +244,12 @@ Una hora de versículos sobre gratitud y alabanza. Para cultivar un corazón que
 🔔 Suscríbete · 💬 ¿Por qué le das gracias a Dios hoy?
 ━━━━━━━━━━━━━━━━━━━━
 
-@FeEnAcción
+@VersiculoDeDios
 ```
 
 **Tags:**
 ```
-gratitud a Dios, música cristiana gratitud, versículos de gratitud, alabanza, acción de gracias, 1 Tesalonicenses 5:18, música devocional cristiana, versículos bíblicos, Fe en Acción
+gratitud a Dios, música cristiana gratitud, versículos de gratitud, alabanza, acción de gracias, 1 Tesalonicenses 5:18, música devocional cristiana, versículos bíblicos, VersiculoDeDios
 ```
 
 ---

@@ -789,7 +789,7 @@ with gr.Blocks(
 
                     batch_client = gr.Textbox(
                         label="Nombre del cliente o canal",
-                        placeholder="Ej: Fe en Acción, Mi Canal, etc.",
+                        placeholder="Ej: VersiculoDeDios, Mi Canal, etc.",
                         value="",
                         info="Los archivos se guardan en output/<nombre_cliente>/batch_tema_fecha/",
                     )

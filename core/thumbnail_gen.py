@@ -1,5 +1,5 @@
 """
-core/thumbnail_gen.py — YouTube thumbnail generator for Fe en Acción.
+core/thumbnail_gen.py — YouTube thumbnail generator for VersiculoDeDios.
 
 Produces 1280×720 JPEG thumbnails with:
   - Oil painting background with left-zone dark gradient
@@ -20,7 +20,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 THUMB_SIZE  = (1280, 720)
 FONT_BOLD   = "/System/Library/Fonts/Supplemental/Impact.ttf"
 FONT_SUB    = "/System/Library/Fonts/Supplemental/Arial Bold.ttf"
-CHANNEL_TAG = "@FeEnAcción"
+CHANNEL_TAG = "@VersiculoDeDios"
 
 # Default accent color per theme
 THEME_ACCENT: dict[str, str] = {

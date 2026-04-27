@@ -122,7 +122,7 @@ El Perdón de Dios — 60 Minutos de Versículos Bíblicos | Música Cristiana
 
 "Sed bondadosos unos con otros, misericordiosos, perdonándoos unos a otros..." — Efesios 4:32
 
-#PerdónDeDios #VersículosBíblicos #MúsicaCristiana #FeEnAcción
+#PerdónDeDios #VersículosBíblicos #MúsicaCristiana #VersiculoDeDios
 ```
 
 ---

@@ -124,7 +124,7 @@ Pasos:
 3. Categoría: Música / Entretenimiento espiritual
 4. Idioma: Español
 5. Activar monetización
-6. Agregar a playlist "Devocionales 60 Minutos — Fe en Acción"
+6. Agregar a playlist "Devocionales 60 Minutos — VersiculoDeDios"
 7. Programar 1-2 días entre subidas
 
 ---
