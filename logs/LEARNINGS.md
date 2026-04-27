@@ -36,6 +36,10 @@ Después de cada render, revisar el log y mover las mejores lecciones aquí.
 | 2026-04-23 | victoria | v3.2-40e88dd | 10.5min render | 3111MB | 120min video | Paz profunda + Meditacion + Sanacion | [log](renders/2026-04-23_01-19_victoria.md) |
 | 2026-04-23 | fuerza | v3.2-40e88dd | 10.2min render | 3105MB | 120min video | Paz profunda + Meditacion + Sanacion | [log](renders/2026-04-23_01-33_fuerza.md) |
 | 2026-04-23 | salmos | v3.2-40e88dd | 10.5min render | 3108MB | 120min video | Paz profunda + Meditacion + Sanacion | [log](renders/2026-04-23_01-48_salmos.md) |
+| 2026-04-27 | sanacion | v3.2-c06b220 | 1.5min render | 264MB | 10min video | Sanacion + Paz profunda + Meditacion | [log](renders/2026-04-27_02-49_sanacion.md) |
+| 2026-04-27 | sanacion | v3.2-b9fa172 | 2.4min render | 264MB | 10min video | Sanacion + Paz profunda + Meditacion | [log](renders/2026-04-27_03-21_sanacion.md) |
+| 2026-04-27 | provision | v3.2-b9fa172 | 3.0min render | 263MB | 10min video | Adoración + Amanecer + Paz profunda | [log](renders/2026-04-27_03-34_provision.md) |
+| 2026-04-27 | paz | v3.2-b9fa172 | 3.6min render | 256MB | 10min video | Paz profunda + Reposo + Contemplación | [log](renders/2026-04-27_03-42_paz.md) |
 <!-- renders-table-end -->
 
 ---
