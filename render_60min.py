@@ -27,6 +27,7 @@ from core.music_gen import generate_playlist
 from core.video_render import renderizar_video_fast
 from core.render_logger import RenderLogger, clean_file
 from core.thumbnail_gen import generate_thumbnail_for_theme
+from core.metrics_logger import RenderMetrics
 from config import (
     SECONDS_PER_VERSE,
     VERSES_PER_BG,
@@ -107,8 +108,25 @@ def render_video(theme: str, moods: list, label: str):
         print(f"  ⚠️  Ya existe ({size_mb:.0f} MB) — saltando.")
         return output_path
 
+    # ── Metrics ──────────────────────────────────────────────────────────────
+    metrics = RenderMetrics(
+        theme=theme,
+        format_key="60min",
+        output_path=output_path,
+        config={
+            "duration_min": TARGET_MINUTES,
+            "fps": RENDER_FPS,
+            "seconds_per_verse": SECONDS_PER_VERSE,
+            "parallel_jobs": PARALLEL_JOBS,
+            "verses_per_bg": VERSES_PER_BG,
+            "fondos_pool": len(theme_bg_images),
+            "moods": moods,
+        },
+    )
+
     # Generate multi-mood audio
     print(f"  Generando audio playlist ({'+'.join(moods)}, {total_seconds}s)...")
+    metrics.step_start("audio_gen")
     t0 = time.time()
     audio_path = generate_playlist(
         moods=moods,
@@ -116,6 +134,7 @@ def render_video(theme: str, moods: list, label: str):
         output_dir=audio_dir,
         crossfade_seconds=CROSSFADE_SECONDS,
     )
+    metrics.step_end("audio_gen", moods=moods, total_audio_sec=total_seconds)
     print(f"  Audio listo en {time.time()-t0:.0f}s → {audio_path}")
 
     # Start learning log
@@ -163,6 +182,7 @@ def render_video(theme: str, moods: list, label: str):
             parallel_jobs=PARALLEL_JOBS,
             progress_callback=progress,
             visual_templates=VISUAL_TEMPLATES,
+            metrics=metrics,
         )
         elapsed = time.time() - t0
         size_mb = os.path.getsize(output_path) / 1024 / 1024
@@ -191,7 +211,17 @@ def render_video(theme: str, moods: list, label: str):
         # Quality gate — eval + auto-fix LUFS si necesario
         try:
             from core.quality_gate import gate as _qgate
+            metrics.step_start("quality_gate")
             qg = _qgate(output_path, nominal_min=TARGET_MINUTES)
+            metrics.step_end(
+                "quality_gate",
+                score=qg["score"],
+                passed=qg["pass"],
+                lufs_before=qg.get("lufs_before"),
+                lufs_after=qg.get("lufs_after"),
+                fixed=qg.get("fixed", False),
+                issues=qg.get("issues", []),
+            )
             icon = "✅" if qg["pass"] else "⚠️ "
             fix_msg = (
                 f"  [LUFS fix: {qg['lufs_before']:.1f}→{qg['lufs_after']:.1f}]"
@@ -204,6 +234,9 @@ def render_video(theme: str, moods: list, label: str):
         except Exception as exc:
             print(f"  [quality-gate] warning: {exc}")
 
+        # Write structured metrics JSON
+        metrics.finish()
+
     except Exception as exc:
         elapsed = time.time() - t0
         logger.end(output_path=output_path, elapsed_sec=elapsed, error=str(exc))
@@ -213,18 +246,59 @@ def render_video(theme: str, moods: list, label: str):
 
 
 if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Renderiza batch de videos 60min.")
+    parser.add_argument("--themes", nargs="+", metavar="THEME",
+                        help=f"Temas a renderizar (default: todos — {ALL_THEMES})")
+    parser.add_argument("--force", action="store_true",
+                        help="Re-renderizar aunque ya exista el .mp4")
+    args = parser.parse_args()
+
+    themes_to_render = args.themes if args.themes else ALL_THEMES
+
     print(f"\n🎬 Iniciando renders 60 minutos")
+    print(f"   Temas:  {', '.join(themes_to_render)}")
     print(f"   Fondos: {len(BG_IMAGES)} pinturas")
     print(f"   FPS: {RENDER_FPS}  |  {SECONDS_PER_VERSE}s/verso  |  {TARGET_MINUTES} min/video")
     print(f"   Output: {OUTPUT_BASE}/\n")
 
+    if args.force:
+        for t in themes_to_render:
+            p = os.path.join(OUTPUT_BASE, t, f"{t}_60min.mp4")
+            if os.path.exists(p):
+                os.remove(p)
+                print(f"  [force] Eliminado: {p}")
+
     all_start = time.time()
+    completed = []
+    failed = []
+
     for theme, moods, label in VIDEOS:
-        render_video(theme, moods, label)
+        if theme not in themes_to_render:
+            continue
+        try:
+            out = render_video(theme, moods, label)
+            completed.append(out)
+        except Exception as exc:
+            print(f"\n  ERROR en tema '{theme}': {exc}", file=sys.stderr)
+            failed.append(theme)
 
     total_elapsed = time.time() - all_start
-    print(f"\n🎉 TODOS LOS VIDEOS COMPLETADOS en {total_elapsed/3600:.1f} horas")
-    print(f"   Carpeta: {os.path.abspath(OUTPUT_BASE)}")
+    print(f"\n{'='*60}")
+    print(f"  Completados: {len(completed)}  |  Fallidos: {len(failed)}")
+    if completed:
+        print(f"  Tiempo total: {total_elapsed/3600:.2f} horas")
+        print(f"  Carpeta: {os.path.abspath(OUTPUT_BASE)}")
+    if failed:
+        print(f"  Errores: {', '.join(failed)}", file=sys.stderr)
+
+    if _gate_results:
+        from core.quality_gate import print_batch_report
+        print_batch_report(_gate_results)
+
+    if failed:
+        sys.exit(1)
 
     if _gate_results:
         from core.quality_gate import print_batch_report

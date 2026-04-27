@@ -652,6 +652,7 @@ def renderizar_video_fast(
     parallel_jobs: int = 4,
     visual_templates: list | None = None,
     cleanup_work_dir: bool = True,
+    metrics=None,   # Optional[RenderMetrics] — step timings collected here
 ) -> str:
     """
     Fast video renderer using ffmpeg native filters (10-20× faster than MoviePy).
@@ -683,6 +684,9 @@ def renderizar_video_fast(
     if imagen_path not in all_bg_paths:
         all_bg_paths.insert(0, imagen_path)
 
+    if metrics:
+        metrics.step_start("bg_prep")
+
     processed_bg = []
     for i, bg_path in enumerate(all_bg_paths):
         out_p = os.path.join(work_dir, f"bg_{i:03d}.jpg")
@@ -695,6 +699,9 @@ def renderizar_video_fast(
             img = _apply_vignette(img, strength=0.35)
             img.save(out_p, quality=95)
         processed_bg.append(out_p)
+
+    if metrics:
+        metrics.step_end("bg_prep", images_processed=len(processed_bg))
 
     if progress_callback:
         progress_callback(0.03, f"{len(processed_bg)} fondos preparados.")
@@ -723,6 +730,9 @@ def renderizar_video_fast(
     if progress_callback:
         progress_callback(0.05, f"Pre-renderizando {len(full_verses)} textos...")
 
+    if metrics:
+        metrics.step_start("text_render")
+
     text_pngs = []
     for i, v in enumerate(full_verses):
         png_path = os.path.join(work_dir, f"txt_{i:04d}.png")
@@ -745,6 +755,9 @@ def renderizar_video_fast(
                 )
             Image.fromarray(frame).save(png_path)
         text_pngs.append(png_path)
+
+    if metrics:
+        metrics.step_end("text_render", verses_rendered=len(text_pngs))
 
     if progress_callback:
         progress_callback(0.10, "Textos pre-renderizados. Iniciando clips ffmpeg...")
@@ -822,6 +835,9 @@ def renderizar_video_fast(
     report_every = max(1, len(full_verses) // 20)
     SLOW_CLIP_THRESHOLD_SEC = 30.0   # umbral para log detallado de outliers
 
+    if metrics:
+        metrics.step_start("clips")
+
     with ThreadPoolExecutor(max_workers=parallel_jobs) as exe:
         futs = {exe.submit(render_clip, a): a[0] for a in clip_args}
         for fut in as_completed(futs):
@@ -845,15 +861,36 @@ def renderizar_video_fast(
 
     # Top-5 slowest clips — útil para identificar outliers (paz/esperanza 42min bug)
     if clip_times:
+        from collections import Counter as _Counter
         top5 = sorted(clip_times, key=lambda t: t[1], reverse=True)[:5]
         avg = sum(t[1] for t in clip_times) / len(clip_times)
+        min_t = min(t[1] for t in clip_times)
+        max_t = max(t[1] for t in clip_times)
+        effect_dist = dict(_Counter(verse_effects[:len(full_verses)]))
+        clips_per_sec = len(clip_times) / max(sum(t[1] for t in clip_times) / parallel_jobs, 1)
         print(f"  [clip-stats] avg={avg:.2f}s  top-5 slowest: " +
               ", ".join(f"#{i}:{s:.1f}s" for i, s in top5))
+        if metrics:
+            metrics.step_end(
+                "clips",
+                total_clips=len(full_verses),
+                avg_sec=round(avg, 2),
+                min_sec=round(min_t, 2),
+                max_sec=round(max_t, 2),
+                clips_per_sec=round(clips_per_sec, 2),
+                top5_slow=[{"idx": i, "sec": round(s, 1)} for i, s in top5],
+                effect_distribution=effect_dist,
+            )
+    elif metrics:
+        metrics.step_end("clips", total_clips=len(full_verses))
 
     if progress_callback:
         progress_callback(0.86, "Concatenando clips...")
 
     # 6. Concat all clips (stream copy — no re-encode)
+    if metrics:
+        metrics.step_start("concat")
+
     concat_list = os.path.join(work_dir, "concat.txt")
     with open(concat_list, "w") as f:
         for idx in range(len(full_verses)):
@@ -866,9 +903,15 @@ def renderizar_video_fast(
         capture_output=True, check=True,
     )
 
+    if metrics:
+        metrics.step_end("concat")
+
     # 7. Add audio
     if progress_callback:
         progress_callback(0.93, "Añadiendo audio...")
+
+    if metrics:
+        metrics.step_start("mux")
 
     actual_dur = len(full_verses) * dur
     os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
@@ -890,6 +933,9 @@ def renderizar_video_fast(
     else:
         import shutil
         shutil.copy(concat_silent, output_path)
+
+    if metrics:
+        metrics.step_end("mux")
 
     if progress_callback:
         progress_callback(1.0, "¡Video completado!")

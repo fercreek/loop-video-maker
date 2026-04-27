@@ -27,6 +27,7 @@ from core.music_gen import generate_playlist
 from core.video_render import renderizar_video_fast
 from core.render_logger import RenderLogger, clean_file
 from core.thumbnail_gen import generate_thumbnail_for_theme
+from core.metrics_logger import RenderMetrics
 from config import (
     RENDER_FPS,
     VERSES_PER_BG,
@@ -100,8 +101,25 @@ def render_video(theme: str, moods: list[str], label: str) -> str:
         print(f"  ⚠️  Ya existe ({size_mb:.0f} MB) — saltando. Usa --force para re-renderizar.")
         return output_path
 
-    # Audio playlist — 3 moods más relajantes, 7200s
+    # ── Metrics ──────────────────────────────────────────────────────────────
+    metrics = RenderMetrics(
+        theme=theme,
+        format_key="120min",
+        output_path=output_path,
+        config={
+            "duration_min": TARGET_MINUTES,
+            "fps": RENDER_FPS,
+            "seconds_per_verse": SECONDS_PER_VERSE,
+            "parallel_jobs": PARALLEL_JOBS,
+            "verses_per_bg": VERSES_PER_BG,
+            "fondos_pool": len(theme_bg_images),
+            "moods": moods,
+        },
+    )
+
+    # Audio playlist — relaxation moods, 7200s
     print(f"  Generando audio ({'+'.join(moods)}, {total_seconds}s)...")
+    metrics.step_start("audio_gen")
     t0 = time.time()
     audio_path = generate_playlist(
         moods=moods,
@@ -109,6 +127,7 @@ def render_video(theme: str, moods: list[str], label: str) -> str:
         output_dir=audio_dir,
         crossfade_seconds=CROSSFADE_SECONDS,
     )
+    metrics.step_end("audio_gen", moods=moods, total_audio_sec=total_seconds)
     print(f"  Audio listo en {time.time()-t0:.0f}s → {audio_path}")
 
     logger = RenderLogger(
@@ -154,6 +173,7 @@ def render_video(theme: str, moods: list[str], label: str) -> str:
             parallel_jobs=PARALLEL_JOBS,
             progress_callback=progress,
             visual_templates=VISUAL_TEMPLATES,
+            metrics=metrics,
         )
         elapsed = time.time() - t0
         size_mb = os.path.getsize(output_path) / 1024 / 1024
@@ -171,7 +191,7 @@ def render_video(theme: str, moods: list[str], label: str) -> str:
             os.rmdir(audio_dir)
         except OSError:
             pass
-        # Thumbnail para canal — misma calidad visual que 60min
+        # Thumbnail
         try:
             thumb_path = generate_thumbnail_for_theme(theme, video_dir)
             print(f"  [thumb] Thumbnail generado → {thumb_path}")
@@ -181,7 +201,17 @@ def render_video(theme: str, moods: list[str], label: str) -> str:
         # Quality gate — eval + auto-fix LUFS si necesario
         try:
             from core.quality_gate import gate as _qgate
+            metrics.step_start("quality_gate")
             qg = _qgate(output_path, nominal_min=TARGET_MINUTES)
+            metrics.step_end(
+                "quality_gate",
+                score=qg["score"],
+                passed=qg["pass"],
+                lufs_before=qg.get("lufs_before"),
+                lufs_after=qg.get("lufs_after"),
+                fixed=qg.get("fixed", False),
+                issues=qg.get("issues", []),
+            )
             icon = "✅" if qg["pass"] else "⚠️ "
             fix_msg = (
                 f"  [LUFS fix: {qg['lufs_before']:.1f}→{qg['lufs_after']:.1f}]"
@@ -193,6 +223,9 @@ def render_video(theme: str, moods: list[str], label: str) -> str:
             _gate_results.append(qg)
         except Exception as exc:
             print(f"  [quality-gate] warning: {exc}")
+
+        # Write structured metrics JSON
+        metrics.finish()
 
     except Exception as exc:
         elapsed = time.time() - t0
