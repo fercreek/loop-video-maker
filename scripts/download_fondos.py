@@ -1,14 +1,17 @@
 """
-scripts/download_fondos.py — Download public-domain oil paintings for the bg pool.
+scripts/download_fondos.py — Download 50+ public-domain oil paintings.
 
-Source: The Metropolitan Museum of Art Open Access API
-  https://metmuseum.github.io/ — free, no auth, high-res JPEGs.
+Sources:
+  1. Metropolitan Museum of Art Open Access API (metmuseum.github.io)
+  2. Art Institute of Chicago Open Access API (api.artic.edu)
+
+Both are free, no auth required, high-res JPEGs via IIIF.
+All results: isPublicDomain=true, landscape orientation, oil on canvas.
 
 Usage:
   .venv/bin/python3 scripts/download_fondos.py
 
-Downloads to output/fondos/ — skips existing files.
-Target: 30+ images in pool.
+Target: 50 fondos in output/fondos/ (skips existing).
 """
 from __future__ import annotations
 
@@ -21,223 +24,307 @@ import urllib.parse
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FONDOS_DIR  = os.path.join(PROJECT_DIR, "output", "fondos")
+TARGET      = 50
+MIN_WIDTH   = 1200
+MIN_HEIGHT  = 700
 
-MET_API     = "https://collectionapi.metmuseum.org/public/collection/v1"
-MET_HEADERS = {"User-Agent": "loop-video-maker/3.9 (devotional-channel)"}
+MET_API = "https://collectionapi.metmuseum.org/public/collection/v1"
+AIC_API = "https://api.artic.edu/api/v1"
+HEADERS = {"User-Agent": "loop-video-maker/3.9 (devotional-youtube)"}
 
-# ─── Curated Met object IDs ───────────────────────────────────────────────────
-# All Hudson River School / American luminism / European romantic landscapes.
-# IDs verified against Met Open Access catalog (isPublicDomain=true).
-CURATED = [
-    # Thomas Cole — Hudson River School founder
+
+# ─── Met Museum curated IDs ───────────────────────────────────────────────────
+MET_CURATED = [
+    # Thomas Cole
     ("fondo_cole_oxbow",         11417),
-    ("fondo_cole_schroon",       11406),
-    ("fondo_cole_dream",         11401),   # Dream of Arcadia
-    ("fondo_cole_voyage1",       11387),   # Voyage of Life: Youth
-    ("fondo_cole_voyage2",       11386),   # Voyage of Life: Manhood
-
-    # Frederic Edwin Church
-    ("fondo_church_twilight",    11290),
+    ("fondo_cole_voyage1",       11399),
+    ("fondo_cole_catskill2",     11402),
+    ("fondo_cole_expulsion",     11410),
+    ("fondo_cole_arcadian",      11414),
+    # Frederic Church
     ("fondo_church_jamaican",    11279),
-    ("fondo_church_rainy",       11295),   # Rainy Season in the Tropics
-
-    # George Inness — luminism, spiritual atmosphere
-    ("fondo_inness_delaware",    11505),   # Delaware Water Gap
-    ("fondo_inness_summer",      11504),   # Summer, Montclair
-
-    # Albert Bierstadt — grand western vistas
+    ("fondo_church_niagara",     11300),
+    # George Inness
+    ("fondo_inness_peace",       11508),
+    ("fondo_inness_delaware2",   11503),
+    # Albert Bierstadt
     ("fondo_bierstadt_catskills", 11012),
-    ("fondo_bierstadt_mtn",       11011),  # Mountain Brook
-    ("fondo_bierstadt_merced",    11014),  # Valley of the Yosemite
-
-    # Sanford Gifford — luminism, golden haze
+    ("fondo_bierstadt_mtn",       11011),
+    ("fondo_bierstadt_sierra",    11013),
+    # Sanford Gifford
     ("fondo_gifford_kauterskill", 11388),
     ("fondo_gifford_hunter",      11395),
-    ("fondo_gifford_roman",       11396),  # A Gorge in the Mountains (Kauterskill Clove)
-
-    # Asher B. Durand
+    ("fondo_gifford_roman",       11396),
+    # Asher Durand
     ("fondo_durand_woodland",     10481),
-    ("fondo_durand_progress",     10488),  # Progress (The Advance of Civilization)
-    ("fondo_durand_morning",      10486),  # Morning of Life
-
-    # Worthington Whittredge — meadows, quiet nature
-    ("fondo_whittredge_camp",     11438),  # Camp Meeting
-
-    # John Frederick Kensett — serene water/air
-    ("fondo_kensett_rhine",       12208),  # View on the Rhine
-    ("fondo_kensett_beach",       12224),  # Beach at Beverly
-
-    # Martin Johnson Heade — luminism, atmospheric
-    ("fondo_heade_marsh",         10869),  # Sunrise on the Marshes
-    ("fondo_heade_hay",           10870),  # Haystacks on the Newburyport Marshes
-
-    # William Trost Richards — detailed landscapes
-    ("fondo_richards_coast",      13449),  # On the Coast of New Jersey
-
-    # Thomas Moran — vivid color, spiritual light
-    ("fondo_moran_venice",        12651),  # Venice
-    ("fondo_moran_cliffs",        12652),  # Cliffs of the Upper Colorado River, Wyoming Territory
-
+    ("fondo_durand_kindred",      10485),
+    # Martin Heade
+    ("fondo_heade_sunrise",       10865),
+    ("fondo_heade_newbury",       10868),
+    # Thomas Moran
+    ("fondo_moran_cliffs",        12652),
+    ("fondo_moran_mountain",      12655),
     # European romantics
-    ("fondo_corot_morning",       11133),  # Morning — Corot
-    ("fondo_rousseau_forest",     11144),  # Forest of Fontainebleau — Rousseau
-    ("fondo_daubigny_stream",     11137),  # Banks of the Oise — Daubigny
+    ("fondo_corot_morning",       11133),
+    ("fondo_rousseau_forest",     11144),
+    ("fondo_daubigny_stream",     11137),
+    ("fondo_troyon_cattle",       11140),
+    ("fondo_diaz_forest",         11141),
+    # Winslow Homer
+    ("fondo_homer_adirondacks",   11237),
+    ("fondo_homer_coast",         11231),
+    # John Kensett
+    ("fondo_kensett_coast2",      11451),
+    ("fondo_kensett_george2",     12154),
+]
+
+# ─── AIC search queries — oil landscape paintings ────────────────────────────
+AIC_QUERIES = [
+    "landscape sunrise golden",
+    "pastoral meadow valley",
+    "mountain forest light",
+    "ocean seascape calm",
+    "river countryside",
+    "sky clouds dramatic",
+    "forest path sunlight",
+    "lake reflection serene",
+    "harvest wheat field",
+    "holy land landscape",
+    "desert oasis biblical",
+    "garden eden paradise",
 ]
 
 
 def fetch_json(url: str) -> dict:
-    req = urllib.request.Request(url, headers=MET_HEADERS)
-    with urllib.request.urlopen(req, timeout=20) as resp:
-        return json.loads(resp.read())
+    req = urllib.request.Request(url, headers=HEADERS)
+    with urllib.request.urlopen(req, timeout=20) as r:
+        return json.loads(r.read())
 
 
-def download_image(url: str, out_path: str) -> int:
-    req = urllib.request.Request(url, headers=MET_HEADERS)
-    with urllib.request.urlopen(req, timeout=60) as resp, open(out_path, "wb") as f:
-        data = resp.read()
+def dl_image(url: str, path: str) -> int:
+    req = urllib.request.Request(url, headers=HEADERS)
+    with urllib.request.urlopen(req, timeout=60) as r, open(path, "wb") as f:
+        data = r.read()
         f.write(data)
     return len(data)
 
 
-def fetch_one(stem: str, obj_id: int) -> bool:
-    out_path = os.path.join(FONDOS_DIR, f"{stem}.jpg")
-    if os.path.exists(out_path):
-        return True   # skip silently
-
+def is_good(path: str) -> bool:
     try:
-        obj = fetch_json(f"{MET_API}/objects/{obj_id}")
-        img_url = obj.get("primaryImage") or obj.get("primaryImageSmall", "")
-        if not img_url:
-            print(f"  ⚠ {stem} (id={obj_id}): no image")
-            return False
-        size = download_image(img_url, out_path)
-        if size < 30_000:
-            os.remove(out_path)
-            print(f"  ⚠ {stem}: image too small ({size//1024}KB)")
-            return False
-        title = obj.get("title", "?")[:50]
-        print(f"  OK {stem}  {size//1024}KB  [{title}]")
-        return True
-    except urllib.error.HTTPError as e:
-        print(f"  ⚠ {stem} (id={obj_id}): HTTP {e.code}")
-        return False
-    except Exception as e:
-        if os.path.exists(out_path):
-            os.remove(out_path)
-        print(f"  ❌ {stem}: {e}")
+        from PIL import Image
+        img = Image.open(path)
+        w, h = img.size
+        return w >= MIN_WIDTH and h >= MIN_HEIGHT and w / h > 1.0
+    except Exception:
         return False
 
 
-def search_fallback(stem: str, artist: str, keyword: str) -> bool:
-    """Search Met for a painting by artist+keyword. Returns True on success."""
-    out_path = os.path.join(FONDOS_DIR, f"{stem}.jpg")
-    if os.path.exists(out_path):
-        return True
+# ──────────────────────────────────────────────────────────────────────────────
+# Source 1: Met Museum
+# ──────────────────────────────────────────────────────────────────────────────
 
-    query = f"{artist} {keyword}"
+def met_fetch(stem: str, obj_id: int) -> bool:
+    path = os.path.join(FONDOS_DIR, f"{stem}.jpg")
+    if os.path.exists(path):
+        return True
     try:
-        result = fetch_json(
+        obj  = fetch_json(f"{MET_API}/objects/{obj_id}")
+        url  = obj.get("primaryImage") or obj.get("primaryImageSmall", "")
+        if not url:
+            return False
+        size = dl_image(url, path)
+        if size < 40_000 or not is_good(path):
+            os.remove(path)
+            return False
+        print(f"  MET  {stem}  {size//1024}KB")
+        return True
+    except Exception:
+        if os.path.exists(path):
+            os.remove(path)
+        return False
+
+
+def met_search(stem: str, query: str) -> bool:
+    path = os.path.join(FONDOS_DIR, f"{stem}.jpg")
+    if os.path.exists(path):
+        return True
+    try:
+        res = fetch_json(
             f"{MET_API}/search?q={urllib.parse.quote(query)}"
             "&hasImages=true&isPublicDomain=true"
         )
-        ids = result.get("objectIDs") or []
-        for oid in ids[:8]:
+        for oid in (res.get("objectIDs") or [])[:10]:
             try:
                 obj = fetch_json(f"{MET_API}/objects/{oid}")
-                if obj.get("medium", "").lower().find("oil") < 0:
+                if "oil" not in obj.get("medium", "").lower():
                     continue
-                img_url = obj.get("primaryImage", "")
-                if not img_url:
+                url = obj.get("primaryImage", "")
+                if not url:
                     continue
-                size = download_image(img_url, out_path)
-                if size < 100_000:
-                    os.remove(out_path)
+                size = dl_image(url, path)
+                if size < 100_000 or not is_good(path):
+                    if os.path.exists(path):
+                        os.remove(path)
                     continue
-                title = obj.get("title", "?")[:50]
-                print(f"  OK {stem} [search]  {size//1024}KB  [{title}]")
+                print(f"  MET  {stem} [search]  {size//1024}KB  [{obj.get('title','?')[:40]}]")
                 return True
             except Exception:
                 continue
-    except Exception as e:
-        print(f"  ❌ search {stem}: {e}")
+    except Exception:
+        pass
     return False
 
 
-# Extra search fallbacks if curated IDs fail / pool still below target
-SEARCH_EXTRA = [
-    ("fondo_crop_harvest",   "Winslow Homer",   "harvest fields"),
-    ("fondo_meadow_light",   "George Inness",   "meadow light"),
-    ("fondo_mountain_creek", "Asher Durand",    "mountain stream"),
-    ("fondo_golden_valley",  "Thomas Cole",     "valley pastoral"),
-    ("fondo_ocean_calm",     "Martin Heade",    "calm ocean coast"),
-]
+# ──────────────────────────────────────────────────────────────────────────────
+# Source 2: Art Institute of Chicago
+# ──────────────────────────────────────────────────────────────────────────────
+
+def aic_search(query: str, existing_stems: set, max_results: int = 8) -> list[tuple[str, str]]:
+    """
+    Search AIC for landscape oil paintings. Returns list of (stem, image_url).
+    Skips IDs that already exist in fondos dir.
+    """
+    results = []
+    try:
+        params = urllib.parse.urlencode({
+            "q": query,
+            "fields": "id,title,image_id,is_public_domain,medium_display,width,height",
+            "limit": 50,
+        })
+        data = fetch_json(f"{AIC_API}/artworks/search?{params}")
+        artworks = data.get("data", [])
+        for art in artworks:
+            if len(results) >= max_results:
+                break
+            if not art.get("is_public_domain"):
+                continue
+            img_id = art.get("image_id")
+            if not img_id:
+                continue
+            medium = (art.get("medium_display") or "").lower()
+            if "oil" not in medium and "painting" not in medium:
+                continue
+            # Prefer landscape aspect ratio
+            w = art.get("width", 0)
+            h = art.get("height", 0)
+            if h and w and (w / h) < 1.0:
+                continue   # skip portrait
+            stem = f"fondo_aic_{art['id']}"
+            if stem in existing_stems:
+                continue
+            # IIIF URL: 3000px wide
+            img_url = f"https://www.artic.edu/iiif/2/{img_id}/full/3000,/0/default.jpg"
+            results.append((stem, img_url, art.get("title", "?")[:40]))
+    except Exception as e:
+        print(f"  AIC search error ({query}): {e}")
+    return results
 
 
-def main() -> None:
-    os.makedirs(FONDOS_DIR, exist_ok=True)
+def aic_download(stem: str, url: str, title: str) -> bool:
+    path = os.path.join(FONDOS_DIR, f"{stem}.jpg")
+    if os.path.exists(path):
+        return True
+    try:
+        size = dl_image(url, path)
+        if size < 80_000 or not is_good(path):
+            if os.path.exists(path):
+                os.remove(path)
+            return False
+        print(f"  AIC  {stem}  {size//1024}KB  [{title}]")
+        return True
+    except Exception:
+        if os.path.exists(path):
+            os.remove(path)
+        return False
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Main
+# ──────────────────────────────────────────────────────────────────────────────
+
+def count_fondos() -> int:
     import glob
+    return len([
+        f for f in glob.glob(os.path.join(FONDOS_DIR, "*.jpg"))
+        + glob.glob(os.path.join(FONDOS_DIR, "*.png"))
+        if not os.path.basename(f).startswith("imagen_")
+    ])
 
-    # Count existing
-    existing = set(
+
+def existing_stems() -> set:
+    import glob
+    return {
         os.path.basename(f).rsplit(".", 1)[0]
         for f in glob.glob(os.path.join(FONDOS_DIR, "*.jpg"))
         + glob.glob(os.path.join(FONDOS_DIR, "*.png"))
         if not os.path.basename(f).startswith("imagen_")
-    )
-    print(f"\nMet Museum Open Access download → {FONDOS_DIR}")
-    print(f"Already have: {len(existing)} fondos\n")
+    }
+
+
+def main() -> None:
+    os.makedirs(FONDOS_DIR, exist_ok=True)
+    print(f"\nDownloading oil paintings → {FONDOS_DIR}")
+    print(f"Have: {count_fondos()}  |  Target: {TARGET}\n")
 
     ok = fail = 0
-    for stem, obj_id in CURATED:
-        if stem in existing:
-            continue   # already downloaded
-        success = fetch_one(stem, obj_id)
-        (ok if success else fail).__class__  # dummy
-        if success:
+
+    # ── Phase 1: Met curated IDs ─────────────────────────────────────────────
+    print("--- Phase 1: Met Museum curated IDs ---")
+    for stem, oid in MET_CURATED:
+        if count_fondos() >= TARGET:
+            break
+        stems = existing_stems()
+        if stem in stems:
+            continue
+        if met_fetch(stem, oid):
             ok += 1
         else:
             fail += 1
         time.sleep(0.15)
 
-    # Search fallbacks to hit target of 30
-    all_now = [f for f in glob.glob(os.path.join(FONDOS_DIR, "*.jpg"))
-               + glob.glob(os.path.join(FONDOS_DIR, "*.png"))
-               if not os.path.basename(f).startswith("imagen_")]
-    if len(all_now) < 30:
-        print(f"\n--- Search fallbacks ({30 - len(all_now)} more needed) ---")
-        for stem, artist, kw in SEARCH_EXTRA:
-            if stem not in existing and len(all_now) < 30:
-                if search_fallback(stem, artist, kw):
+    # ── Phase 2: AIC search ──────────────────────────────────────────────────
+    if count_fondos() < TARGET:
+        print(f"\n--- Phase 2: Art Institute of Chicago search ---")
+        for query in AIC_QUERIES:
+            if count_fondos() >= TARGET:
+                break
+            stems = existing_stems()
+            candidates = aic_search(query, stems, max_results=5)
+            for stem, url, title in candidates:
+                if count_fondos() >= TARGET:
+                    break
+                if aic_download(stem, url, title):
                     ok += 1
                 else:
                     fail += 1
-                all_now = [f for f in glob.glob(os.path.join(FONDOS_DIR, "*.jpg"))
-                           if not os.path.basename(f).startswith("imagen_")]
                 time.sleep(0.2)
 
-    all_final = [f for f in glob.glob(os.path.join(FONDOS_DIR, "*.jpg"))
-                 + glob.glob(os.path.join(FONDOS_DIR, "*.png"))
-                 if not os.path.basename(f).startswith("imagen_")]
-    # Drop tiny images
-    dropped = 0
-    for f in all_final:
-        try:
-            from PIL import Image as _PIL
-            img = _PIL.open(f)
-            if img.size[0] < 800 or img.size[1] < 600:
-                os.remove(f)
-                dropped += 1
-        except Exception:
-            pass
+    # ── Phase 3: Met search fallback ─────────────────────────────────────────
+    if count_fondos() < TARGET:
+        print(f"\n--- Phase 3: Met search fallback ---")
+        extra_queries = [
+            ("landscape golden light", "fondo_met_extra_1"),
+            ("pastoral American 1850", "fondo_met_extra_2"),
+            ("mountain river valley",  "fondo_met_extra_3"),
+            ("seascape ocean coast",   "fondo_met_extra_4"),
+            ("sunrise dawn sky",       "fondo_met_extra_5"),
+        ]
+        for query, stem in extra_queries:
+            if count_fondos() >= TARGET:
+                break
+            if stem in existing_stems():
+                continue
+            if met_search(stem, query):
+                ok += 1
+            else:
+                fail += 1
+            time.sleep(0.25)
 
-    all_final2 = [f for f in glob.glob(os.path.join(FONDOS_DIR, "*.jpg"))
-                  + glob.glob(os.path.join(FONDOS_DIR, "*.png"))
-                  if not os.path.basename(f).startswith("imagen_")]
-
-    print(f"\n{'='*50}")
-    print(f"  New this run: {ok}  |  Skipped/failed: {fail}  |  Dropped small: {dropped}")
-    print(f"  Total fondos pool: {len(all_final2)}")
-    print(f"{'='*50}\n")
+    total = count_fondos()
+    print(f"\n{'='*55}")
+    print(f"  New downloaded: {ok}  |  Failed: {fail}")
+    print(f"  Total fondos pool: {total}  (target {TARGET})")
+    print(f"{'='*55}\n")
 
 
 if __name__ == "__main__":

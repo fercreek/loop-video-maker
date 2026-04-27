@@ -44,10 +44,14 @@ TARGET_MINUTES       = 120
 SECONDS_PER_VERSE    = 25     # slower = more meditative (288 versos × 25s = 120min)
 OUTPUT_BASE          = "output/youtube_120min"
 
-# Only the 3 most relaxing moods — every theme gets same playlist flavour
-RELAXING_MOODS = ["Paz profunda", "Meditacion", "Sanacion"]
+# 6 moods for 120min — covers 6 segments × ~20min each, max variety
+# All deeply relaxing / meditative — appropriate for sleep/rest audience
+RELAXING_MOODS = [
+    "Paz profunda", "Reposo", "Contemplación",
+    "Silencio",     "Madrugada", "Ungimiento",
+]
 
-# All 8 themes at 120min — same content basis, different verse sets
+# All themes at 120min — same content basis, different verse sets
 VIDEOS = [(t, RELAXING_MOODS, THEME_LABELS[t]) for t in ALL_THEMES]
 
 def _get_bg_images(theme: str = "") -> list[str]:

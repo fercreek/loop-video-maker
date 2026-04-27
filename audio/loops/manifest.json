@@ -48,6 +48,78 @@
     "Paz tarde": {
       "file": "paz_tarde.mp3",
       "description": "Paz tarde (sanacion -1.5st 0.97×) — evening variant"
+    },
+    "Madrugada": {
+      "file": "madrugada.mp3",
+      "description": "Madrugada — paz_profunda -4st 0.93x (vigilia nocturna)"
+    },
+    "Manantial": {
+      "file": "manantial.mp3",
+      "description": "Manantial — paz_profunda +2.5st 1.04x (mañana fresca)"
+    },
+    "Gracia": {
+      "file": "gracia.mp3",
+      "description": "Gracia — paz_profunda +1st (tono más luminoso)"
+    },
+    "Gloria": {
+      "file": "gloria.mp3",
+      "description": "Gloria — adoracion +3st 1.08x (alabanza jubilosa)"
+    },
+    "Alabanza": {
+      "file": "alabanza.mp3",
+      "description": "Alabanza — adoracion -1.5st (más solemne)"
+    },
+    "Júbilo": {
+      "file": "jubilo.mp3",
+      "description": "Jubilo — adoracion +1.5st 1.06x (celebración)"
+    },
+    "Silencio": {
+      "file": "silencio.mp3",
+      "description": "Silencio — meditacion -2st 0.90x (quietud profunda)"
+    },
+    "Quietud": {
+      "file": "quietud.mp3",
+      "description": "Quietud — meditacion +1st (serenidad leve)"
+    },
+    "Reverencia": {
+      "file": "reverencia.mp3",
+      "description": "Reverencia — devocion -1.5st 0.92x (gravedad reverente)"
+    },
+    "Ofrenda": {
+      "file": "ofrenda.mp3",
+      "description": "Ofrenda — devocion +1st (ofrenda cálida)"
+    },
+    "Intercesión": {
+      "file": "intercesion.mp3",
+      "description": "Intercesion — devocion -2.5st 0.97x (intercesión profunda)"
+    },
+    "Promesa": {
+      "file": "promesa.mp3",
+      "description": "Promesa — esperanza +2st 1.05x (promesa brillante)"
+    },
+    "Anhelo": {
+      "file": "anhelo.mp3",
+      "description": "Anhelo — esperanza -2st 0.97x (anhelo tierno)"
+    },
+    "Fe viva": {
+      "file": "fe_viva.mp3",
+      "description": "Fe viva — esperanza +0.5st 1.02x (fe activa)"
+    },
+    "Restauración": {
+      "file": "restauracion.mp3",
+      "description": "Restauracion — sanacion +2st 1.03x (restauración ascendente)"
+    },
+    "Ungimiento": {
+      "file": "ungimiento.mp3",
+      "description": "Ungimiento — sanacion -2.5st 0.95x (unción profunda)"
+    },
+    "Liberación": {
+      "file": "liberacion.mp3",
+      "description": "Liberacion — sanacion +3.5st 1.07x (liberación y gozo)"
+    },
+    "Adoración serena": {
+      "file": "adoracion_paz.mp3",
+      "description": "Adoracion serena — adoracion -0.5st 0.98x (alabanza contemplativa)"
     }
   }
 }

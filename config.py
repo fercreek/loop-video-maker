@@ -38,21 +38,19 @@ VISUAL_TEMPLATES = [
 ]
 
 # ─── Theme registry ──────────────────────────────────────────────────────────
-# 8 temas activos. Cada tema tiene 3 moods combinados para evitar monotonía en 60min.
+# 3 moods × 20min = 60min.  All 30 moods from the pool available.
+# No duplicates within a theme — every segment sounds distinct.
 THEME_MOODS: dict[str, list[str]] = {
-    # v3.9: all duplicates removed — Sanacion/Paz profunda used the same file,
-    # Esperanza/Devoción used the same file. Now every theme has 3 unique tracks.
-    "paz":       ["Paz profunda", "Reposo", "Contemplación"],         # night prayer — Reposo=365s loop
-    "fe":        ["Adoración", "Devoción", "Paz profunda"],          # unchanged ✅
-    "esperanza": ["Amanecer", "Adoración", "Reposo"],                # morning hope — long loop end
-    "amor":      ["Adoración", "Paz profunda", "Paz tarde"],         # evening warmth
-    "gratitud":  ["Reposo", "Adoración", "Paz profunda"],            # Reposo = 365s (was 91s Meditacion)
-    "victoria":  ["Devoción", "Adoración", "Amanecer"],              # triumph → hope
-    "fuerza":    ["Solemnidad", "Devoción", "Paz profunda"],         # solemn power
-    "salmos":    ["Paz profunda", "Adoración", "Contemplación"],     # contemplative psalms
-    # Batch experimental v3.8 — 2 temas nuevos
-    "sanacion":  ["Contemplación", "Paz profunda", "Reposo"],        # deep healing
-    "provision": ["Adoración", "Amanecer", "Paz profunda"],          # provision = hope+praise
+    "paz":       ["Paz profunda", "Reposo",       "Contemplación"],
+    "fe":        ["Adoración",    "Devoción",      "Gracia"],
+    "esperanza": ["Amanecer",     "Promesa",       "Fe viva"],
+    "amor":      ["Adoración",    "Paz profunda",  "Paz tarde"],
+    "gratitud":  ["Reposo",       "Gloria",        "Manantial"],
+    "victoria":  ["Devoción",     "Liberación",    "Amanecer"],
+    "fuerza":    ["Solemnidad",   "Intercesión",   "Ofrenda"],
+    "salmos":    ["Paz profunda", "Alabanza",      "Contemplación"],
+    "sanacion":  ["Ungimiento",   "Restauración",  "Reposo"],
+    "provision": ["Adoración",    "Júbilo",        "Gracia"],
 }
 
 THEME_LABELS: dict[str, str] = {
