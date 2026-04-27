@@ -1,6 +1,8 @@
 # ── Secrets / config local ──────────────────────────────────────────────────
 config.json
 .env
+client_secret.json
+data/yt_token.json
 
 # ── Output (videos, thumbnails, fondos — demasiado grandes para git) ────────
 output/
