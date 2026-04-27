@@ -13,7 +13,8 @@ importan desde aquí. No duplicar constantes en otros archivos.
 from __future__ import annotations
 
 # ─── Render engine ───────────────────────────────────────────────────────────
-SECONDS_PER_VERSE = 20          # 20s × 180 verses = 60 min
+SECONDS_PER_VERSE    = 20       # 20s × 180 verses = 60 min
+VERSES_PER_BG        = 3        # fondos permanecen 3 versos = 60s — tiempo para apreciar Ken Burns
 TARGET_MINUTES_DEFAULT = 60
 RENDER_FPS = 12                 # 12fps — suficiente para Ken Burns lento
 RENDER_FPS_HIRES = 24           # 24fps — modo viral/experimental (2× render time)
@@ -39,18 +40,19 @@ VISUAL_TEMPLATES = [
 # ─── Theme registry ──────────────────────────────────────────────────────────
 # 8 temas activos. Cada tema tiene 3 moods combinados para evitar monotonía en 60min.
 THEME_MOODS: dict[str, list[str]] = {
-    # Batch original — 8 temas
-    "paz":       ["Paz profunda", "Meditacion", "Sanacion"],
-    "fe":        ["Adoración", "Devoción", "Paz profunda"],
-    "esperanza": ["Sanacion", "Adoración", "Meditacion"],
-    "amor":      ["Adoración", "Paz profunda", "Sanacion"],
-    "gratitud":  ["Meditacion", "Adoración", "Paz profunda"],
-    "victoria":  ["Devoción", "Adoración", "Sanacion"],
-    "fuerza":    ["Sanacion", "Devoción", "Paz profunda"],
-    "salmos":    ["Paz profunda", "Adoración", "Meditacion"],
+    # v3.9: all duplicates removed — Sanacion/Paz profunda used the same file,
+    # Esperanza/Devoción used the same file. Now every theme has 3 unique tracks.
+    "paz":       ["Paz profunda", "Reposo", "Contemplación"],         # night prayer — Reposo=365s loop
+    "fe":        ["Adoración", "Devoción", "Paz profunda"],          # unchanged ✅
+    "esperanza": ["Amanecer", "Adoración", "Reposo"],                # morning hope — long loop end
+    "amor":      ["Adoración", "Paz profunda", "Paz tarde"],         # evening warmth
+    "gratitud":  ["Reposo", "Adoración", "Paz profunda"],            # Reposo = 365s (was 91s Meditacion)
+    "victoria":  ["Devoción", "Adoración", "Amanecer"],              # triumph → hope
+    "fuerza":    ["Solemnidad", "Devoción", "Paz profunda"],         # solemn power
+    "salmos":    ["Paz profunda", "Adoración", "Contemplación"],     # contemplative psalms
     # Batch experimental v3.8 — 2 temas nuevos
-    "sanacion":  ["Sanacion", "Paz profunda", "Meditacion"],
-    "provision": ["Adoración", "Esperanza", "Paz profunda"],
+    "sanacion":  ["Contemplación", "Paz profunda", "Reposo"],        # deep healing
+    "provision": ["Adoración", "Amanecer", "Paz profunda"],          # provision = hope+praise
 }
 
 THEME_LABELS: dict[str, str] = {
@@ -106,3 +108,8 @@ BATCH_SIZE = 5                              # videos por iteración
 # ─── Quality gate (core/quality_gate.py) ────────────────────────────────────
 QUALITY_GATE_THRESHOLD = 80         # score mínimo para "pass" (0-100)
 QUALITY_GATE_AUTO_FIX_LUFS = True   # auto-aplicar loudnorm si LUFS fuera de rango
+
+# ─── v3.9 production effects ─────────────────────────────────────────────────
+GODRAY_ALPHA      = 0.15   # opacidad god-ray (0.0–1.0); 0.15 = sutil pero visible
+GODRAY_BLUR       = 60     # radio Gaussian blur del god-ray (px)
+AUDIO_FADE_IN_SEC = 5      # swell de entrada en audio (afade antes de loudnorm)

@@ -28,6 +28,7 @@ from config import (
     VISUAL_TEMPLATES,
     CROSSFADE_SECONDS,
     SECONDS_PER_VERSE as DEFAULT_SECONDS_PER_VERSE,
+    VERSES_PER_BG,
     RENDER_FPS as DEFAULT_FPS,
     RENDER_FPS_HIRES,
     PARALLEL_JOBS as DEFAULT_WORKERS,
@@ -39,13 +40,22 @@ from config import (
 
 # ─── Background pool ──────────────────────────────────────────────────────────
 
-def get_bg_images() -> list[str]:
-    """Return all oil painting backgrounds (exclude imagen_* files)."""
+def get_bg_images(theme: str = "") -> list[str]:
+    """Return all oil painting backgrounds (exclude imagen_* files).
+
+    Shuffled with a deterministic per-theme seed so every theme starts on a
+    different image and the visual variety is maximised across videos.
+    """
+    import random as _r
     project_dir = os.path.dirname(os.path.abspath(__file__))
     paths = sorted([
         p for p in glob.glob(os.path.join(project_dir, FONDOS_GLOB))
         if not os.path.basename(p).startswith("imagen_")
     ])
+    # Deterministic shuffle per theme — same theme always same order (reproducible)
+    # but different themes start on different images.
+    seed = hash(theme or "default") & 0xFFFFFFFF
+    _r.Random(seed).shuffle(paths)
     return paths
 
 
@@ -137,7 +147,7 @@ def render_one(
             efecto_imagen="Zoom lento ->",
             format_key="youtube_1080",
             background_images=bg_images,
-            verses_per_background=1,
+            verses_per_background=VERSES_PER_BG,
             random_ken_burns=True,
             render_fps=fps,
             parallel_jobs=workers,
@@ -247,7 +257,8 @@ def main() -> None:
         args.fps = RENDER_FPS_HIRES
 
     themes = [args.theme] if args.theme else args.themes
-    bg_images = get_bg_images()
+    # bg_images computed per-theme inside the loop (shuffle is theme-seeded)
+    bg_images = get_bg_images(themes[0] if len(themes) == 1 else "")
 
     if not bg_images:
         print("ERROR: No se encontraron imagenes en output/fondos/*.jpg", file=sys.stderr)
@@ -271,6 +282,8 @@ def main() -> None:
         print(f"  TEMA: {theme.upper()}")
         print(f"{'='*60}")
         theme_dir = os.path.join(args.output, theme)
+        # Per-theme shuffle so each tema starts on a different fondo
+        bg_images = get_bg_images(theme)
         try:
             out_path, qg = render_one(
                 theme=theme,

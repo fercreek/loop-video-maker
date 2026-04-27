@@ -55,15 +55,30 @@ def _autocrop_borders(img: Image.Image, threshold: int = 8) -> Image.Image:
     return img
 
 
-def _apply_warm_grade(img: Image.Image) -> Image.Image:
+def _apply_split_tone(img: Image.Image) -> Image.Image:
     """
-    Warm color grade: boost R channel slightly, reduce B channel.
-    Mimics the golden-hour look used by top Christian YouTube channels.
+    Split-tone color grade: warm shadows + cool highlights.
+
+    Shadows  (dark pixels):  R+15, B-12  — golden/warm feel
+    Highlights (bright px):  R-8,  B+10  — cool/ethereal feel
+
+    More cinematic than a flat warm-grade; closer to Heaven Instrumental
+    and other top-performing Christian channels.
     """
     arr = np.array(img, dtype=np.float32)
-    arr[..., 0] = np.clip(arr[..., 0] + 12, 0, 255)  # R +12
-    arr[..., 2] = np.clip(arr[..., 2] - 10, 0, 255)  # B -10
-    return Image.fromarray(arr.astype(np.uint8))
+    lum = arr.mean(axis=2, keepdims=True) / 255.0       # 0=dark, 1=bright
+
+    # Shadows mask: strongest at darkest pixels
+    shadow_mask = np.clip(1.0 - lum * 2, 0, 1)
+    arr[..., 0] += shadow_mask[..., 0] * 15   # R boost in shadows
+    arr[..., 2] -= shadow_mask[..., 0] * 12   # B cut  in shadows
+
+    # Highlights mask: strongest at brightest pixels
+    hi_mask = np.clip(lum * 2 - 1, 0, 1)
+    arr[..., 0] -= hi_mask[..., 0] * 8        # R cut  in highlights
+    arr[..., 2] += hi_mask[..., 0] * 10       # B boost in highlights
+
+    return Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8))
 
 
 def _apply_vignette(img: Image.Image, strength: float = 0.35) -> Image.Image:
@@ -390,7 +405,7 @@ def renderizar_video(
         img = Image.open(path).convert("RGB")
         img = _autocrop_borders(img)
         img = ImageOps.fit(img, (width, height), Image.LANCZOS)
-        img = _apply_warm_grade(img)
+        img = _apply_split_tone(img)
         img = _apply_vignette(img, strength=0.35)
         return np.array(img)
 
@@ -540,72 +555,78 @@ def renderizar_video(
 
 # ─── Fast ffmpeg-native renderer ─────────────────────────────────────────────
 
-def _zoompan_expr(effect: str, total_frames: int) -> tuple:
+def _zoompan_expr(effect: str, total_frames: int, start_frame: int = 0) -> tuple:
     """
     Return (z_expr, x_expr, y_expr) for ffmpeg zoompan filter.
     Source images are at native output size (e.g. 1920×1080).
     z > 1.0 gives room for panning without black bars.
-    'on' = output frame counter, starting from 0.
+    'on' = output frame counter, starting from 0 for each individual clip.
 
-    v3.8: zoom expressions use cosine easing instead of linear for
-    more cinematic, organic motion. Formula:
-        ease(t) = (1 - cos(π·t)) / 2   where t = on/T ∈ [0,1]
-    This starts slow, accelerates through mid-point, decelerates at end.
+    v3.8: cosine easing for organic motion.
+    v3.9: start_frame offset for continuous Ken Burns across multi-verse backgrounds.
+      When verses_per_background=3, total_frames = 3×verse_frames, and each
+      verse clip within the group passes start_frame = verse_pos × verse_frames.
+      This means the animation continues seamlessly across all verses on the
+      same background instead of restarting every 20s.
+
+      Formula:  F = on + start_frame   (effective global frame position)
+                ease(t) = (1-cos(π·F/T))/2   where T = total_frames-1
     """
-    T = max(total_frames - 1, 1)
-    PI = "3.14159265"
+    T   = max(total_frames - 1, 1)
+    PI  = "3.14159265"
+    F   = f"(on+{start_frame})" if start_frame > 0 else "on"
 
-    # Eased zoom-in: 1.05 → 1.15 with cosine ease-in-out
-    z_in  = f"1.05+0.10*(1-cos({PI}*on/{T}))/2"
+    # Eased zoom-in: 1.05 → 1.15 (slow start, accelerates, slow end)
+    z_in  = f"1.05+0.10*(1-cos({PI}*{F}/{T}))/2"
     # Eased zoom-out: 1.15 → 1.05
-    z_out = f"1.15-0.10*(1-cos({PI}*on/{T}))/2"
-    # Static zoom for pure pans (room for panning without black bars)
+    z_out = f"1.15-0.10*(1-cos({PI}*{F}/{T}))/2"
+    # Static zoom for pure pans
     z_pan = "1.12"
 
     if effect == "Zoom lento ↗":
         return (
             z_in,
-            f"max(0,(iw-iw/zoom)/2+on/{T}*35)",
-            f"max(0,(ih-ih/zoom)/2-on/{T}*20)",
+            f"max(0,(iw-iw/zoom)/2+{F}/{T}*35)",
+            f"max(0,(ih-ih/zoom)/2-{F}/{T}*20)",
         )
     elif effect == "Zoom lento ↙":
         return (
             z_in,
-            f"max(0,(iw-iw/zoom)/2-on/{T}*35)",
-            f"min(ih-ih/zoom,(ih-ih/zoom)/2+on/{T}*20)",
+            f"max(0,(iw-iw/zoom)/2-{F}/{T}*35)",
+            f"min(ih-ih/zoom,(ih-ih/zoom)/2+{F}/{T}*20)",
         )
     elif effect == "Zoom lento ↘":
         return (
             z_in,
-            f"max(0,(iw-iw/zoom)/2+on/{T}*35)",
-            f"min(ih-ih/zoom,(ih-ih/zoom)/2+on/{T}*20)",
+            f"max(0,(iw-iw/zoom)/2+{F}/{T}*35)",
+            f"min(ih-ih/zoom,(ih-ih/zoom)/2+{F}/{T}*20)",
         )
     elif effect == "Zoom lento ↖":
         return (
             z_in,
-            f"max(0,(iw-iw/zoom)/2-on/{T}*35)",
-            f"max(0,(ih-ih/zoom)/2-on/{T}*20)",
+            f"max(0,(iw-iw/zoom)/2-{F}/{T}*35)",
+            f"max(0,(ih-ih/zoom)/2-{F}/{T}*20)",
         )
     elif effect == "Zoom out ↗":
         return (
             z_out,
-            f"max(0,(iw-iw/zoom)/2+on/{T}*30)",
-            f"max(0,(ih-ih/zoom)/2-on/{T}*18)",
+            f"max(0,(iw-iw/zoom)/2+{F}/{T}*30)",
+            f"max(0,(ih-ih/zoom)/2-{F}/{T}*18)",
         )
     elif effect == "Zoom out ↙":
         return (
             z_out,
-            f"max(0,(iw-iw/zoom)/2-on/{T}*30)",
-            f"min(ih-ih/zoom,(ih-ih/zoom)/2+on/{T}*18)",
+            f"max(0,(iw-iw/zoom)/2-{F}/{T}*30)",
+            f"min(ih-ih/zoom,(ih-ih/zoom)/2+{F}/{T}*18)",
         )
     elif effect == "Paneo suave →":
-        return z_pan, f"on/{T}*(iw-iw/zoom)", "(ih-ih/zoom)/2"
+        return z_pan, f"{F}/{T}*(iw-iw/zoom)", "(ih-ih/zoom)/2"
     elif effect == "Paneo suave ←":
-        return z_pan, f"(iw-iw/zoom)*(1-on/{T})", "(ih-ih/zoom)/2"
+        return z_pan, f"(iw-iw/zoom)*(1-{F}/{T})", "(ih-ih/zoom)/2"
     elif effect == "Paneo suave ↑":
-        return z_pan, "(iw-iw/zoom)/2", f"(ih-ih/zoom)*(1-on/{T})"
+        return z_pan, "(iw-iw/zoom)/2", f"(ih-ih/zoom)*(1-{F}/{T})"
     elif effect == "Paneo suave ↓":
-        return z_pan, "(iw-iw/zoom)/2", f"on/{T}*(ih-ih/zoom)"
+        return z_pan, "(iw-iw/zoom)/2", f"{F}/{T}*(ih-ih/zoom)"
     else:
         # fallback: centered static
         return "1.10", "(iw-iw/zoom)/2", "(ih-ih/zoom)/2"
@@ -670,13 +691,19 @@ def renderizar_video_fast(
             img = Image.open(bg_path).convert("RGB")
             img = _autocrop_borders(img)
             img = ImageOps.fit(img, (width, height), Image.LANCZOS)
-            img = _apply_warm_grade(img)
+            img = _apply_split_tone(img)
             img = _apply_vignette(img, strength=0.35)
             img.save(out_p, quality=95)
         processed_bg.append(out_p)
 
     if progress_callback:
         progress_callback(0.03, f"{len(processed_bg)} fondos preparados.")
+
+    # v3.9: Pre-render god-ray RGBA overlay (once, reused for all clips via closure)
+    from core.effects import create_godray_png
+    from config import GODRAY_ALPHA, GODRAY_BLUR
+    godray_png = create_godray_png(work_dir, width, height,
+                                   alpha=GODRAY_ALPHA, blur=GODRAY_BLUR)
 
     # 2. Cycle verses to fill total duration
     target_count = duracion_total_segundos // dur or 1
@@ -732,7 +759,11 @@ def renderizar_video_fast(
     verse_effects = verse_effects[:len(full_verses)]
 
     # 5. Render each verse clip with ffmpeg (parallel)
-    total_frames = dur * fps
+    frames_per_verse       = dur * fps
+    # Total frames for a full background group — Ken Burns spans this whole duration.
+    # Each verse within the group starts at verse_pos_in_group × frames_per_verse
+    # so the animation continues seamlessly instead of restarting every verse.
+    total_frames_group = frames_per_verse * verses_per_background
 
     def render_clip(args):
         idx, bg_p, txt_p, effect = args
@@ -740,7 +771,10 @@ def renderizar_video_fast(
         if os.path.exists(out_clip):
             return idx, True, out_clip
 
-        zp_z, zp_x, zp_y = _zoompan_expr(effect, total_frames)
+        # Continuous Ken Burns: offset by verse position within the background group
+        verse_pos   = idx % verses_per_background
+        start_frame = verse_pos * frames_per_verse
+        zp_z, zp_x, zp_y = _zoompan_expr(effect, total_frames_group, start_frame)
         # Note: applying fade to the text layer with zoompan causes timestamp
         # drift that makes the text invisible. Fade the full composite instead.
         filt = (
@@ -748,7 +782,9 @@ def renderizar_video_fast(
             f"zoompan=z='{zp_z}':x='{zp_x}':y='{zp_y}'"
             f":d=1:s={width}x{height}:fps={fps}"
             f"[bg];"
-            f"[bg][1:v]overlay=0:0,"
+            f"[bg][1:v]overlay=0:0[t];"
+            f"[t][2:v]overlay=0:0[out_raw];"
+            f"[out_raw]"
             f"fade=t=in:st=0:d={fade_dur},"
             f"fade=t=out:st={fade_out_start}:d={fade_dur}"
             f"[out]"
@@ -757,6 +793,7 @@ def renderizar_video_fast(
             "ffmpeg", "-y",
             "-loop", "1", "-i", bg_p,
             "-i", txt_p,
+            "-loop", "1", "-i", godray_png,   # [2:v] — god-ray RGBA overlay
             "-filter_complex", filt,
             "-map", "[out]",
             "-t", str(dur),
@@ -844,7 +881,7 @@ def renderizar_video_fast(
             ["ffmpeg", "-y",
              "-i", concat_silent, "-i", musica_path,
              "-c:v", "copy",
-             "-af", "loudnorm=I=-16:TP=-1.5:LRA=11",
+             "-af", "afade=t=in:st=0:d=5,loudnorm=I=-16:TP=-1.5:LRA=11",
              "-c:a", "aac", "-b:a", "192k",
              "-t", str(actual_dur), "-shortest",
              output_path],

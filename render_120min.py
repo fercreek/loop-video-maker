@@ -29,6 +29,7 @@ from core.render_logger import RenderLogger, clean_file
 from core.thumbnail_gen import generate_thumbnail_for_theme
 from config import (
     RENDER_FPS,
+    VERSES_PER_BG,
     PARALLEL_JOBS,
     WATERMARK,
     CROSSFADE_SECONDS,
@@ -49,11 +50,20 @@ RELAXING_MOODS = ["Paz profunda", "Meditacion", "Sanacion"]
 # All 8 themes at 120min — same content basis, different verse sets
 VIDEOS = [(t, RELAXING_MOODS, THEME_LABELS[t]) for t in ALL_THEMES]
 
-# Oil paintings pool (same 11 as 60min)
-BG_IMAGES = sorted([
-    p for p in glob.glob(FONDOS_GLOB)
-    if not os.path.basename(p).startswith("imagen_")
-])
+def _get_bg_images(theme: str = "") -> list[str]:
+    """Return fondos pool shuffled deterministically per-theme."""
+    import random as _r
+    paths = sorted([
+        p for p in glob.glob(FONDOS_GLOB)
+        if not os.path.basename(p).startswith("imagen_")
+    ])
+    seed = hash(theme or "default") & 0xFFFFFFFF
+    _r.Random(seed).shuffle(paths)
+    return paths
+
+
+# Static pool used for display counts
+BG_IMAGES = _get_bg_images()
 
 os.makedirs(OUTPUT_BASE, exist_ok=True)
 
@@ -65,6 +75,7 @@ def render_video(theme: str, moods: list[str], label: str) -> str:
     print(f"\n{'='*60}")
     print(f"  VIDEO 120min: {label}  (tema: {theme})")
     print(f"{'='*60}")
+    theme_bg_images = _get_bg_images(theme)
 
     datos = cargar_versiculos(theme)
     verses = versiculos_a_lista(datos)
@@ -105,7 +116,7 @@ def render_video(theme: str, moods: list[str], label: str) -> str:
             "watermark": WATERMARK,
             "workers": PARALLEL_JOBS,
             "moods": moods,
-            "background_images": BG_IMAGES,
+            "background_images": theme_bg_images,
             "text_style": "fea",
             "format": "120min_relaxation",
         },
@@ -123,7 +134,7 @@ def render_video(theme: str, moods: list[str], label: str) -> str:
 
     try:
         renderizar_video_fast(
-            imagen_path=BG_IMAGES[0],
+            imagen_path=theme_bg_images[0],
             musica_path=audio_path,
             versiculos=verses,
             duracion_total_segundos=total_seconds,
@@ -132,8 +143,8 @@ def render_video(theme: str, moods: list[str], label: str) -> str:
             output_path=output_path,
             efecto_imagen="Zoom lento ↗",
             format_key="youtube_1080",
-            background_images=BG_IMAGES,
-            verses_per_background=1,
+            background_images=theme_bg_images,
+            verses_per_background=VERSES_PER_BG,
             random_ken_burns=True,
             render_fps=RENDER_FPS,
             parallel_jobs=PARALLEL_JOBS,

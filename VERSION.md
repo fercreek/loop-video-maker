@@ -1,6 +1,7 @@
 # VERSION — Loop Video Maker
 
-**Current:** `v3.8-fluidity` (commit TBD, 2026-04-27) — 24fps hires mode · 10 efectos Ken Burns · easing coseno · temas sanacion/provision · preview mode
+**Current:** `v3.9-production` (commit TBD, 2026-04-27) — split-tone color grade · god-ray RGBA overlay · audio swell 5s
+**Prev:** `v3.8-fluidity` (commit TBD, 2026-04-27) — 24fps hires mode · 10 efectos Ken Burns · easing coseno · temas sanacion/provision · preview mode
 **Prev:** `v3.7-quality-gate` (commit `d8812bd`, 2026-04-22) — quality gate automático post-render + COPY_120MIN dict + docs completas
 **Prev:** `v3.6-thumbs-variants` (commit `1bbe856`, 2026-04-22) — thumbnail templates B/C para A/B CTR testing
 **Prev:** `v3.5-120min` (commit `b83d8f1`) — render_120min.py batch 2hrs sleep/relajación
@@ -61,6 +62,14 @@ Tag inmovil. Checkout: `git checkout v3.2-baseline`. Revert work: `git reset --h
 
 ---
 
+## Fixed en v3.9-production
+
+- ✅ Split-tone color grade — `_apply_split_tone()` reemplaza `_apply_warm_grade()`: warm shadows (R+15, B-12) + cool highlights (R-8, B+10)
+- ✅ God-ray RGBA overlay — `core/effects.py:create_godray_png()` → diagonal blanco top-left, blur r=60, alpha=0.15; compositeado como `[2:v]` en ffmpeg filter_complex
+- ✅ Audio swell 5s — `afade=t=in:st=0:d=5` antes de `loudnorm` en el mux final
+- ✅ 3 constantes en config.py: `GODRAY_ALPHA`, `GODRAY_BLUR`, `AUDIO_FADE_IN_SEC`
+- Preview sanacion 10min: score 95/100, LUFS -15.2, render 2min
+
 ## Known issues abiertos
 
 1. **Render lento ocasional** — `paz` tomó 42min, `esperanza` 43min vs 3-4min típico. v3.4 agregó per-clip timing — próximo render lento tendrá top-5 clip data en stdout.
@@ -106,6 +115,7 @@ Actualizar cada vez que se corre `eval_render.py` sobre batch nuevo o se crea ta
 | v3.3-audio-fix | 2026-04-21 | 1 (victoria) | **100/100** | 4.0min | Kevin MacLeod loops (head/tail trim) | ✅ validado |
 | v3.4-clean (batch) | 2026-04-22 | 8 (todos 60min) | **100/100** | 3.5min avg | loudnorm -16 LUFS | ✅ producción |
 | v3.7 (120min batch) | 2026-04-23 | 8 (todos 120min) | **100/100** | 10.4min avg | Paz profunda+Meditacion+Sanacion | ✅ producción |
+| v3.9-production | 2026-04-27 | 1 (sanacion preview) | **95/100** | 2min (10min) | split-tone · godray · afade | ✅ preview ok |
 
 **Render time outliers v3.2:** `paz` 42.5min, `esperanza` 43.9min. Causa no identificada.
 
