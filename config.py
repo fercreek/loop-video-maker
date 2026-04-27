@@ -16,11 +16,12 @@ from __future__ import annotations
 SECONDS_PER_VERSE = 20          # 20s × 180 verses = 60 min
 TARGET_MINUTES_DEFAULT = 60
 RENDER_FPS = 12                 # 12fps — suficiente para Ken Burns lento
+RENDER_FPS_HIRES = 24           # 24fps — modo viral/experimental (2× render time)
 PARALLEL_JOBS = 6               # ffmpeg subprocesses paralelos (tune to CPU cores)
 VIDEO_BITRATE = "3500k"         # target YouTube 1080p
 X264_PRESET = "ultrafast"       # velocidad > compresión — YouTube re-encodea
 CROSSFADE_SECONDS = 8.0         # crossfade entre tracks musicales
-WATERMARK = "@FeEnAcción"
+WATERMARK = "@VersiculoDeDios"
 
 # ─── Output paths ────────────────────────────────────────────────────────────
 OUTPUT_BASE_60MIN = "output/youtube_60min"
@@ -38,6 +39,7 @@ VISUAL_TEMPLATES = [
 # ─── Theme registry ──────────────────────────────────────────────────────────
 # 8 temas activos. Cada tema tiene 3 moods combinados para evitar monotonía en 60min.
 THEME_MOODS: dict[str, list[str]] = {
+    # Batch original — 8 temas
     "paz":       ["Paz profunda", "Meditacion", "Sanacion"],
     "fe":        ["Adoración", "Devoción", "Paz profunda"],
     "esperanza": ["Sanacion", "Adoración", "Meditacion"],
@@ -46,6 +48,9 @@ THEME_MOODS: dict[str, list[str]] = {
     "victoria":  ["Devoción", "Adoración", "Sanacion"],
     "fuerza":    ["Sanacion", "Devoción", "Paz profunda"],
     "salmos":    ["Paz profunda", "Adoración", "Meditacion"],
+    # Batch experimental v3.8 — 2 temas nuevos
+    "sanacion":  ["Sanacion", "Paz profunda", "Meditacion"],
+    "provision": ["Adoración", "Esperanza", "Paz profunda"],
 }
 
 THEME_LABELS: dict[str, str] = {
@@ -57,6 +62,8 @@ THEME_LABELS: dict[str, str] = {
     "victoria":  "Victoria en Cristo",
     "fuerza":    "Fuerza en Dios",
     "salmos":    "Salmos — Adoración",
+    "sanacion":  "Sanidad y Restauración",
+    "provision": "Provisión de Dios",
 }
 
 ALL_THEMES = list(THEME_MOODS.keys())

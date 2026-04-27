@@ -1,6 +1,7 @@
 # VERSION — Loop Video Maker
 
-**Current:** `v3.7-quality-gate` (commit `d8812bd`, 2026-04-22) — quality gate automático post-render + COPY_120MIN dict + docs completas
+**Current:** `v3.8-fluidity` (commit TBD, 2026-04-27) — 24fps hires mode · 10 efectos Ken Burns · easing coseno · temas sanacion/provision · preview mode
+**Prev:** `v3.7-quality-gate` (commit `d8812bd`, 2026-04-22) — quality gate automático post-render + COPY_120MIN dict + docs completas
 **Prev:** `v3.6-thumbs-variants` (commit `1bbe856`, 2026-04-22) — thumbnail templates B/C para A/B CTR testing
 **Prev:** `v3.5-120min` (commit `b83d8f1`) — render_120min.py batch 2hrs sleep/relajación
 **Prev:** `v3.4-clean` (commit `963230a`) — config.py central + loudnorm fix + clip instrumentation

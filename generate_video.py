@@ -5,6 +5,8 @@ Usage:
   .venv/bin/python3 generate_video.py --theme paz --duration 60 --output output/
   .venv/bin/python3 generate_video.py --theme amor --duration 10 --output output/test/
   .venv/bin/python3 generate_video.py --themes paz fe esperanza --duration 60
+  .venv/bin/python3 generate_video.py --theme sanacion --duration 180 --hires
+  .venv/bin/python3 generate_video.py --theme paz --preview        # 10min test render at 24fps
 """
 from __future__ import annotations
 
@@ -27,6 +29,7 @@ from config import (
     CROSSFADE_SECONDS,
     SECONDS_PER_VERSE as DEFAULT_SECONDS_PER_VERSE,
     RENDER_FPS as DEFAULT_FPS,
+    RENDER_FPS_HIRES,
     PARALLEL_JOBS as DEFAULT_WORKERS,
     WATERMARK as DEFAULT_WATERMARK,
     FONDOS_GLOB,
@@ -222,12 +225,26 @@ def build_parser() -> argparse.ArgumentParser:
                    help=f"Trabajos ffmpeg en paralelo (default: {DEFAULT_WORKERS})")
     p.add_argument("--force", action="store_true",
                    help="Sobreescribir videos existentes")
+    p.add_argument("--hires", action="store_true",
+                   help=f"Render a {RENDER_FPS_HIRES}fps (modo viral) en vez de {DEFAULT_FPS}fps")
+    p.add_argument("--preview", action="store_true",
+                   help="Render preview de 10min a 24fps — salida en output/preview/")
     return p
 
 
 def main() -> None:
     parser = build_parser()
     args = parser.parse_args()
+
+    # --preview: override duration=10, hires=True, output=output/preview/
+    if args.preview:
+        args.duration = 10
+        args.fps = RENDER_FPS_HIRES
+        args.output = "output/preview/"
+        args.force = True
+        print("🔍 MODO PREVIEW — 10min · 24fps · output/preview/")
+    elif args.hires:
+        args.fps = RENDER_FPS_HIRES
 
     themes = [args.theme] if args.theme else args.themes
     bg_images = get_bg_images()
@@ -236,7 +253,8 @@ def main() -> None:
         print("ERROR: No se encontraron imagenes en output/fondos/*.jpg", file=sys.stderr)
         sys.exit(1)
 
-    print(f"\nGenerador de videos devocionales")
+    mode_tag = " [PREVIEW 24fps]" if args.preview else (" [HIRES 24fps]" if args.hires else "")
+    print(f"\nGenerador de videos devocionales{mode_tag}")
     print(f"  Temas:    {', '.join(themes)}")
     print(f"  Duracion: {args.duration} min")
     print(f"  FPS:      {args.fps}  |  {args.seconds_per_verse}s/verso")

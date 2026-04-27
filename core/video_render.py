@@ -317,12 +317,21 @@ def _apply_bg_effect(clip, efecto: str, target_w: int = 1920, target_h: int = 10
 
 
 # All available Ken Burns / pan effects for random selection
+# v3.8: expanded from 5 → 10 effects, includes zoom-out and diagonal combos
 BG_EFFECTS = [
-    "Zoom lento ↗",
-    "Zoom lento ↙",
+    # Zoom in — con easing coseno (más cinematográfico que linear)
+    "Zoom lento ↗",       # zoom-in + pan diagonal arriba-derecha
+    "Zoom lento ↙",       # zoom-in + pan diagonal abajo-izquierda
+    "Zoom lento ↘",       # zoom-in + pan diagonal abajo-derecha  [nuevo]
+    "Zoom lento ↖",       # zoom-in + pan diagonal arriba-izquierda  [nuevo]
+    # Zoom out — sale de cerca, revela el cuadro  [nuevo]
+    "Zoom out ↗",         # zoom-out + drift diagonal
+    "Zoom out ↙",         # zoom-out + drift opuesto  [nuevo]
+    # Paneos puros — sin cambio de zoom
     "Paneo suave →",
     "Paneo suave ←",
     "Paneo suave ↑",
+    "Paneo suave ↓",      # [nuevo]
 ]
 
 
@@ -537,28 +546,68 @@ def _zoompan_expr(effect: str, total_frames: int) -> tuple:
     Source images are at native output size (e.g. 1920×1080).
     z > 1.0 gives room for panning without black bars.
     'on' = output frame counter, starting from 0.
+
+    v3.8: zoom expressions use cosine easing instead of linear for
+    more cinematic, organic motion. Formula:
+        ease(t) = (1 - cos(π·t)) / 2   where t = on/T ∈ [0,1]
+    This starts slow, accelerates through mid-point, decelerates at end.
     """
     T = max(total_frames - 1, 1)
+    PI = "3.14159265"
+
+    # Eased zoom-in: 1.05 → 1.15 with cosine ease-in-out
+    z_in  = f"1.05+0.10*(1-cos({PI}*on/{T}))/2"
+    # Eased zoom-out: 1.15 → 1.05
+    z_out = f"1.15-0.10*(1-cos({PI}*on/{T}))/2"
+    # Static zoom for pure pans (room for panning without black bars)
+    z_pan = "1.12"
 
     if effect == "Zoom lento ↗":
         return (
-            f"min(1.05+on/{T}*0.10,1.15)",
-            f"max(0,(iw-iw/zoom)/2+on/{T}*40)",
-            f"max(0,(ih-ih/zoom)/2-on/{T}*25)",
+            z_in,
+            f"max(0,(iw-iw/zoom)/2+on/{T}*35)",
+            f"max(0,(ih-ih/zoom)/2-on/{T}*20)",
         )
     elif effect == "Zoom lento ↙":
         return (
-            f"min(1.05+on/{T}*0.10,1.15)",
-            f"max(0,(iw-iw/zoom)/2-on/{T}*40)",
-            f"min(ih-ih/zoom,(ih-ih/zoom)/2+on/{T}*25)",
+            z_in,
+            f"max(0,(iw-iw/zoom)/2-on/{T}*35)",
+            f"min(ih-ih/zoom,(ih-ih/zoom)/2+on/{T}*20)",
+        )
+    elif effect == "Zoom lento ↘":
+        return (
+            z_in,
+            f"max(0,(iw-iw/zoom)/2+on/{T}*35)",
+            f"min(ih-ih/zoom,(ih-ih/zoom)/2+on/{T}*20)",
+        )
+    elif effect == "Zoom lento ↖":
+        return (
+            z_in,
+            f"max(0,(iw-iw/zoom)/2-on/{T}*35)",
+            f"max(0,(ih-ih/zoom)/2-on/{T}*20)",
+        )
+    elif effect == "Zoom out ↗":
+        return (
+            z_out,
+            f"max(0,(iw-iw/zoom)/2+on/{T}*30)",
+            f"max(0,(ih-ih/zoom)/2-on/{T}*18)",
+        )
+    elif effect == "Zoom out ↙":
+        return (
+            z_out,
+            f"max(0,(iw-iw/zoom)/2-on/{T}*30)",
+            f"min(ih-ih/zoom,(ih-ih/zoom)/2+on/{T}*18)",
         )
     elif effect == "Paneo suave →":
-        return "1.12", f"on/{T}*(iw-iw/zoom)", "(ih-ih/zoom)/2"
+        return z_pan, f"on/{T}*(iw-iw/zoom)", "(ih-ih/zoom)/2"
     elif effect == "Paneo suave ←":
-        return "1.12", f"(iw-iw/zoom)*(1-on/{T})", "(ih-ih/zoom)/2"
+        return z_pan, f"(iw-iw/zoom)*(1-on/{T})", "(ih-ih/zoom)/2"
     elif effect == "Paneo suave ↑":
-        return "1.12", "(iw-iw/zoom)/2", f"(ih-ih/zoom)*(1-on/{T})"
+        return z_pan, "(iw-iw/zoom)/2", f"(ih-ih/zoom)*(1-on/{T})"
+    elif effect == "Paneo suave ↓":
+        return z_pan, "(iw-iw/zoom)/2", f"on/{T}*(ih-ih/zoom)"
     else:
+        # fallback: centered static
         return "1.10", "(iw-iw/zoom)/2", "(ih-ih/zoom)/2"
 
 
