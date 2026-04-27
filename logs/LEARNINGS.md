@@ -52,6 +52,14 @@ Después de cada render, revisar el log y mover las mejores lecciones aquí.
 | 2026-04-27 | salmos | v3.2-cd767be | 16.9min render | 3050MB | 120min video | Paz profunda + Reposo + Contemplación + Silencio + Madrugada + Ungimiento | [log](renders/2026-04-27_08-09_salmos.md) |
 | 2026-04-27 | sanacion | v3.2-cd767be | 16.8min render | 3053MB | 120min video | Paz profunda + Reposo + Contemplación + Silencio + Madrugada + Ungimiento | [log](renders/2026-04-27_08-30_sanacion.md) |
 | 2026-04-27 | provision | v3.2-cd767be | 16.8min render | 3052MB | 120min video | Paz profunda + Reposo + Contemplación + Silencio + Madrugada + Ungimiento | [log](renders/2026-04-27_08-50_provision.md) |
+| 2026-04-27 | paz | v3.2-cd767be | 8.8min render | 1503MB | 60min video | Paz profunda + Reposo + Contemplación | [log](renders/2026-04-27_09-13_paz.md) |
+| 2026-04-27 | fe | v3.2-5a8798e | 8.7min render | 1509MB | 60min video | Adoración + Devoción + Gracia | [log](renders/2026-04-27_09-24_fe.md) |
+| 2026-04-27 | esperanza | v3.2-5a8798e | 8.7min render | 1509MB | 60min video | Amanecer + Promesa + Fe viva | [log](renders/2026-04-27_09-35_esperanza.md) |
+| 2026-04-27 | amor | v3.2-5a8798e | 8.9min render | 1507MB | 60min video | Adoración + Paz profunda + Paz tarde | [log](renders/2026-04-27_09-45_amor.md) |
+| 2026-04-27 | gratitud | v3.2-5a8798e | 8.8min render | 1505MB | 60min video | Reposo + Gloria + Manantial | [log](renders/2026-04-27_09-56_gratitud.md) |
+| 2026-04-27 | victoria | v3.2-5a8798e | 8.7min render | 1508MB | 60min video | Devoción + Liberación + Amanecer | [log](renders/2026-04-27_10-07_victoria.md) |
+| 2026-04-27 | fuerza | v3.2-5a8798e | 8.9min render | 1504MB | 60min video | Solemnidad + Intercesión + Ofrenda | [log](renders/2026-04-27_10-18_fuerza.md) |
+| 2026-04-27 | salmos | v3.2-5a8798e | 8.8min render | 1503MB | 60min video | Paz profunda + Alabanza + Contemplación | [log](renders/2026-04-27_10-29_salmos.md) |
 <!-- renders-table-end -->
 
 ---

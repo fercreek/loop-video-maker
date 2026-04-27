@@ -1,0 +1,108 @@
+{
+  "theme": "fuerza",
+  "format": "60min",
+  "engine_version": "v3.9-5a8798e",
+  "output_path": "output/youtube_60min/fuerza/fuerza_60min.mp4",
+  "started_at": "2026-04-27T16:18:04.446156+00:00",
+  "finished_at": "2026-04-27T16:28:55.814378+00:00",
+  "total_sec": 651.4,
+  "total_min": 10.9,
+  "config": {
+    "duration_min": 60,
+    "fps": 12,
+    "seconds_per_verse": 20,
+    "parallel_jobs": 6,
+    "verses_per_bg": 3,
+    "fondos_pool": 50,
+    "moods": [
+      "Solemnidad",
+      "Intercesión",
+      "Ofrenda"
+    ]
+  },
+  "steps": {
+    "audio_gen": {
+      "sec": 6.76,
+      "moods": [
+        "Solemnidad",
+        "Intercesión",
+        "Ofrenda"
+      ],
+      "total_audio_sec": 3600
+    },
+    "bg_prep": {
+      "sec": 25.28,
+      "images_processed": 50
+    },
+    "text_render": {
+      "sec": 20.35,
+      "verses_rendered": 180
+    },
+    "clips": {
+      "sec": 315.73,
+      "total_clips": 180,
+      "avg_sec": 10.49,
+      "min_sec": 7.17,
+      "max_sec": 11.58,
+      "clips_per_sec": 0.57,
+      "top5_slow": [
+        {
+          "idx": 147,
+          "sec": 11.6
+        },
+        {
+          "idx": 161,
+          "sec": 11.5
+        },
+        {
+          "idx": 97,
+          "sec": 11.5
+        },
+        {
+          "idx": 27,
+          "sec": 11.4
+        },
+        {
+          "idx": 15,
+          "sec": 11.4
+        }
+      ],
+      "effect_distribution": {
+        "Zoom lento ↙": 33,
+        "Zoom lento ↗": 21,
+        "Zoom out ↗": 18,
+        "Zoom lento ↖": 27,
+        "Zoom lento ↘": 9,
+        "Paneo suave ↑": 18,
+        "Paneo suave ↓": 18,
+        "Paneo suave →": 15,
+        "Paneo suave ←": 6,
+        "Zoom out ↙": 15
+      }
+    },
+    "concat": {
+      "sec": 2.18
+    },
+    "mux": {
+      "sec": 167.13
+    },
+    "quality_gate": {
+      "sec": 113.02,
+      "score": 100,
+      "passed": true,
+      "lufs_before": -15.8,
+      "lufs_after": -15.8,
+      "fixed": false,
+      "issues": []
+    }
+  },
+  "output": {
+    "size_mb": 1503.5,
+    "mb_per_min": 25.1,
+    "lufs": -15.8,
+    "lufs_fixed": false,
+    "quality_score": 100,
+    "quality_pass": null,
+    "quality_issues": []
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "theme": "fe",
+  "format": "60min",
+  "engine_version": "v3.9-5a8798e",
+  "output_path": "output/youtube_60min/fe/fe_60min.mp4",
+  "started_at": "2026-04-27T15:24:22.313215+00:00",
+  "finished_at": "2026-04-27T15:35:06.244641+00:00",
+  "total_sec": 643.9,
+  "total_min": 10.7,
+  "config": {
+    "duration_min": 60,
+    "fps": 12,
+    "seconds_per_verse": 20,
+    "parallel_jobs": 6,
+    "verses_per_bg": 3,
+    "fondos_pool": 50,
+    "moods": [
+      "Adoración",
+      "Devoción",
+      "Gracia"
+    ]
+  },
+  "steps": {
+    "audio_gen": {
+      "sec": 5.9,
+      "moods": [
+        "Adoración",
+        "Devoción",
+        "Gracia"
+      ],
+      "total_audio_sec": 3600
+    },
+    "bg_prep": {
+      "sec": 25.26,
+      "images_processed": 50
+    },
+    "text_render": {
+      "sec": 20.49,
+      "verses_rendered": 180
+    },
+    "clips": {
+      "sec": 314.66,
+      "total_clips": 180,
+      "avg_sec": 10.47,
+      "min_sec": 9.4,
+      "max_sec": 11.54,
+      "clips_per_sec": 0.57,
+      "top5_slow": [
+        {
+          "idx": 147,
+          "sec": 11.5
+        },
+        {
+          "idx": 158,
+          "sec": 11.5
+        },
+        {
+          "idx": 135,
+          "sec": 11.5
+        },
+        {
+          "idx": 85,
+          "sec": 11.5
+        },
+        {
+          "idx": 58,
+          "sec": 11.4
+        }
+      ],
+      "effect_distribution": {
+        "Zoom lento ↙": 33,
+        "Zoom lento ↗": 21,
+        "Zoom out ↗": 18,
+        "Zoom lento ↖": 27,
+        "Zoom lento ↘": 9,
+        "Paneo suave ↑": 18,
+        "Paneo suave ↓": 18,
+        "Paneo suave →": 15,
+        "Paneo suave ←": 6,
+        "Zoom out ↙": 15
+      }
+    },
+    "concat": {
+      "sec": 2.14
+    },
+    "mux": {
+      "sec": 161.86
+    },
+    "quality_gate": {
+      "sec": 112.65,
+      "score": 100,
+      "passed": true,
+      "lufs_before": -16.6,
+      "lufs_after": -16.6,
+      "fixed": false,
+      "issues": []
+    }
+  },
+  "output": {
+    "size_mb": 1508.8,
+    "mb_per_min": 25.1,
+    "lufs": -16.6,
+    "lufs_fixed": false,
+    "quality_score": 100,
+    "quality_pass": null,
+    "quality_issues": []
+  }
+}
