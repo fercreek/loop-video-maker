@@ -22,7 +22,66 @@ from google.oauth2.credentials import Credentials
 from google.auth.transport.requests import Request
 
 TOKEN_PATH  = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "yt_token.json")
-CHANNEL_ID  = "UC2l5TZjHzRtaRjH8kT_yQ2w"
+
+# Channel ID — set to "mine" to auto-resolve the authenticated channel,
+# or override in config.json with {"youtube_channel_id": "UCxxxx"} for a specific channel.
+# @VersiculoDeDios is the target channel (11K subs) under fercreek@gmail.com.
+_CHANNEL_ID_OVERRIDE = None  # populated by get_channel_id() on first call
+CHANNEL_HANDLE = "@VersiculoDeDios"
+
+
+def get_channel_id(handle_or_id: str | None = None) -> str:
+    """
+    Resolve channel ID. Priority:
+    1. Explicit handle_or_id argument
+    2. config.json["youtube_channel_id"]
+    3. List all channels on the account, pick @VersiculoDeDios
+    4. Fall back to authenticated account's default channel ("mine")
+    """
+    global _CHANNEL_ID_OVERRIDE
+    if _CHANNEL_ID_OVERRIDE:
+        return _CHANNEL_ID_OVERRIDE
+
+    # Check config.json override
+    cfg_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "config.json")
+    if os.path.exists(cfg_path):
+        import json
+        with open(cfg_path) as f:
+            cfg = json.load(f)
+        if cfg.get("youtube_channel_id"):
+            _CHANNEL_ID_OVERRIDE = cfg["youtube_channel_id"]
+            return _CHANNEL_ID_OVERRIDE
+
+    if handle_or_id:
+        _CHANNEL_ID_OVERRIDE = handle_or_id
+        return _CHANNEL_ID_OVERRIDE
+
+    # Auto-detect via handle lookup (YouTube Data API v3 supports forHandle param)
+    # Note: channels().list(mine=True) only returns the PRIMARY channel of the Google account.
+    # To get @VersiculoDeDios (a Brand Account), we look it up by handle directly.
+    yt = _youtube()
+    try:
+        resp = yt.channels().list(
+            part="snippet,statistics",
+            forHandle="VersiculoDeDios",
+        ).execute()
+        if resp.get("items"):
+            ch = resp["items"][0]
+            _CHANNEL_ID_OVERRIDE = ch["id"]
+            print(f"  Auto-detected channel: {ch['snippet']['title']} ({ch['id']})")
+            return _CHANNEL_ID_OVERRIDE
+    except Exception:
+        pass  # forHandle not available in older API versions — fall through
+
+    # Fallback: use authenticated account's primary channel
+    resp = yt.channels().list(part="snippet,statistics", mine=True).execute()
+    channels = resp.get("items", [])
+    if channels:
+        _CHANNEL_ID_OVERRIDE = channels[0]["id"]
+        print(f"  Using channel: {channels[0]['snippet']['title']} ({_CHANNEL_ID_OVERRIDE})")
+        return _CHANNEL_ID_OVERRIDE
+
+    raise RuntimeError("No se encontró ningún canal en la cuenta autenticada.")
 
 SCOPES = [
     "https://www.googleapis.com/auth/youtube.readonly",
@@ -71,7 +130,7 @@ def get_channel_summary() -> dict:
     yt = _youtube()
     resp = yt.channels().list(
         part="snippet,statistics",
-        id=CHANNEL_ID,
+        id=get_channel_id(),
     ).execute()
 
     ch = resp["items"][0]
@@ -81,7 +140,7 @@ def get_channel_summary() -> dict:
         "subscribers": int(stats.get("subscriberCount", 0)),
         "total_views": int(stats.get("viewCount", 0)),
         "video_count": int(stats.get("videoCount", 0)),
-        "channel_id":  CHANNEL_ID,
+        "channel_id":  get_channel_id(),
     }
 
 
@@ -109,7 +168,7 @@ def get_channel_videos(max_results: int = 50) -> list[dict]:
     # Step 1: get video IDs from channel uploads playlist
     ch_resp = yt.channels().list(
         part="contentDetails",
-        id=CHANNEL_ID,
+        id=get_channel_id(),
     ).execute()
     uploads_playlist = ch_resp["items"][0]["contentDetails"]["relatedPlaylists"]["uploads"]
 
@@ -187,7 +246,7 @@ def get_video_analytics(video_id: str, days: int = 28) -> dict:
     start = end - timedelta(days=days)
 
     resp = an.reports().query(
-        ids=f"channel=={CHANNEL_ID}",
+        ids=f"channel=={get_channel_id()}",
         startDate=str(start),
         endDate=str(end),
         metrics="views,estimatedMinutesWatched,averageViewDuration,averageViewPercentage,subscribersGained,likes,shares",
@@ -225,7 +284,7 @@ def get_channel_analytics(days: int = 28) -> dict:
     start = end - timedelta(days=days)
 
     resp = an.reports().query(
-        ids=f"channel=={CHANNEL_ID}",
+        ids=f"channel=={get_channel_id()}",
         startDate=str(start),
         endDate=str(end),
         metrics="views,estimatedMinutesWatched,averageViewDuration,averageViewPercentage,subscribersGained",
