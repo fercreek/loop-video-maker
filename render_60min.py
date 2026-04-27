@@ -68,6 +68,7 @@ os.makedirs(OUTPUT_BASE, exist_ok=True)
 
 # Accumulates quality gate results across the batch (populated in render_video)
 _gate_results: list = []
+_qg_threads:   list = []   # background quality-gate threads
 
 
 def cycle_verses(verses: list, target_count: int) -> list:
@@ -208,34 +209,46 @@ def render_video(theme: str, moods: list, label: str):
         except Exception as exc:
             print(f"  [thumb] Warning: no se pudo generar thumbnail: {exc}")
 
-        # Quality gate — eval + auto-fix LUFS si necesario
-        try:
-            from core.quality_gate import gate as _qgate
-            metrics.step_start("quality_gate")
-            qg = _qgate(output_path, nominal_min=TARGET_MINUTES)
-            metrics.step_end(
-                "quality_gate",
-                score=qg["score"],
-                passed=qg["pass"],
-                lufs_before=qg.get("lufs_before"),
-                lufs_after=qg.get("lufs_after"),
-                fixed=qg.get("fixed", False),
-                issues=qg.get("issues", []),
-            )
-            icon = "✅" if qg["pass"] else "⚠️ "
-            fix_msg = (
-                f"  [LUFS fix: {qg['lufs_before']:.1f}→{qg['lufs_after']:.1f}]"
-                if qg["fixed"] else ""
-            )
-            print(f"  {icon} Quality gate: {qg['score']}/100{fix_msg}")
-            for iss in qg["issues"]:
-                print(f"       ⚠ {iss}")
-            _gate_results.append(qg)
-        except Exception as exc:
-            print(f"  [quality-gate] warning: {exc}")
+        # Quality gate runs in background thread — next render starts immediately.
+        import threading as _threading
 
-        # Write structured metrics JSON
-        metrics.finish()
+        def _bg_qgate(out_p, _theme, _target_min, _metrics, _gate_list):
+            try:
+                from core.quality_gate import gate as _qgate
+                _metrics.step_start("quality_gate")
+                qg = _qgate(out_p, nominal_min=_target_min)
+                _metrics.step_end(
+                    "quality_gate",
+                    score=qg["score"],
+                    passed=qg["pass"],
+                    lufs_before=qg.get("lufs_before"),
+                    lufs_after=qg.get("lufs_after"),
+                    fixed=qg.get("fixed", False),
+                    issues=qg.get("issues", []),
+                )
+                icon = "✅" if qg["pass"] else "⚠️ "
+                fix_msg = (
+                    f"  [LUFS fix: {qg['lufs_before']:.1f}→{qg['lufs_after']:.1f}]"
+                    if qg["fixed"] else ""
+                )
+                print(f"\n  {icon} [{_theme}] Quality gate: {qg['score']}/100{fix_msg}")
+                for iss in qg["issues"]:
+                    print(f"       ⚠ {iss}")
+                _gate_list.append(qg)
+            except Exception as exc:
+                print(f"  [quality-gate] warning ({_theme}): {exc}")
+            finally:
+                _metrics.finish()
+
+        t = _threading.Thread(
+            target=_bg_qgate,
+            args=(output_path, theme, TARGET_MINUTES, metrics, _gate_results),
+            daemon=True,
+            name=f"qgate-{theme}",
+        )
+        t.start()
+        _qg_threads.append(t)
+        print(f"  [quality-gate] running in background → next render starting now")
 
     except Exception as exc:
         elapsed = time.time() - t0
@@ -293,13 +306,17 @@ if __name__ == "__main__":
     if failed:
         print(f"  Errores: {', '.join(failed)}", file=sys.stderr)
 
+    # Wait for all background quality-gate threads
+    if _qg_threads:
+        n_pending = sum(1 for t in _qg_threads if t.is_alive())
+        if n_pending:
+            print(f"\n  Esperando {n_pending} quality gate(s) en background...")
+        for t in _qg_threads:
+            t.join()
+
     if _gate_results:
         from core.quality_gate import print_batch_report
         print_batch_report(_gate_results)
 
     if failed:
         sys.exit(1)
-
-    if _gate_results:
-        from core.quality_gate import print_batch_report
-        print_batch_report(_gate_results)

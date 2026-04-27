@@ -40,6 +40,18 @@ Después de cada render, revisar el log y mover las mejores lecciones aquí.
 | 2026-04-27 | sanacion | v3.2-b9fa172 | 2.4min render | 264MB | 10min video | Sanacion + Paz profunda + Meditacion | [log](renders/2026-04-27_03-21_sanacion.md) |
 | 2026-04-27 | provision | v3.2-b9fa172 | 3.0min render | 263MB | 10min video | Adoración + Amanecer + Paz profunda | [log](renders/2026-04-27_03-34_provision.md) |
 | 2026-04-27 | paz | v3.2-b9fa172 | 3.6min render | 256MB | 10min video | Paz profunda + Reposo + Contemplación | [log](renders/2026-04-27_03-42_paz.md) |
+| 2026-04-27 | sanacion | v3.2-2aa8032 | 11.4min render | 1508MB | 60min video | Ungimiento + Restauración + Reposo | [log](renders/2026-04-27_05-18_sanacion.md) |
+| 2026-04-27 | provision | v3.2-cd767be | 9.5min render | 1510MB | 60min video | Adoración + Júbilo + Gracia | [log](renders/2026-04-27_05-31_provision.md) |
+| 2026-04-27 | paz | v3.2-cd767be | 16.8min render | 3048MB | 120min video | Paz profunda + Reposo + Contemplación + Silencio + Madrugada + Ungimiento | [log](renders/2026-04-27_05-43_paz.md) |
+| 2026-04-27 | fe | v3.2-cd767be | 16.7min render | 3049MB | 120min video | Paz profunda + Reposo + Contemplación + Silencio + Madrugada + Ungimiento | [log](renders/2026-04-27_06-04_fe.md) |
+| 2026-04-27 | esperanza | v3.2-cd767be | 16.7min render | 3051MB | 120min video | Paz profunda + Reposo + Contemplación + Silencio + Madrugada + Ungimiento | [log](renders/2026-04-27_06-25_esperanza.md) |
+| 2026-04-27 | amor | v3.2-cd767be | 16.8min render | 3049MB | 120min video | Paz profunda + Reposo + Contemplación + Silencio + Madrugada + Ungimiento | [log](renders/2026-04-27_06-45_amor.md) |
+| 2026-04-27 | gratitud | v3.2-cd767be | 16.8min render | 3048MB | 120min video | Paz profunda + Reposo + Contemplación + Silencio + Madrugada + Ungimiento | [log](renders/2026-04-27_07-06_gratitud.md) |
+| 2026-04-27 | victoria | v3.2-cd767be | 16.8min render | 3049MB | 120min video | Paz profunda + Reposo + Contemplación + Silencio + Madrugada + Ungimiento | [log](renders/2026-04-27_07-27_victoria.md) |
+| 2026-04-27 | fuerza | v3.2-cd767be | 16.8min render | 3050MB | 120min video | Paz profunda + Reposo + Contemplación + Silencio + Madrugada + Ungimiento | [log](renders/2026-04-27_07-48_fuerza.md) |
+| 2026-04-27 | salmos | v3.2-cd767be | 16.9min render | 3050MB | 120min video | Paz profunda + Reposo + Contemplación + Silencio + Madrugada + Ungimiento | [log](renders/2026-04-27_08-09_salmos.md) |
+| 2026-04-27 | sanacion | v3.2-cd767be | 16.8min render | 3053MB | 120min video | Paz profunda + Reposo + Contemplación + Silencio + Madrugada + Ungimiento | [log](renders/2026-04-27_08-30_sanacion.md) |
+| 2026-04-27 | provision | v3.2-cd767be | 16.8min render | 3052MB | 120min video | Paz profunda + Reposo + Contemplación + Silencio + Madrugada + Ungimiento | [log](renders/2026-04-27_08-50_provision.md) |
 <!-- renders-table-end -->
 
 ---

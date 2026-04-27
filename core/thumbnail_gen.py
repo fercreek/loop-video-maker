@@ -68,6 +68,14 @@ THEME_COPY: dict[str, dict] = {
         "title":    "¡VICTORIA\nEN CRISTO!",
         "subtitle": "Música Cristiana para Vencer",
     },
+    "sanacion": {
+        "title":    "¡SANIDAD Y\nRESTAURACIÓN!",
+        "subtitle": "Música Cristiana para Sanar y Restaurar",
+    },
+    "provision": {
+        "title":    "¡PROVISIÓN\nDE DIOS!",
+        "subtitle": "Música Cristiana para Confiar en Dios",
+    },
 }
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -82,10 +90,12 @@ COPY_120MIN: dict[str, dict] = {
     "paz":       {"title": "¡PAZ SOBRENATURAL!\n2 HORAS",    "subtitle": "Música para Dormir y Descansar en Dios"},
     "salmos":    {"title": "¡SALMOS DE\nADORACIÓN! 2H",      "subtitle": "Música para Orar y Descansar en Dios"},
     "victoria":  {"title": "¡VICTORIA\nEN CRISTO! 2H",       "subtitle": "Música para Dormir como Vencedor"},
+    "sanacion":  {"title": "¡SANIDAD Y\nRESTAURACIÓN! 2H",  "subtitle": "Música para Sanar mientras Descansas"},
+    "provision": {"title": "¡PROVISIÓN\nDE DIOS! 2H",        "subtitle": "Música para Confiar mientras Duermes"},
 }
 
 THEME_BG: dict[str, str] = {
-    "fe":        "output/fondos/fondo_light.jpg",
+    "fe":        "output/fondos/fondo_cielo.jpg",         # fondo_light deleted; cielo = fe/luz
     "amor":      "output/fondos/fondo_sunset.jpg",
     "esperanza": "output/fondos/fondo_dawn.jpg",
     "fuerza":    "output/fondos/fondo_mountains.jpg",
@@ -93,6 +103,8 @@ THEME_BG: dict[str, str] = {
     "paz":       "output/fondos/fondo_cielo.jpg",
     "salmos":    "output/fondos/fondo_celestial.jpg",
     "victoria":  "output/fondos/fondo_pastoral.jpg",
+    "sanacion":  "output/fondos/fondo_dawn.jpg",          # sanación = amanecer, nuevo inicio
+    "provision": "output/fondos/fondo_river_pastoral.jpg", # provisión = abundancia pastoral
 }
 
 
@@ -384,7 +396,10 @@ def make_thumbnail(
     copy     = THEME_COPY.get(theme, {"title": theme.upper(), "subtitle": ""})
     title    = title    or copy["title"]
     subtitle = subtitle or copy["subtitle"]
-    bg_rel   = bg_path or THEME_BG.get(theme, "output/fondos/fondo_light.jpg")
+    _bg_fallback = THEME_BG.get(theme) or next(iter(sorted(
+        __import__("glob").glob(os.path.join(PROJECT_DIR, "output/fondos/*.jpg"))
+    )), "output/fondos/fondo_celestial.jpg")
+    bg_rel   = bg_path or _bg_fallback
     bg_abs   = bg_rel if os.path.isabs(bg_rel) else os.path.join(PROJECT_DIR, bg_rel)
     accent   = _hex(accent_hex or THEME_ACCENT.get(theme, "#FFD700"))
 

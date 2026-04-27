@@ -1,0 +1,114 @@
+{
+  "theme": "gratitud",
+  "format": "120min",
+  "engine_version": "v3.9-cd767be",
+  "output_path": "output/youtube_120min/gratitud/gratitud_120min.mp4",
+  "started_at": "2026-04-27T13:06:28.017403+00:00",
+  "finished_at": "2026-04-27T13:27:15.215323+00:00",
+  "total_sec": 1247.2,
+  "total_min": 20.8,
+  "config": {
+    "duration_min": 120,
+    "fps": 12,
+    "seconds_per_verse": 25,
+    "parallel_jobs": 6,
+    "verses_per_bg": 3,
+    "fondos_pool": 50,
+    "moods": [
+      "Paz profunda",
+      "Reposo",
+      "Contemplación",
+      "Silencio",
+      "Madrugada",
+      "Ungimiento"
+    ]
+  },
+  "steps": {
+    "audio_gen": {
+      "sec": 15.41,
+      "moods": [
+        "Paz profunda",
+        "Reposo",
+        "Contemplación",
+        "Silencio",
+        "Madrugada",
+        "Ungimiento"
+      ],
+      "total_audio_sec": 7200
+    },
+    "bg_prep": {
+      "sec": 25.12,
+      "images_processed": 50
+    },
+    "text_render": {
+      "sec": 31.62,
+      "verses_rendered": 288
+    },
+    "clips": {
+      "sec": 620.59,
+      "total_clips": 288,
+      "avg_sec": 12.91,
+      "min_sec": 10.95,
+      "max_sec": 14.69,
+      "clips_per_sec": 0.46,
+      "top5_slow": [
+        {
+          "idx": 264,
+          "sec": 14.7
+        },
+        {
+          "idx": 243,
+          "sec": 14.5
+        },
+        {
+          "idx": 143,
+          "sec": 14.1
+        },
+        {
+          "idx": 93,
+          "sec": 14.0
+        },
+        {
+          "idx": 193,
+          "sec": 14.0
+        }
+      ],
+      "effect_distribution": {
+        "Zoom lento ↙": 42,
+        "Zoom lento ↗": 27,
+        "Zoom out ↗": 30,
+        "Zoom lento ↖": 48,
+        "Zoom lento ↘": 18,
+        "Paneo suave ↑": 24,
+        "Paneo suave ↓": 24,
+        "Paneo suave →": 27,
+        "Paneo suave ←": 15,
+        "Zoom out ↙": 33
+      }
+    },
+    "concat": {
+      "sec": 4.03
+    },
+    "mux": {
+      "sec": 324.26
+    },
+    "quality_gate": {
+      "sec": 225.12,
+      "score": 100,
+      "passed": true,
+      "lufs_before": -16.3,
+      "lufs_after": -16.3,
+      "fixed": false,
+      "issues": []
+    }
+  },
+  "output": {
+    "size_mb": 3048.3,
+    "mb_per_min": 25.4,
+    "lufs": -16.3,
+    "lufs_fixed": false,
+    "quality_score": 100,
+    "quality_pass": null,
+    "quality_issues": []
+  }
+}
