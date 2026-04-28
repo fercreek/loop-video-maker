@@ -70,15 +70,60 @@ ALL_THEMES = list(THEME_MOODS.keys())
 
 DEFAULT_MOODS = ["Paz profunda", "Meditacion", "Adoración"]
 
+# ─── 120min mood sequences — 6 moods × 20min = 120min ───────────────────────
+# Each theme has a distinct sequence → prevents YouTube near-duplicate filter.
+# Moods can repeat across themes; ORDER + COMBINATION must differ per video.
+THEME_MOODS_120: dict[str, list[str]] = {
+    "paz":       ["Paz profunda",    "Contemplación",  "Silencio",      "Reposo",       "Quietud",      "Madrugada"],
+    "fe":        ["Adoración",       "Fe viva",        "Devoción",      "Gracia",       "Reverencia",   "Promesa"],
+    "esperanza": ["Amanecer",        "Esperanza",      "Anhelo",        "Restauración", "Gloria",       "Manantial"],
+    "amor":      ["Adoración serena","Paz tarde",      "Sanación",      "Ungimiento",   "Reposo",       "Manantial"],
+    "gratitud":  ["Gloria",          "Alabanza",       "Júbilo",        "Manantial",    "Adoración",    "Gracia"],
+    "victoria":  ["Liberación",      "Amanecer",       "Gloria",        "Alabanza",     "Júbilo",       "Devoción"],
+    "fuerza":    ["Solemnidad",      "Intercesión",    "Ofrenda",       "Madrugada",    "Restauración", "Ungimiento"],
+    "salmos":    ["Salmos",          "Adoración",      "Alabanza",      "Contemplación","Reverencia",   "Silencio"],
+    "sanacion":  ["Sanación",        "Ungimiento",     "Restauración",  "Reposo",       "Paz profunda", "Manantial"],
+    "provision": ["Adoración",       "Júbilo",         "Gracia",        "Promesa",      "Fe viva",      "Gloria"],
+}
+
 
 def get_moods(theme: str) -> list[str]:
-    """Return mood list for theme, or DEFAULT_MOODS if unknown."""
+    """Return mood list for theme (60min), or DEFAULT_MOODS if unknown."""
     return THEME_MOODS.get(theme.lower(), DEFAULT_MOODS)
+
+
+def get_moods_120(theme: str) -> list[str]:
+    """Return 6-mood list for 120min format, or paz sequence as fallback."""
+    return THEME_MOODS_120.get(theme.lower(), THEME_MOODS_120["paz"])
 
 
 def get_label(theme: str) -> str:
     """Return human label for theme, or capitalized theme if unknown."""
     return THEME_LABELS.get(theme.lower(), theme.capitalize())
+
+
+def auto_parallel_jobs(default: int = PARALLEL_JOBS) -> int:
+    """Return worker count, reduced if swap > 75% to avoid memory pressure."""
+    import re
+    import subprocess
+    try:
+        out = subprocess.check_output(["sysctl", "vm.swapusage"], text=True)
+        # vm.swapusage: total = 11264.00M  used = 10417.19M  free = 846.81M
+        m = re.search(r"total = ([\d.]+)M\s+used = ([\d.]+)M", out)
+        if m:
+            total, used = float(m.group(1)), float(m.group(2))
+            pct = used / total if total > 0 else 0
+            if pct > 0.75:
+                reduced = max(3, default - 2)
+                print(f"  [mem] Swap {pct*100:.0f}% usado — reduciendo workers {default} → {reduced}")
+                return reduced
+            if pct > 0.50:
+                reduced = max(4, default - 1)
+                print(f"  [mem] Swap {pct*100:.0f}% — reduciendo workers {default} → {reduced}")
+                return reduced
+    except Exception:
+        pass
+    return default
 
 
 # ─── Eval targets (eval_render.py) ──────────────────────────────────────────

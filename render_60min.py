@@ -41,6 +41,7 @@ from config import (
     THEME_MOODS,
     THEME_LABELS,
     ALL_THEMES,
+    auto_parallel_jobs,
 )
 
 TARGET_MINUTES = 60
@@ -81,11 +82,12 @@ def cycle_verses(verses: list, target_count: int) -> list:
     return result[:target_count]
 
 
-def render_video(theme: str, moods: list, label: str):
+def render_video(theme: str, moods: list, label: str, skip_qgate: bool = False):
     """Generate a single 60-minute video for the given theme."""
     print(f"\n{'='*60}")
     print(f"  VIDEO: {label}  (tema: {theme})")
     print(f"{'='*60}")
+    workers = auto_parallel_jobs(PARALLEL_JOBS)
     # Per-theme deterministic shuffle — different theme, different starting fondo
     theme_bg_images = _get_bg_images(theme)
 
@@ -118,7 +120,7 @@ def render_video(theme: str, moods: list, label: str):
             "duration_min": TARGET_MINUTES,
             "fps": RENDER_FPS,
             "seconds_per_verse": SECONDS_PER_VERSE,
-            "parallel_jobs": PARALLEL_JOBS,
+            "parallel_jobs": workers,
             "verses_per_bg": VERSES_PER_BG,
             "fondos_pool": len(theme_bg_images),
             "moods": moods,
@@ -146,7 +148,7 @@ def render_video(theme: str, moods: list, label: str):
             "fps": RENDER_FPS,
             "seconds_per_verse": SECONDS_PER_VERSE,
             "watermark": WATERMARK,
-            "workers": PARALLEL_JOBS,
+            "workers": workers,
             "moods": moods,
             "background_images": theme_bg_images,
             "text_style": "fea",
@@ -155,7 +157,7 @@ def render_video(theme: str, moods: list, label: str):
     logger.start()
 
     # Render video
-    print(f"  Renderizando video ({unique_count} versos × {SECONDS_PER_VERSE}s, {RENDER_FPS}fps)...")
+    print(f"  Renderizando video ({unique_count} versos × {SECONDS_PER_VERSE}s, {RENDER_FPS}fps, {workers} workers)...")
     print(f"  Fondos: {len(BG_IMAGES)} pinturas rotando cada verso")
     t0 = time.time()
 
@@ -180,7 +182,7 @@ def render_video(theme: str, moods: list, label: str):
             verses_per_background=VERSES_PER_BG,
             random_ken_burns=True,
             render_fps=RENDER_FPS,
-            parallel_jobs=PARALLEL_JOBS,
+            parallel_jobs=workers,
             progress_callback=progress,
             visual_templates=VISUAL_TEMPLATES,
             metrics=metrics,
@@ -209,46 +211,50 @@ def render_video(theme: str, moods: list, label: str):
         except Exception as exc:
             print(f"  [thumb] Warning: no se pudo generar thumbnail: {exc}")
 
-        # Quality gate runs in background thread — next render starts immediately.
-        import threading as _threading
+        if skip_qgate:
+            print(f"  [quality-gate] skipped (--skip-qgate)")
+            metrics.finish()
+        else:
+            # Quality gate runs in background thread — next render starts immediately.
+            import threading as _threading
 
-        def _bg_qgate(out_p, _theme, _target_min, _metrics, _gate_list):
-            try:
-                from core.quality_gate import gate as _qgate
-                _metrics.step_start("quality_gate")
-                qg = _qgate(out_p, nominal_min=_target_min)
-                _metrics.step_end(
-                    "quality_gate",
-                    score=qg["score"],
-                    passed=qg["pass"],
-                    lufs_before=qg.get("lufs_before"),
-                    lufs_after=qg.get("lufs_after"),
-                    fixed=qg.get("fixed", False),
-                    issues=qg.get("issues", []),
-                )
-                icon = "✅" if qg["pass"] else "⚠️ "
-                fix_msg = (
-                    f"  [LUFS fix: {qg['lufs_before']:.1f}→{qg['lufs_after']:.1f}]"
-                    if qg["fixed"] else ""
-                )
-                print(f"\n  {icon} [{_theme}] Quality gate: {qg['score']}/100{fix_msg}")
-                for iss in qg["issues"]:
-                    print(f"       ⚠ {iss}")
-                _gate_list.append(qg)
-            except Exception as exc:
-                print(f"  [quality-gate] warning ({_theme}): {exc}")
-            finally:
-                _metrics.finish()
+            def _bg_qgate(out_p, _theme, _target_min, _metrics, _gate_list):
+                try:
+                    from core.quality_gate import gate as _qgate
+                    _metrics.step_start("quality_gate")
+                    qg = _qgate(out_p, nominal_min=_target_min)
+                    _metrics.step_end(
+                        "quality_gate",
+                        score=qg["score"],
+                        passed=qg["pass"],
+                        lufs_before=qg.get("lufs_before"),
+                        lufs_after=qg.get("lufs_after"),
+                        fixed=qg.get("fixed", False),
+                        issues=qg.get("issues", []),
+                    )
+                    icon = "✅" if qg["pass"] else "⚠️ "
+                    fix_msg = (
+                        f"  [LUFS fix: {qg['lufs_before']:.1f}→{qg['lufs_after']:.1f}]"
+                        if qg["fixed"] else ""
+                    )
+                    print(f"\n  {icon} [{_theme}] Quality gate: {qg['score']}/100{fix_msg}")
+                    for iss in qg["issues"]:
+                        print(f"       ⚠ {iss}")
+                    _gate_list.append(qg)
+                except Exception as exc:
+                    print(f"  [quality-gate] warning ({_theme}): {exc}")
+                finally:
+                    _metrics.finish()
 
-        t = _threading.Thread(
-            target=_bg_qgate,
-            args=(output_path, theme, TARGET_MINUTES, metrics, _gate_results),
-            daemon=True,
-            name=f"qgate-{theme}",
-        )
-        t.start()
-        _qg_threads.append(t)
-        print(f"  [quality-gate] running in background → next render starting now")
+            t = _threading.Thread(
+                target=_bg_qgate,
+                args=(output_path, theme, TARGET_MINUTES, metrics, _gate_results),
+                daemon=True,
+                name=f"qgate-{theme}",
+            )
+            t.start()
+            _qg_threads.append(t)
+            print(f"  [quality-gate] running in background → next render starting now")
 
     except Exception as exc:
         elapsed = time.time() - t0
@@ -266,6 +272,8 @@ if __name__ == "__main__":
                         help=f"Temas a renderizar (default: todos — {ALL_THEMES})")
     parser.add_argument("--force", action="store_true",
                         help="Re-renderizar aunque ya exista el .mp4")
+    parser.add_argument("--skip-qgate", action="store_true",
+                        help="Omitir quality gate — ahorra ~113s/video en re-renders verificados")
     args = parser.parse_args()
 
     themes_to_render = args.themes if args.themes else ALL_THEMES
@@ -274,6 +282,7 @@ if __name__ == "__main__":
     print(f"   Temas:  {', '.join(themes_to_render)}")
     print(f"   Fondos: {len(BG_IMAGES)} pinturas")
     print(f"   FPS: {RENDER_FPS}  |  {SECONDS_PER_VERSE}s/verso  |  {TARGET_MINUTES} min/video")
+    print(f"   QGate: {'SKIP' if args.skip_qgate else 'ON'}")
     print(f"   Output: {OUTPUT_BASE}/\n")
 
     if args.force:
@@ -291,7 +300,7 @@ if __name__ == "__main__":
         if theme not in themes_to_render:
             continue
         try:
-            out = render_video(theme, moods, label)
+            out = render_video(theme, moods, label, skip_qgate=args.skip_qgate)
             completed.append(out)
         except Exception as exc:
             print(f"\n  ERROR en tema '{theme}': {exc}", file=sys.stderr)

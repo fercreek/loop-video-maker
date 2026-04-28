@@ -762,12 +762,21 @@ def renderizar_video_fast(
     if progress_callback:
         progress_callback(0.10, "Textos pre-renderizados. Iniciando clips ffmpeg...")
 
-    # 4. Assign Ken Burns effect per verse (deterministic)
+    # 4. Assign Ken Burns effect per verse (deterministic, balanced)
+    # Cycling shuffle: refill deck from BG_EFFECTS each time it empties.
+    # Guarantees every effect appears ~equally — no bias toward any direction.
     _rng = _random.Random(42)
     verse_effects = []
     groups = (len(full_verses) + verses_per_background - 1) // verses_per_background
+    _effect_deck: list[str] = []
     for g in range(groups):
-        eff = _rng.choice(BG_EFFECTS) if random_ken_burns else efecto_imagen
+        if random_ken_burns:
+            if not _effect_deck:
+                _effect_deck = BG_EFFECTS.copy()
+                _rng.shuffle(_effect_deck)
+            eff = _effect_deck.pop()
+        else:
+            eff = efecto_imagen
         verse_effects.extend([eff] * verses_per_background)
     verse_effects = verse_effects[:len(full_verses)]
 
