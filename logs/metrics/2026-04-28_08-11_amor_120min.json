@@ -1,0 +1,105 @@
+{
+  "theme": "amor",
+  "format": "120min",
+  "engine_version": "v3.9-69d235b",
+  "output_path": "output/youtube_120min/amor/amor_120min.mp4",
+  "started_at": "2026-04-28T08:11:10.703391+00:00",
+  "finished_at": "2026-04-28T08:37:41.469402+00:00",
+  "total_sec": 1590.8,
+  "total_min": 26.5,
+  "config": {
+    "duration_min": 120,
+    "fps": 12,
+    "seconds_per_verse": 25,
+    "parallel_jobs": 4,
+    "verses_per_bg": 3,
+    "fondos_pool": 50,
+    "moods": [
+      "Adoración serena",
+      "Paz tarde",
+      "Sanación",
+      "Ungimiento",
+      "Reposo",
+      "Manantial"
+    ]
+  },
+  "steps": {
+    "audio_gen": {
+      "sec": 24.57,
+      "moods": [
+        "Adoración serena",
+        "Paz tarde",
+        "Sanación",
+        "Ungimiento",
+        "Reposo",
+        "Manantial"
+      ],
+      "total_audio_sec": 7200
+    },
+    "bg_prep": {
+      "sec": 29.97,
+      "images_processed": 50
+    },
+    "text_render": {
+      "sec": 33.99,
+      "verses_rendered": 288
+    },
+    "clips": {
+      "sec": 1163.19,
+      "total_clips": 288,
+      "avg_sec": 16.13,
+      "min_sec": 6.82,
+      "max_sec": 63.18,
+      "clips_per_sec": 0.25,
+      "top5_slow": [
+        {
+          "idx": 63,
+          "sec": 63.2
+        },
+        {
+          "idx": 69,
+          "sec": 55.8
+        },
+        {
+          "idx": 65,
+          "sec": 55.6
+        },
+        {
+          "idx": 66,
+          "sec": 54.1
+        },
+        {
+          "idx": 70,
+          "sec": 53.4
+        }
+      ],
+      "effect_distribution": {
+        "Zoom lento ↙": 27,
+        "Zoom lento ↗": 30,
+        "Zoom out ↗": 27,
+        "Paneo suave ↓": 27,
+        "Paneo suave →": 30,
+        "Zoom out ↙": 30,
+        "Paneo suave ↑": 30,
+        "Zoom lento ↘": 30,
+        "Zoom lento ↖": 30,
+        "Paneo suave ←": 27
+      }
+    },
+    "concat": {
+      "sec": 4.89
+    },
+    "mux": {
+      "sec": 332.85
+    }
+  },
+  "output": {
+    "size_mb": 3048.6,
+    "mb_per_min": 25.4,
+    "lufs": null,
+    "lufs_fixed": false,
+    "quality_score": null,
+    "quality_pass": null,
+    "quality_issues": []
+  }
+}

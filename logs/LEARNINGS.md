@@ -60,6 +60,11 @@ Después de cada render, revisar el log y mover las mejores lecciones aquí.
 | 2026-04-27 | victoria | v3.2-5a8798e | 8.7min render | 1508MB | 60min video | Devoción + Liberación + Amanecer | [log](renders/2026-04-27_10-07_victoria.md) |
 | 2026-04-27 | fuerza | v3.2-5a8798e | 8.9min render | 1504MB | 60min video | Solemnidad + Intercesión + Ofrenda | [log](renders/2026-04-27_10-18_fuerza.md) |
 | 2026-04-27 | salmos | v3.2-5a8798e | 8.8min render | 1503MB | 60min video | Paz profunda + Alabanza + Contemplación | [log](renders/2026-04-27_10-29_salmos.md) |
+| 2026-04-28 | paz | v3.2-69d235b | 32.7min render | 3049MB | 120min video | Paz profunda + Contemplación + Silencio + Reposo + Quietud + Madrugada | [log](renders/2026-04-28_00-30_paz.md) |
+| 2026-04-28 | fe | v3.2-69d235b | 33.2min render | 3046MB | 120min video | Adoración + Fe viva + Devoción + Gracia + Reverencia + Promesa | [log](renders/2026-04-28_01-03_fe.md) |
+| 2026-04-28 | esperanza | v3.2-69d235b | 34.3min render | 3050MB | 120min video | Amanecer + Esperanza + Anhelo + Restauración + Gloria + Manantial | [log](renders/2026-04-28_01-36_esperanza.md) |
+| 2026-04-28 | amor | v3.2-69d235b | 26.1min render | 3049MB | 120min video | Adoración serena + Paz tarde + Sanación + Ungimiento + Reposo + Manantial | [log](renders/2026-04-28_02-11_amor.md) |
+| 2026-04-28 | gratitud | v3.2-69d235b | 18.9min render | 3047MB | 120min video | Gloria + Alabanza + Júbilo + Manantial + Adoración + Gracia | [log](renders/2026-04-28_02-37_gratitud.md) |
 <!-- renders-table-end -->
 
 ---

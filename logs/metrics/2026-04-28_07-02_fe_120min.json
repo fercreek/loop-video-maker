@@ -1,0 +1,105 @@
+{
+  "theme": "fe",
+  "format": "120min",
+  "engine_version": "v3.9-69d235b",
+  "output_path": "output/youtube_120min/fe/fe_120min.mp4",
+  "started_at": "2026-04-28T07:02:51.352653+00:00",
+  "finished_at": "2026-04-28T07:36:27.505281+00:00",
+  "total_sec": 2016.2,
+  "total_min": 33.6,
+  "config": {
+    "duration_min": 120,
+    "fps": 12,
+    "seconds_per_verse": 25,
+    "parallel_jobs": 4,
+    "verses_per_bg": 3,
+    "fondos_pool": 50,
+    "moods": [
+      "Adoración",
+      "Fe viva",
+      "Devoción",
+      "Gracia",
+      "Reverencia",
+      "Promesa"
+    ]
+  },
+  "steps": {
+    "audio_gen": {
+      "sec": 25.59,
+      "moods": [
+        "Adoración",
+        "Fe viva",
+        "Devoción",
+        "Gracia",
+        "Reverencia",
+        "Promesa"
+      ],
+      "total_audio_sec": 7200
+    },
+    "bg_prep": {
+      "sec": 31.22,
+      "images_processed": 50
+    },
+    "text_render": {
+      "sec": 42.11,
+      "verses_rendered": 288
+    },
+    "clips": {
+      "sec": 1569.15,
+      "total_clips": 288,
+      "avg_sec": 21.77,
+      "min_sec": 8.84,
+      "max_sec": 55.06,
+      "clips_per_sec": 0.18,
+      "top5_slow": [
+        {
+          "idx": 180,
+          "sec": 55.1
+        },
+        {
+          "idx": 178,
+          "sec": 52.7
+        },
+        {
+          "idx": 179,
+          "sec": 49.7
+        },
+        {
+          "idx": 206,
+          "sec": 48.1
+        },
+        {
+          "idx": 181,
+          "sec": 47.7
+        }
+      ],
+      "effect_distribution": {
+        "Zoom lento ↙": 27,
+        "Zoom lento ↗": 30,
+        "Zoom out ↗": 27,
+        "Paneo suave ↓": 27,
+        "Paneo suave →": 30,
+        "Zoom out ↙": 30,
+        "Paneo suave ↑": 30,
+        "Zoom lento ↘": 30,
+        "Zoom lento ↖": 30,
+        "Paneo suave ←": 27
+      }
+    },
+    "concat": {
+      "sec": 5.57
+    },
+    "mux": {
+      "sec": 340.99
+    }
+  },
+  "output": {
+    "size_mb": 3045.9,
+    "mb_per_min": 25.4,
+    "lufs": null,
+    "lufs_fixed": false,
+    "quality_score": null,
+    "quality_pass": null,
+    "quality_issues": []
+  }
+}

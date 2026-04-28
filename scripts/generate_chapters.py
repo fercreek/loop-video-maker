@@ -22,7 +22,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from config import THEME_MOODS, THEME_LABELS, ALL_THEMES
+from config import THEME_MOODS, THEME_MOODS_120, THEME_LABELS, ALL_THEMES
 
 
 # ─── Mood display names ───────────────────────────────────────────────────────
@@ -82,10 +82,10 @@ def chapters_for_video(
     if format_key == "120min":
         duration_min = 120
         minutes_per_mood = 20   # 6 moods × 20min = 120min
-        video_moods = moods or [
+        video_moods = moods or THEME_MOODS_120.get(theme, [
             "Paz profunda", "Reposo", "Contemplación",
             "Silencio", "Madrugada", "Ungimiento",
-        ]
+        ])
     else:
         duration_min = 60
         minutes_per_mood = 20   # 3 moods × 20min = 60min
@@ -119,10 +119,7 @@ def generate_all_chapters(
             label = THEME_LABELS.get(theme, theme.capitalize())
             header = f"=== {label} ({fmt}) ==="
             if fmt == "120min":
-                moods = relaxing_moods_120 or [
-                    "Paz profunda", "Reposo", "Contemplación",
-                    "Silencio", "Madrugada", "Ungimiento",
-                ]
+                moods = relaxing_moods_120 or THEME_MOODS_120.get(theme)
             else:
                 moods = (moods_60 or THEME_MOODS).get(theme)
             chaps = chapters_for_video(theme, fmt, moods)
