@@ -6,66 +6,109 @@ _Última actualización: 2026-04-28_
 
 ## 📺 Subida a YouTube — Estado
 
-### Publicados / programados
-| Video | Formato | Fecha | Estado |
-|---|---|---|---|
-| paz | 60min | 2026-04-28 | ✅ programado |
-| fe | 120min | 2026-04-28 | ✅ programado |
+### Canal: @VersiculoDeDios | 120min batch completo programado
 
-### Cola pendiente (1 cada 3 días)
-Sugerencia de orden — alternar tema y formato para máxima diversidad:
+| Fecha | Video | Estado |
+|---|---|---|
+| Abr 28 | fe_120min | ✅ programado |
+| Abr 29 | amor_120min | ✅ programado |
+| Abr 30 | esperanza_120min | ✅ programado |
+| May 1 | gratitud_120min | ✅ programado |
+| May 2 | victoria_120min | ✅ programado |
+| May 3 | salmos_120min | ✅ programado |
+| May 4 | fuerza_120min | ✅ programado |
+| May 5 | provision_120min | ✅ programado |
+| May 6 | sanacion_120min | ✅ programado |
+| May 7 | paz_120min | ✅ programado |
 
-| # | Video | Formato | Fecha sugerida |
-|---|---|---|---|
-| 3 | esperanza | 60min | 2026-05-01 |
-| 4 | paz | 120min | 2026-05-04 |
-| 5 | amor | 60min | 2026-05-07 |
-| 6 | fe | 60min | 2026-05-10 |
-| 7 | gratitud | 120min | 2026-05-13 |
-| 8 | victoria | 60min | 2026-05-16 |
-| 9 | esperanza | 120min | 2026-05-19 |
-| 10 | gratitud | 60min | 2026-05-22 |
-| 11 | fuerza | 60min | 2026-05-25 |
-| 12 | amor | 120min | 2026-05-28 |
-| 13 | salmos | 60min | 2026-05-31 |
-| 14 | sanacion | 60min | 2026-06-03 |
-| 15 | provision | 60min | 2026-06-06 |
-
-Metadata completo en: `output/SUBIR/metadata.txt`
+Copy completo en: `_UPLOAD.md`
 
 ---
 
-## 🔴 Prioritario — Renders pendientes
+## 🔴 v3.12 — Audio variety (BLOQUEO PRINCIPAL)
 
-### 120min batch v3.11 (incompleto)
+### Diagnóstico auditado Abr-28
 
-Completados con v3.11 (moods únicos + Ken Burns balanceado):
-- ✅ paz
-- ✅ fe
-- ✅ esperanza
-- ✅ amor
-- ✅ gratitud
+| Problema | Impacto | Causa |
+|---|---|---|
+| `esperanza.mp3` == `devocion.mp3` | Audio idéntico en temas "fe" y "esperanza" | Mismo archivo, dos nombres |
+| `paz_profunda.mp3` == `sanacion.mp3` | Audio idéntico en temas "paz" y "sanacion" | Mismo archivo, dos nombres |
+| `quietud.mp3` (81s) loopea 14× en 20min | Detectable por ContentID / near-duplicate | Loop demasiado corto |
+| `meditacion.mp3` (91s) loopea 13× | idem | idem |
+| `gloria.mp3` (124s) loopea 9× | idem | idem |
+| `silencio.mp3` (127s) loopea 9× | idem | idem |
+| `jubilo.mp3` (150s) loopea 8× | idem | idem |
 
-Pendientes — re-renderizar con `--force`:
-- ⏳ victoria
-- ⏳ fuerza
-- ⏳ salmos
-- ⏳ sanacion
-- ⏳ provision
+**Resumen:** De 29 loops, 5 son < 160s (críticos), 2 pares son archivos duplicados.
+YouTube puede detectar repetición de patrón en audio aunque el video sea distinto.
 
-**Comando para reanudar:**
+### Plan v3.12 — 3 líneas de acción
+
+#### A) Reemplazar duplicados + loops cortos (prioridad 1)
+- Conseguir nuevas fuentes para: `esperanza`, `devocion`, `quietud`, `meditacion`, `gloria`, `silencio`, `jubilo`
+- Fuentes sugeridas (CC0/CC-BY):
+  - **Pixabay** — pixabay.com/music (filtrar por "worship", "ambient", "meditation")
+  - **Free Music Archive** — freemusicarchive.org
+  - **Musopen** — musopen.org (música clásica dominio público)
+  - **ccMixter** — ccmixter.org
+- Objetivo: loops ≥ 10min para segmentos de 20min → 0 repeticiones
+
+#### B) Variantes por mood (prioridad 2)
+Estructura propuesta en `audio/loops/`:
+```
+audio/loops/
+  adoracion/
+    adoracion_a.mp3   ← actual
+    adoracion_b.mp3   ← nuevo
+    adoracion_c.mp3   ← nuevo
+  gloria/
+    gloria_a.mp3
+    gloria_b.mp3
+```
+`music_gen.py` selecciona variante aleatoria por render → mismo mood, audio diferente entre videos.
+
+#### C) Per-theme audio locking (prioridad 3)
+Configurar qué variante usa cada tema → reproducible y diferenciado:
+```python
+THEME_AUDIO_LOCK: dict[str, dict[str, str]] = {
+    "fe":       {"Adoración": "adoracion_b", "Gloria": "gloria_a"},
+    "amor":     {"Adoración": "adoracion_a", "Sanación": "sanacion_b"},
+    ...
+}
+```
+
+### Comando para testear audio de un tema (smoke test)
+```bash
+.venv/bin/python3 -c "
+from core.music_gen import generate_playlist
+generate_playlist(moods=['Adoración','Gloria'], total_seconds=300,
+                  output_dir='/tmp/test_audio')
+print('OK — escuchar /tmp/test_audio/')
+"
+```
+
+---
+
+## 🟡 Renders pendientes (victoria/fuerza/salmos/sanacion/provision)
+
+Estos 5 videos están en YouTube como drafts con audio v3.10 (moods idénticos entre sí).
+Ya tienen fecha programada (May 2–6). **Opciones:**
+
+1. ✅ Dejarlos como están — ya tienen moods únicos por tema (THEME_MOODS_120), solo el audio source se repite
+2. 🔁 Re-renderizar con v3.12 (nuevo audio) antes de May 2 — ideal si se consigue audio nuevo antes
+
+Comando si se re-renderiza:
 ```bash
 caffeinate -i .venv/bin/python3 render_120min.py \
   --themes victoria fuerza salmos sanacion provision \
   --force --skip-qgate
 ```
-Estimado: 5 × ~22 min = ~1.8 horas
 
 ---
 
-## 🟢 Mejoras futuras (no bloqueantes)
+## 🟢 Backlog futuro
 
-- [ ] Shorts automáticos — extraer top 3 versículos como clips 60s
+- [ ] Shorts automáticos — top 3 versículos como clips 60s
 - [ ] 180min format — sleep/estudio, baja competencia
-- [ ] Thumbnail con foto de persona (Midjourney) — mayor CTR
-- [ ] Correr quality gate en los 5 videos 120min v3.11 ya renderizados
+- [ ] Thumbnail v2 — foto de persona real (mayor CTR)
+- [ ] v3.9 visual effects (god-ray, split-tone, audio swell) — plan en `.claude/plans/`
