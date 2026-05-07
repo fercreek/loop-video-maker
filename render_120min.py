@@ -259,7 +259,14 @@ if __name__ == "__main__":
                         help="Re-renderizar aunque ya exista el .mp4")
     parser.add_argument("--skip-qgate", action="store_true",
                         help="Omitir quality gate — ahorra ~226s/video en re-renders verificados")
+    parser.add_argument("--output-dir", metavar="DIR", default=None,
+                        help="Carpeta de salida (default: output/youtube_120min). "
+                             "Ej: output/semana_2026-05-06")
     args = parser.parse_args()
+
+    if args.output_dir:
+        OUTPUT_BASE = args.output_dir
+        os.makedirs(OUTPUT_BASE, exist_ok=True)
 
     themes_to_render = args.themes if args.themes else ALL_THEMES
 
@@ -276,6 +283,9 @@ if __name__ == "__main__":
             if os.path.exists(p):
                 os.remove(p)
                 print(f"  [force] Eliminado: {p}")
+
+    # Ensure output dir exists (important when --output-dir is set)
+    os.makedirs(OUTPUT_BASE, exist_ok=True)
 
     all_start = time.time()
     completed = []

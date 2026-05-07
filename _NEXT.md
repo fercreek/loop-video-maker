@@ -1,114 +1,64 @@
-# _NEXT — Tareas pendientes
-
-_Última actualización: 2026-04-28_
+# _NEXT — loop-video-maker (VersiculoDeDios)
+> Update: 2026-05-06 · Canal: @VersiculoDeDios-v1u · 11,517 subs (+2.1K/28d)
 
 ---
 
-## 📺 Subida a YouTube — Estado
+## ⚡ En proceso (retomar aquí)
 
-### Canal: @VersiculoDeDios | 120min batch completo programado
+- [ ] Render semana corriendo: `bi1jukqor` (sanacion/salmos/provision) + `bqbitq4xm` (paz/fe) → `output/semana_2026-05-06/`
+- [ ] Re-auth YouTube token → `python3 scripts/yt_auth.py` (expiró Apr 27)
+- [ ] Subir 2 videos/día mié–dom → ver `_SEMANA_2026-05-07.md`
 
-| Fecha | Video | Estado |
+---
+
+## 📦 v4.0 (2026-05-06) — CURRENT
+
+### Cambios principales
+| Componente | Cambio | Resultado |
 |---|---|---|
-| Abr 28 | fe_120min | ✅ programado |
-| Abr 29 | amor_120min | ✅ programado |
-| Abr 30 | esperanza_120min | ✅ programado |
-| May 1 | gratitud_120min | ✅ programado |
-| May 2 | victoria_120min | ✅ programado |
-| May 3 | salmos_120min | ✅ programado |
-| May 4 | fuerza_120min | ✅ programado |
-| May 5 | provision_120min | ✅ programado |
-| May 6 | sanacion_120min | ✅ programado |
-| May 7 | paz_120min | ✅ programado |
+| **Audio** | MusicGen stereo-small para Esperanza/Sanación/Salmos | Sin duplicados → sin ContentID risk |
+| **Fondos** | +40 Gemini Imagen 4.0 (bíblicos) → pool 93 | Sin repetición en 120min |
+| **Texto** | 58px → 72px verso · 26→30px ref | Legible en mobile |
+| **Cache audio** | `audio/cache/{hash}.wav` + `_norm.aac` | Mux 6min → 5s en re-renders |
+| **Manifest** | Duplicados eliminados: Esperanza/Sanación/Salmos | Audio genuinamente único |
+| **render_120min.py** | `--output-dir`, `--themes`, `--force`, `--skip-qgate` | Flexible por semana |
+| **youtube_client.py** | Handle correcto + channel_id en config.json | Stats listos tras re-auth |
 
-Copy completo en: `_UPLOAD.md`
+### Scripts nuevos v4.0
+- `scripts/generate_mood_tracks.py` — tracks MusicGen por mood
+- `scripts/generate_fondos_ai.py` — fondos bíblicos Gemini Imagen 4.0
+- `scripts/yt_stats.py` — dashboard analytics (necesita re-auth)
 
----
-
-## 🔴 v3.12 — Audio variety (BLOQUEO PRINCIPAL)
-
-### Diagnóstico auditado Abr-28
-
-| Problema | Impacto | Causa |
-|---|---|---|
-| `esperanza.mp3` == `devocion.mp3` | Audio idéntico en temas "fe" y "esperanza" | Mismo archivo, dos nombres |
-| `paz_profunda.mp3` == `sanacion.mp3` | Audio idéntico en temas "paz" y "sanacion" | Mismo archivo, dos nombres |
-| `quietud.mp3` (81s) loopea 14× en 20min | Detectable por ContentID / near-duplicate | Loop demasiado corto |
-| `meditacion.mp3` (91s) loopea 13× | idem | idem |
-| `gloria.mp3` (124s) loopea 9× | idem | idem |
-| `silencio.mp3` (127s) loopea 9× | idem | idem |
-| `jubilo.mp3` (150s) loopea 8× | idem | idem |
-
-**Resumen:** De 29 loops, 5 son < 160s (críticos), 2 pares son archivos duplicados.
-YouTube puede detectar repetición de patrón en audio aunque el video sea distinto.
-
-### Plan v3.12 — 3 líneas de acción
-
-#### A) Reemplazar duplicados + loops cortos (prioridad 1)
-- Conseguir nuevas fuentes para: `esperanza`, `devocion`, `quietud`, `meditacion`, `gloria`, `silencio`, `jubilo`
-- Fuentes sugeridas (CC0/CC-BY):
-  - **Pixabay** — pixabay.com/music (filtrar por "worship", "ambient", "meditation")
-  - **Free Music Archive** — freemusicarchive.org
-  - **Musopen** — musopen.org (música clásica dominio público)
-  - **ccMixter** — ccmixter.org
-- Objetivo: loops ≥ 10min para segmentos de 20min → 0 repeticiones
-
-#### B) Variantes por mood (prioridad 2)
-Estructura propuesta en `audio/loops/`:
-```
-audio/loops/
-  adoracion/
-    adoracion_a.mp3   ← actual
-    adoracion_b.mp3   ← nuevo
-    adoracion_c.mp3   ← nuevo
-  gloria/
-    gloria_a.mp3
-    gloria_b.mp3
-```
-`music_gen.py` selecciona variante aleatoria por render → mismo mood, audio diferente entre videos.
-
-#### C) Per-theme audio locking (prioridad 3)
-Configurar qué variante usa cada tema → reproducible y diferenciado:
-```python
-THEME_AUDIO_LOCK: dict[str, dict[str, str]] = {
-    "fe":       {"Adoración": "adoracion_b", "Gloria": "gloria_a"},
-    "amor":     {"Adoración": "adoracion_a", "Sanación": "sanacion_b"},
-    ...
-}
-```
-
-### Comando para testear audio de un tema (smoke test)
+### Workflow semanal
 ```bash
-.venv/bin/python3 -c "
-from core.music_gen import generate_playlist
-generate_playlist(moods=['Adoración','Gloria'], total_seconds=300,
-                  output_dir='/tmp/test_audio')
-print('OK — escuchar /tmp/test_audio/')
-"
+# 1. Generar videos de la semana (temas elegidos por analytics)
+python3 render_120min.py --themes [temas] --output-dir output/semana_YYYY-MM-DD --skip-qgate
+
+# 2. Ver métricas (tras re-auth)
+python3 scripts/yt_stats.py
+
+# 3. Generar más fondos si se agotan
+python3 scripts/generate_fondos_ai.py --count 20
+
+# 4. Generar tracks MusicGen para moods con loops cortos
+python3 scripts/generate_mood_tracks.py --mood "Gloria" "Júbilo" --duration 300
 ```
 
 ---
 
-## 🟡 Renders pendientes (victoria/fuerza/salmos/sanacion/provision)
+## 💡 Backlog
 
-Estos 5 videos están en YouTube como drafts con audio v3.10 (moods idénticos entre sí).
-Ya tienen fecha programada (May 2–6). **Opciones:**
+- [ ] Loops cortos pendientes: Gloria(124s), Júbilo(150s), Meditación(91s), Quietud(81s), Silencio(127s) → `generate_mood_tracks.py`
+- [ ] Shorts/Reels: cortar versículo destacado 9:16 60s de cada video
+- [ ] Resolver copyright strike "Muerte Vencida" — 1 de 3 infracciones activa
+- [ ] `pip install google-genai` → habilitar Gemini Lyria para música generativa
+- [ ] Thumbnail v2: usar fondos AI como base (mayor impacto visual)
 
-1. ✅ Dejarlos como están — ya tienen moods únicos por tema (THEME_MOODS_120), solo el audio source se repite
-2. 🔁 Re-renderizar con v3.12 (nuevo audio) antes de May 2 — ideal si se consigue audio nuevo antes
+## ✅ Ready
 
-Comando si se re-renderiza:
-```bash
-caffeinate -i .venv/bin/python3 render_120min.py \
-  --themes victoria fuerza salmos sanacion provision \
-  --force --skip-qgate
-```
+- Ver `_SEMANA_2026-05-07.md` para orden y títulos de subida
 
----
+## 🔒 Bloqueado
 
-## 🟢 Backlog futuro
-
-- [ ] Shorts automáticos — top 3 versículos como clips 60s
-- [ ] 180min format — sleep/estudio, baja competencia
-- [ ] Thumbnail v2 — foto de persona real (mayor CTR)
-- [ ] v3.9 visual effects (god-ray, split-tone, audio swell) — plan en `.claude/plans/`
+- `yt_stats.py` → `python3 scripts/yt_auth.py` (requiere browser)
+- Strike "Muerte Vencida" → revisar qué audio causó el claim

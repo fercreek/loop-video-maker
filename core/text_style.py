@@ -7,6 +7,7 @@ Also provides the legacy simple renderer for backward compatibility.
 """
 from __future__ import annotations
 
+import functools
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 from pathlib import Path
@@ -41,8 +42,9 @@ SYSTEM_FONTS_REF = [
 
 # ─── Font loading ─────────────────────────────────────────────────────────────
 
-def _get_font(font_path: Path, fallbacks: list, size: int) -> ImageFont.FreeTypeFont:
-    """Load font with system fallback chain."""
+@functools.lru_cache(maxsize=32)
+def _get_font(font_path: Path, fallbacks: tuple, size: int) -> ImageFont.FreeTypeFont:
+    """Load font with system fallback chain. Cached — same font+size loaded once per process."""
     if font_path.exists():
         return ImageFont.truetype(str(font_path), size)
     for fb in fallbacks:
@@ -52,6 +54,11 @@ def _get_font(font_path: Path, fallbacks: list, size: int) -> ImageFont.FreeType
         except Exception:
             continue
     return ImageFont.load_default()
+
+
+def _get_font_list(font_path: Path, fallbacks: list, size: int) -> ImageFont.FreeTypeFont:
+    """Convenience wrapper — accepts list fallbacks (converts to tuple for cache key)."""
+    return _get_font(font_path, tuple(fallbacks), size)
 
 
 def _wrap_text(draw: ImageDraw.ImageDraw, text: str, font, max_width: int) -> str:
@@ -79,9 +86,9 @@ def _wrap_text(draw: ImageDraw.ImageDraw, text: str, font, max_width: int) -> st
 # ─── VersiculoDeDios style renderer ──────────────────────────────────────────────
 
 # Base font sizes (for 1080×1080 post format)
-_BASE_LABEL_SIZE = 16
-_BASE_VERSE_SIZE = 58
-_BASE_REF_SIZE = 26
+_BASE_LABEL_SIZE = 18
+_BASE_VERSE_SIZE = 72   # was 58 — too small for 1920×1080 YouTube (bumped for readability)
+_BASE_REF_SIZE = 30
 _BASE_BRAND_SIZE = 14
 
 # Ornament dimensions (scaled proportionally)
@@ -131,10 +138,10 @@ def render_fea_frame(
     ref_gap = int(layout["ref_gap"] * scale)
 
     # Load fonts
-    font_label = _get_font(FONT_REF, SYSTEM_FONTS_REF, max(label_size, 10))
-    font_verse = _get_font(FONT_VERSE, SYSTEM_FONTS, max(verse_size, 16))
-    font_ref = _get_font(FONT_REF, SYSTEM_FONTS_REF, max(ref_size, 12))
-    font_brand = _get_font(FONT_REF, SYSTEM_FONTS_REF, max(brand_size, 8))
+    font_label = _get_font(FONT_REF, tuple(SYSTEM_FONTS_REF), max(label_size, 10))
+    font_verse = _get_font(FONT_VERSE, tuple(SYSTEM_FONTS), max(verse_size, 16))
+    font_ref = _get_font(FONT_REF, tuple(SYSTEM_FONTS_REF), max(ref_size, 12))
+    font_brand = _get_font(FONT_REF, tuple(SYSTEM_FONTS_REF), max(brand_size, 8))
 
     # Create transparent RGBA canvas
     img = Image.new("RGBA", (width, height), (0, 0, 0, 0))
@@ -281,8 +288,8 @@ def render_simple_frame(
     posicion = config.get("posicion", "bottom")
     mostrar_ref = config.get("mostrar_referencia", True)
 
-    font_verse = _get_font(FONT_VERSE, SYSTEM_FONTS, font_size)
-    font_ref = _get_font(FONT_REF, SYSTEM_FONTS_REF, int(font_size * 0.54))
+    font_verse = _get_font(FONT_VERSE, tuple(SYSTEM_FONTS), font_size)
+    font_ref = _get_font(FONT_REF, tuple(SYSTEM_FONTS_REF), int(font_size * 0.54))
 
     img = Image.new("RGBA", (width, height), (0, 0, 0, 0))
     draw = ImageDraw.Draw(img)

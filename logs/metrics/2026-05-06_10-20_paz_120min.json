@@ -1,0 +1,105 @@
+{
+  "theme": "paz",
+  "format": "120min",
+  "engine_version": "v3.9-f6cb85f",
+  "output_path": "output/semana_2026-05-06/paz/paz_120min.mp4",
+  "started_at": "2026-05-06T10:20:36.808912+00:00",
+  "finished_at": "2026-05-06T10:57:03.060380+00:00",
+  "total_sec": 2186.3,
+  "total_min": 36.4,
+  "config": {
+    "duration_min": 120,
+    "fps": 12,
+    "seconds_per_verse": 25,
+    "parallel_jobs": 4,
+    "verses_per_bg": 3,
+    "fondos_pool": 90,
+    "moods": [
+      "Paz profunda",
+      "Contemplación",
+      "Silencio",
+      "Reposo",
+      "Quietud",
+      "Madrugada"
+    ]
+  },
+  "steps": {
+    "audio_gen": {
+      "sec": 880.91,
+      "moods": [
+        "Paz profunda",
+        "Contemplación",
+        "Silencio",
+        "Reposo",
+        "Quietud",
+        "Madrugada"
+      ],
+      "total_audio_sec": 7200
+    },
+    "bg_prep": {
+      "sec": 41.2,
+      "images_processed": 90
+    },
+    "text_render": {
+      "sec": 22.9,
+      "verses_rendered": 288
+    },
+    "clips": {
+      "sec": 892.39,
+      "total_clips": 288,
+      "avg_sec": 12.37,
+      "min_sec": 6.19,
+      "max_sec": 41.86,
+      "clips_per_sec": 0.32,
+      "top5_slow": [
+        {
+          "idx": 21,
+          "sec": 41.9
+        },
+        {
+          "idx": 20,
+          "sec": 37.9
+        },
+        {
+          "idx": 22,
+          "sec": 31.8
+        },
+        {
+          "idx": 11,
+          "sec": 29.5
+        },
+        {
+          "idx": 24,
+          "sec": 29.0
+        }
+      ],
+      "effect_distribution": {
+        "Zoom lento ↙": 27,
+        "Zoom lento ↗": 30,
+        "Zoom out ↗": 27,
+        "Paneo suave ↓": 27,
+        "Paneo suave →": 30,
+        "Zoom out ↙": 30,
+        "Paneo suave ↑": 30,
+        "Zoom lento ↘": 30,
+        "Zoom lento ↖": 30,
+        "Paneo suave ←": 27
+      }
+    },
+    "concat": {
+      "sec": 4.29
+    },
+    "mux": {
+      "sec": 343.33
+    }
+  },
+  "output": {
+    "size_mb": 3053.0,
+    "mb_per_min": 25.4,
+    "lufs": null,
+    "lufs_fixed": false,
+    "quality_score": null,
+    "quality_pass": null,
+    "quality_issues": []
+  }
+}

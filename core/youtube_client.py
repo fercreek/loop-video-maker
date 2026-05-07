@@ -25,9 +25,11 @@ TOKEN_PATH  = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 
 # Channel ID — set to "mine" to auto-resolve the authenticated channel,
 # or override in config.json with {"youtube_channel_id": "UCxxxx"} for a specific channel.
-# @VersiculoDeDios is the target channel (11K subs) under fercreek@gmail.com.
+# VersiculoDeDios brand account under fercreek@gmail.com. 11.5K subs.
+# Channel ID: UC2l5TZjHzRtaRjH8kT_yQ2w | Handle: @VersiculoDeDios-v1u
+# Studio: https://studio.youtube.com/channel/UC2l5TZjHzRtaRjH8kT_yQ2w
 _CHANNEL_ID_OVERRIDE = None  # populated by get_channel_id() on first call
-CHANNEL_HANDLE = "@VersiculoDeDios"
+CHANNEL_HANDLE = "@VersiculoDeDios-v1u"
 
 
 def get_channel_id(handle_or_id: str | None = None) -> str:
@@ -63,7 +65,7 @@ def get_channel_id(handle_or_id: str | None = None) -> str:
     try:
         resp = yt.channels().list(
             part="snippet,statistics",
-            forHandle="VersiculoDeDios",
+            forHandle="VersiculoDeDios-v1u",
         ).execute()
         if resp.get("items"):
             ch = resp["items"][0]
@@ -330,6 +332,8 @@ def get_upload_recommendations() -> dict:
     """
     import glob
 
+    _PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
     summary  = get_channel_summary()
     videos   = get_channel_videos()
     analytics = get_channel_analytics(days=28)
@@ -350,9 +354,9 @@ def get_upload_recommendations() -> dict:
     # Best performing theme (by avg_view_pct)
     best_video = max(videos, key=lambda v: v["analytics"].get("avg_view_pct", 0)) if videos else None
 
-    # Local pending files
-    pending_60  = sorted(glob.glob("output/SUBIR/pendiente/*_60min.mp4"))
-    pending_120 = sorted(glob.glob("output/SUBIR/pendiente/*_120min.mp4"))
+    # Local pending files (absolute path so script works from any cwd)
+    pending_60  = sorted(glob.glob(os.path.join(_PROJECT_ROOT, "output/SUBIR/pendiente/*_60min.mp4")))
+    pending_120 = sorted(glob.glob(os.path.join(_PROJECT_ROOT, "output/SUBIR/pendiente/*_120min.mp4")))
 
     # Build recommendation
     upload_now = days_since_upload is not None and days_since_upload >= 5

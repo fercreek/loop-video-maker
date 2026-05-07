@@ -1,5 +1,17 @@
 {
   "_comment": "Maps mood names to loop audio files. Kevin MacLeod CC-BY 4.0 (incompetech.com). Credit in video description.",
+  "_duplicates_removed": [
+    "Esperanza (== devocion.mp3)",
+    "Sanacion (== paz_profunda.mp3)",
+    "Salmos (== paz_profunda.mp3)"
+  ],
+  "_short_loops_todo": [
+    "meditacion (91s)",
+    "quietud (81s)",
+    "gloria (124s)",
+    "silencio (127s)",
+    "jubilo (150s)"
+  ],
   "moods": {
     "Paz profunda": {
       "file": "paz_profunda.mp3",
@@ -16,18 +28,6 @@
     "Devoción": {
       "file": "devocion.mp3",
       "description": "Healing — Kevin MacLeod"
-    },
-    "Esperanza": {
-      "file": "esperanza.mp3",
-      "description": "Healing (alt) — Kevin MacLeod"
-    },
-    "Sanación": {
-      "file": "sanacion.mp3",
-      "description": "Meditation Impromptu 02 — Kevin MacLeod"
-    },
-    "Salmos": {
-      "file": "paz_profunda.mp3",
-      "description": "Meditation Impromptu 02 — Kevin MacLeod"
     },
     "Contemplación": {
       "file": "contemplacion.mp3",
@@ -120,6 +120,18 @@
     "Adoración serena": {
       "file": "adoracion_paz.mp3",
       "description": "Adoracion serena — adoracion -0.5st 0.98x (alabanza contemplativa)"
+    },
+    "Esperanza": {
+      "file": "esperanza_musicgen.mp3",
+      "description": "Esperanza — MusicGen stereo-small | hopeful orchestral music, uplifting strings and piano, chris"
+    },
+    "Sanación": {
+      "file": "sanacion_musicgen.mp3",
+      "description": "Sanación — MusicGen stereo-small | healing ambient music, soft piano with gentle harp, peaceful"
+    },
+    "Salmos": {
+      "file": "salmos_musicgen.mp3",
+      "description": "Salmos — MusicGen stereo-small | ancient psalms style instrumental, harp and strings, medieva"
     }
   }
 }

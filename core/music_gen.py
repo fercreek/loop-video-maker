@@ -28,6 +28,40 @@ MOODS = {
     "Sanación": "healing peaceful gentle ambient nature",
 }
 
+# Prompts detallados para MusicGen / Gemini Lyria (instrumental, sin letra)
+MUSICGEN_MOOD_PROMPTS: dict[str, str] = {
+    "Paz profunda":    "peaceful ambient instrumental, deep meditation, slow piano with soft strings, spiritual calm, no vocals, gentle reverb",
+    "Adoración":       "christian worship instrumental, uplifting piano and strings, gentle praise music, warm and reverent, no lyrics",
+    "Meditación":      "quiet meditation music, minimal piano, soft ambient pads, contemplative and serene, no vocals, 60 BPM",
+    "Devoción":        "devotional christian instrumental, slow hymn style piano, reverent strings, sacred music atmosphere, no vocals",
+    "Esperanza":       "hopeful orchestral music, uplifting strings and piano, christian hope theme, gentle crescendo, bright and warm, no vocals",
+    "Sanación":        "healing ambient music, soft piano with gentle harp, peaceful restoration, spiritual healing atmosphere, no vocals",
+    "Salmos":          "ancient psalms style instrumental, harp and strings, medieval sacred music, contemplative, reverent, no vocals",
+    "Contemplación":   "deep contemplation music, very slow piano, minimal notes, long reverb tails, introspective and peaceful, no vocals",
+    "Amanecer":        "sunrise instrumental, gentle awakening, soft orchestral, hopeful and fresh, piano and flute, morning worship, no vocals",
+    "Solemnidad":      "solemn organ instrumental, sacred ceremony, slow and majestic, reverent atmosphere, christian cathedral feel, no vocals",
+    "Reposo":          "rest and sleep music, very slow ambient, soft piano lullaby style, peaceful night, minimal melody, no vocals",
+    "Paz tarde":       "evening peace music, sunset instrumental, calm piano, soft strings, end of day meditation, no vocals",
+    "Madrugada":       "night vigil music, dark sacred ambient, slow deep piano, very quiet and contemplative, 3am prayer atmosphere, no vocals",
+    "Manantial":       "flowing spring water instrumental, bright piano, fresh and clean sound, morning renewal, light strings, no vocals",
+    "Gracia":          "grace and mercy music, warm piano instrumental, gentle and loving, sacred christian feel, no vocals",
+    "Gloria":          "gloria style instrumental, triumphant but gentle, orchestral praise, uplifting christian music, no vocals",
+    "Alabanza":        "worship praise instrumental, solemn and rich, full orchestral, sacred choir-style pads, majestic, no vocals",
+    "Júbilo":          "joyful celebration instrumental, upbeat but sacred, bright piano, light strings, christian joy, no vocals",
+    "Silencio":        "silence and stillness music, very minimal piano, long pauses, contemplative, sacred meditation, no vocals",
+    "Quietud":         "quiet stillness music, barely audible piano, ambient pads, extreme calm, sacred contemplation, no vocals",
+    "Reverencia":      "reverence and awe music, very slow organ, sacred trembling, deep bass, holy atmosphere, no vocals",
+    "Ofrenda":         "offering music, warm piano, gentle giving spirit, loving and peaceful, sacred worship, no vocals",
+    "Intercesión":     "intercession prayer music, slow minor key piano, deep spiritual longing, sacred petition, no vocals",
+    "Promesa":         "divine promise music, hopeful strings, rising piano melody, bright and assured, sacred hope, no vocals",
+    "Anhelo":          "longing and yearning music, bittersweet piano, slow strings, spiritual desire, tender, no vocals",
+    "Fe viva":         "living faith music, active and bright piano, uplifting strings, energetic but sacred, christian confidence, no vocals",
+    "Restauración":    "restoration and renewal music, ascending piano, hopeful strings, spiritual healing and rebuilding, no vocals",
+    "Ungimiento":      "anointing music, deep sacred atmosphere, slow organ, holy spirit feel, very reverent, no vocals",
+    "Liberación":      "liberation and freedom music, bright ascending piano, joyful strings, spiritual freedom, no vocals",
+    "Adoración serena":"serene worship music, slow contemplative piano, peaceful adoration, quiet praise, no vocals",
+}
+
 # ─── Bundled Loops ─────────────────────────────────────────────
 
 _LOOPS_DIR = os.path.join(os.path.dirname(__file__), "..", "audio", "loops")
@@ -539,18 +573,41 @@ def generar_musica(mood: str, duracion_segundos: int, api_key: str,
         except Exception:
             pass
 
-    # 3. Fallback: NumPy ambient synth
+    # 3. MusicGen local (if torch + transformers installed)
+    try:
+        return generar_musica_musicgen(
+            mood=mood,
+            duracion_clip=30,
+            duracion_total=duracion_segundos,
+            output_dir=output_dir,
+        )
+    except ImportError:
+        pass
+    except Exception:
+        pass
+
+    # 4. Fallback: NumPy ambient synth
     return _generar_ambient(mood, duracion_segundos, output_dir, apply_fade=apply_fade)
 
 
-def generar_musica_musicgen(prompt: str, duracion_clip: int = 15,
-                            duracion_total: int = 60,
-                            output_dir: str = "output") -> str:
+def generar_musica_musicgen(
+    mood: str = "",
+    prompt: str = "",
+    duracion_clip: int = 30,
+    duracion_total: int = 60,
+    output_dir: str = "output",
+    model_id: str = "facebook/musicgen-stereo-small",
+) -> str:
     """
-    Genera música con MusicGen (Meta) local.
-    Genera un clip corto y lo loopea con crossfade.
+    Genera música con MusicGen (Meta AudioCraft via HuggingFace).
+    Genera N clips de duracion_clip segundos y los concatena con crossfade.
 
-    Requiere: torch, transformers, soundfile
+    mood: nombre del mood (busca prompt en MUSICGEN_MOOD_PROMPTS)
+    prompt: override manual del prompt (si se provee, ignora mood lookup)
+    model_id: "facebook/musicgen-stereo-small" (stereo, ligero, MPS-compatible)
+              "facebook/musicgen-stereo-medium" (mejor calidad, más RAM)
+
+    Requiere: pip install transformers soundfile
     """
     import torch
     import soundfile as sf
@@ -558,8 +615,18 @@ def generar_musica_musicgen(prompt: str, duracion_clip: int = 15,
 
     os.makedirs(output_dir, exist_ok=True)
 
-    processor = AutoProcessor.from_pretrained("facebook/musicgen-small")
-    model = MusicgenForConditionalGeneration.from_pretrained("facebook/musicgen-small")
+    # Resolve prompt from mood name if not provided directly
+    if not prompt:
+        prompt = MUSICGEN_MOOD_PROMPTS.get(
+            mood,
+            MOODS.get(mood, "peaceful christian instrumental ambient music no vocals")
+        )
+
+    print(f"[MusicGen] mood={mood!r} | model={model_id}")
+    print(f"[MusicGen] prompt: {prompt}")
+
+    processor = AutoProcessor.from_pretrained(model_id)
+    model = MusicgenForConditionalGeneration.from_pretrained(model_id)
 
     device = "mps" if torch.backends.mps.is_available() else "cpu"
     try:
@@ -567,19 +634,174 @@ def generar_musica_musicgen(prompt: str, duracion_clip: int = 15,
     except Exception:
         device = "cpu"
         model = model.to(device)
+    print(f"[MusicGen] device={device}")
 
-    max_tokens = duracion_clip * 50
+    # MusicGen generates ~50 tokens per second of audio
+    tokens_per_sec = 50
+    max_tokens = duracion_clip * tokens_per_sec
+
     inputs = processor(text=[prompt], padding=True, return_tensors="pt").to(device)
-    audio_values = model.generate(**inputs, max_new_tokens=max_tokens)
 
+    # Generate enough clips to cover duracion_total
+    clips_needed = max(1, math.ceil(duracion_total / duracion_clip))
     sr = model.config.audio_encoder.sampling_rate
-    audio = audio_values[0, 0].cpu().numpy()
+    all_clips: list[np.ndarray] = []
 
-    if duracion_total > duracion_clip:
-        audio = _crossfade_loop(audio, sr, duracion_total)
+    for i in range(clips_needed):
+        print(f"[MusicGen] generating clip {i+1}/{clips_needed} ({duracion_clip}s)...")
+        audio_values = model.generate(**inputs, max_new_tokens=max_tokens)
+        # musicgen-stereo-small outputs shape [batch, channels, samples]
+        clip = audio_values[0].cpu().numpy()  # shape: (channels, samples) or (1, samples)
+        if clip.ndim == 2 and clip.shape[0] == 2:
+            # stereo → keep as (channels, samples)
+            all_clips.append(clip)
+        else:
+            # mono → duplicate to stereo
+            mono = clip[0] if clip.ndim == 2 else clip
+            all_clips.append(np.stack([mono, mono]))
+
+    # Crossfade-concatenate all clips
+    xf_sec = 3.0
+    xf = int(xf_sec * sr)
+    merged_l = all_clips[0][0]
+    merged_r = all_clips[0][1]
+    for clip in all_clips[1:]:
+        l, r = clip[0], clip[1]
+        xf_actual = min(xf, len(merged_l), len(l))
+        if xf_actual > 0:
+            fo = np.linspace(1, 0, xf_actual, dtype=np.float32)
+            fi = np.linspace(0, 1, xf_actual, dtype=np.float32)
+            merged_l = np.concatenate([merged_l[:-xf_actual], merged_l[-xf_actual:] * fo + l[:xf_actual] * fi, l[xf_actual:]])
+            merged_r = np.concatenate([merged_r[:-xf_actual], merged_r[-xf_actual:] * fo + r[:xf_actual] * fi, r[xf_actual:]])
+        else:
+            merged_l = np.concatenate([merged_l, l])
+            merged_r = np.concatenate([merged_r, r])
+
+    # Trim to exact duration
+    target = duracion_total * sr
+    merged_l = merged_l[:target]
+    merged_r = merged_r[:target]
+
+    # Global fade in/out (3s / 4s)
+    fi = min(sr * 3, len(merged_l))
+    fo = min(sr * 4, len(merged_l))
+    merged_l[:fi] *= np.linspace(0, 1, fi, dtype=np.float32)
+    merged_r[:fi] *= np.linspace(0, 1, fi, dtype=np.float32)
+    merged_l[-fo:] *= np.linspace(1, 0, fo, dtype=np.float32)
+    merged_r[-fo:] *= np.linspace(1, 0, fo, dtype=np.float32)
+
+    # Normalize
+    peak = max(np.max(np.abs(merged_l)), np.max(np.abs(merged_r)), 1e-6)
+    merged_l = (merged_l / peak * 0.85).astype(np.float32)
+    merged_r = (merged_r / peak * 0.85).astype(np.float32)
 
     path = os.path.join(output_dir, "musica_musicgen.wav")
-    sf.write(path, audio, sr)
+    stereo = np.stack([merged_l, merged_r], axis=-1)  # (samples, 2)
+    sf.write(path, stereo, sr)
+    print(f"[MusicGen] saved → {path}")
+    return os.path.abspath(path)
+
+
+def generar_musica_gemini_lyria(
+    mood: str,
+    duracion_clip: int = 30,
+    duracion_total: int = 60,
+    output_dir: str = "output",
+    api_key: str = "",
+) -> str:
+    """
+    Genera música con Gemini Lyria 3 (Google).
+    Genera clips y los concatena con crossfade.
+
+    Requiere: pip install google-genai
+    API key: config.json → gemini_api_key
+    """
+    try:
+        from google import genai as google_genai
+        from google.genai import types as genai_types
+    except ImportError:
+        raise ImportError(
+            "Gemini SDK no instalado. Ejecuta: pip install google-genai"
+        )
+
+    os.makedirs(output_dir, exist_ok=True)
+
+    prompt = MUSICGEN_MOOD_PROMPTS.get(
+        mood,
+        MOODS.get(mood, "peaceful christian instrumental ambient music no vocals")
+    )
+    print(f"[Lyria] mood={mood!r} | prompt: {prompt}")
+
+    client = google_genai.Client(api_key=api_key)
+
+    clips_needed = max(1, math.ceil(duracion_total / duracion_clip))
+    all_audio: list[bytes] = []
+
+    for i in range(clips_needed):
+        print(f"[Lyria] generating clip {i+1}/{clips_needed}...")
+        response = client.models.generate_content(
+            model="lyria-002",
+            contents=f"Generate {duracion_clip} seconds of instrumental religious music: {prompt}",
+            config=genai_types.GenerateContentConfig(
+                response_mime_type="audio/wav",
+            ),
+        )
+        if response.candidates and response.candidates[0].content.parts:
+            audio_bytes = response.candidates[0].content.parts[0].inline_data.data
+            all_audio.append(audio_bytes)
+
+    if not all_audio:
+        raise RuntimeError("Lyria no retornó audio")
+
+    # Write raw first clip to detect SR, then concatenate
+    import tempfile
+    import soundfile as sf
+
+    tmp_clips: list[str] = []
+    for i, ab in enumerate(all_audio):
+        tmp = os.path.join(output_dir, f"_lyria_clip_{i}.wav")
+        with open(tmp, "wb") as f:
+            f.write(ab)
+        tmp_clips.append(tmp)
+
+    # Read and crossfade-concatenate
+    xf_sec = 3.0
+    merged_l: np.ndarray | None = None
+    merged_r: np.ndarray | None = None
+    sr_out = 44100
+
+    for tmp in tmp_clips:
+        data, sr_out = sf.read(tmp)
+        if data.ndim == 1:
+            l, r = data, data.copy()
+        else:
+            l, r = data[:, 0], data[:, 1]
+        if merged_l is None:
+            merged_l, merged_r = l.astype(np.float32), r.astype(np.float32)
+        else:
+            xf = int(xf_sec * sr_out)
+            xf_actual = min(xf, len(merged_l), len(l))
+            if xf_actual > 0:
+                fo = np.linspace(1, 0, xf_actual, dtype=np.float32)
+                fi = np.linspace(0, 1, xf_actual, dtype=np.float32)
+                merged_l = np.concatenate([merged_l[:-xf_actual], merged_l[-xf_actual:] * fo + l[:xf_actual].astype(np.float32) * fi, l[xf_actual:].astype(np.float32)])
+                merged_r = np.concatenate([merged_r[:-xf_actual], merged_r[-xf_actual:] * fo + r[:xf_actual].astype(np.float32) * fi, r[xf_actual:].astype(np.float32)])
+            else:
+                merged_l = np.concatenate([merged_l, l.astype(np.float32)])
+                merged_r = np.concatenate([merged_r, r.astype(np.float32)])
+        os.remove(tmp)
+
+    target = duracion_total * sr_out
+    merged_l = merged_l[:target]
+    merged_r = merged_r[:target]
+    peak = max(np.max(np.abs(merged_l)), np.max(np.abs(merged_r)), 1e-6)
+    merged_l = (merged_l / peak * 0.85).astype(np.float32)
+    merged_r = (merged_r / peak * 0.85).astype(np.float32)
+
+    path = os.path.join(output_dir, "musica_lyria.wav")
+    stereo = np.stack([merged_l, merged_r], axis=-1)
+    sf.write(path, stereo, sr_out)
+    print(f"[Lyria] saved → {path}")
     return os.path.abspath(path)
 
 
@@ -797,6 +1019,9 @@ def generate_playlist(
     Each mood gets total_seconds // len(moods) seconds.
     Smooth crossfade between segments.
 
+    Caching: result cached by hash(moods + total_seconds + crossfade_seconds + loop mtimes).
+    Re-generation only if loop source files change.
+
     Args:
         moods: List of mood names (keys in MOODS dict or manifest)
         total_seconds: Total output duration in seconds
@@ -807,8 +1032,41 @@ def generate_playlist(
     Returns:
         Absolute path to the combined WAV file.
     """
+    import hashlib
+
     if not moods:
         raise ValueError("moods list cannot be empty")
+
+    # ── Cache check ──────────────────────────────────────────────────────────
+    # Key = moods + timing + mtime of each source loop file (detects replacements)
+    _loop_mtimes = []
+    for m in moods:
+        lp = _get_loop_path(m)
+        if lp and os.path.exists(lp):
+            _loop_mtimes.append(f"{lp}:{os.path.getmtime(lp):.0f}")
+        else:
+            _loop_mtimes.append(f"{m}:synth")
+
+    cache_key_str = "|".join([
+        ",".join(moods),
+        str(total_seconds),
+        str(crossfade_seconds),
+        ",".join(_loop_mtimes),
+    ])
+    cache_hash = hashlib.md5(cache_key_str.encode()).hexdigest()[:12]
+
+    _audio_cache_dir = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+        "audio", "cache"
+    )
+    os.makedirs(_audio_cache_dir, exist_ok=True)
+    cached_path = os.path.join(_audio_cache_dir, f"playlist_{cache_hash}.wav")
+
+    if os.path.exists(cached_path):
+        print(f"[playlist cache] HIT {cache_hash} — {'+'.join(moods)}")
+        return os.path.abspath(cached_path)
+
+    print(f"[playlist cache] MISS {cache_hash} — generating {'+'.join(moods)}")
 
     os.makedirs(output_dir, exist_ok=True)
     sr = 44100
@@ -900,6 +1158,38 @@ def generate_playlist(
             _shutil.rmtree(seg_dir)
         except OSError:
             pass
+
+    # ── Save to cache ────────────────────────────────────────────────────────
+    try:
+        _shutil.copy2(result, cached_path)
+        size_mb = os.path.getsize(cached_path) / 1024 / 1024
+        print(f"[playlist cache] SAVED {cache_hash} ({size_mb:.0f} MB)")
+    except Exception as _ce:
+        print(f"[playlist cache] Warning: could not save cache: {_ce}")
+
+    # ── Pre-normalize audio (EBU R128 loudnorm) ──────────────────────────────
+    # Mux step with loudnorm on 120min audio takes ~5-6 min.
+    # Pre-normalizing here (once, cached) reduces mux to ~5 seconds on re-renders.
+    _prenorm_path = cached_path.replace(".wav", "_norm.aac")
+    if not os.path.exists(_prenorm_path):
+        try:
+            print(f"[playlist cache] Pre-normalizing audio (EBU R128, runs once)...")
+            _pn_result = subprocess.run(
+                [
+                    "ffmpeg", "-y", "-i", cached_path,
+                    "-af", "afade=t=in:st=0:d=5,loudnorm=I=-16:TP=-1.5:LRA=11",
+                    "-c:a", "aac", "-b:a", "192k",
+                    _prenorm_path,
+                ],
+                capture_output=True, text=True,
+            )
+            if _pn_result.returncode == 0:
+                pn_mb = os.path.getsize(_prenorm_path) / 1024 / 1024
+                print(f"[playlist cache] Pre-norm saved → {os.path.basename(_prenorm_path)} ({pn_mb:.0f} MB)")
+            else:
+                print(f"[playlist cache] Pre-norm warning: {_pn_result.stderr[-200:]}")
+        except Exception as _pne:
+            print(f"[playlist cache] Pre-norm failed (non-critical): {_pne}")
 
     return result
 

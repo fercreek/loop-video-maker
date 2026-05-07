@@ -1,0 +1,105 @@
+{
+  "theme": "salmos",
+  "format": "120min",
+  "engine_version": "v3.9-f6cb85f",
+  "output_path": "output/semana_2026-05-06/salmos/salmos_120min.mp4",
+  "started_at": "2026-05-06T10:17:39.372350+00:00",
+  "finished_at": "2026-05-06T10:54:48.244892+00:00",
+  "total_sec": 2228.9,
+  "total_min": 37.1,
+  "config": {
+    "duration_min": 120,
+    "fps": 12,
+    "seconds_per_verse": 25,
+    "parallel_jobs": 4,
+    "verses_per_bg": 3,
+    "fondos_pool": 90,
+    "moods": [
+      "Salmos",
+      "Adoración",
+      "Alabanza",
+      "Contemplación",
+      "Reverencia",
+      "Silencio"
+    ]
+  },
+  "steps": {
+    "audio_gen": {
+      "sec": 369.95,
+      "moods": [
+        "Salmos",
+        "Adoración",
+        "Alabanza",
+        "Contemplación",
+        "Reverencia",
+        "Silencio"
+      ],
+      "total_audio_sec": 7200
+    },
+    "bg_prep": {
+      "sec": 30.46,
+      "images_processed": 90
+    },
+    "text_render": {
+      "sec": 10.67,
+      "verses_rendered": 288
+    },
+    "clips": {
+      "sec": 944.14,
+      "total_clips": 288,
+      "avg_sec": 13.08,
+      "min_sec": 8.31,
+      "max_sec": 36.72,
+      "clips_per_sec": 0.31,
+      "top5_slow": [
+        {
+          "idx": 268,
+          "sec": 36.7
+        },
+        {
+          "idx": 23,
+          "sec": 36.0
+        },
+        {
+          "idx": 272,
+          "sec": 32.4
+        },
+        {
+          "idx": 24,
+          "sec": 32.3
+        },
+        {
+          "idx": 273,
+          "sec": 32.2
+        }
+      ],
+      "effect_distribution": {
+        "Zoom lento ↙": 27,
+        "Zoom lento ↗": 30,
+        "Zoom out ↗": 27,
+        "Paneo suave ↓": 27,
+        "Paneo suave →": 30,
+        "Zoom out ↙": 30,
+        "Paneo suave ↑": 30,
+        "Zoom lento ↘": 30,
+        "Zoom lento ↖": 30,
+        "Paneo suave ←": 27
+      }
+    },
+    "concat": {
+      "sec": 14.97
+    },
+    "mux": {
+      "sec": 857.38
+    }
+  },
+  "output": {
+    "size_mb": 3053.5,
+    "mb_per_min": 25.4,
+    "lufs": null,
+    "lufs_fixed": false,
+    "quality_score": null,
+    "quality_pass": null,
+    "quality_issues": []
+  }
+}

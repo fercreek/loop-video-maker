@@ -1,0 +1,105 @@
+{
+  "theme": "sanacion",
+  "format": "120min",
+  "engine_version": "v3.9-f6cb85f",
+  "output_path": "output/semana_2026-05-06/sanacion/sanacion_120min.mp4",
+  "started_at": "2026-05-06T10:54:48.292709+00:00",
+  "finished_at": "2026-05-06T11:55:50.841398+00:00",
+  "total_sec": 3662.5,
+  "total_min": 61.0,
+  "config": {
+    "duration_min": 120,
+    "fps": 12,
+    "seconds_per_verse": 25,
+    "parallel_jobs": 4,
+    "verses_per_bg": 3,
+    "fondos_pool": 90,
+    "moods": [
+      "Sanación",
+      "Ungimiento",
+      "Restauración",
+      "Reposo",
+      "Paz profunda",
+      "Manantial"
+    ]
+  },
+  "steps": {
+    "audio_gen": {
+      "sec": 365.12,
+      "moods": [
+        "Sanación",
+        "Ungimiento",
+        "Restauración",
+        "Reposo",
+        "Paz profunda",
+        "Manantial"
+      ],
+      "total_audio_sec": 7200
+    },
+    "bg_prep": {
+      "sec": 34.28,
+      "images_processed": 90
+    },
+    "text_render": {
+      "sec": 13.68,
+      "verses_rendered": 288
+    },
+    "clips": {
+      "sec": 1285.91,
+      "total_clips": 288,
+      "avg_sec": 15.74,
+      "min_sec": 8.07,
+      "max_sec": 316.31,
+      "clips_per_sec": 0.25,
+      "top5_slow": [
+        {
+          "idx": 286,
+          "sec": 316.3
+        },
+        {
+          "idx": 287,
+          "sec": 314.3
+        },
+        {
+          "idx": 106,
+          "sec": 22.9
+        },
+        {
+          "idx": 3,
+          "sec": 22.6
+        },
+        {
+          "idx": 2,
+          "sec": 21.7
+        }
+      ],
+      "effect_distribution": {
+        "Zoom lento ↙": 27,
+        "Zoom lento ↗": 30,
+        "Zoom out ↗": 27,
+        "Paneo suave ↓": 27,
+        "Paneo suave →": 30,
+        "Zoom out ↙": 30,
+        "Paneo suave ↑": 30,
+        "Zoom lento ↘": 30,
+        "Zoom lento ↖": 30,
+        "Paneo suave ←": 27
+      }
+    },
+    "concat": {
+      "sec": 16.28
+    },
+    "mux": {
+      "sec": 1946.03
+    }
+  },
+  "output": {
+    "size_mb": 3052.6,
+    "mb_per_min": 25.4,
+    "lufs": null,
+    "lufs_fixed": false,
+    "quality_score": null,
+    "quality_pass": null,
+    "quality_issues": []
+  }
+}
