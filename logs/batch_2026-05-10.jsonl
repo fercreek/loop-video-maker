@@ -1,0 +1,7 @@
+{"event": "render_complete", "id": "abraham-e-isaac", "title": "Abraham e Isaac: La Prueba del Sacrificio", "ok": true, "elapsed_sec": 371.5, "msg": "ok", "ts": "2026-05-10T12:12:39.128491+00:00"}
+{"event": "render_complete", "id": "daniel-foso-leones", "title": "Daniel en el Foso de los Leones: La Fe que Venció", "ok": true, "elapsed_sec": 320.9, "msg": "ok", "ts": "2026-05-10T12:18:00.021951+00:00"}
+{"event": "render_complete", "id": "ester-y-el-rey", "title": "Ester y el Rey Asuero: La Reina que Salvó a su Pueblo", "ok": true, "elapsed_sec": 403.8, "msg": "ok", "ts": "2026-05-10T12:24:43.867864+00:00"}
+{"event": "render_complete", "id": "jose-y-sus-hermanos", "title": "José y sus Hermanos: De la Traición al Triunfo", "ok": true, "elapsed_sec": 462.1, "msg": "ok", "ts": "2026-05-10T12:32:26.018508+00:00"}
+{"event": "render_complete", "id": "sanson-y-dalila", "title": "Sansón y Dalila: La Fuerza que Perdió y Recuperó", "ok": false, "elapsed_sec": 4840.9, "msg": "TIMEOUT after 1500s", "ts": "2026-05-10T13:53:06.886608+00:00"}
+{"event": "render_complete", "id": "pentecostes", "title": "Pentecostés: El Fuego del Espíritu Santo Desciende", "ok": true, "elapsed_sec": 496.4, "msg": "ok", "ts": "2026-05-10T14:01:23.307035+00:00"}
+{"event": "batch_complete", "total_videos": 6, "ok": 5, "failed": 1, "total_elapsed_sec": 6895.7, "ts": "2026-05-10T14:01:23.311451+00:00"}

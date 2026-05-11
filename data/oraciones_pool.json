@@ -1,0 +1,132 @@
+{
+  "version": "1.0",
+  "description": "Pool de oraciones devocionales en español ES-MX. Dominio público / propias. 30-50 palabras. Anti-strike: sin copyright moderno.",
+  "oraciones": [
+    {
+      "id": "fe_001",
+      "tema": "fe",
+      "titulo": "Dios te dice hoy: Tu fe te sostiene",
+      "texto": "Señor, en este día te entrego mi fe. Aunque no vea el camino completo, confío en que Tú vas delante de mí. Fortalece mi corazón cuando dude, recuérdame que contigo nada es imposible. Que mi fe sea más grande que mis miedos. Amén.",
+      "hashtags": ["#fe", "#Dios", "#oracion", "#versiculosdedios", "#shorts"],
+      "hook": "Dios te dice hoy:",
+      "cta": "Comenta AMÉN si recibes esta bendición"
+    },
+    {
+      "id": "esperanza_001",
+      "tema": "esperanza",
+      "titulo": "Oración de esperanza en tiempos difíciles",
+      "texto": "Padre eterno, cuando el peso del mundo me agobia y las fuerzas me fallan, ayúdame a recordar que Tu amor nunca se acaba. Dame esperanza fresca esta mañana. Que cada nuevo día sea prueba de Tu fidelidad. En Ti descanso. Amén.",
+      "hashtags": ["#esperanza", "#Dios", "#oracion", "#versiculosdedios", "#shorts"],
+      "hook": "Oración para cuando todo parece difícil:",
+      "cta": "Comenta AMÉN si necesitas esperanza hoy"
+    },
+    {
+      "id": "paz_001",
+      "tema": "paz",
+      "titulo": "Oración por la paz del corazón",
+      "texto": "Señor Jesús, príncipe de paz, te pido que calles las tormentas de mi mente. Donde hay ansiedad, pon tu calma. Donde hay confusión, pon tu claridad. Que Tu paz, que sobrepasa todo entendimiento, guarde mi corazón este día. Amén.",
+      "hashtags": ["#paz", "#Dios", "#oracion", "#versiculosdedios", "#shorts"],
+      "hook": "¿Necesitas paz hoy? Ora conmigo:",
+      "cta": "Comenta AMÉN y recibe paz del cielo"
+    },
+    {
+      "id": "gratitud_001",
+      "tema": "gratitud",
+      "titulo": "Oración de gratitud al despertar",
+      "texto": "Gracias, Dios mío, por este nuevo día que me regalas. Por el aliento en mi pecho, por la luz del sol, por las personas que amo. Que mi vida entera sea un canto de gratitud a Tu nombre. Te alabo con todo mi ser. Amén.",
+      "hashtags": ["#gratitud", "#Dios", "#oracion", "#versiculosdedios", "#shorts"],
+      "hook": "Empieza el día dando gracias:",
+      "cta": "Comenta AMÉN si eres agradecido con Dios"
+    },
+    {
+      "id": "proteccion_001",
+      "tema": "protección",
+      "titulo": "Oración de protección para el camino",
+      "texto": "Señor, cúbreme con Tu sangre preciosa. Pon Tus ángeles a mi alrededor. Protege mi hogar, mi familia, mi camino. Que ningún mal se acerque a mi tienda. Tú eres mi refugio y mi fortaleza. En Ti confío este día y siempre. Amén.",
+      "hashtags": ["#proteccion", "#Dios", "#oracion", "#versiculosdedios", "#shorts"],
+      "hook": "Oración de protección para ti y tu familia:",
+      "cta": "Comenta AMÉN para recibir protección divina"
+    },
+    {
+      "id": "sanacion_001",
+      "tema": "sanación",
+      "titulo": "Oración por sanación y restauración",
+      "texto": "Padre Dios, Tú eres el Dios que sana. Toca mi cuerpo, restaura mi alma, sana mis emociones heridas. Por las llagas de Cristo soy sano. Declaro Tu palabra sobre mi vida: no hay enfermedad que Tu amor no pueda vencer. Amén.",
+      "hashtags": ["#sanacion", "#Dios", "#oracion", "#versiculosdedios", "#shorts"],
+      "hook": "Declara esta oración y recibe sanación:",
+      "cta": "Comenta AMÉN si crees en el poder sanador de Dios"
+    },
+    {
+      "id": "familia_001",
+      "tema": "familia",
+      "titulo": "Oración por la familia unida en Dios",
+      "texto": "Señor, bendice a mi familia. Pon amor donde haya distancia, perdón donde haya heridas, paz donde haya conflictos. Que Cristo sea el centro de nuestro hogar. Une nuestros corazones con lazos que ninguna tormenta pueda romper. Amén.",
+      "hashtags": ["#familia", "#Dios", "#oracion", "#versiculosdedios", "#shorts"],
+      "hook": "Ora por tu familia hoy:",
+      "cta": "Comenta AMÉN si amas a tu familia"
+    },
+    {
+      "id": "trabajo_001",
+      "tema": "trabajo",
+      "titulo": "Oración para el trabajo y la provisión",
+      "texto": "Dios de toda provisión, bendice el trabajo de mis manos este día. Abre puertas que nadie pueda cerrar. Dame sabiduría, favor y excelencia en todo lo que hago. Que mi trabajo sea ofrenda a Tu nombre. Provéeme conforme a Tus riquezas. Amén.",
+      "hashtags": ["#trabajo", "#provision", "#Dios", "#oracion", "#versiculosdedios", "#shorts"],
+      "hook": "Antes de comenzar tu día laboral, ora:",
+      "cta": "Comenta AMÉN si confías en la provisión de Dios"
+    },
+    {
+      "id": "fe_002",
+      "tema": "fe",
+      "titulo": "Oración cuando la fe flaquea",
+      "texto": "Señor, creo, pero ayuda mi incredulidad. Cuando mis ojos sólo ven problemas, dame ojos de fe para ver Tus soluciones. Cuando mi corazón tiembla, recuérdame Tu palabra: todo es posible para el que cree. Renuevo mi fe en Ti. Amén.",
+      "hashtags": ["#fe", "#Dios", "#oracion", "#versiculosdedios", "#shorts"],
+      "hook": "¿Tu fe necesita renovarse? Ora esto:",
+      "cta": "Comenta AMÉN si renuevas tu fe hoy"
+    },
+    {
+      "id": "esperanza_002",
+      "tema": "esperanza",
+      "titulo": "Oración por un nuevo comienzo",
+      "texto": "Señor, gracias porque Tus misericordias son nuevas cada mañana. Hoy comienzo de nuevo. Deja atrás mis errores, mis fracasos, mis miedos. Dame la valentía de empezar otra vez confiando en Tu gracia. Contigo cada día es una oportunidad. Amén.",
+      "hashtags": ["#esperanza", "#nuevocomienzo", "#Dios", "#oracion", "#versiculosdedios"],
+      "hook": "Hoy es un nuevo comienzo con Dios:",
+      "cta": "Comenta AMÉN para recibir un nuevo comienzo"
+    },
+    {
+      "id": "paz_002",
+      "tema": "paz",
+      "titulo": "Oración para dormir en paz",
+      "texto": "Padre celestial, al cerrar mis ojos esta noche, entrego en Tus manos todo lo que me preocupa. Tú nunca duermes ni te adormeces; vela sobre mí. Que Tu paz llene mi mente y mi corazón. Dulce descanso en Tu amor eterno. Amén.",
+      "hashtags": ["#paz", "#buenasnoches", "#Dios", "#oracion", "#versiculosdedios"],
+      "hook": "Oración para descansar en paz esta noche:",
+      "cta": "Comenta AMÉN si entregas tus cargas a Dios"
+    },
+    {
+      "id": "gratitud_002",
+      "tema": "gratitud",
+      "titulo": "Gracias Señor por Tu fidelidad",
+      "texto": "Te doy gracias, Señor, porque en medio de las pruebas nunca me has abandonado. Tu fidelidad es grande. Cada vez que sentí que no podía más, Tú estuviste ahí. Hoy quiero honrar Tu nombre con mi gratitud. Eres bueno y para siempre dura Tu amor. Amén.",
+      "hashtags": ["#gratitud", "#fidelidad", "#Dios", "#oracion", "#versiculosdedios"],
+      "hook": "Gracias, Señor, por Tu fidelidad:",
+      "cta": "Comenta AMÉN si Dios ha sido fiel en tu vida"
+    },
+    {
+      "id": "proteccion_002",
+      "tema": "protección",
+      "titulo": "Oración de cobertura espiritual",
+      "texto": "En el nombre de Jesús, decreto cobertura espiritual sobre mi vida y la de los que amo. Ninguna arma forjada contra nosotros prosperará. Señor, sé nuestro escudo y nuestro amparo. Que Tu presencia llene cada rincón de nuestro hogar. Amén.",
+      "hashtags": ["#proteccion", "#cobertura", "#Dios", "#oracion", "#versiculosdedios"],
+      "hook": "Declara cobertura espiritual sobre tu hogar:",
+      "cta": "Comenta AMÉN para recibir cobertura espiritual"
+    },
+    {
+      "id": "sanacion_002",
+      "tema": "sanación",
+      "titulo": "Oración por sanación emocional",
+      "texto": "Señor, hay heridas en mi corazón que nadie más puede ver. Tú las conoces. Ven con Tu ungüento de amor y sana cada área lastimada. Libérame del dolor del pasado. Restaura mi alegría y renueva mi mente con Tu verdad. Soy libre en Cristo. Amén.",
+      "hashtags": ["#sanacion", "#sanacionemocional", "#Dios", "#oracion", "#versiculosdedios"],
+      "hook": "Oración por sanación emocional profunda:",
+      "cta": "Comenta AMÉN si necesitas sanación interior hoy"
+    }
+  ]
+}

@@ -1,0 +1,2019 @@
+{
+  "version": "1.0",
+  "channel": "@VersiculoDeDios-v1u",
+  "last_updated": "2026-05-09",
+  "videos": [
+    {
+      "id": "david-goliat",
+      "title": "David y Goliat: El Gigante que Cayó ante Dios",
+      "type": "historia",
+      "bible_ref": "1 Samuel 17:1-58",
+      "priority": 1,
+      "search_volume": "muy_alto",
+      "scenes_target": 14,
+      "duration_est_min": 18,
+      "notes": "Historia clásica de fe vs poder. Alta búsqueda. Ideal para retención juvenil.",
+      "status": {
+        "script": true,
+        "rendered": true,
+        "uploaded": true,
+        "youtube_id": "9w16_VFEbBw",
+        "youtube_url": "https://youtube.com/watch?v=9w16_VFEbBw",
+        "upload_date": "2026-05-11",
+        "views": null
+      }
+    },
+    {
+      "id": "noe",
+      "title": "Noé y el Diluvio: Cuando Dios Salvó a la Humanidad",
+      "type": "historia",
+      "bible_ref": "Génesis 6:1 - 9:17",
+      "priority": 1,
+      "search_volume": "muy_alto",
+      "scenes_target": 14,
+      "duration_est_min": 18,
+      "notes": "Una de las historias más buscadas del AT. Alta retención familiar.",
+      "status": {
+        "script": true,
+        "rendered": true,
+        "uploaded": true,
+        "youtube_id": "Fp44KoQurkM",
+        "youtube_url": "https://youtube.com/watch?v=Fp44KoQurkM",
+        "upload_date": "2026-05-11",
+        "views": null
+      }
+    },
+    {
+      "id": "jonas",
+      "title": "Jonás y la Ballena: La Misericordia de Dios",
+      "type": "historia",
+      "bible_ref": "Jonás 1:1 - 4:11",
+      "priority": 1,
+      "search_volume": "muy_alto",
+      "scenes_target": 14,
+      "duration_est_min": 18,
+      "notes": "Muy buscada por niños y familias. Mensaje de segunda oportunidad.",
+      "status": {
+        "script": true,
+        "rendered": true,
+        "uploaded": true,
+        "youtube_id": "9517jJFubYk",
+        "youtube_url": "https://youtube.com/watch?v=9517jJFubYk",
+        "upload_date": "2026-05-11",
+        "views": null
+      }
+    },
+    {
+      "id": "moises",
+      "title": "Moisés: El Hombre que Habló con Dios",
+      "type": "personaje",
+      "bible_ref": "Éxodo 1:1 - 14:31",
+      "priority": 1,
+      "search_volume": "muy_alto",
+      "scenes_target": 14,
+      "duration_est_min": 18,
+      "notes": "Personaje épico con múltiples ángulos narrativos. Alta búsqueda constante.",
+      "status": {
+        "script": true,
+        "rendered": true,
+        "uploaded": true,
+        "youtube_id": "4OxApIJ7L-E",
+        "youtube_url": "https://youtube.com/watch?v=4OxApIJ7L-E",
+        "upload_date": "2026-05-11",
+        "views": null
+      }
+    },
+    {
+      "id": "abraham-e-isaac",
+      "title": "Abraham e Isaac: La Prueba del Sacrificio",
+      "type": "historia",
+      "bible_ref": "Génesis 22:1-19",
+      "priority": 1,
+      "search_volume": "muy_alto",
+      "scenes_target": 14,
+      "duration_est_min": 18,
+      "notes": "Prefigura la cruz. Máxima tensión dramática y mensaje teológico poderoso.",
+      "status": {
+        "script": true,
+        "rendered": true,
+        "uploaded": true,
+        "youtube_id": "JgWIisil1r0",
+        "youtube_url": "https://youtube.com/watch?v=JgWIisil1r0",
+        "upload_date": "2026-05-11",
+        "views": null,
+        "rendered_at": "2026-05-10T12:12:39.132596+00:00"
+      }
+    },
+    {
+      "id": "jose-y-sus-hermanos",
+      "title": "José y sus Hermanos: De la Traición al Triunfo",
+      "type": "historia",
+      "bible_ref": "Génesis 37:1 - 50:26",
+      "priority": 1,
+      "search_volume": "muy_alto",
+      "scenes_target": 16,
+      "duration_est_min": 21,
+      "notes": "Historia épica multi-escena. Alta SEO. Ideal para el formato 21 min.",
+      "status": {
+        "script": true,
+        "rendered": true,
+        "uploaded": true,
+        "youtube_id": "XQ20DI64QG0",
+        "youtube_url": "https://youtube.com/watch?v=XQ20DI64QG0",
+        "upload_date": "2026-05-11",
+        "views": null,
+        "rendered_at": "2026-05-10T12:32:26.019770+00:00"
+      }
+    },
+    {
+      "id": "daniel-foso-leones",
+      "title": "Daniel en el Foso de los Leones: La Fe que Venció",
+      "type": "historia",
+      "bible_ref": "Daniel 6:1-28",
+      "priority": 1,
+      "search_volume": "muy_alto",
+      "scenes_target": 14,
+      "duration_est_min": 18,
+      "notes": "Clásico de fe bajo persecución. Muy buscado por todas las edades.",
+      "status": {
+        "script": true,
+        "rendered": true,
+        "uploaded": true,
+        "youtube_id": "RXMxEkJpLvs",
+        "youtube_url": "https://youtube.com/watch?v=RXMxEkJpLvs",
+        "upload_date": "2026-05-11",
+        "views": null,
+        "rendered_at": "2026-05-10T12:18:00.023650+00:00"
+      }
+    },
+    {
+      "id": "sanson-y-dalila",
+      "title": "Sansón y Dalila: La Fuerza que Perdió y Recuperó",
+      "type": "historia",
+      "bible_ref": "Jueces 13:1 - 16:31",
+      "priority": 1,
+      "search_volume": "muy_alto",
+      "scenes_target": 14,
+      "duration_est_min": 19,
+      "notes": "Drama bíblico de traición y redención. Alta retención adulta.",
+      "status": {
+        "script": true,
+        "rendered": true,
+        "uploaded": true,
+        "youtube_id": "KPePog2wijo",
+        "youtube_url": "https://youtube.com/watch?v=KPePog2wijo",
+        "upload_date": "2026-05-11",
+        "views": null,
+        "rendered_at": "2026-05-11T08:22:24.219607+00:00"
+      }
+    },
+    {
+      "id": "ester-y-el-rey",
+      "title": "Ester y el Rey Asuero: La Reina que Salvó a su Pueblo",
+      "type": "historia",
+      "bible_ref": "Ester 1:1 - 10:3",
+      "priority": 1,
+      "search_volume": "muy_alto",
+      "scenes_target": 14,
+      "duration_est_min": 19,
+      "notes": "Historia de valentía femenina y providencia divina. Muy buscada.",
+      "status": {
+        "script": true,
+        "rendered": true,
+        "uploaded": true,
+        "youtube_id": "nwiCsnBco2Q",
+        "youtube_url": "https://youtube.com/watch?v=nwiCsnBco2Q",
+        "upload_date": "2026-05-11",
+        "views": null,
+        "rendered_at": "2026-05-10T12:24:43.871334+00:00"
+      }
+    },
+    {
+      "id": "la-creacion-del-mundo",
+      "title": "La Creación del Mundo: El Principio de Todo",
+      "type": "historia",
+      "bible_ref": "Génesis 1:1 - 2:25",
+      "priority": 1,
+      "search_volume": "muy_alto",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Fundacional. Visualmente espectacular con IA. Alta búsqueda perenne.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "torre-de-babel",
+      "title": "La Torre de Babel: La Soberbia del Hombre ante Dios",
+      "type": "historia",
+      "bible_ref": "Génesis 11:1-9",
+      "priority": 1,
+      "search_volume": "muy_alto",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Tema de orgullo y confusión. Fácil de narrar con impacto visual fuerte.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "sodoma-y-gomorra",
+      "title": "Sodoma y Gomorra: Lot y el Juicio de Dios",
+      "type": "historia",
+      "bible_ref": "Génesis 18:16 - 19:38",
+      "priority": 1,
+      "search_volume": "muy_alto",
+      "scenes_target": 14,
+      "duration_est_min": 18,
+      "notes": "Muy buscada. Mensajes de juicio y misericordia. Narrar con sensibilidad.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "elias-profetas-baal",
+      "title": "Elías y los Profetas de Baal: El Fuego del Dios Verdadero",
+      "type": "historia",
+      "bible_ref": "1 Reyes 18:1-46",
+      "priority": 1,
+      "search_volume": "muy_alto",
+      "scenes_target": 14,
+      "duration_est_min": 18,
+      "notes": "Escena épica del Monte Carmelo. Alta dramaticidad. SEO fuerte.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "ruth-y-noemi",
+      "title": "Ruth y Noemí: La Lealtad que Trascendió la Muerte",
+      "type": "historia",
+      "bible_ref": "Rut 1:1 - 4:22",
+      "priority": 1,
+      "search_volume": "muy_alto",
+      "scenes_target": 13,
+      "duration_est_min": 17,
+      "notes": "Historia de fidelidad y redención. Muy popular entre audiencia femenina.",
+      "status": {
+        "script": true,
+        "rendered": true,
+        "uploaded": true,
+        "youtube_id": "HeGUMgQlfFo",
+        "youtube_url": "https://youtube.com/watch?v=HeGUMgQlfFo",
+        "upload_date": "2026-05-11",
+        "views": null,
+        "rendered_at": "2026-05-11T08:17:53.705749+00:00"
+      }
+    },
+    {
+      "id": "hijo-prodigo",
+      "title": "El Hijo Pródigo: La Historia del Amor que Perdona Todo",
+      "type": "historia",
+      "bible_ref": "Lucas 15:11-32",
+      "priority": 1,
+      "search_volume": "muy_alto",
+      "scenes_target": 13,
+      "duration_est_min": 17,
+      "notes": "Parábola más buscada del NT. Mensaje universal de perdón y gracia.",
+      "status": {
+        "script": true,
+        "rendered": true,
+        "uploaded": true,
+        "youtube_id": "V1GdUjw2GVk",
+        "youtube_url": "https://youtube.com/watch?v=V1GdUjw2GVk",
+        "upload_date": "2026-05-11",
+        "views": null,
+        "rendered_at": "2026-05-11T07:59:55.362723+00:00"
+      }
+    },
+    {
+      "id": "buen-samaritano",
+      "title": "El Buen Samaritano: Lo que Significa Amar al Prójimo",
+      "type": "historia",
+      "bible_ref": "Lucas 10:25-37",
+      "priority": 1,
+      "search_volume": "muy_alto",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Parábola icónica de misericordia. Moralmente resonante en cualquier época.",
+      "status": {
+        "script": true,
+        "rendered": true,
+        "uploaded": true,
+        "youtube_id": "uxwYipwPVlY",
+        "youtube_url": "https://youtube.com/watch?v=uxwYipwPVlY",
+        "upload_date": "2026-05-11",
+        "views": null,
+        "rendered_at": "2026-05-11T08:32:54.025529+00:00"
+      }
+    },
+    {
+      "id": "lazaro-resurreccion",
+      "title": "Lázaro: Jesús Venció a la Muerte",
+      "type": "historia",
+      "bible_ref": "Juan 11:1-44",
+      "priority": 1,
+      "search_volume": "muy_alto",
+      "scenes_target": 13,
+      "duration_est_min": 18,
+      "notes": "Milagro máximo antes de la crucifixión. Alta SEO. Emocionalmente impactante.",
+      "status": {
+        "script": true,
+        "rendered": true,
+        "uploaded": true,
+        "youtube_id": "5PhNZPFp9sA",
+        "youtube_url": "https://youtube.com/watch?v=5PhNZPFp9sA",
+        "upload_date": "2026-05-11",
+        "views": null,
+        "rendered_at": "2026-05-11T08:05:33.532890+00:00"
+      }
+    },
+    {
+      "id": "ultima-cena",
+      "title": "La Última Cena: La Noche que Cambió la Historia",
+      "type": "historia",
+      "bible_ref": "Mateo 26:17-30",
+      "priority": 1,
+      "search_volume": "muy_alto",
+      "scenes_target": 13,
+      "duration_est_min": 17,
+      "notes": "Momento más representado del arte cristiano. Alta búsqueda en Semana Santa.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "resurreccion-de-jesus",
+      "title": "La Resurrección de Jesús: El Milagro que Fundó la Fe",
+      "type": "historia",
+      "bible_ref": "Mateo 28:1-20",
+      "priority": 1,
+      "search_volume": "muy_alto",
+      "scenes_target": 14,
+      "duration_est_min": 18,
+      "notes": "Núcleo del evangelio. Máxima búsqueda en Pascua. Producción prioritaria.",
+      "status": {
+        "script": true,
+        "rendered": true,
+        "uploaded": true,
+        "youtube_id": "AEwRB7r21nA",
+        "youtube_url": "https://youtube.com/watch?v=AEwRB7r21nA",
+        "upload_date": "2026-05-11",
+        "views": null,
+        "rendered_at": "2026-05-11T08:12:17.536043+00:00"
+      }
+    },
+    {
+      "id": "gedeon-y-los-300",
+      "title": "Gedeón y los 300: Dios Gana con los Pocos",
+      "type": "historia",
+      "bible_ref": "Jueces 6:1 - 8:35",
+      "priority": 2,
+      "search_volume": "alto",
+      "scenes_target": 14,
+      "duration_est_min": 18,
+      "notes": "Acción militar y fe. Paralelo con 300 espartanos atrae audiencia nueva.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "josue-jerico",
+      "title": "Josué y la Batalla de Jericó: Las Murallas Cayeron",
+      "type": "historia",
+      "bible_ref": "Josué 6:1-27",
+      "priority": 2,
+      "search_volume": "alto",
+      "scenes_target": 14,
+      "duration_est_min": 18,
+      "notes": "Historia épica de conquista con fe como arma. Alta búsqueda.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "salomon-sabiduria",
+      "title": "El Rey Salomón y su Sabiduría: El Don más Grande",
+      "type": "personaje",
+      "bible_ref": "1 Reyes 3:1 - 11:43",
+      "priority": 2,
+      "search_volume": "alto",
+      "scenes_target": 14,
+      "duration_est_min": 19,
+      "notes": "Incluir el juicio de las dos madres. Alta relevancia para temas de sabiduría.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "david-y-betsabe",
+      "title": "David y Betsabé: El Precio del Pecado",
+      "type": "historia",
+      "bible_ref": "2 Samuel 11:1 - 12:25",
+      "priority": 2,
+      "search_volume": "alto",
+      "scenes_target": 14,
+      "duration_est_min": 18,
+      "notes": "Historia de consecuencias y arrepentimiento. Narrativa madura y profunda.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "ezequiel-huesos-secos",
+      "title": "Ezequiel y el Valle de los Huesos Secos: La Resurrección de Israel",
+      "type": "historia",
+      "bible_ref": "Ezequiel 37:1-14",
+      "priority": 2,
+      "search_volume": "alto",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Visión profética impactante. Potencial visual enorme con IA.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "job-sufrimiento",
+      "title": "Job: La Prueba del Sufrimiento y la Fe Inquebrantable",
+      "type": "personaje",
+      "bible_ref": "Job 1:1 - 42:17",
+      "priority": 2,
+      "search_volume": "alto",
+      "scenes_target": 15,
+      "duration_est_min": 20,
+      "notes": "Tema de sufrimiento y fe. Búsqueda alta entre personas en crisis.",
+      "status": {
+        "script": true,
+        "rendered": true,
+        "uploaded": true,
+        "youtube_id": "iMPxY1zAsFw",
+        "youtube_url": "https://youtube.com/watch?v=iMPxY1zAsFw",
+        "upload_date": "2026-05-11",
+        "views": null,
+        "rendered_at": "2026-05-11T08:28:38.901902+00:00"
+      }
+    },
+    {
+      "id": "sermon-del-monte",
+      "title": "El Sermón del Monte: Las Palabras que Cambiaron el Mundo",
+      "type": "tematico",
+      "bible_ref": "Mateo 5:1 - 7:29",
+      "priority": 2,
+      "search_volume": "alto",
+      "scenes_target": 14,
+      "duration_est_min": 19,
+      "notes": "Enseñanza central de Jesús. Formato devocional versículo a versículo.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "panes-y-peces",
+      "title": "Los Panes y los Peces: El Milagro de la Abundancia",
+      "type": "historia",
+      "bible_ref": "Juan 6:1-14",
+      "priority": 2,
+      "search_volume": "alto",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Milagro muy conocido. Alta búsqueda entre familias. Fácil de narrar.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "pedro-camina-agua",
+      "title": "Pedro Camina sobre el Agua: La Fe que Mueve lo Imposible",
+      "type": "historia",
+      "bible_ref": "Mateo 14:22-33",
+      "priority": 2,
+      "search_volume": "alto",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Metáfora poderosa de fe y duda. Muy resonante en contextos de prueba.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "pablo-camino-damasco",
+      "title": "Pablo en el Camino a Damasco: El Mayor Encuentro con Cristo",
+      "type": "historia",
+      "bible_ref": "Hechos 9:1-31",
+      "priority": 2,
+      "search_volume": "alto",
+      "scenes_target": 13,
+      "duration_est_min": 18,
+      "notes": "Conversión más famosa de la Biblia. Tema de transformación radical.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "apocalipsis-fin-tiempos",
+      "title": "El Apocalipsis: El Fin de los Tiempos según la Biblia",
+      "type": "tematico",
+      "bible_ref": "Apocalipsis 1:1 - 22:21",
+      "priority": 2,
+      "search_volume": "alto",
+      "scenes_target": 16,
+      "duration_est_min": 21,
+      "notes": "Altísima búsqueda. Narrar con rigor bíblico. Potencial de viralización.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "josue-conquista-canaan",
+      "title": "Josué Conquista Canaán: La Tierra Prometida por Dios",
+      "type": "historia",
+      "bible_ref": "Josué 1:1 - 12:24",
+      "priority": 2,
+      "search_volume": "alto",
+      "scenes_target": 15,
+      "duration_est_min": 20,
+      "notes": "Continuación natural después de Moisés. Buen enganche de audiencia.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "nehemias-reconstruye",
+      "title": "Nehemías Reconstruye Jerusalén: Cuando Dios Restaura",
+      "type": "personaje",
+      "bible_ref": "Nehemías 1:1 - 6:19",
+      "priority": 2,
+      "search_volume": "alto",
+      "scenes_target": 13,
+      "duration_est_min": 17,
+      "notes": "Tema de restauración y liderazgo. Muy útil para sermones de renovación.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "esdras-restaura-ley",
+      "title": "Esdras Restaura la Ley: El Regreso a Dios",
+      "type": "personaje",
+      "bible_ref": "Esdras 1:1 - 10:44",
+      "priority": 2,
+      "search_volume": "medio",
+      "scenes_target": 13,
+      "duration_est_min": 17,
+      "notes": "Tema de avivamiento y obediencia. Complementa bien a Nehemías.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "isaias-mesias-prometido",
+      "title": "Isaías y el Mesías Prometido: La Profecía más Grande",
+      "type": "personaje",
+      "bible_ref": "Isaías 53:1-12",
+      "priority": 2,
+      "search_volume": "alto",
+      "scenes_target": 13,
+      "duration_est_min": 18,
+      "notes": "Profecía cumplida en Cristo. Alta relevancia apologética y devocional.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "jeremias-profeta-llanto",
+      "title": "Jeremías: El Profeta del Llanto que Nunca Calló",
+      "type": "personaje",
+      "bible_ref": "Jeremías 1:1 - 52:34",
+      "priority": 2,
+      "search_volume": "medio",
+      "scenes_target": 14,
+      "duration_est_min": 19,
+      "notes": "Figura trágica y valiente. Conecta con audiencia que sufre persecución.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "ezequiel-rueda-aire",
+      "title": "Ezequiel y la Rueda en el Aire: La Visión de la Gloria de Dios",
+      "type": "historia",
+      "bible_ref": "Ezequiel 1:1-28",
+      "priority": 2,
+      "search_volume": "medio",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Visión mística difícil de narrar bien — diferenciador fuerte si se hace bien.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "nacimiento-de-jesus",
+      "title": "El Nacimiento de Jesús: La Noche que Cambió la Eternidad",
+      "type": "historia",
+      "bible_ref": "Lucas 2:1-20",
+      "priority": 2,
+      "search_volume": "muy_alto",
+      "scenes_target": 13,
+      "duration_est_min": 17,
+      "notes": "Pico de búsqueda en Navidad. Producción prioritaria para diciembre.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "reyes-magos-herodes",
+      "title": "Los Reyes Magos y Herodes: El Peligro que Rodeó al Mesías",
+      "type": "historia",
+      "bible_ref": "Mateo 2:1-23",
+      "priority": 2,
+      "search_volume": "alto",
+      "scenes_target": 13,
+      "duration_est_min": 17,
+      "notes": "Ideal para enero/Navidad. Historia intrigante de búsqueda del Mesías.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "juan-el-bautista",
+      "title": "Juan el Bautista: La Voz que Preparó el Camino",
+      "type": "personaje",
+      "bible_ref": "Mateo 3:1-17",
+      "priority": 2,
+      "search_volume": "alto",
+      "scenes_target": 13,
+      "duration_est_min": 17,
+      "notes": "Figura puente entre el AT y NT. Mensaje de preparación y arrepentimiento.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "cain-y-abel",
+      "title": "Caín y Abel: El Primer Pecado que Partió una Familia",
+      "type": "historia",
+      "bible_ref": "Génesis 4:1-16",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Historia oscura con mensaje de consecuencias. Contrasta con la gracia divina.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "moises-sinai",
+      "title": "Moisés en el Sinaí: El Encuentro con la Voz de Dios",
+      "type": "historia",
+      "bible_ref": "Éxodo 19:1 - 20:26",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 13,
+      "duration_est_min": 17,
+      "notes": "Profundo y visual. Complemento natural al video principal de Moisés.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "los-10-mandamientos",
+      "title": "Los 10 Mandamientos: La Ley que Dios Escribió con su Dedo",
+      "type": "tematico",
+      "bible_ref": "Éxodo 20:1-17",
+      "priority": 3,
+      "search_volume": "alto",
+      "scenes_target": 13,
+      "duration_est_min": 18,
+      "notes": "Muy buscado para educación bíblica. Explicar cada mandamiento.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "becerro-de-oro",
+      "title": "El Becerro de Oro: Cuando Israel Olvidó a su Dios",
+      "type": "historia",
+      "bible_ref": "Éxodo 32:1-35",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Idolatría y consecuencias. Paralelo moderno muy relevante.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "rahab-y-los-espias",
+      "title": "Rahab y los Espías: La Mujer que Eligió al Dios Verdadero",
+      "type": "historia",
+      "bible_ref": "Josué 2:1-24",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Historia de redención inesperada. Diferenciador en el mercado de contenido bíblico.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "debora-profetisa-guerrera",
+      "title": "Débora: La Profetisa Guerrera que Liberó a Israel",
+      "type": "personaje",
+      "bible_ref": "Jueces 4:1 - 5:31",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 13,
+      "duration_est_min": 17,
+      "notes": "Historia de liderazgo femenino. Nicho desatendido con alta demanda en audiencia femenina.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "jefte-y-su-promesa",
+      "title": "Jefté y su Promesa: El Voto que lo Costó Todo",
+      "type": "historia",
+      "bible_ref": "Jueces 11:1-40",
+      "priority": 3,
+      "search_volume": "bajo",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Historia polémica con lección sobre votos imprudentes. Nicho especializado.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "samuel-voz-de-dios",
+      "title": "Samuel y la Voz de Dios: El Niño que Escuchó al Señor",
+      "type": "historia",
+      "bible_ref": "1 Samuel 3:1-21",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Historia de obediencia y llamado. Excelente para audiencia joven.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "saul-primer-rey",
+      "title": "Saúl: El Primer Rey de Israel y su Caída",
+      "type": "personaje",
+      "bible_ref": "1 Samuel 9:1 - 31:13",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 14,
+      "duration_est_min": 19,
+      "notes": "Tragedia de desobediencia. Contraste perfecto con David.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "jonatan-y-david",
+      "title": "Jonatán y David: La Amistad más Grande de la Biblia",
+      "type": "historia",
+      "bible_ref": "1 Samuel 18:1 - 20:42",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 13,
+      "duration_est_min": 17,
+      "notes": "Tema de amistad leal y sacrificio. Nicho desatendido con buen potencial.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "abigail-mujer-sabia",
+      "title": "Abigail: La Mujer Sabia que Salvó a su Casa",
+      "type": "personaje",
+      "bible_ref": "1 Samuel 25:1-42",
+      "priority": 3,
+      "search_volume": "bajo",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Historia de sabiduría femenina. Diferenciador fuerte. Potencial en audiencia adulta.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "elias-en-el-desierto",
+      "title": "Elías en el Desierto: El Ángel y la Hoguera",
+      "type": "historia",
+      "bible_ref": "1 Reyes 19:1-18",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Agotamiento, depresión y restauración divina. Muy relevante emocionalmente.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "eliseo-hacha-flotante",
+      "title": "Eliseo y el Hacha Flotante: El Milagro de lo Perdido",
+      "type": "historia",
+      "bible_ref": "2 Reyes 6:1-7",
+      "priority": 3,
+      "search_volume": "bajo",
+      "scenes_target": 10,
+      "duration_est_min": 17,
+      "notes": "Milagro pequeño pero con gran lección. Podría extenderse con contexto de Eliseo.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "eliseo-viuda-aceite",
+      "title": "Eliseo y la Viuda del Aceite: El Milagro de la Provisión",
+      "type": "historia",
+      "bible_ref": "2 Reyes 4:1-7",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 11,
+      "duration_est_min": 17,
+      "notes": "Provisión sobrenatural para la necesidad. Muy resonante en situaciones de escasez.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "eliseo-nino-resucitado",
+      "title": "Eliseo y el Niño Resucitado: La Muerte no Tuvo la Última Palabra",
+      "type": "historia",
+      "bible_ref": "2 Reyes 4:8-37",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Milagro de resurrección prefigurando a Cristo. Profundo y emotivo.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "ezequias-enfermedad-mortal",
+      "title": "Ezequías y la Enfermedad Mortal: 15 Años más de Vida",
+      "type": "historia",
+      "bible_ref": "2 Reyes 20:1-11",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Oración en crisis de salud. Alta resonancia con audiencias que atraviesan enfermedades.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "ester-ayuno",
+      "title": "El Ayuno de Ester: Cuando el Cielo Responde al Sacrificio",
+      "type": "historia",
+      "bible_ref": "Ester 4:1-17",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Complemento del video de Ester. Tema de ayuno y petición. Alta relevancia devocional.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "daniel-escritura-pared",
+      "title": "Daniel y la Escritura en la Pared: Mene, Tekel, Parsin",
+      "type": "historia",
+      "bible_ref": "Daniel 5:1-31",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Dramático. Alta búsqueda entre quienes buscan señales de Dios.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "sadrac-mesac-abednego",
+      "title": "Sadrac, Mesac y Abednego: El Cuarto Hombre en el Fuego",
+      "type": "historia",
+      "bible_ref": "Daniel 3:1-30",
+      "priority": 3,
+      "search_volume": "alto",
+      "scenes_target": 13,
+      "duration_est_min": 18,
+      "notes": "Historia de valor extremo y presencia divina. Alta retención y emotividad.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "maria-magdalena",
+      "title": "María Magdalena: De la Oscuridad a la Luz de Cristo",
+      "type": "personaje",
+      "bible_ref": "Lucas 8:1-3",
+      "priority": 3,
+      "search_volume": "alto",
+      "scenes_target": 13,
+      "duration_est_min": 18,
+      "notes": "Personaje femenino clave mal entendido. Alta búsqueda. Potencial viral en audiencia femenina.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "zaqueo-cobrador",
+      "title": "Zaqueo el Cobrador de Impuestos: Jesús lo Llamó por su Nombre",
+      "type": "historia",
+      "bible_ref": "Lucas 19:1-10",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 11,
+      "duration_est_min": 17,
+      "notes": "Historia corta y poderosa de conversión. Complemento ideal para formato Short.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "ciego-bartimeo",
+      "title": "El Ciego Bartimeo: La Fe que Abrió sus Ojos",
+      "type": "historia",
+      "bible_ref": "Marcos 10:46-52",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 11,
+      "duration_est_min": 17,
+      "notes": "Milagro de sanidad con mensaje de persistencia en la fe.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "mujer-toco-manto",
+      "title": "La Mujer que Tocó el Manto de Jesús: 12 Años y un Milagro",
+      "type": "historia",
+      "bible_ref": "Marcos 5:25-34",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 11,
+      "duration_est_min": 17,
+      "notes": "Historia de fe silenciosa y sanidad. Alta resonancia entre mujeres en crisis de salud.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "nicodemo-noche",
+      "title": "Nicodemo: La Conversación Secreta con Jesús",
+      "type": "historia",
+      "bible_ref": "Juan 3:1-21",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 11,
+      "duration_est_min": 17,
+      "notes": "Conversación que contiene Juan 3:16. Tema de renacer en el Espíritu.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "mujer-samaritana-pozo",
+      "title": "La Mujer Samaritana en el Pozo: El Agua que da Vida Eterna",
+      "type": "historia",
+      "bible_ref": "Juan 4:1-42",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Historia de inclusión y revelación. Jesús cruza barreras culturales.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "paralitico-betesda",
+      "title": "El Paralítico de Betesda: 38 Años Esperando un Milagro",
+      "type": "historia",
+      "bible_ref": "Juan 5:1-15",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 11,
+      "duration_est_min": 17,
+      "notes": "Historia de esperanza larga y sanidad repentina. Muy emotiva.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "tempestad-calmada",
+      "title": "La Tempestad Calmada: Jesús Ordena a las Olas",
+      "type": "historia",
+      "bible_ref": "Marcos 4:35-41",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 11,
+      "duration_est_min": 17,
+      "notes": "Visualmente poderoso con IA. Mensaje de paz en medio de la tormenta.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "transfiguracion-jesus",
+      "title": "La Transfiguración de Jesús: La Gloria Revelada en el Monte",
+      "type": "historia",
+      "bible_ref": "Mateo 17:1-13",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Momento místico y glorioso. Gran potencial visual con IA. Enseñanza profunda.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "parabola-talentos",
+      "title": "La Parábola de los Talentos: Lo que Dios Espera de Ti",
+      "type": "historia",
+      "bible_ref": "Mateo 25:14-30",
+      "priority": 3,
+      "search_volume": "alto",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Parábola de mayordomía. Alta búsqueda entre creyentes en contextos de trabajo/propósito.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "parabola-sembrador",
+      "title": "La Parábola del Sembrador: Los 4 Tipos de Corazón",
+      "type": "historia",
+      "bible_ref": "Mateo 13:1-23",
+      "priority": 3,
+      "search_volume": "alto",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Parábola con explicación directa de Jesús. Ideal para enseñanza y estudio.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "parabola-10-virgenes",
+      "title": "La Parábola de las 10 Vírgenes: ¿Estás Listo para su Venida?",
+      "type": "historia",
+      "bible_ref": "Mateo 25:1-13",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Urgencia escatológica. Alta retención entre creyentes que esperan la segunda venida.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "pentecostes",
+      "title": "Pentecostés: El Fuego del Espíritu Santo Desciende",
+      "type": "historia",
+      "bible_ref": "Hechos 2:1-47",
+      "priority": 3,
+      "search_volume": "alto",
+      "scenes_target": 13,
+      "duration_est_min": 18,
+      "notes": "Fundacional para la iglesia cristiana. Alta búsqueda en mayo. Producir antes de esa fecha.",
+      "status": {
+        "script": true,
+        "rendered": true,
+        "uploaded": true,
+        "youtube_id": "0eJRwqC3dGs",
+        "youtube_url": "https://youtube.com/watch?v=0eJRwqC3dGs",
+        "upload_date": "2026-05-11",
+        "views": null,
+        "rendered_at": "2026-05-10T14:01:23.309429+00:00"
+      }
+    },
+    {
+      "id": "esteban-primer-martir",
+      "title": "Esteban: El Primer Mártir Cristiano",
+      "type": "personaje",
+      "bible_ref": "Hechos 6:1 - 7:60",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 13,
+      "duration_est_min": 17,
+      "notes": "Historia de valentía y perdón ante la muerte. Muy emocionante y profunda.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "felipe-y-el-etiope",
+      "title": "Felipe y el Etíope: El Evangelio Cruza Fronteras",
+      "type": "historia",
+      "bible_ref": "Hechos 8:26-40",
+      "priority": 3,
+      "search_volume": "bajo",
+      "scenes_target": 11,
+      "duration_est_min": 17,
+      "notes": "Historia breve de obediencia y misión. Mensaje de alcance universal del evangelio.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "cornelio-primer-gentil",
+      "title": "Cornelio: El Primer Gentil que Recibió el Espíritu Santo",
+      "type": "historia",
+      "bible_ref": "Hechos 10:1-48",
+      "priority": 3,
+      "search_volume": "bajo",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Hito histórico de apertura del evangelio. Mensaje de inclusión de Dios.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "bernabe-hijo-consolacion",
+      "title": "Bernabé: El Hijo de Consolación que Nadie Recuerda",
+      "type": "personaje",
+      "bible_ref": "Hechos 4:36-37",
+      "priority": 3,
+      "search_volume": "bajo",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Personaje secundario con gran impacto. Tema de generosidad y acompañamiento.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "pablo-y-silas-carcel",
+      "title": "Pablo y Silas en la Cárcel: El Terremoto de la Adoración",
+      "type": "historia",
+      "bible_ref": "Hechos 16:16-40",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Historia de adoración en la prueba. Muy usada en prédicas. Potencial alto.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "pablo-en-atenas",
+      "title": "Pablo en Atenas: El Dios Desconocido que él Reveló",
+      "type": "historia",
+      "bible_ref": "Hechos 17:16-34",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Diálogo cultural entre fe y filosofía. Muy relevante para audiencia académica.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "timoteo-joven-pastor",
+      "title": "Timoteo: El Joven Pastor que Cambió el Mundo",
+      "type": "personaje",
+      "bible_ref": "1 Timoteo 1:1-20",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Liderazgo joven y fe. Alta resonancia en jóvenes que sienten llamado.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "salmos-de-david",
+      "title": "Los Salmos de David: 150 Poemas de un Corazón a Dios",
+      "type": "tematico",
+      "bible_ref": "Salmos 1:1 - 150:6",
+      "priority": 3,
+      "search_volume": "alto",
+      "scenes_target": 14,
+      "duration_est_min": 19,
+      "notes": "Compilación devocional de los salmos más amados. Formato meditativo.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "proverbios-sabiduria",
+      "title": "Proverbios: La Sabiduría de Dios para Cada Día",
+      "type": "tematico",
+      "bible_ref": "Proverbios 1:1 - 31:31",
+      "priority": 3,
+      "search_volume": "alto",
+      "scenes_target": 14,
+      "duration_est_min": 19,
+      "notes": "Contenido perenne de alta búsqueda. Formato de aplicación práctica.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "cantar-cantares",
+      "title": "El Cantar de los Cantares: El Amor más Puro de la Biblia",
+      "type": "tematico",
+      "bible_ref": "Cantares 1:1 - 8:14",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Amor divino y humano entrelazados. Narrar con enfoque espiritual y poético.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "apocalipsis-7-iglesias",
+      "title": "Apocalipsis: Las 7 Iglesias y el Mensaje de Dios Hoy",
+      "type": "tematico",
+      "bible_ref": "Apocalipsis 2:1 - 3:22",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 14,
+      "duration_est_min": 19,
+      "notes": "Análisis de las 7 iglesias aplicado al presente. Nicho fuerte en comunidades evangélicas.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "bienaventuranzas",
+      "title": "Las Bienaventuranzas: Los 8 Secretos de la Vida Feliz",
+      "type": "tematico",
+      "bible_ref": "Mateo 5:1-12",
+      "priority": 3,
+      "search_volume": "alto",
+      "scenes_target": 13,
+      "duration_est_min": 18,
+      "notes": "Explicación profunda de cada bienaventuranza. Formato devocional muy buscado.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "padre-nuestro",
+      "title": "El Padre Nuestro: Versículo a Versículo con Jesús",
+      "type": "tematico",
+      "bible_ref": "Mateo 6:9-13",
+      "priority": 3,
+      "search_volume": "muy_alto",
+      "scenes_target": 13,
+      "duration_est_min": 18,
+      "notes": "La oración más conocida del mundo. Explicada profundamente. Alta búsqueda constante.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "7-milagros-juan",
+      "title": "Los 7 Milagros de Jesús en el Evangelio de Juan",
+      "type": "tematico",
+      "bible_ref": "Juan 2:1-11",
+      "priority": 3,
+      "search_volume": "alto",
+      "scenes_target": 15,
+      "duration_est_min": 20,
+      "notes": "Serie de milagros narrados en orden. Ideal para audiencia que estudia la Biblia.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "7-palabras-cruz",
+      "title": "Las 7 Palabras de la Cruz: Lo último que Jesús Dijo",
+      "type": "tematico",
+      "bible_ref": "Lucas 23:34",
+      "priority": 3,
+      "search_volume": "alto",
+      "scenes_target": 14,
+      "duration_est_min": 19,
+      "notes": "Contenido de Semana Santa. Profundo y emotivo. Alta retención.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "nombres-de-dios",
+      "title": "Los Nombres de Dios en la Biblia: Quién es Él Realmente",
+      "type": "tematico",
+      "bible_ref": "Éxodo 3:14",
+      "priority": 3,
+      "search_volume": "alto",
+      "scenes_target": 14,
+      "duration_est_min": 19,
+      "notes": "Contenido teológico accesible. Alta búsqueda en comunidades de estudio bíblico.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "armadura-de-dios",
+      "title": "La Armadura de Dios: Cómo Pelear la Batalla Espiritual",
+      "type": "tematico",
+      "bible_ref": "Efesios 6:10-18",
+      "priority": 3,
+      "search_volume": "muy_alto",
+      "scenes_target": 14,
+      "duration_est_min": 18,
+      "notes": "Muy buscado. Combina enseñanza y aplicación práctica. Potencial de serie.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "noe-arca-short-companion",
+      "title": "El Arca de Noé en 60 Segundos: La Historia Completa",
+      "type": "historia",
+      "bible_ref": "Génesis 6:1 - 9:17",
+      "priority": 3,
+      "search_volume": "muy_alto",
+      "scenes_target": 6,
+      "duration_est_min": 1,
+      "notes": "short_companion del video largo de Noé. Formato vertical 9:16 para Shorts.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "creacion-adán-eva",
+      "title": "Adán y Eva: El Primer Hombre, la Primera Mujer y la Primera Caída",
+      "type": "historia",
+      "bible_ref": "Génesis 2:4 - 3:24",
+      "priority": 2,
+      "search_volume": "alto",
+      "scenes_target": 14,
+      "duration_est_min": 18,
+      "notes": "La caída del hombre. Narrativa fundacional con alta búsqueda. Complementa la Creación.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "el-diluvio-y-el-arcoiris",
+      "title": "El Diluvio y el Arcoíris: La Promesa que Dios Nunca Romperá",
+      "type": "tematico",
+      "bible_ref": "Génesis 9:1-17",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 11,
+      "duration_est_min": 17,
+      "notes": "Enfoque en el pacto del arcoíris. Mensaje de fidelidad divina. Complemento natural a Noé.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "jose-en-egipto",
+      "title": "José en Egipto: De Esclavo a Gobernador",
+      "type": "historia",
+      "bible_ref": "Génesis 39:1 - 41:57",
+      "priority": 2,
+      "search_volume": "alto",
+      "scenes_target": 14,
+      "duration_est_min": 19,
+      "notes": "Segunda parte de la saga de José. Potosifar, la cárcel, el faraón. Muy dramático.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "las-plagas-de-egipto",
+      "title": "Las 10 Plagas de Egipto: La Mano de Dios Sobre el Faraón",
+      "type": "historia",
+      "bible_ref": "Éxodo 7:1 - 12:36",
+      "priority": 2,
+      "search_volume": "alto",
+      "scenes_target": 15,
+      "duration_est_min": 20,
+      "notes": "Uno de los eventos más dramáticos del AT. Enorme potencial visual. Alta búsqueda.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "mar-rojo",
+      "title": "La División del Mar Rojo: El Mayor Milagro del Éxodo",
+      "type": "historia",
+      "bible_ref": "Éxodo 14:1-31",
+      "priority": 1,
+      "search_volume": "muy_alto",
+      "scenes_target": 14,
+      "duration_est_min": 18,
+      "notes": "Escena icónica. Visualmente espectacular con IA. Alta retención garantizada.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "el-buen-pastor",
+      "title": "El Buen Pastor: Jesús y sus Ovejas",
+      "type": "tematico",
+      "bible_ref": "Juan 10:1-21",
+      "priority": 3,
+      "search_volume": "alto",
+      "scenes_target": 12,
+      "duration_est_min": 17,
+      "notes": "Uno de los temas más amados de Jesús. Alta búsqueda entre nuevos creyentes.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "la-crucifixion",
+      "title": "La Crucifixión de Jesús: El Amor más Grande de la Historia",
+      "type": "historia",
+      "bible_ref": "Mateo 27:32-56",
+      "priority": 1,
+      "search_volume": "muy_alto",
+      "scenes_target": 15,
+      "duration_est_min": 20,
+      "notes": "Máxima búsqueda en Semana Santa. Producción de mayor prioridad estacional.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "daniel-sueños-nabucodonosor",
+      "title": "Daniel Interpreta los Sueños de Nabucodonosor",
+      "type": "historia",
+      "bible_ref": "Daniel 2:1-49",
+      "priority": 2,
+      "search_volume": "alto",
+      "scenes_target": 13,
+      "duration_est_min": 18,
+      "notes": "Sabiduría divina frente al poder humano. Alta retención. Complementa el video del foso.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "el-hijo-de-dios",
+      "title": "¿Quién es Jesús? El Hijo de Dios en la Biblia",
+      "type": "devocional",
+      "bible_ref": "Juan 1:1-18",
+      "priority": 2,
+      "search_volume": "muy_alto",
+      "scenes_target": 13,
+      "duration_est_min": 18,
+      "notes": "Video introductorio apologético sobre la identidad de Cristo. Alta búsqueda perenne.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "vida-eterna-biblia",
+      "title": "La Vida Eterna según la Biblia: ¿Qué pasa después de morir?",
+      "type": "devocional",
+      "bible_ref": "Juan 14:1-6",
+      "priority": 2,
+      "search_volume": "muy_alto",
+      "scenes_target": 13,
+      "duration_est_min": 18,
+      "notes": "Pregunta universal. Alta búsqueda perenne. Puerta de entrada para nuevos oyentes.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    },
+    {
+      "id": "ananias-y-safira",
+      "title": "Ananías y Safira: La Mentira que Dios no Tolera",
+      "type": "historia",
+      "bible_ref": "Hechos 5:1-11",
+      "priority": 3,
+      "search_volume": "medio",
+      "scenes_target": 11,
+      "duration_est_min": 17,
+      "notes": "Historia de consecuencias por mentir a Dios. Impactante y poco narrada. Nicho diferenciador.",
+      "status": {
+        "script": false,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null,
+        "youtube_url": null,
+        "upload_date": null,
+        "views": null
+      }
+    }
+  ]
+}
