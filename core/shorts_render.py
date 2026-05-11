@@ -68,10 +68,14 @@ HOOK_Y_POS     = "(h*0.42)"    # centro-alto del frame
 HOOK_DUR       = 2.2           # segundos visibles antes de que arranque la voz
 
 # CTA overlay — últimos CTA_DUR segundos
-CTA_TEXT      = "Guarda este video para cuando lo necesites 🙏"
+# v3: "Comparte" genera virality (share signal > save signal para algoritmo)
+CTA_TEXT      = "Comparte si Dios te habló hoy"
 CTA_FONTSIZE  = 54
 CTA_Y_POS     = "(h*0.85)"
-CTA_DUR       = 3.0
+CTA_DUR       = 3.5
+
+# Doble imagen — corte a IMAGE_SWITCH_SEC (v3)
+IMAGE_SWITCH_SEC = 18.0   # segundos donde cambia la imagen de fondo
 
 WATERMARK_TEXT  = "@VersiculoDeDios"
 WATERMARK_SZ    = 32
@@ -95,6 +99,7 @@ class ShortClipConfig:
     out_path: Path
 
     music_path: Path | None = None
+    image2_path: Path | None = None  # v3: segunda imagen para corte a IMAGE_SWITCH_SEC
     hook_text: str = ""        # Texto de gancho (ej: "¿Estás creyendo sin ver el camino?")
     cta_text: str = CTA_TEXT   # CTA al final (default global)
     fps: int = DEFAULT_FPS
@@ -214,6 +219,7 @@ def _build_video_filter(
     font: str,
     hook_text: str = "",
     cta_text: str = CTA_TEXT,
+    has_image2: bool = False,
 ) -> str:
     """
     v2: Ken Burns + hook overlay + subtítulos dorados + CTA.
@@ -223,41 +229,60 @@ def _build_video_filter(
     cta_start = max(0.0, duration - CTA_DUR)
 
     filters: list[str] = []
+    kb_scale_w = int(SHORT_W * (1 + KB_ZOOM_RANGE + 0.01))
+    kb_scale_h = int(SHORT_H * (1 + KB_ZOOM_RANGE + 0.01))
+    fg_scale   = int(SHORT_H * 1.04)
 
-    # ── 1. Fondo con Ken Burns (slow zoom 0→3%) ────────────────────────────────
-    # Scale ligeramente mayor, luego crop con expresión de pan horizontal lento
-    kb_scale_w = int(SHORT_W * (1 + KB_ZOOM_RANGE + 0.01))  # ~1115
-    kb_scale_h = int(SHORT_H * (1 + KB_ZOOM_RANGE + 0.01))  # ~1981
-    bg = (
-        "[0:v]"
-        f"scale={kb_scale_w}:{kb_scale_h}:flags=lanczos:force_original_aspect_ratio=increase,"
-        f"crop={kb_scale_w}:{kb_scale_h},"
-        # Pan horizontal lento durante toda la duración
-        f"crop={SHORT_W}:{SHORT_H}:x='({kb_scale_w}-{SHORT_W})*t/{duration}':y='({kb_scale_h}-{SHORT_H})/2',"
-        "gblur=sigma=35,"
-        "setsar=1"
-        "[bg]"
-    )
+    def _bg_filter(input_label: str, out_label: str, dur: float, t_offset: float = 0.0) -> str:
+        return (
+            f"{input_label}"
+            f"scale={kb_scale_w}:{kb_scale_h}:flags=lanczos:force_original_aspect_ratio=increase,"
+            f"crop={kb_scale_w}:{kb_scale_h},"
+            f"crop={SHORT_W}:{SHORT_H}:x='({kb_scale_w}-{SHORT_W})*(t-{t_offset:.2f})/{dur}':y='({kb_scale_h}-{SHORT_H})/2',"
+            "gblur=sigma=35,setsar=1"
+            f"{out_label}"
+        )
 
-    # ── 2. Imagen principal con Ken Burns sutil ────────────────────────────────
-    fg_scale = int(SHORT_H * 1.04)
-    fg = (
-        "[0:v]"
-        f"scale=-1:{fg_scale}:flags=lanczos,"
-        f"crop={SHORT_W}:{SHORT_H}:(iw-{SHORT_W})/2:0,"
-        "setsar=1"
-        "[fg]"
-    )
+    def _fg_filter(input_label: str, out_label: str) -> str:
+        return (
+            f"{input_label}"
+            f"scale=-1:{fg_scale}:flags=lanczos,"
+            f"crop={SHORT_W}:{SHORT_H}:(iw-{SHORT_W})/2:0,setsar=1"
+            f"{out_label}"
+        )
 
-    # ── 3. Overlay + fade out ──────────────────────────────────────────────────
-    overlay = "[bg][fg]overlay=(W-w)/2:(H-h)/2[frame]"
+    if has_image2 and duration > IMAGE_SWITCH_SEC + 4:
+        # ── v3: Doble imagen — segmento A (imagen 1) + segmento B (imagen 2) ──
+        t_switch = IMAGE_SWITCH_SEC
+        dur_a = t_switch
+        dur_b = duration - t_switch
+
+        filters += [
+            _bg_filter("[0:v]", "[bg1]", dur_a, 0.0),
+            _fg_filter("[0:v]", "[fg1]"),
+            "[bg1][fg1]overlay=(W-w)/2:(H-h)/2[frame1]",
+            _bg_filter("[2:v]", "[bg2]", dur_b, t_switch),  # input 2 = imagen2
+            _fg_filter("[2:v]", "[fg2]"),
+            "[bg2][fg2]overlay=(W-w)/2:(H-h)/2[frame2]",
+            # xfade corte suave 0.4s en el switch
+            f"[frame1][frame2]xfade=transition=fade:offset={t_switch - 0.2:.2f}:duration=0.4[frame]",
+        ]
+    else:
+        # ── Una sola imagen (imagen 2 no disponible o video muy corto) ────────
+        filters += [
+            _bg_filter("[0:v]", "[bg]", duration, 0.0),
+            _fg_filter("[0:v]", "[fg]"),
+            "[bg][fg]overlay=(W-w)/2:(H-h)/2[frame]",
+        ]
+
+    # ── Fade out ──────────────────────────────────────────────────────────────
     fade = (
         "[frame]"
-        f"fade=t=in:st=0:d={FADE_IN_SEC:.2f},"        # casi hard cut
+        f"fade=t=in:st=0:d={FADE_IN_SEC:.2f},"
         f"fade=t=out:st={fade_out_start:.2f}:d={FADE_OUT_SEC:.2f}"
         "[vfaded]"
     )
-    filters += [bg, fg, overlay, fade]
+    filters.append(fade)
     last_label = "[vfaded]"
 
     if not (font and DRAWTEXT_OK):
@@ -350,7 +375,7 @@ def _build_video_filter(
 
 
 # ─── Audio filter ──────────────────────────────────────────────────────────────
-def _build_audio_filter(duration: float, has_music: bool) -> str:
+def _build_audio_filter(duration: float, has_music: bool, has_image2: bool = False) -> str:
     """
     v2: EQ + compressor + reverb sutil en voz TTS.
     Música a -18dB (soporte emocional audible).
@@ -378,8 +403,11 @@ def _build_audio_filter(duration: float, has_music: bool) -> str:
 
     if has_music:
         music_vol_linear = 10 ** (MUSIC_VOL_DB / 20)  # -18dB = 0.1259
+        # Si hay imagen2, ocupa input 2 (video) → música es input 3
+        # Si no hay imagen2, música es input 2
+        music_idx = "3" if has_image2 else "2"
         music_filter = (
-            f"[2:a]"
+            f"[{music_idx}:a]"
             f"volume={music_vol_linear:.4f},"
             f"atrim=0:{duration:.2f},"
             "aloop=loop=-1:size=2e9"
@@ -418,15 +446,19 @@ def render_short_clip(cfg: ShortClipConfig) -> Path:
     if not font:
         print("  [short] WARN: No font — subtítulos desactivados")
 
-    vf = _build_video_filter(duration, subtitle_segments, font, cfg.hook_text, cfg.cta_text)
-    af = _build_audio_filter(duration, has_music=cfg.music_path is not None)
+    has_image2 = cfg.image2_path is not None and cfg.image2_path.exists()
+    vf = _build_video_filter(duration, subtitle_segments, font, cfg.hook_text, cfg.cta_text, has_image2)
+    af = _build_audio_filter(duration, has_music=cfg.music_path is not None, has_image2=has_image2)
 
     video_duration = duration + 0.5
     cmd: list[str] = ["ffmpeg", "-y"]
-    cmd += ["-loop", "1", "-t", f"{video_duration:.2f}", "-i", str(cfg.image_path)]
-    cmd += ["-i", str(cfg.narr_path)]
+    cmd += ["-loop", "1", "-t", f"{video_duration:.2f}", "-i", str(cfg.image_path)]  # input 0
+    cmd += ["-i", str(cfg.narr_path)]                                                  # input 1
+    if has_image2:
+        dur_b = duration - IMAGE_SWITCH_SEC + 1.0
+        cmd += ["-loop", "1", "-t", f"{dur_b:.2f}", "-i", str(cfg.image2_path)]       # input 2
     if cfg.music_path:
-        cmd += ["-stream_loop", "-1", "-i", str(cfg.music_path)]
+        cmd += ["-stream_loop", "-1", "-i", str(cfg.music_path)]                       # input 2 o 3
 
     cmd += ["-filter_complex", f"{vf};{af}"]
     cmd += ["-map", "[vout]", "-map", "[a]"]

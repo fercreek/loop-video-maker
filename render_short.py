@@ -375,6 +375,16 @@ def run_pipeline(
             music_path = get_background_music(tema)
         hook_text = oracion.get("hook", oracion.get("hook_text", ""))
 
+        # Segunda imagen: diferente a la primera, para corte a los 18s (v3)
+        fondo2_especifico = oracion.get("fondo2")
+        if fondo2_especifico and (FONDOS_POOL_DIR / fondo2_especifico).exists():
+            image2_path = FONDOS_POOL_DIR / fondo2_especifico
+        else:
+            # Elegir imagen distinta del pool del mismo tema
+            all_fondos = sorted(glob.glob(str(FONDOS_POOL_DIR / "*.jpg")))
+            candidatos = [f for f in all_fondos if f != str(image_path)]
+            image2_path = Path(random.choice(candidatos)) if candidatos else None
+
         out_filename = f"short_{oid}_{time.strftime('%Y%m%d')}.mp4"
         out_path = output_dir / out_filename
 
@@ -383,13 +393,15 @@ def run_pipeline(
             text=oracion["texto"],
             narr_path=narr_path,
             image_path=image_path,
+            image2_path=image2_path,
             out_path=out_path,
             music_path=music_path,
             hook_text=hook_text,
             force=force,
         ))
 
-        print(f"  {oid}: {image_path.name} + {music_path.name if music_path else 'sin música'}")
+        img2_name = image2_path.name if image2_path else "—"
+        print(f"  {oid}: {image_path.name} → {img2_name} + {music_path.name if music_path else 'sin música'}")
 
     # ── Paso 3: Render batch ────────────────────────────────────────────────
     print(f"\n[3/3] Renderizando {len(configs)} clips [paralelo {workers}x]...")
