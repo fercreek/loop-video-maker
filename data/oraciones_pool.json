@@ -7,8 +7,14 @@
       "tema": "fe",
       "titulo": "Dios te dice hoy: Tu fe te sostiene",
       "texto": "Señor, en este día te entrego mi fe. Aunque no vea el camino completo, confío en que Tú vas delante de mí. Fortalece mi corazón cuando dude, recuérdame que contigo nada es imposible. Que mi fe sea más grande que mis miedos. Amén.",
-      "hashtags": ["#fe", "#Dios", "#oracion", "#versiculosdedios", "#shorts"],
-      "hook": "Dios te dice hoy:",
+      "hashtags": [
+        "#fe",
+        "#Dios",
+        "#oracion",
+        "#versiculosdedios",
+        "#shorts"
+      ],
+      "hook": "¿Estás creyendo sin ver el camino?",
       "cta": "Comenta AMÉN si recibes esta bendición"
     },
     {
@@ -16,8 +22,14 @@
       "tema": "esperanza",
       "titulo": "Oración de esperanza en tiempos difíciles",
       "texto": "Padre eterno, cuando el peso del mundo me agobia y las fuerzas me fallan, ayúdame a recordar que Tu amor nunca se acaba. Dame esperanza fresca esta mañana. Que cada nuevo día sea prueba de Tu fidelidad. En Ti descanso. Amén.",
-      "hashtags": ["#esperanza", "#Dios", "#oracion", "#versiculosdedios", "#shorts"],
-      "hook": "Oración para cuando todo parece difícil:",
+      "hashtags": [
+        "#esperanza",
+        "#Dios",
+        "#oracion",
+        "#versiculosdedios",
+        "#shorts"
+      ],
+      "hook": "¿Sientes que todo está perdido?",
       "cta": "Comenta AMÉN si necesitas esperanza hoy"
     },
     {
@@ -25,8 +37,14 @@
       "tema": "paz",
       "titulo": "Oración por la paz del corazón",
       "texto": "Señor Jesús, príncipe de paz, te pido que calles las tormentas de mi mente. Donde hay ansiedad, pon tu calma. Donde hay confusión, pon tu claridad. Que Tu paz, que sobrepasa todo entendimiento, guarde mi corazón este día. Amén.",
-      "hashtags": ["#paz", "#Dios", "#oracion", "#versiculosdedios", "#shorts"],
-      "hook": "¿Necesitas paz hoy? Ora conmigo:",
+      "hashtags": [
+        "#paz",
+        "#Dios",
+        "#oracion",
+        "#versiculosdedios",
+        "#shorts"
+      ],
+      "hook": "¿Tu mente no puede descansar?",
       "cta": "Comenta AMÉN y recibe paz del cielo"
     },
     {
@@ -34,8 +52,14 @@
       "tema": "gratitud",
       "titulo": "Oración de gratitud al despertar",
       "texto": "Gracias, Dios mío, por este nuevo día que me regalas. Por el aliento en mi pecho, por la luz del sol, por las personas que amo. Que mi vida entera sea un canto de gratitud a Tu nombre. Te alabo con todo mi ser. Amén.",
-      "hashtags": ["#gratitud", "#Dios", "#oracion", "#versiculosdedios", "#shorts"],
-      "hook": "Empieza el día dando gracias:",
+      "hashtags": [
+        "#gratitud",
+        "#Dios",
+        "#oracion",
+        "#versiculosdedios",
+        "#shorts"
+      ],
+      "hook": "Dios te dio un nuevo día. Agradécelo.",
       "cta": "Comenta AMÉN si eres agradecido con Dios"
     },
     {
@@ -43,8 +67,14 @@
       "tema": "protección",
       "titulo": "Oración de protección para el camino",
       "texto": "Señor, cúbreme con Tu sangre preciosa. Pon Tus ángeles a mi alrededor. Protege mi hogar, mi familia, mi camino. Que ningún mal se acerque a mi tienda. Tú eres mi refugio y mi fortaleza. En Ti confío este día y siempre. Amén.",
-      "hashtags": ["#proteccion", "#Dios", "#oracion", "#versiculosdedios", "#shorts"],
-      "hook": "Oración de protección para ti y tu familia:",
+      "hashtags": [
+        "#proteccion",
+        "#Dios",
+        "#oracion",
+        "#versiculosdedios",
+        "#shorts"
+      ],
+      "hook": "Declara esto sobre tu vida hoy",
       "cta": "Comenta AMÉN para recibir protección divina"
     },
     {
@@ -52,8 +82,14 @@
       "tema": "sanación",
       "titulo": "Oración por sanación y restauración",
       "texto": "Padre Dios, Tú eres el Dios que sana. Toca mi cuerpo, restaura mi alma, sana mis emociones heridas. Por las llagas de Cristo soy sano. Declaro Tu palabra sobre mi vida: no hay enfermedad que Tu amor no pueda vencer. Amén.",
-      "hashtags": ["#sanacion", "#Dios", "#oracion", "#versiculosdedios", "#shorts"],
-      "hook": "Declara esta oración y recibe sanación:",
+      "hashtags": [
+        "#sanacion",
+        "#Dios",
+        "#oracion",
+        "#versiculosdedios",
+        "#shorts"
+      ],
+      "hook": "¿Hay algo que necesita sanar en ti?",
       "cta": "Comenta AMÉN si crees en el poder sanador de Dios"
     },
     {
@@ -61,26 +97,46 @@
       "tema": "familia",
       "titulo": "Oración por la familia unida en Dios",
       "texto": "Señor, bendice a mi familia. Pon amor donde haya distancia, perdón donde haya heridas, paz donde haya conflictos. Que Cristo sea el centro de nuestro hogar. Une nuestros corazones con lazos que ninguna tormenta pueda romper. Amén.",
-      "hashtags": ["#familia", "#Dios", "#oracion", "#versiculosdedios", "#shorts"],
-      "hook": "Ora por tu familia hoy:",
+      "hashtags": [
+        "#familia",
+        "#Dios",
+        "#oracion",
+        "#versiculosdedios",
+        "#shorts"
+      ],
+      "hook": "Ora por los que más amas ahora",
       "cta": "Comenta AMÉN si amas a tu familia"
     },
     {
       "id": "trabajo_001",
       "tema": "trabajo",
-      "titulo": "Oración para el trabajo y la provisión",
+      "titulo": "Oración para el trabajo: abre puertas que nadie puede cerrar",
       "texto": "Dios de toda provisión, bendice el trabajo de mis manos este día. Abre puertas que nadie pueda cerrar. Dame sabiduría, favor y excelencia en todo lo que hago. Que mi trabajo sea ofrenda a Tu nombre. Provéeme conforme a Tus riquezas. Amén.",
-      "hashtags": ["#trabajo", "#provision", "#Dios", "#oracion", "#versiculosdedios", "#shorts"],
-      "hook": "Antes de comenzar tu día laboral, ora:",
-      "cta": "Comenta AMÉN si confías en la provisión de Dios"
+      "hashtags": [
+        "#trabajo",
+        "#provision",
+        "#Dios",
+        "#oracion",
+        "#versiculosdedios",
+        "#shorts"
+      ],
+      "hook": "¿Necesitas un milagro en tu trabajo?",
+      "cta": "Comenta AMÉN si confías en la provisión de Dios",
+      "fondo": "fondo_ai_pilgrimage_road.jpg"
     },
     {
       "id": "fe_002",
       "tema": "fe",
       "titulo": "Oración cuando la fe flaquea",
       "texto": "Señor, creo, pero ayuda mi incredulidad. Cuando mis ojos sólo ven problemas, dame ojos de fe para ver Tus soluciones. Cuando mi corazón tiembla, recuérdame Tu palabra: todo es posible para el que cree. Renuevo mi fe en Ti. Amén.",
-      "hashtags": ["#fe", "#Dios", "#oracion", "#versiculosdedios", "#shorts"],
-      "hook": "¿Tu fe necesita renovarse? Ora esto:",
+      "hashtags": [
+        "#fe",
+        "#Dios",
+        "#oracion",
+        "#versiculosdedios",
+        "#shorts"
+      ],
+      "hook": "Cuando la fe se siente imposible...",
       "cta": "Comenta AMÉN si renuevas tu fe hoy"
     },
     {
@@ -88,8 +144,14 @@
       "tema": "esperanza",
       "titulo": "Oración por un nuevo comienzo",
       "texto": "Señor, gracias porque Tus misericordias son nuevas cada mañana. Hoy comienzo de nuevo. Deja atrás mis errores, mis fracasos, mis miedos. Dame la valentía de empezar otra vez confiando en Tu gracia. Contigo cada día es una oportunidad. Amén.",
-      "hashtags": ["#esperanza", "#nuevocomienzo", "#Dios", "#oracion", "#versiculosdedios"],
-      "hook": "Hoy es un nuevo comienzo con Dios:",
+      "hashtags": [
+        "#esperanza",
+        "#nuevocomienzo",
+        "#Dios",
+        "#oracion",
+        "#versiculosdedios"
+      ],
+      "hook": "Dios tiene un nuevo comienzo para ti",
       "cta": "Comenta AMÉN para recibir un nuevo comienzo"
     },
     {
@@ -97,8 +159,14 @@
       "tema": "paz",
       "titulo": "Oración para dormir en paz",
       "texto": "Padre celestial, al cerrar mis ojos esta noche, entrego en Tus manos todo lo que me preocupa. Tú nunca duermes ni te adormeces; vela sobre mí. Que Tu paz llene mi mente y mi corazón. Dulce descanso en Tu amor eterno. Amén.",
-      "hashtags": ["#paz", "#buenasnoches", "#Dios", "#oracion", "#versiculosdedios"],
-      "hook": "Oración para descansar en paz esta noche:",
+      "hashtags": [
+        "#paz",
+        "#buenasnoches",
+        "#Dios",
+        "#oracion",
+        "#versiculosdedios"
+      ],
+      "hook": "Di esto antes de dormir esta noche",
       "cta": "Comenta AMÉN si entregas tus cargas a Dios"
     },
     {
@@ -106,8 +174,14 @@
       "tema": "gratitud",
       "titulo": "Gracias Señor por Tu fidelidad",
       "texto": "Te doy gracias, Señor, porque en medio de las pruebas nunca me has abandonado. Tu fidelidad es grande. Cada vez que sentí que no podía más, Tú estuviste ahí. Hoy quiero honrar Tu nombre con mi gratitud. Eres bueno y para siempre dura Tu amor. Amén.",
-      "hashtags": ["#gratitud", "#fidelidad", "#Dios", "#oracion", "#versiculosdedios"],
-      "hook": "Gracias, Señor, por Tu fidelidad:",
+      "hashtags": [
+        "#gratitud",
+        "#fidelidad",
+        "#Dios",
+        "#oracion",
+        "#versiculosdedios"
+      ],
+      "hook": "Esto cambia cómo ves tu vida hoy",
       "cta": "Comenta AMÉN si Dios ha sido fiel en tu vida"
     },
     {
@@ -115,8 +189,14 @@
       "tema": "protección",
       "titulo": "Oración de cobertura espiritual",
       "texto": "En el nombre de Jesús, decreto cobertura espiritual sobre mi vida y la de los que amo. Ninguna arma forjada contra nosotros prosperará. Señor, sé nuestro escudo y nuestro amparo. Que Tu presencia llene cada rincón de nuestro hogar. Amén.",
-      "hashtags": ["#proteccion", "#cobertura", "#Dios", "#oracion", "#versiculosdedios"],
-      "hook": "Declara cobertura espiritual sobre tu hogar:",
+      "hashtags": [
+        "#proteccion",
+        "#cobertura",
+        "#Dios",
+        "#oracion",
+        "#versiculosdedios"
+      ],
+      "hook": "Esto te cubre en el nombre de Jesús",
       "cta": "Comenta AMÉN para recibir cobertura espiritual"
     },
     {
@@ -124,9 +204,96 @@
       "tema": "sanación",
       "titulo": "Oración por sanación emocional",
       "texto": "Señor, hay heridas en mi corazón que nadie más puede ver. Tú las conoces. Ven con Tu ungüento de amor y sana cada área lastimada. Libérame del dolor del pasado. Restaura mi alegría y renueva mi mente con Tu verdad. Soy libre en Cristo. Amén.",
-      "hashtags": ["#sanacion", "#sanacionemocional", "#Dios", "#oracion", "#versiculosdedios"],
-      "hook": "Oración por sanación emocional profunda:",
+      "hashtags": [
+        "#sanacion",
+        "#sanacionemocional",
+        "#Dios",
+        "#oracion",
+        "#versiculosdedios"
+      ],
+      "hook": "Dios sana más de lo que imaginas",
       "cta": "Comenta AMÉN si necesitas sanación interior hoy"
+    },
+    {
+      "id": "dormir_001",
+      "tema": "dormir",
+      "titulo": "Oración para dormir en paz esta noche",
+      "hook": "¿No puedes dormir esta noche?",
+      "texto": "Señor, al cerrar mis ojos esta noche entrego en tus manos todo lo que cargué hoy. Libera mi mente de preocupaciones, calma mi corazón inquieto y concédeme el descanso que necesito. Que tu paz, que sobrepasa todo entendimiento, me cubra mientras duermo. En el nombre de Jesús, amén.",
+      "fondo": "fondo_ai_night_stars.jpg",
+      "musica": "paz"
+    },
+    {
+      "id": "ansiedad_001",
+      "tema": "ansiedad",
+      "titulo": "Oración para la ansiedad y el miedo",
+      "hook": "¿El miedo no te deja respirar?",
+      "texto": "Padre, la ansiedad me aprieta el pecho y mi mente no para. Pero en este momento decido confiar en ti. Quita de mí todo miedo, toda preocupación que me paraliza. Recuérdame que tú tienes el control de lo que yo no puedo controlar. Dame tu paz hoy. En el nombre de Jesús, amén.",
+      "fondo": "fondo_ai_heaven_clouds.jpg",
+      "musica": "contemplacion"
+    },
+    {
+      "id": "manana_001",
+      "tema": "mañana",
+      "titulo": "Oración de la mañana para empezar bien el día",
+      "hook": "Empieza tu día con esta oración",
+      "texto": "Señor, gracias por este nuevo día que me regalas. Guía mis pasos, protege mi camino y ayúdame a ser luz donde vaya. Que todo lo que haga hoy te glorifique a ti. Dame sabiduría para tomar buenas decisiones y fuerza para los retos que vengan. En el nombre de Jesús, amén.",
+      "fondo": "fondo_ai_divine_sunrise.jpg",
+      "musica": "adoracion"
+    },
+    {
+      "id": "tristeza_001",
+      "tema": "tristeza",
+      "titulo": "Oración para cuando estás triste sin saber por qué",
+      "hook": "¿Estás triste sin saber por qué?",
+      "texto": "Dios mío, hay una tristeza en mi corazón que no sé explicar. Tú que ves lo que nadie más ve, ven a este lugar oscuro donde estoy. No necesito entender todo, solo necesito sentirte cerca. Sana lo que está roto en mí y devuelve la alegría a mi alma. En el nombre de Jesús, amén.",
+      "fondo": "fondo_ai_gethsemane.jpg",
+      "musica": "solemnidad"
+    },
+    {
+      "id": "hijos_001",
+      "tema": "familia",
+      "titulo": "Oración por mis hijos: protégelos Señor",
+      "hook": "Esta oración es por tus hijos",
+      "texto": "Padre celestial, pongo a mis hijos en tus manos. Tú los conoces mejor que yo. Guárdalos de todo peligro y de malas influencias. Dales sabiduría para elegir bien y un corazón que te busque a ti. Sé el padre perfecto que yo no siempre puedo ser. En el nombre de Jesús, amén.",
+      "fondo": "fondo_ai_rain_blessing.jpg",
+      "musica": "adoracion"
+    },
+    {
+      "id": "milagro_001",
+      "tema": "milagro",
+      "titulo": "Oración para pedir un milagro: nada es imposible para Dios",
+      "hook": "¿Necesitas un milagro hoy?",
+      "texto": "Señor, vengo a ti con lo que humanamente es imposible. Sé que nada es difícil para ti. El mismo Dios que abrió el mar puede abrir camino en mi desierto. Creo en tu poder sobrenatural. Confío en que lo que parece perdido puede ser restaurado. Actúa en mi vida hoy. En el nombre de Jesús, amén.",
+      "fondo": "fondo_ai_parting_waters.jpg",
+      "musica": "liberacion"
+    },
+    {
+      "id": "corazon_001",
+      "tema": "sanación",
+      "titulo": "Oración para sanar el corazón roto",
+      "hook": "¿Tienes el corazón roto?",
+      "texto": "Dios de toda consolación, mi corazón está roto y solo tú puedes sanarlo. Las palabras que me hirieron, las pérdidas que cargué, el amor que no fue correspondido... todo lo pongo delante de ti. Sana cada herida y reemplaza el dolor con tu paz. Hazme completo de nuevo. En el nombre de Jesús, amén.",
+      "fondo": "fondo_ai_river_life.jpg",
+      "musica": "restauracion"
+    },
+    {
+      "id": "tiempos_dificiles_001",
+      "tema": "esperanza",
+      "titulo": "Oración para tiempos difíciles: Dios no te ha abandonado",
+      "hook": "¿Sientes que Dios te abandonó?",
+      "texto": "Señor, los tiempos son difíciles y a veces siento que no puedo más. Pero tu Palabra dice que nunca me dejarás ni me abandonarás. Renueva mis fuerzas, devuélveme la esperanza y recuérdame que después de la tormenta siempre viene la calma. No estoy solo. Tú vas delante de mí. En el nombre de Jesús, amén.",
+      "fondo": "fondo_ai_galilee_storm.jpg",
+      "musica": "intercesion"
+    },
+    {
+      "id": "soledad_001",
+      "tema": "soledad",
+      "titulo": "Oración para cuando te sientes solo y sin esperanza",
+      "hook": "¿Te sientes completamente solo?",
+      "texto": "Padre, me siento solo aunque estoy rodeado de personas. Hay un vacío que nada de este mundo puede llenar. Llénalo tú. Hazme sentir tu presencia cerca, que no soy invisible ante tus ojos. Tú me ves, me conoces y me amas tal como soy. En ti no hay soledad. En el nombre de Jesús, amén.",
+      "fondo": "fondo_ai_night_stars.jpg",
+      "musica": "contemplacion"
     }
   ]
 }

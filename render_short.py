@@ -361,8 +361,18 @@ def run_pipeline(
         tema = oracion.get("tema", "fe")
 
         narr_path = narr_dict[oid]
-        image_path = get_background_image(tema)
-        music_path = get_background_music(tema)
+        # Usa fondo específico de la oración si existe, sino usa tema
+        fondo_especifico = oracion.get("fondo")
+        if fondo_especifico and (FONDOS_POOL_DIR / fondo_especifico).exists():
+            image_path = FONDOS_POOL_DIR / fondo_especifico
+        else:
+            image_path = get_background_image(tema)
+        # Usa música específica si existe en la oración
+        musica_especifica = oracion.get("musica")
+        if musica_especifica:
+            music_path = get_background_music(musica_especifica)
+        else:
+            music_path = get_background_music(tema)
         hook_text = oracion.get("hook", oracion.get("hook_text", ""))
 
         out_filename = f"short_{oid}_{time.strftime('%Y%m%d')}.mp4"
@@ -438,7 +448,9 @@ Ejemplos:
     parser.add_argument(
         "--id",
         metavar="ORACION_ID",
-        help="ID de oración específica del pool (ej: fe_001)",
+        action="append",
+        dest="ids",
+        help="ID de oración específica (repetible: --id fe_001 --id paz_001)",
     )
     parser.add_argument(
         "--count",
@@ -522,12 +534,22 @@ Ejemplos:
     # ── Seleccionar oraciones ────────────────────────────────────────────────
     exclude_ids = set() if args.no_exclude else get_published_ids()
 
-    oraciones = get_oraciones(
-        tema=args.tema,
-        count=1 if args.id else args.count,
-        exclude_ids=exclude_ids,
-        specific_id=args.id,
-    )
+    ids = args.ids  # list[str] | None  (--id es ahora action="append")
+    if ids:
+        # Múltiples --id: cargar cada uno directamente del pool
+        pool = load_pool()
+        pool_by_id = {o["id"]: o for o in pool}
+        oraciones = [pool_by_id[i] for i in ids if i in pool_by_id]
+        missing = [i for i in ids if i not in pool_by_id]
+        if missing:
+            print(f"⚠ IDs no encontrados en pool: {missing}")
+    else:
+        oraciones = get_oraciones(
+            tema=args.tema,
+            count=args.count,
+            exclude_ids=exclude_ids,
+            specific_id=None,
+        )
 
     # ── Output dir ──────────────────────────────────────────────────────────
     if args.output_dir:

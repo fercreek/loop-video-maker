@@ -1,24 +1,22 @@
 """
 core/shorts_render.py — Motor ffmpeg para Shorts verticales 9:16 1080x1920.
 
-Responsabilidades:
-  - Escalar imagen horizontal 16:9 → vertical 9:16 con blur+crop (no pillarbox)
-  - Overlay narración + música fondo a -30dB
-  - Quemar subtítulos sincronizados con timing del audio
-  - Fade in/out suaves
-  - Entregar MP4 listo para YouTube Shorts
+v2 — Rediseño post-crítica:
+  - Ken Burns en fondo (movimiento slow-zoom 3%)
+  - Montserrat ExtraBold para subtítulos (sans-serif impactante)
+  - Subtítulos en oro (#F5C842) por segmento — máximo 4-5 palabras
+  - Hook text primeros 2.2s (pregunta emocional antes de la voz)
+  - CTA visual últimos 3s ("Guarda este video para cuando lo necesites")
+  - Voz con EQ + compressor + reverb sutil (de bancaria a devocional)
+  - Música -18dB (audible, soporte emocional real)
+  - Hard cut (sin fade in — urgencia)
 
 No genera audio ni imágenes — solo mux/ffmpeg.
-
-Uso típico (desde render_short.py):
-    from core.shorts_render import render_short_clip, build_subtitle_segments
-    segments = build_subtitle_segments(text, audio_path)
-    render_short_clip(ShortClipConfig(...))
 """
 from __future__ import annotations
 
+import os
 import subprocess
-import tempfile
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -29,45 +27,60 @@ SHORT_H = 1920
 SHORT_RES = f"{SHORT_W}x{SHORT_H}"
 
 # ─── Valores por defecto ──────────────────────────────────────────────────────
-DEFAULT_FPS           = 30        # 30fps — Shorts necesita fluidez
-DEFAULT_PRESET        = "fast"    # faster → peor compresión; slower → más tiempo
-DEFAULT_BITRATE       = "4000k"   # YouTube Shorts acepta hasta 8Mbps para 1080p
+DEFAULT_FPS           = 30
+DEFAULT_PRESET        = "fast"
+DEFAULT_BITRATE       = "4000k"
 DEFAULT_AUDIO_BITRATE = "192k"
-MUSIC_VOL_DB          = -30       # música de fondo muy baja (-30dB = 0.032 lineal)
+MUSIC_VOL_DB          = -18      # v2: -18dB = música audible (era -30dB)
 NARR_VOL              = 1.0
-FADE_IN_SEC           = 0.4
-FADE_OUT_SEC          = 0.8
-CROSSFADE_SEC         = 0.6
+FADE_IN_SEC           = 0.05    # v2: casi hard cut (era 0.4s)
+FADE_OUT_SEC          = 0.6
+CROSSFADE_SEC         = 0.5
+
+# Ken Burns — zoom lento 0% → 3% durante toda la duración
+KB_ZOOM_START = 1.0
+KB_ZOOM_END   = 1.03
+KB_ZOOM_RANGE = KB_ZOOM_END - KB_ZOOM_START  # 0.03
 
 # ─── Subtítulos ───────────────────────────────────────────────────────────────
-# Cormorant Garamond 72px — igual que canal
 FONT_PATHS = [
-    # Proyecto local
-    str(Path(__file__).parent.parent / "assets" / "fonts" / "CormorantGaramond-Regular.ttf"),
-    # Fallback sistema macOS
+    # v2: Montserrat ExtraBold — primer choice
+    str(Path(__file__).parent.parent / "assets" / "fonts" / "Montserrat-ExtraBold.ttf"),
+    # Fallback
+    "/System/Library/Fonts/Supplemental/Arial Rounded Bold.ttf",
+    "/System/Library/Fonts/HelveticaNeue.ttc",
     "/System/Library/Fonts/Helvetica.ttc",
-    "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
 ]
-SUB_FONTSIZE   = 72     # px en 1080x1920 — legible en mobile
-SUB_FONTCOLOR  = "white"
-SUB_SHADOW_COL = "black@0.7"
-SUB_BOX_COL    = "black@0.45"
-SUB_Y_POS      = "(h*3/4)"   # 75% desde arriba → zona segura inferior
-SUB_MAX_CHARS  = 38          # máximo por línea antes de partir
-SUB_LINE_SPACING = 12        # px extra entre líneas del drawtext
+
+SUB_FONTSIZE    = 78             # v2: más grande y bold
+SUB_COLOR_GOLD  = "0xF5C842"    # v2: oro devocional (era blanco)
+SUB_COLOR_CTA   = "0xFFFFFF"    # CTA en blanco limpio
+SUB_SHADOW_COL  = "black@0.85"
+SUB_Y_POS       = "(h*0.80)"    # v2: 80% (más abajo, zona segura thumb)
+SUB_MAX_CHARS   = 26            # v2: 4-5 palabras por línea (era 38)
+SUB_LINE_SPACING = 8
+STROKE_WIDTH    = 3             # v2: stroke en lugar de caja negra
+
+# Hook overlay — primeros HOOK_DUR segundos
+HOOK_FONTSIZE  = 72
+HOOK_COLOR     = "0xFFFFFF"
+HOOK_Y_POS     = "(h*0.42)"    # centro-alto del frame
+HOOK_DUR       = 2.2           # segundos visibles antes de que arranque la voz
+
+# CTA overlay — últimos CTA_DUR segundos
+CTA_TEXT      = "Guarda este video para cuando lo necesites 🙏"
+CTA_FONTSIZE  = 54
+CTA_Y_POS     = "(h*0.85)"
+CTA_DUR       = 3.0
 
 WATERMARK_TEXT  = "@VersiculoDeDios"
-WATERMARK_SZ    = 30
-WATERMARK_COLOR = "white@0.65"
-
-# Palabras por minuto de referencia para timing estimado (macOS say 145wpm)
-WPM_REFERENCE = 145
+WATERMARK_SZ    = 32
+WATERMARK_COLOR = "white@0.7"
 
 
 # ─── Data classes ─────────────────────────────────────────────────────────────
 @dataclass
 class SubtitleSegment:
-    """Segmento de subtítulo con timing."""
     text: str
     start_sec: float
     end_sec: float
@@ -75,24 +88,22 @@ class SubtitleSegment:
 
 @dataclass
 class ShortClipConfig:
-    """Configuración completa para renderizar 1 Short."""
-    oracion_id: str           # Ej: "fe_001"
-    text: str                 # Texto completo de la oración
-    narr_path: Path           # WAV/MP3 de la narración
-    image_path: Path          # Imagen de fondo (cualquier aspect ratio)
-    out_path: Path            # Salida MP4
+    oracion_id: str
+    text: str
+    narr_path: Path
+    image_path: Path
+    out_path: Path
 
-    music_path: Path | None = None   # Música de fondo (None = sin música)
-    hook_text: str = ""              # Texto del hook (se muestra primero ~1.5s)
+    music_path: Path | None = None
+    hook_text: str = ""        # Texto de gancho (ej: "¿Estás creyendo sin ver el camino?")
+    cta_text: str = CTA_TEXT   # CTA al final (default global)
     fps: int = DEFAULT_FPS
     preset: str = DEFAULT_PRESET
-    force: bool = False              # Re-renderizar aunque exista
+    force: bool = False
 
 
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 def _find_font() -> str:
-    """Devuelve el primer path de fuente disponible en el sistema."""
-    import os
     for p in FONT_PATHS:
         if os.path.exists(p):
             return p
@@ -100,14 +111,9 @@ def _find_font() -> str:
 
 
 def _get_audio_duration(audio_path: Path) -> float:
-    """Retorna duración en segundos de un archivo de audio."""
     result = subprocess.run(
-        [
-            "ffprobe", "-v", "quiet",
-            "-show_entries", "format=duration",
-            "-of", "csv=p=0",
-            str(audio_path),
-        ],
+        ["ffprobe", "-v", "quiet", "-show_entries", "format=duration",
+         "-of", "csv=p=0", str(audio_path)],
         capture_output=True, text=True,
     )
     try:
@@ -124,254 +130,259 @@ def _check_drawtext() -> bool:
 DRAWTEXT_OK = _check_drawtext()
 
 
+def _escape_drawtext(text: str) -> str:
+    """Escapa texto para uso seguro en filtro drawtext de ffmpeg."""
+    return (
+        text
+        .replace("\\", "\\\\")
+        .replace("'", "’")   # comilla curva evita escape hell
+        .replace(":", "\\:")
+        .replace(",", "\\,")
+        .replace("[", "\\[")
+        .replace("]", "\\]")
+        .replace("%", "\\%")
+        .replace("🙏", "")        # emoji no soportado en drawtext
+    )
+
+
 # ─── Subtitle timing ──────────────────────────────────────────────────────────
 def build_subtitle_segments(
     text: str,
     audio_duration: float,
     hook_text: str = "",
-    hook_duration: float = 1.5,
+    hook_duration: float = HOOK_DUR,
 ) -> list[SubtitleSegment]:
     """
-    Genera segmentos de subtítulo con timing proporcional al texto.
-
-    Estrategia: divide el texto en frases por puntuación, asigna tiempo
-    proporcional a la cantidad de palabras. El hook se muestra en los primeros
-    hook_duration segundos antes de la oración.
-
-    Args:
-        text:           texto completo de la oración
-        audio_duration: duración total del audio en segundos
-        hook_text:      texto del hook (se muestra en el inicio)
-        hook_duration:  duración del hook en segundos
-
-    Returns:
-        Lista de SubtitleSegment ordenada cronológicamente
+    Genera segmentos cortos (4-5 palabras) con timing proporcional.
+    v2: MAX_CHARS reducido a 26 → frases más cortas y rítmicas.
     """
     import re
 
     segments: list[SubtitleSegment] = []
-    offset = 0.0
 
-    # Hook
-    if hook_text:
-        segments.append(SubtitleSegment(
-            text=hook_text.upper(),
-            start_sec=0.0,
-            end_sec=hook_duration,
-        ))
-        offset = hook_duration
+    # El hook se muestra ANTES de la voz — no se incluye como segmento de subtítulo
+    # porque render_hook lo maneja por separado con drawtext
+    offset = hook_duration if hook_text else 0.0
 
-    # Dividir oración en frases (por . , ; : ¡ ¿ !)
-    # Preserva el delimitador en la frase
-    raw_phrases = re.split(r"(?<=[.,;:!?])\s+", text.strip())
-    phrases = [p.strip() for p in raw_phrases if p.strip()]
-
+    # Dividir en frases por puntuación
+    raw = re.split(r"(?<=[.,;:!?¡¿])\s+", text.strip())
+    phrases = [p.strip() for p in raw if p.strip()]
     if not phrases:
         return segments
 
-    # Tiempo disponible para la oración (descontando hook)
-    available = audio_duration - offset
-    if available <= 0:
-        available = audio_duration
+    available = max(0.1, audio_duration - offset)
 
-    # Peso proporcional a palabras
-    word_counts = [len(p.split()) for p in phrases]
-    total_words = sum(word_counts)
-    if total_words == 0:
-        return segments
+    # Contar palabras totales para timing proporcional
+    all_words = [w for p in phrases for w in p.split()]
+    total_words = len(all_words) or 1
+
+    # Agrupar en chunks de ~4 palabras para ritmo moderno
+    chunks: list[str] = []
+    current_chunk: list[str] = []
+    for word in all_words:
+        current_chunk.append(word)
+        if len(current_chunk) >= 4:
+            chunks.append(" ".join(current_chunk))
+            current_chunk = []
+    if current_chunk:
+        chunks.append(" ".join(current_chunk))
+
+    chunk_word_counts = [len(c.split()) for c in chunks]
+    total_chunk_words = sum(chunk_word_counts) or 1
 
     current_time = offset
-    for i, (phrase, wc) in enumerate(zip(phrases, word_counts)):
-        fraction = wc / total_words
-        duration = available * fraction
-        # Mínimo 0.8s por segmento para legibilidad
-        duration = max(0.8, duration)
-
-        # Wrap automático si la frase es muy larga
-        lines = _wrap_text(phrase, SUB_MAX_CHARS)
-        display_text = "\n".join(lines)
-
-        end_time = min(current_time + duration, audio_duration - 0.2)
+    for chunk, wc in zip(chunks, chunk_word_counts):
+        fraction = wc / total_chunk_words
+        dur = max(0.7, available * fraction)
+        end_time = min(current_time + dur, audio_duration - CTA_DUR - 0.3)
+        if end_time <= current_time:
+            break
         segments.append(SubtitleSegment(
-            text=display_text,
-            start_sec=current_time,
-            end_sec=end_time,
+            text=chunk,
+            start_sec=round(current_time, 3),
+            end_sec=round(end_time, 3),
         ))
-        current_time = end_time + 0.05  # micro-gap entre segmentos
+        current_time = end_time + 0.04
 
     return segments
 
 
-def _wrap_text(text: str, max_chars: int) -> list[str]:
-    """
-    Parte un texto en líneas de máximo max_chars caracteres,
-    respetando palabras completas.
-    """
-    words = text.split()
-    lines: list[str] = []
-    current = ""
-    for word in words:
-        if len(current) + len(word) + (1 if current else 0) <= max_chars:
-            current = f"{current} {word}".strip()
-        else:
-            if current:
-                lines.append(current)
-            current = word
-    if current:
-        lines.append(current)
-    return lines or [text]
-
-
-# ─── FFmpeg video filter ───────────────────────────────────────────────────────
+# ─── Video filter ──────────────────────────────────────────────────────────────
 def _build_video_filter(
     duration: float,
     subtitle_segments: list[SubtitleSegment],
     font: str,
+    hook_text: str = "",
+    cta_text: str = CTA_TEXT,
 ) -> str:
     """
-    Construye el filtro de video ffmpeg completo:
-    - Escala imagen 16:9 → 9:16 con técnica blur+crop (no pillarbox)
-    - Fade in/out
-    - Watermark
-    - Subtítulos quemados segmento a segmento
-
-    La técnica blur+crop:
-    1. Escala y voltea horizontalmente para crear espejo del fondo
-    2. Aplica Gaussian blur heavy (r=40) → queda como fondo difuso
-    3. Escala la imagen original al alto (1920) con aspect ratio preservado
-    4. Overlay centrado sobre el fondo difuso
+    v2: Ken Burns + hook overlay + subtítulos dorados + CTA.
     """
+    total_frames = int(duration * DEFAULT_FPS)
     fade_out_start = max(0.0, duration - FADE_OUT_SEC)
+    cta_start = max(0.0, duration - CTA_DUR)
 
-    # ── Construir cadena de filtros ──
     filters: list[str] = []
 
-    # 1. Fondo difuminado 9:16 (portrait blur background)
-    # [0:v] → escala para llenar ancho 1080 manteniendo AR → crop a 1920 alto → blur
+    # ── 1. Fondo con Ken Burns (slow zoom 0→3%) ────────────────────────────────
+    # Scale ligeramente mayor, luego crop con expresión de pan horizontal lento
+    kb_scale_w = int(SHORT_W * (1 + KB_ZOOM_RANGE + 0.01))  # ~1115
+    kb_scale_h = int(SHORT_H * (1 + KB_ZOOM_RANGE + 0.01))  # ~1981
     bg = (
         "[0:v]"
-        "scale=1080:-1:flags=lanczos,"            # escala al ancho
-        "crop=1080:1920:(iw-1080)/2:(ih-1920)/2," # centrar si excede
-        "gblur=sigma=40,"                          # blur fuerte → bokeh
+        f"scale={kb_scale_w}:{kb_scale_h}:flags=lanczos:force_original_aspect_ratio=increase,"
+        f"crop={kb_scale_w}:{kb_scale_h},"
+        # Pan horizontal lento durante toda la duración
+        f"crop={SHORT_W}:{SHORT_H}:x='({kb_scale_w}-{SHORT_W})*t/{duration}':y='({kb_scale_h}-{SHORT_H})/2',"
+        "gblur=sigma=35,"
         "setsar=1"
         "[bg]"
     )
-    # 2. Imagen principal escalada para llenar alto (pillar-fit)
+
+    # ── 2. Imagen principal con Ken Burns sutil ────────────────────────────────
+    fg_scale = int(SHORT_H * 1.04)
     fg = (
         "[0:v]"
-        "scale=-1:1920:flags=lanczos,"            # escalar al alto preservando AR
-        "crop=1080:1920:(iw-1080)/2:0,"           # crop horizontal si más ancho
+        f"scale=-1:{fg_scale}:flags=lanczos,"
+        f"crop={SHORT_W}:{SHORT_H}:(iw-{SHORT_W})/2:0,"
         "setsar=1"
         "[fg]"
     )
-    # 3. Overlay fg sobre bg centrado
-    overlay = "[bg][fg]overlay=(W-w)/2:(H-h)/2[frame]"
 
-    # 4. Fade in/out
+    # ── 3. Overlay + fade out ──────────────────────────────────────────────────
+    overlay = "[bg][fg]overlay=(W-w)/2:(H-h)/2[frame]"
     fade = (
         "[frame]"
-        f"fade=t=in:st=0:d={FADE_IN_SEC:.2f},"
+        f"fade=t=in:st=0:d={FADE_IN_SEC:.2f},"        # casi hard cut
         f"fade=t=out:st={fade_out_start:.2f}:d={FADE_OUT_SEC:.2f}"
         "[vfaded]"
     )
-
     filters += [bg, fg, overlay, fade]
     last_label = "[vfaded]"
 
-    # 5. Watermark
-    if font and DRAWTEXT_OK:
-        safe_wm = WATERMARK_TEXT.replace("@", "\\@")
-        wm_filter = (
-            f"{last_label}"
-            f"drawtext="
-            f"fontfile='{font}'"
-            f":text='{safe_wm}'"
-            f":fontsize={WATERMARK_SZ}"
-            f":fontcolor={WATERMARK_COLOR}"
-            f":x=w-text_w-24:y=h-text_h-28"
-            f":shadowcolor=black@0.6:shadowx=1:shadowy=1"
-            "[vwm]"
-        )
-        filters.append(wm_filter)
-        last_label = "[vwm]"
-
-    # 6. Subtítulos quemados por segmento
-    if font and DRAWTEXT_OK and subtitle_segments:
-        current_label = last_label
-        for idx, seg in enumerate(subtitle_segments):
-            # Escapar texto para drawtext (comillas simples, comas, dos puntos)
-            safe_text = (
-                seg.text
-                .replace("\\", "\\\\")
-                .replace("'", "’")   # reemplaza comilla recta → curva (evita escape issues)
-                .replace(":", "\\:")
-                .replace(",", "\\,")
-                .replace("[", "\\[")
-                .replace("]", "\\]")
-            )
-            next_label = f"[vsub{idx}]" if idx < len(subtitle_segments) - 1 else "[vout]"
-            enable = f"between(t,{seg.start_sec:.3f},{seg.end_sec:.3f})"
-
-            sub_filter = (
-                f"{current_label}"
-                f"drawtext="
-                f"fontfile='{font}'"
-                f":text='{safe_text}'"
-                f":fontsize={SUB_FONTSIZE}"
-                f":fontcolor={SUB_FONTCOLOR}"
-                f":x=(w-text_w)/2"
-                f":y={SUB_Y_POS}"
-                f":box=1:boxcolor={SUB_BOX_COL}:boxborderw=18"
-                f":shadowcolor={SUB_SHADOW_COL}:shadowx=2:shadowy=2"
-                f":line_spacing={SUB_LINE_SPACING}"
-                f":enable='{enable}'"
-                f"{next_label}"
-            )
-            filters.append(sub_filter)
-            current_label = next_label
-
-        # Si no se cerró con [vout], renombrar último
-        if subtitle_segments:
-            last_label = "[vout]"
-        # Si no hay subs, el output ya viene de last_label
-    else:
-        # Sin drawtext disponible → renombrar último label a [vout]
+    if not (font and DRAWTEXT_OK):
         filters.append(f"{last_label}copy[vout]")
-        last_label = "[vout]"
+        return ";".join(filters)
+
+    # ── 4. Watermark (siempre visible) ────────────────────────────────────────
+    safe_wm = _escape_drawtext(WATERMARK_TEXT)
+    wm = (
+        f"{last_label}"
+        f"drawtext=fontfile='{font}'"
+        f":text='{safe_wm}'"
+        f":fontsize={WATERMARK_SZ}"
+        f":fontcolor={WATERMARK_COLOR}"
+        f":x=w-text_w-28:y=60"
+        f":shadowcolor=black@0.8:shadowx=2:shadowy=2"
+        "[vwm]"
+    )
+    filters.append(wm)
+    last_label = "[vwm]"
+
+    # ── 5. Hook text (primeros HOOK_DUR segundos, antes de la voz) ────────────
+    if hook_text:
+        safe_hook = _escape_drawtext(hook_text)
+        # Fade in 0.3s, visible hasta HOOK_DUR, fade out 0.3s
+        hook_filter = (
+            f"{last_label}"
+            f"drawtext=fontfile='{font}'"
+            f":text='{safe_hook}'"
+            f":fontsize={HOOK_FONTSIZE}"
+            f":fontcolor={HOOK_COLOR}"
+            f":x=(w-text_w)/2"
+            f":y={HOOK_Y_POS}"
+            f":shadowcolor=black@0.9:shadowx=3:shadowy=3"
+            f":borderw={STROKE_WIDTH}:bordercolor=black@0.6"
+            f":enable='between(t,0,{HOOK_DUR:.2f})'"
+            f":alpha='if(lt(t,0.3),t/0.3,if(gt(t,{HOOK_DUR-0.3:.2f}),({HOOK_DUR:.2f}-t)/0.3,1))'"
+            "[vhook]"
+        )
+        filters.append(hook_filter)
+        last_label = "[vhook]"
+
+    # ── 6. Subtítulos en oro por segmento ─────────────────────────────────────
+    for idx, seg in enumerate(subtitle_segments):
+        safe_text = _escape_drawtext(seg.text)
+        next_label = f"[vsub{idx}]" if idx < len(subtitle_segments) - 1 else "[vsubs]"
+        enable = f"between(t,{seg.start_sec:.3f},{seg.end_sec:.3f})"
+        sub = (
+            f"{last_label}"
+            f"drawtext=fontfile='{font}'"
+            f":text='{safe_text}'"
+            f":fontsize={SUB_FONTSIZE}"
+            f":fontcolor={SUB_COLOR_GOLD}"
+            f":x=(w-text_w)/2"
+            f":y={SUB_Y_POS}"
+            f":shadowcolor=black@0.9:shadowx=3:shadowy=3"
+            f":borderw={STROKE_WIDTH}:bordercolor=black"
+            f":line_spacing={SUB_LINE_SPACING}"
+            f":enable='{enable}'"
+            f"{next_label}"
+        )
+        filters.append(sub)
+        last_label = next_label
+
+    if not subtitle_segments:
+        filters.append(f"{last_label}copy[vsubs]")
+        last_label = "[vsubs]"
+    else:
+        last_label = "[vsubs]"
+
+    # ── 7. CTA últimos 3s ─────────────────────────────────────────────────────
+    safe_cta = _escape_drawtext(cta_text)
+    cta_filter = (
+        f"{last_label}"
+        f"drawtext=fontfile='{font}'"
+        f":text='{safe_cta}'"
+        f":fontsize={CTA_FONTSIZE}"
+        f":fontcolor={SUB_COLOR_CTA}"
+        f":x=(w-text_w)/2"
+        f":y={CTA_Y_POS}"
+        f":shadowcolor=black@0.9:shadowx=2:shadowy=2"
+        f":borderw=2:bordercolor=black"
+        f":enable='between(t,{cta_start:.2f},{duration:.2f})'"
+        f":alpha='if(lt(t,{cta_start+0.4:.2f}),(t-{cta_start:.2f})/0.4,1)'"
+        "[vout]"
+    )
+    filters.append(cta_filter)
 
     return ";".join(filters)
 
 
-# ─── Audio filter ─────────────────────────────────────────────────────────────
+# ─── Audio filter ──────────────────────────────────────────────────────────────
 def _build_audio_filter(duration: float, has_music: bool) -> str:
     """
-    Construye filtro de audio:
-    - Narración con fade in/out y volumen normalizado
-    - Música de fondo a MUSIC_VOL_DB si se proporciona
-    - amix con duración de la narración como referencia
-
-    Entradas ffmpeg esperadas:
-    - [1:a] = narración
-    - [2:a] = música (si has_music=True)
+    v2: EQ + compressor + reverb sutil en voz TTS.
+    Música a -18dB (soporte emocional audible).
     """
     fade_out_start = max(0.0, duration - CROSSFADE_SEC)
 
+    # Voice EQ chain — de voz bancaria a voz devocional
     narr_filter = (
         f"[1:a]"
-        f"volume={NARR_VOL},"
+        # Limpiar rumble y nasalidad TTS
+        "highpass=f=100,"
+        "equalizer=f=250:t=o:w=200:g=-3,"      # quita barro nasal
+        "equalizer=f=3000:t=o:w=800:g=+4,"     # presencia y calidez
+        "equalizer=f=8000:t=o:w=3000:g=-2,"    # recorta sibilancias
+        # Compresión para consistencia
+        "acompressor=threshold=0.089:ratio=3:attack=5:release=50:makeup=2,"
+        # Reverb de sala pequeña — sensación sagrada, no corporativa
+        "aecho=0.8:0.6:40:0.12,"
+        # Fade y normalización
         f"afade=t=in:ss=0:d={FADE_IN_SEC:.2f},"
-        f"afade=t=out:st={fade_out_start:.2f}:d={CROSSFADE_SEC:.2f}"
+        f"afade=t=out:st={fade_out_start:.2f}:d={CROSSFADE_SEC:.2f},"
+        "loudnorm=I=-14:TP=-1:LRA=7"
         "[narr]"
     )
 
     if has_music:
-        # Convierte dB a factor lineal: 10^(db/20)
-        music_vol_linear = 10 ** (MUSIC_VOL_DB / 20)
+        music_vol_linear = 10 ** (MUSIC_VOL_DB / 20)  # -18dB = 0.1259
         music_filter = (
             f"[2:a]"
             f"volume={music_vol_linear:.4f},"
             f"atrim=0:{duration:.2f},"
-            f"aloop=loop=-1:size=2e9"
+            "aloop=loop=-1:size=2e9"
             "[bg]"
         )
         mix_filter = "[narr][bg]amix=inputs=2:duration=first:dropout_transition=0.5[a]"
@@ -382,112 +393,58 @@ def _build_audio_filter(duration: float, has_music: bool) -> str:
 
 # ─── Core render function ──────────────────────────────────────────────────────
 def render_short_clip(cfg: ShortClipConfig) -> Path:
-    """
-    Renderiza un Short vertical 1080x1920 con subtítulos quemados.
-
-    Flujo:
-    1. Lee duración del audio de narración
-    2. Genera segmentos de subtítulo con timing proporcional
-    3. Construye filtros ffmpeg (video + audio)
-    4. Ejecuta ffmpeg y verifica resultado
-
-    Args:
-        cfg: ShortClipConfig con todas las rutas y parámetros
-
-    Returns:
-        Path al MP4 generado
-
-    Raises:
-        RuntimeError: si ffmpeg falla o el archivo de salida no se crea
-    """
+    """Renderiza un Short vertical 1080x1920 — v2 rediseñado."""
     if cfg.out_path.exists() and not cfg.force:
         size_mb = cfg.out_path.stat().st_size / 1024 / 1024
         print(f"  [short] Cache hit: {cfg.out_path.name} ({size_mb:.1f}MB)")
         return cfg.out_path
 
     cfg.out_path.parent.mkdir(parents=True, exist_ok=True)
-
     t0 = time.time()
     print(f"  [short] Renderizando {cfg.oracion_id}...")
 
-    # 1. Duración audio
     duration = _get_audio_duration(cfg.narr_path)
     print(f"  [short] Duración audio: {duration:.1f}s")
 
-    # 2. Subtítulos con timing
     subtitle_segments = build_subtitle_segments(
         text=cfg.text,
         audio_duration=duration,
         hook_text=cfg.hook_text,
-        hook_duration=1.5 if cfg.hook_text else 0.0,
+        hook_duration=HOOK_DUR if cfg.hook_text else 0.0,
     )
-    print(f"  [short] {len(subtitle_segments)} segmentos de subtítulo")
+    print(f"  [short] {len(subtitle_segments)} segmentos | hook: {'sí' if cfg.hook_text else 'no'} | CTA: sí")
 
-    # 3. Fuente disponible
     font = _find_font()
     if not font:
-        print("  [short] WARN: No font found — subtítulos desactivados")
+        print("  [short] WARN: No font — subtítulos desactivados")
 
-    # 4. Filtros ffmpeg
-    vf = _build_video_filter(duration, subtitle_segments, font)
+    vf = _build_video_filter(duration, subtitle_segments, font, cfg.hook_text, cfg.cta_text)
     af = _build_audio_filter(duration, has_music=cfg.music_path is not None)
 
-    # 5. Construir comando ffmpeg
-    # Nota: imagen loop de duración exacta del audio + pequeño buffer
     video_duration = duration + 0.5
-
     cmd: list[str] = ["ffmpeg", "-y"]
-
-    # Input 0: imagen de fondo (loop)
     cmd += ["-loop", "1", "-t", f"{video_duration:.2f}", "-i", str(cfg.image_path)]
-
-    # Input 1: narración
     cmd += ["-i", str(cfg.narr_path)]
-
-    # Input 2: música (opcional, con stream_loop para repetir)
     if cfg.music_path:
         cmd += ["-stream_loop", "-1", "-i", str(cfg.music_path)]
 
-    # Filtros
     cmd += ["-filter_complex", f"{vf};{af}"]
-
-    # Mapeo
     cmd += ["-map", "[vout]", "-map", "[a]"]
-
-    # Duración exacta
     cmd += ["-t", f"{duration:.2f}"]
-
-    # Codec video
     cmd += [
-        "-c:v", "libx264",
-        "-preset", cfg.preset,
-        "-b:v", DEFAULT_BITRATE,
-        "-r", str(cfg.fps),
-        "-s", SHORT_RES,
-        "-pix_fmt", "yuv420p",  # compatibilidad máxima YouTube
+        "-c:v", "libx264", "-preset", cfg.preset,
+        "-b:v", DEFAULT_BITRATE, "-r", str(cfg.fps),
+        "-s", SHORT_RES, "-pix_fmt", "yuv420p",
     ]
-
-    # Codec audio
-    cmd += [
-        "-c:a", "aac",
-        "-b:a", DEFAULT_AUDIO_BITRATE,
-        "-ar", "44100",
-    ]
-
-    # Metadata para YouTube Shorts
-    cmd += [
-        "-movflags", "+faststart",       # streaming web
-        "-metadata", f"title={cfg.oracion_id}",
-        "-metadata", "comment=Versiculos de Dios — @VersiculoDeDios",
-    ]
-
+    cmd += ["-c:a", "aac", "-b:a", DEFAULT_AUDIO_BITRATE, "-ar", "44100"]
+    cmd += ["-movflags", "+faststart",
+            "-metadata", f"title={cfg.oracion_id}",
+            "-metadata", "comment=Versiculos de Dios — @VersiculoDeDios"]
     cmd.append(str(cfg.out_path))
 
-    # 6. Ejecutar
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
-        # Imprimir últimas 800 chars de stderr para diagnóstico
-        stderr_tail = result.stderr[-800:] if result.stderr else "(vacío)"
+        stderr_tail = result.stderr[-1000:] if result.stderr else "(vacío)"
         print(f"  [short] FFmpeg STDERR:\n{stderr_tail}")
         raise RuntimeError(f"ffmpeg falló renderizando {cfg.oracion_id} (code {result.returncode})")
 
@@ -497,7 +454,6 @@ def render_short_clip(cfg: ShortClipConfig) -> Path:
     elapsed = time.time() - t0
     size_mb = cfg.out_path.stat().st_size / 1024 / 1024
     print(f"  [short] OK {elapsed:.1f}s → {cfg.out_path.name} ({size_mb:.1f}MB, {duration:.1f}s)")
-
     return cfg.out_path
 
 
@@ -506,16 +462,6 @@ def render_shorts_batch(
     configs: list[ShortClipConfig],
     max_workers: int = 3,
 ) -> list[Path]:
-    """
-    Renderiza múltiples Shorts en paralelo.
-
-    Args:
-        configs:     lista de ShortClipConfig — uno por short
-        max_workers: threads paralelos (3 recomendado en Mac para no saturar memoria)
-
-    Returns:
-        Lista de Paths de MP4s generados, en el mismo orden que configs
-    """
     from concurrent.futures import ThreadPoolExecutor, as_completed
 
     results: dict[int, Path] = {}
