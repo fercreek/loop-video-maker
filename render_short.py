@@ -193,7 +193,11 @@ def get_background_image(tema: str) -> Path:
     Returns:
         Path a imagen JPG del pool de fondos
     """
-    all_fondos = sorted(glob.glob(str(FONDOS_POOL_DIR / "*.jpg")))
+    # Solo imágenes Gemini AI (fondo_ai_*) — excluir pinturas al óleo
+    all_fondos = sorted(glob.glob(str(FONDOS_POOL_DIR / "fondo_ai_*.jpg")))
+    if not all_fondos:
+        # Fallback: cualquier imagen si no hay fondo_ai_
+        all_fondos = sorted(glob.glob(str(FONDOS_POOL_DIR / "*.jpg")))
     if not all_fondos:
         raise FileNotFoundError(
             f"Pool de fondos vacío en {FONDOS_POOL_DIR}. "
@@ -373,15 +377,20 @@ def run_pipeline(
             music_path = get_background_music(musica_especifica)
         else:
             music_path = get_background_music(tema)
-        hook_text = oracion.get("hook", oracion.get("hook_text", ""))
+        hook_text  = oracion.get("hook", oracion.get("hook_text", ""))
+        # Verse label: "TEMA · título corto" visible todo el video
+        titulo_corto = oracion.get("titulo", "")
+        # Extraer solo la primera parte del título (antes de ":")
+        # Verse label: solo tema — corto y legible en pantalla
+        verse_label = f"@VersiculoDeDios  ·  {tema.upper()}"
 
         # Segunda imagen: diferente a la primera, para corte a los 18s (v3)
         fondo2_especifico = oracion.get("fondo2")
         if fondo2_especifico and (FONDOS_POOL_DIR / fondo2_especifico).exists():
             image2_path = FONDOS_POOL_DIR / fondo2_especifico
         else:
-            # Elegir imagen distinta del pool del mismo tema
-            all_fondos = sorted(glob.glob(str(FONDOS_POOL_DIR / "*.jpg")))
+            # Solo Gemini AI para imagen2 — sin pinturas al óleo
+            all_fondos = sorted(glob.glob(str(FONDOS_POOL_DIR / "fondo_ai_*.jpg")))
             candidatos = [f for f in all_fondos if f != str(image_path)]
             image2_path = Path(random.choice(candidatos)) if candidatos else None
 
@@ -397,6 +406,7 @@ def run_pipeline(
             out_path=out_path,
             music_path=music_path,
             hook_text=hook_text,
+            verse_label=verse_label,
             force=force,
         ))
 
