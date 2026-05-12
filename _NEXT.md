@@ -1,9 +1,34 @@
 # _NEXT — loop-video-maker (VersiculoDeDios)
-> Update: 2026-05-11 · Canal: @VersiculoDeDios · 11,700 subs
+> Update: 2026-05-12 · Canal: @VersiculoDeDios · 11,700 subs
 
 ---
 
 ## ⚡ En proceso (retomar aquí)
+
+### 📱 Batch v6 Shorts — LISTOS PARA SUBIR
+- 10/10 aprobados en content-review
+- Quick wins aplicados: subtítulos 4→6 palabras · CTA "Escribe AMÉN" · hook 3.5s
+- **Subir:** `python3 scripts/upload_shorts_scheduled.py`
+- Plan: 1/día · 5am MTY · 12-21 mayo · YouTube (private+publishAt) + Facebook (scheduled)
+- Ambas plataformas quedan programadas — se publican solas, sin intervención
+
+### 📅 May 22 — Análisis batch_v6 (rutina programada)
+Rutina remota dispara automáticamente. ANTES de revisarla, correr:
+```bash
+cd /Users/fernandocastaneda/Documents/loop-video-maker
+python3 scripts/content_tracker.py --pull-metrics
+```
+También revisar Facebook Insights: Meta Business Suite → page Palabra De Dios (452922677899760)
+Rutina: https://claude.ai/code/routines/trig_01TfyuhGQYbWXGdqCfxQfcJM
+
+### Pipeline de publicación dual (YT + FB) — cómo funciona
+```
+python3 scripts/upload_shorts_scheduled.py
+  → YouTube: sube como private + publishAt → YT publica solo a las 5am
+  → Facebook: sube con scheduled_publish_time → Meta Business Suite publica solo
+  Verificar en: YT Studio → Contenido → Programados
+               Meta Business Suite → Contenido → Programado
+```
 
 ### 📤 Upload semana 2 — corriendo en background
 - 6 videos subiendo ahora: buen-samaritano, hijo-prodigo, lazaro, resurreccion, ruth, job

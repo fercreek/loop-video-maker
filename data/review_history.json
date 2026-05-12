@@ -1,0 +1,66 @@
+{
+  "project": "loop-video-maker",
+  "sessions": [
+    {
+      "session_date": "2026-05-11T21:46:20.834662",
+      "batch": "batch_v6",
+      "round": 2,
+      "project": "loop-video-maker",
+      "type": "video",
+      "note": "Re-render trabajo_001 + tristeza_001 con quick wins aplicados",
+      "items": [
+        {
+          "id": "trabajo_001",
+          "status": "pending",
+          "comment": "",
+          "re_rendered": true,
+          "quick_wins": [
+            "slower_subtitles",
+            "cta_amen",
+            "hook_extend"
+          ]
+        },
+        {
+          "id": "tristeza_001",
+          "status": "pending",
+          "comment": "",
+          "re_rendered": true,
+          "quick_wins": [
+            "slower_subtitles",
+            "cta_amen",
+            "hook_extend"
+          ]
+        }
+      ]
+    },
+    {
+      "session_date": "2026-05-12T03:46:38.100Z",
+      "batch": "batch_v6",
+      "project": "loop-video-maker",
+      "type": "video",
+      "items": [
+        {
+          "id": "trabajo_001",
+          "titulo": "Oración para el trabajo: abre puertas que nadie puede cerrar",
+          "tema": "trabajo",
+          "hook": "¿Necesitas un milagro en tu trabajo?",
+          "status": "approved",
+          "comment": "",
+          "mp4": "output/shorts/batch_v6/short_trabajo_001_20260511.mp4",
+          "thumb": "output/shorts/batch_v6/thumbs/trabajo_001.jpg"
+        },
+        {
+          "id": "tristeza_001",
+          "titulo": "Oración para cuando estás triste sin saber por qué",
+          "tema": "tristeza",
+          "hook": "¿Estás triste sin saber por qué?",
+          "status": "approved",
+          "comment": "",
+          "mp4": "output/shorts/batch_v6/short_tristeza_001_20260511.mp4",
+          "thumb": "output/shorts/batch_v6/thumbs/tristeza_001.jpg"
+        }
+      ]
+    }
+  ],
+  "last_updated": "2026-05-11T21:47:48.984101"
+}

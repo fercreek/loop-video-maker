@@ -92,11 +92,11 @@ VERSE_BG_COLOR  = "black@0.45"   # pill background detrás del label
 HOOK_FONTSIZE  = 72
 HOOK_COLOR     = "0xFFFFFF"
 HOOK_Y_POS     = "(h*0.42)"    # centro-alto del frame
-HOOK_DUR       = 2.2           # segundos visibles antes de que arranque la voz
+HOOK_DUR       = 3.5           # batch_v6 QW: hook 2.2→3.5s (más tiempo de enganche)
 
 # CTA overlay — últimos CTA_DUR segundos
 # v3: "Comparte" genera virality (share signal > save signal para algoritmo)
-CTA_TEXT      = "Comparte si Dios te habló hoy"
+CTA_TEXT      = "Escribe AMÉN si esto te llegó al corazón 🙏"  # batch_v6 QW: AMÉN > Comparte (engagement signal)
 CTA_FONTSIZE  = 54
 CTA_Y_POS     = "(h*0.85)"
 CTA_DUR       = 3.5
@@ -209,12 +209,12 @@ def build_subtitle_segments(
     all_words = [w for p in phrases for w in p.split()]
     total_words = len(all_words) or 1
 
-    # Agrupar en chunks de ~4 palabras para ritmo moderno
+    # Agrupar en chunks de ~6 palabras — batch_v6 QW: 4→6 (subtítulos más lentos, legibles)
     chunks: list[str] = []
     current_chunk: list[str] = []
     for word in all_words:
         current_chunk.append(word)
-        if len(current_chunk) >= 4:
+        if len(current_chunk) >= 6:
             chunks.append(" ".join(current_chunk))
             current_chunk = []
     if current_chunk:

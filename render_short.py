@@ -184,19 +184,31 @@ _TEMA_FONDO_KEYWORDS: dict[str, list[str]] = {
 }
 
 
-def get_background_image(tema: str) -> Path:
+_BATCH_USED_FONDOS: set[str] = set()  # reset per batch run
+
+
+def get_background_image(tema: str, oracion: dict | None = None) -> Path:
     """
-    Selecciona una imagen de fondo del pool que coincida con el tema.
-    Estrategia: primero busca por keywords del tema, si no hay → aleatorio.
-    Acepta imágenes 16:9 — el motor shorts_render las convierte a 9:16 con blur.
+    Selecciona una imagen de fondo única por batch (nunca repite en el mismo run).
+
+    Prioridad:
+    1. `oracion['fondo']` del pool JSON — respeta asignación manual
+    2. Keywords del tema — búsqueda semántica
+    3. Aleatorio no usado en este batch
 
     Returns:
         Path a imagen JPG del pool de fondos
     """
+    # 1. Fondo explícito en el pool
+    if oracion and oracion.get("fondo"):
+        explicit = FONDOS_POOL_DIR / oracion["fondo"]
+        if explicit.exists():
+            _BATCH_USED_FONDOS.add(oracion["fondo"])
+            return explicit
+
     # Solo imágenes Gemini AI (fondo_ai_*) — excluir pinturas al óleo
     all_fondos = sorted(glob.glob(str(FONDOS_POOL_DIR / "fondo_ai_*.jpg")))
     if not all_fondos:
-        # Fallback: cualquier imagen si no hay fondo_ai_
         all_fondos = sorted(glob.glob(str(FONDOS_POOL_DIR / "*.jpg")))
     if not all_fondos:
         raise FileNotFoundError(
@@ -204,18 +216,27 @@ def get_background_image(tema: str) -> Path:
             f"Ejecuta: python3 scripts/generate_fondos_ai.py --count 20"
         )
 
-    # Buscar por keywords del tema
+    # Excluir fondos ya usados en este batch run
+    unused = [f for f in all_fondos if Path(f).name not in _BATCH_USED_FONDOS]
+    if not unused:
+        unused = all_fondos  # si agotamos todos, reusar (batch muy grande)
+
+    # 2. Keywords del tema
     keywords = _TEMA_FONDO_KEYWORDS.get(tema.lower(), [])
     if keywords:
         keyword_matches = [
-            f for f in all_fondos
+            f for f in unused
             if any(kw in Path(f).stem.lower() for kw in keywords)
         ]
         if keyword_matches:
-            return Path(random.choice(keyword_matches))
+            chosen = Path(random.choice(keyword_matches))
+            _BATCH_USED_FONDOS.add(chosen.name)
+            return chosen
 
-    # Fallback: cualquier fondo del pool
-    return Path(random.choice(all_fondos))
+    # 3. Aleatorio no repetido
+    chosen = Path(random.choice(unused))
+    _BATCH_USED_FONDOS.add(chosen.name)
+    return chosen
 
 
 # ─── Selección de música de fondo ─────────────────────────────────────────────
@@ -366,11 +387,8 @@ def run_pipeline(
 
         narr_path = narr_dict[oid]
         # Usa fondo específico de la oración si existe, sino usa tema
-        fondo_especifico = oracion.get("fondo")
-        if fondo_especifico and (FONDOS_POOL_DIR / fondo_especifico).exists():
-            image_path = FONDOS_POOL_DIR / fondo_especifico
-        else:
-            image_path = get_background_image(tema)
+        # get_background_image handles: pool fondo → keyword match → unique random
+        image_path = get_background_image(tema, oracion=oracion)
         # Usa música específica si existe en la oración
         musica_especifica = oracion.get("musica")
         if musica_especifica:

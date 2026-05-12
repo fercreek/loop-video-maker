@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content Review — Tinder UI</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Defaults — overridden by review.json brand colors at runtime */
+  --gold: #F5C842;
+  --accent: #F5C842;
+  --green: #2ECC71;
+  --red: #E74C3C;
+  --orange: #E67E22;
+  --bg: #0a0a0a;
+  --card-w: 280px;
+  --card-h: 500px;
+}
+
+body {
+  background: var(--bg);
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* ── Header ── */
+#header {
+  width: 100%;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0,0,0,0.9);
+  border-bottom: 1px solid #1a1a1a;
+  flex-shrink: 0;
+}
+#header h1 { font-size: 13px; color: var(--gold); font-weight: 700; white-space: nowrap; }
+#progress-wrap { flex: 1; background: #1a1a1a; height: 3px; border-radius: 2px; }
+#progress-fill { height: 3px; background: var(--gold); border-radius: 2px; width: 0; transition: width 0.4s; }
+#counter { font-size: 12px; color: #555; white-space: nowrap; min-width: 40px; text-align: right; }
+
+/* ── Main layout ── */
+#main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding: 16px;
+  width: 100%;
+  max-width: 900px;
+}
+
+/* ── Card ── */
+#card-wrap {
+  position: relative;
+  width: var(--card-w);
+  height: var(--card-h);
+  flex-shrink: 0;
+}
+
+.card {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #111;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.7);
+  cursor: grab;
+  transition: transform 0.1s;
+  touch-action: none;
+}
+.card.dragging { cursor: grabbing; transition: none; }
+.card.fly-right { transform: translateX(200%) rotate(25deg) !important; opacity: 0; transition: all 0.35s ease; }
+.card.fly-left  { transform: translateX(-200%) rotate(-25deg) !important; opacity: 0; transition: all 0.35s ease; }
+
+/* Behind cards */
+.card-behind-1 {
+  position: absolute; inset: 0;
+  border-radius: 16px;
+  background: #181818;
+  transform: scale(0.95) translateY(10px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  z-index: 0;
+}
+.card-behind-2 {
+  position: absolute; inset: 0;
+  border-radius: 16px;
+  background: #141414;
+  transform: scale(0.90) translateY(20px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  z-index: -1;
+}
+
+.card-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+video.card-media { cursor: pointer; }
+
+.play-btn {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 52px; height: 52px;
+  background: rgba(0,0,0,0.65);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.card:hover .play-btn { opacity: 0.7; }
+.play-btn.hidden { opacity: 0; }
+
+.card-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 16px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.92) 40%);
+  pointer-events: none;
+}
+.card-tema { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 4px; }
+.card-hook { font-size: 15px; font-weight: 700; line-height: 1.3; }
+.card-titulo { font-size: 11px; color: #888; margin-top: 3px; }
+
+/* Swipe stamps */
+.stamp {
+  position: absolute;
+  top: 24px;
+  font-size: 28px;
+  font-weight: 900;
+  border: 3px solid;
+  padding: 5px 12px;
+  border-radius: 6px;
+  opacity: 0;
+  letter-spacing: 3px;
+  transition: opacity 0.1s;
+  pointer-events: none;
+}
+.stamp-ok  { left: 12px;  color: var(--green); border-color: var(--green); transform: rotate(-12deg); }
+.stamp-no  { right: 12px; color: var(--red);   border-color: var(--red);   transform: rotate(12deg);  }
+
+/* ── Side panel ── */
+#side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 260px;
+  flex-shrink: 0;
+}
+
+#side h2 { font-size: 13px; color: #555; text-transform: uppercase; letter-spacing: 1px; }
+
+#comment-box {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 10px;
+  color: #fff;
+  padding: 12px;
+  font-size: 13px;
+  resize: none;
+  height: 80px;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.2s;
+  font-family: inherit;
+}
+#comment-box:focus { border-color: var(--gold); }
+#comment-box::placeholder { color: #444; }
+
+/* Action buttons */
+.actions { display: flex; gap: 10px; }
+
+.btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.12s, opacity 0.12s;
+  letter-spacing: 0.5px;
+}
+.btn:hover { opacity: 0.85; transform: scale(1.03); }
+.btn:active { transform: scale(0.97); }
+
+.btn-reject    { background: rgba(231,76,60,0.15);   color: var(--red);    border: 1px solid rgba(231,76,60,0.3); }
+.btn-no-cargo  { background: rgba(230,126,34,0.15);  color: var(--orange); border: 1px solid rgba(230,126,34,0.3); font-size: 12px; }
+.btn-skip      { background: rgba(255,255,255,0.05); color: #555;         border: 1px solid #222; }
+.btn-approve   { background: rgba(46,204,113,0.15);  color: var(--green);  border: 1px solid rgba(46,204,113,0.3); }
+
+/* Keyboard hints */
+.kb {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.kb-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #555;
+}
+.kb-key {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 11px;
+  color: #888;
+  min-width: 24px;
+  text-align: center;
+}
+
+/* Previous decisions mini-list */
+#prev-list { display: flex; flex-direction: column; gap: 4px; max-height: 150px; overflow-y: auto; }
+.prev-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11px; color: #555;
+  padding: 4px 0;
+  border-bottom: 1px solid #111;
+}
+.prev-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.prev-dot.approved  { background: var(--green); }
+.prev-dot.rejected  { background: var(--red); }
+.prev-dot.no_cargo  { background: var(--orange); }
+.prev-dot.pending   { background: #333; }
+
+/* ── Done screen ── */
+#done-screen {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 40px 24px;
+  text-align: center;
+  max-width: 500px;
+}
+#done-screen h2 { font-size: 26px; color: var(--gold); }
+#done-stats { display: flex; gap: 24px; }
+.stat { text-align: center; }
+.stat-n { font-size: 32px; font-weight: 900; }
+.stat-n.green { color: var(--green); }
+.stat-n.red   { color: var(--red);   }
+.stat-n.gray  { color: #555; }
+.stat-l { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+#summary-list { width: 100%; text-align: left; max-height: 260px; overflow-y: auto; }
+.sum-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 8px 0; border-bottom: 1px solid #1a1a1a;
+  font-size: 13px;
+}
+.sum-badge { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; margin-top: 1px; }
+.sum-badge.approved  { background: rgba(46,204,113,0.2);  color: var(--green); }
+.sum-badge.rejected  { background: rgba(231,76,60,0.2);   color: var(--red); }
+.sum-badge.no_cargo  { background: rgba(230,126,34,0.2);  color: var(--orange); }
+.sum-badge.pending   { background: #1a1a1a; color: #555; }
+.sum-comment { font-size: 11px; color: #555; margin-top: 2px; }
+
+.btn-export {
+  background: var(--gold); color: #000;
+  border: none; padding: 14px 36px;
+  border-radius: 12px; font-size: 15px; font-weight: 700;
+  cursor: pointer; transition: transform 0.15s;
+  width: 100%;
+}
+.btn-export:hover { transform: scale(1.02); }
+.btn-back {
+  background: transparent; color: #555;
+  border: 1px solid #222; padding: 10px 24px;
+  border-radius: 10px; font-size: 13px; cursor: pointer; width: 100%;
+}
+.btn-back:hover { color: #fff; }
+
+.notice {
+  font-size: 12px; color: #444;
+  background: #111; border-radius: 8px; padding: 12px;
+  text-align: left; line-height: 1.6;
+}
+.notice code { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<div id="header">
+  <h1 id="page-title">Content Review</h1>
+  <div id="progress-wrap"><div id="progress-fill"></div></div>
+  <div id="counter">– / –</div>
+  <div id="header-save" style="font-size:11px;color:#333;min-width:60px;text-align:right" title="Estado del auto-save">●</div>
+</div>
+
+<div id="main">
+  <!-- Card area -->
+  <div id="card-wrap">
+    <div class="card-behind-2" id="behind2"></div>
+    <div class="card-behind-1" id="behind1"></div>
+    <!-- Top card injected here by JS -->
+  </div>
+
+  <!-- Side panel -->
+  <div id="side">
+    <div>
+      <h2>Comentario</h2>
+      <textarea id="comment-box" placeholder="Opcional — qué cambiarías, por qué rechazas, etc."></textarea>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-reject"   id="btn-reject">✗ No</button>
+      <button class="btn btn-skip"     id="btn-skip">○</button>
+      <button class="btn btn-approve"  id="btn-approve">✓ Sí</button>
+    </div>
+    <div class="actions" style="margin-top:-8px">
+      <button class="btn btn-no-cargo" id="btn-no-cargo" style="width:100%">⚠ No cargó / error técnico</button>
+    </div>
+
+    <div class="kb">
+      <h2>Atajos</h2>
+      <div class="kb-row"><span class="kb-key">→</span> Aprobar</div>
+      <div class="kb-row"><span class="kb-key">←</span> Rechazar</div>
+      <div class="kb-row"><span class="kb-key">↓</span> Skip</div>
+      <div class="kb-row"><span class="kb-key">N</span> No cargó</div>
+      <div class="kb-row"><span class="kb-key">Space</span> Play/Pause</div>
+    </div>
+
+    <div>
+      <h2 style="margin-bottom:8px">Revisados</h2>
+      <div id="prev-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Done screen -->
+<div id="done-screen">
+  <h2>Review completo ✓</h2>
+  <div id="done-stats">
+    <div class="stat"><div class="stat-n green" id="stat-approved">0</div><div class="stat-l">Aprobados</div></div>
+    <div class="stat"><div class="stat-n red"   id="stat-rejected">0</div><div class="stat-l">Rechazados</div></div>
+    <div class="stat"><div class="stat-n gray"  id="stat-pending">0</div><div class="stat-l">Skipped</div></div>
+  </div>
+  <div id="summary-list"></div>
+  <div id="autosave-status" style="display:flex;align-items:center;gap:10px;background:#0d1f0f;border:1px solid #1a4d1a;border-radius:10px;padding:14px 18px;width:100%">
+    <span id="save-icon" style="font-size:20px">✅</span>
+    <div>
+      <div style="color:#2ECC71;font-weight:700;font-size:14px" id="save-label">Guardado automáticamente</div>
+      <div style="color:#555;font-size:11px;margin-top:2px">Vuelve a Claude Code y escribe: <code style="color:#F5C842">"procesa el review"</code></div>
+    </div>
+  </div>
+  <div style="display:flex;gap:10px;width:100%">
+    <button class="btn-back" id="btn-back" style="flex:1">← Revisar de nuevo</button>
+    <button class="btn-export" id="btn-export" style="flex:0;padding:10px 16px;font-size:12px;background:transparent;color:#444;border:1px solid #222;border-radius:10px;cursor:pointer">↓ JSON</button>
+  </div>
+</div>
+
+<script>
+// ── Generic Content Review — works for any project/batch ────────────────────
+let shorts = [], current = 0, decisions = {}, reviewData = null;
+let activeVideo = null;
+const params = new URLSearchParams(location.search);
+// ?repo=studio-link separates localStorage by project (single port 8080)
+const REPO   = params.get('repo') || params.get('batch') || 'default';
+const LS_KEY = 'content_review__' + REPO;
+
+// ── Apply brand colors from review.json ─────────────────────────────────────
+function applyBrand(brand) {
+  if (!brand) return;
+  const root = document.documentElement.style;
+  if (brand.primary)  { root.setProperty('--gold',   brand.primary); root.setProperty('--accent', brand.primary); }
+  if (brand.bg)       root.setProperty('--bg', brand.bg);
+}
+
+// ── Detect image repetition across items ────────────────────────────────────
+function buildDuplicateMap(items) {
+  const map = {}; // thumb/image path → [ids]
+  items.forEach(s => {
+    const key = s.thumb || s.image || s.mp4 || '';
+    if (!key) return;
+    map[key] = map[key] || [];
+    map[key].push(s.id);
+  });
+  const dupes = {};
+  Object.entries(map).forEach(([k, ids]) => {
+    if (ids.length > 1) ids.forEach(id => { dupes[id] = ids.filter(x => x !== id); });
+  });
+  return dupes; // { id: [other_ids_with_same_image] }
+}
+
+let duplicateMap = {};
+
+fetch('data/review.json')
+  .then(r => r.json())
+  .then(d => {
+    reviewData = d;
+    shorts = d.items || d.shorts || [];
+
+    // Brand colors injected from review.json (set once, no extra requests)
+    applyBrand(d.brand);
+
+    // Title
+    const label = [d.project, d.batch].filter(Boolean).join(' · ') || 'Content Review';
+    document.getElementById('page-title').textContent = label;
+    document.title = label;
+
+    // Detect repeated backgrounds
+    duplicateMap = buildDuplicateMap(shorts);
+
+    const forceReset = params.has('reset');
+    const onlyIds = params.get('only') ? params.get('only').split(',') : null;
+
+    if (forceReset) {
+      localStorage.removeItem(LS_KEY);
+      shorts.forEach(s => { decisions[s.id] = {status: s.status || 'pending', comment: s.comment || ''}; });
+    } else {
+      const saved = JSON.parse(localStorage.getItem(LS_KEY) || '{}');
+      shorts.forEach(s => {
+        decisions[s.id] = saved[s.id] || {status: s.status || 'pending', comment: s.comment || ''};
+      });
+    }
+
+    if (onlyIds) shorts = shorts.filter(s => onlyIds.includes(s.id));
+
+    current = shorts.findIndex(s => decisions[s.id].status === 'pending');
+    if (current === -1) current = shorts.length;
+    init();
+  })
+  .catch(e => { document.body.innerHTML = `<div style="padding:40px;color:#E74C3C;text-align:center"><h2>Error cargando review.json</h2><p style="margin-top:12px;color:#888">Inicia el servidor:<br><code style="color:#F5C842">python3 ~/.claude/skills/content-review/review_server.py . 8080</code><br><br>Debe existir: <code style="color:#F5C842">data/review.json</code></p><p style="margin-top:8px;font-size:12px;color:#444">${e}</p></div>`; });
+
+function init() { renderCard(); updateUI(); }
+
+// ── Render top card ─────────────────────────────────────────────────────────
+function renderCard() {
+  const wrap = document.getElementById('card-wrap');
+  // Remove old top card
+  const old = wrap.querySelector('.card');
+  if (old) old.remove();
+
+  if (current >= shorts.length) { showDone(); return; }
+
+  const s = shorts[current];
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.style.zIndex = 10;
+
+  // Thumbnail first, video on click
+  const img = document.createElement('img');
+  img.className = 'card-media';
+  img.src = s.thumb;
+  img.alt = s.hook;
+  card.appendChild(img);
+
+  // Play button
+  const playBtn = document.createElement('div');
+  playBtn.className = 'play-btn';
+  playBtn.textContent = '▶';
+  card.appendChild(playBtn);
+
+  // Duplicate image warning badge
+  const dupes = duplicateMap[s.id];
+  const dupeBadge = dupes
+    ? `<div style="position:absolute;top:10px;left:10px;background:rgba(230,126,34,0.9);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:12px;z-index:20;letter-spacing:0.5px">⚠ IMAGEN REPETIDA · ${dupes.join(', ')}</div>`
+    : '';
+
+  // Overlay
+  card.insertAdjacentHTML('beforeend', `
+    ${dupeBadge}
+    <div class="card-overlay">
+      <div class="card-tema">${(s.tema||'').toUpperCase()}</div>
+      <div class="card-hook">${s.hook||''}</div>
+      <div class="card-titulo">${s.titulo||''}</div>
+    </div>
+    <div class="stamp stamp-ok">OK</div>
+    <div class="stamp stamp-no">NO</div>
+  `);
+
+  // Click thumbnail → switch to video
+  card.addEventListener('click', e => {
+    if (e.target.closest('.card-overlay')) return;
+    if (!card.querySelector('video')) {
+      const vid = document.createElement('video');
+      vid.className = 'card-media';
+      vid.src = s.mp4;
+      vid.controls = true;
+      vid.playsInline = true;
+      vid.autoplay = true;
+      vid.style.position = 'relative';
+      vid.style.zIndex = 5;
+      img.replaceWith(vid);
+      playBtn.classList.add('hidden');
+      activeVideo = vid;
+      vid.play().catch(() => {});
+    }
+  });
+
+  setupDrag(card);
+  wrap.appendChild(card);
+
+  // Prev card behind
+  const b1 = document.getElementById('behind1');
+  const b2 = document.getElementById('behind2');
+  if (shorts[current + 1]) {
+    b1.style.display = '';
+    b1.style.backgroundImage = `url(${shorts[current+1].thumb})`;
+    b1.style.backgroundSize = 'cover';
+    b1.style.backgroundPosition = 'center';
+  } else { b1.style.display = 'none'; }
+  if (shorts[current + 2]) {
+    b2.style.display = '';
+  } else { b2.style.display = 'none'; }
+}
+
+// ── Drag ────────────────────────────────────────────────────────────────────
+function setupDrag(card) {
+  let sx = 0, dx = 0, dragging = false;
+  const stampOk = card.querySelector('.stamp-ok');
+  const stampNo = card.querySelector('.stamp-no');
+
+  card.addEventListener('mousedown', e => {
+    if (e.target.tagName === 'VIDEO' || e.target.tagName === 'BUTTON') return;
+    sx = e.clientX; dragging = true;
+    card.classList.add('dragging');
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    dx = e.clientX - sx;
+    card.style.transform = `translateX(${dx}px) rotate(${dx*0.06}deg)`;
+    const r = Math.min(Math.abs(dx)/90, 1);
+    stampOk.style.opacity = dx > 0 ? r : 0;
+    stampNo.style.opacity = dx < 0 ? r : 0;
+  });
+  document.addEventListener('mouseup', () => {
+    if (!dragging) return;
+    dragging = false; card.classList.remove('dragging');
+    if      (dx > 80)  decide('approved');
+    else if (dx < -80) decide('rejected');
+    else { card.style.transform = ''; stampOk.style.opacity = 0; stampNo.style.opacity = 0; }
+    dx = 0;
+  });
+}
+
+// ── Auto-save ────────────────────────────────────────────────────────────────
+let _saveTimer = null;
+function autoSave() {
+  localStorage.setItem(LS_KEY, JSON.stringify(decisions));
+  setSaveStatus('saving');
+  clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(() => {
+    fetch('/save', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(buildOutput())
+    })
+    .then(r => r.ok ? setSaveStatus('ok') : setSaveStatus('error'))
+    .catch(() => setSaveStatus('local')); // localStorage only — no server
+  }, 300); // debounce 300ms
+}
+
+function setSaveStatus(state) {
+  const icon       = document.getElementById('save-icon');
+  const label      = document.getElementById('save-label');
+  const headerDot  = document.getElementById('header-save');
+  const map = {
+    saving: ['⏳', 'Guardando...', '#888',    '● guardando', '#555'],
+    ok:     ['✅', 'Guardado',     '#2ECC71', '● guardado',  '#2ECC71'],
+    local:  ['💾', 'localStorage OK (sin servidor)', '#F5C842', '● local', '#F5C842'],
+    error:  ['⚠️', 'Error — localStorage OK', '#E74C3C', '● error', '#E74C3C'],
+  };
+  const [i, l, c, ht, hc] = map[state] || map.ok;
+  if (icon)      { icon.textContent  = i; }
+  if (label)     { label.textContent = l; label.style.color = c; }
+  if (headerDot) { headerDot.textContent = ht; headerDot.style.color = hc; }
+}
+
+function buildOutput() {
+  return {
+    session_date: new Date().toISOString(),
+    batch:        reviewData?.batch    || 'unknown',
+    project:      reviewData?.project  || 'unknown',
+    type:         reviewData?.type     || 'unknown',
+    items: shorts.map(s => ({
+      id:      s.id,
+      titulo:  s.titulo  || s.title || '',
+      tema:    s.tema    || s.category || '',
+      hook:    s.hook    || '',
+      status:  decisions[s.id]?.status  || 'pending',
+      comment: decisions[s.id]?.comment || '',
+      // Preserve media paths for Claude to act on
+      mp4:     s.mp4   || null,
+      thumb:   s.thumb || s.image || null,
+    }))
+  };
+}
+
+// ── Decide ──────────────────────────────────────────────────────────────────
+function decide(status) {
+  if (current >= shorts.length) return;
+  const s = shorts[current];
+  const comment = document.getElementById('comment-box').value.trim();
+  decisions[s.id] = { status, comment };
+
+  if (activeVideo) { activeVideo.pause(); activeVideo = null; }
+
+  const card = document.querySelector('.card');
+  if (card) {
+    const flyClass = status === 'approved' ? 'fly-right' :
+                     status === 'rejected' ? 'fly-left'  :
+                     status === 'no_cargo' ? 'fly-left'  : 'fly-right';
+    card.classList.add(flyClass);
+    setTimeout(() => { card.remove(); }, 400);
+  }
+
+  document.getElementById('comment-box').value = '';
+  addPrevItem(s, status, comment);
+  autoSave();
+  current++;
+  updateUI();
+
+  setTimeout(() => renderCard(), 150);
+}
+
+// ── UI ───────────────────────────────────────────────────────────────────────
+function updateUI() {
+  const pct = shorts.length ? (current / shorts.length) * 100 : 0;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('counter').textContent = `${current} / ${shorts.length}`;
+}
+
+function addPrevItem(s, status, comment) {
+  const list = document.getElementById('prev-list');
+  const d = document.createElement('div');
+  d.className = 'prev-item';
+  const dot = status === 'approved' ? '🟢' : status === 'rejected' ? '🔴' : status === 'no_cargo' ? '🟠' : '⚪';
+  d.innerHTML = `<span>${dot}</span><span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.hook}</span>`;
+  list.prepend(d);
+}
+
+// ── Done ─────────────────────────────────────────────────────────────────────
+function showDone() {
+  document.getElementById('main').style.display = 'none';
+  const done = document.getElementById('done-screen');
+  done.style.display = 'flex';
+
+  const vals = Object.values(decisions);
+  document.getElementById('stat-approved').textContent = vals.filter(d=>d.status==='approved').length;
+  document.getElementById('stat-rejected').textContent = vals.filter(d=>d.status==='rejected').length;
+  document.getElementById('stat-pending').textContent  = vals.filter(d=>d.status==='pending').length;
+
+  // Show no_cargo count if any
+  const noCargo = vals.filter(d=>d.status==='no_cargo').length;
+  if (noCargo > 0) {
+    const statsEl = document.getElementById('done-stats');
+    statsEl.insertAdjacentHTML('beforeend', `
+      <div class="stat"><div class="stat-n" style="color:var(--orange)">${noCargo}</div><div class="stat-l">No cargó</div></div>`);
+  }
+
+  const list = document.getElementById('summary-list');
+  shorts.forEach(s => {
+    const d = decisions[s.id] || {status:'pending',comment:''};
+    const iconMap = {approved:'✓', rejected:'✗', no_cargo:'⚠', pending:'○'};
+    const icon = iconMap[d.status] || '○';
+    const el = document.createElement('div');
+    el.className = 'sum-item';
+    el.innerHTML = `
+      <div class="sum-badge ${d.status}">${icon}</div>
+      <div>
+        <div>${s.hook}</div>
+        ${d.comment ? `<div class="sum-comment">💬 ${d.comment}</div>` : ''}
+        ${d.status === 'no_cargo' ? `<div class="sum-comment" style="color:var(--orange)">⚠ Error técnico — re-renderizar</div>` : ''}
+      </div>`;
+    list.appendChild(el);
+  });
+}
+
+// ── Export ───────────────────────────────────────────────────────────────────
+document.getElementById('btn-export').addEventListener('click', () => {
+  const out = buildOutput();
+  const blob = new Blob([JSON.stringify(out,null,2)], {type:'application/json'});
+  const a = Object.assign(document.createElement('a'), {href:URL.createObjectURL(blob), download: (reviewData?.batch || 'review') + '_review.json'});
+  a.click();
+});
+
+document.getElementById('btn-back').addEventListener('click', () => {
+  current = 0; decisions = {}; shorts.forEach(s=>decisions[s.id]={status:'pending',comment:''});
+  localStorage.removeItem(LS_KEY);
+  document.getElementById('summary-list').innerHTML = '';
+  document.getElementById('prev-list').innerHTML = '';
+  document.getElementById('done-screen').style.display = 'none';
+  document.getElementById('main').style.display = '';
+  init();
+});
+
+// ── Keyboard ─────────────────────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  const focus = document.activeElement;
+  if (focus && (focus.tagName === 'TEXTAREA' || focus.tagName === 'INPUT')) return;
+  if (e.key === 'ArrowRight')           decide('approved');
+  if (e.key === 'ArrowLeft')            decide('rejected');
+  if (e.key === 'ArrowDown')            decide('pending');
+  if (e.key === 'n' || e.key === 'N')   decide('no_cargo');
+  if (e.key === ' ') {
+    e.preventDefault();
+    const vid = document.querySelector('.card video');
+    if (vid) { vid.paused ? vid.play() : vid.pause(); }
+    else { const card = document.querySelector('.card'); if(card) card.click(); }
+  }
+});
+
+// ── Buttons ───────────────────────────────────────────────────────────────────
+document.getElementById('btn-approve' ).addEventListener('click', () => decide('approved'));
+document.getElementById('btn-reject'  ).addEventListener('click', () => decide('rejected'));
+document.getElementById('btn-skip'    ).addEventListener('click', () => decide('pending'));
+document.getElementById('btn-no-cargo').addEventListener('click', () => decide('no_cargo'));
+</script>
+</body>
+</html>
