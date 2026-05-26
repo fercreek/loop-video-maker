@@ -3,19 +3,35 @@ config.json
 .env
 client_secret.json
 data/yt_token.json
+data/yt_token.json.*
 
 # ── Output (videos, thumbnails, fondos — demasiado grandes para git) ────────
 output/
 
+# ── Audio cache (MusicGen, narrations, tests — grande, regenerable) ─────────
+audio/cache/
+audio/narrations/
+audio/test/
+
 # ── Render logs / eval JSONs (generados en cada run, no son código) ─────────
 logs/renders/
 logs/*.log
+logs/*.stdout
+logs/*.stderr
 logs/files.log
+logs/qa/
+logs/analytics/
 eval/*.json
 
-# ── Data / DB ────────────────────────────────────────────────────────────────
+# ── Data / DB / generated state ─────────────────────────────────────────────
 data/history.db
 data/*.db
+data/learnings.json
+data/stories/
+data/review.json
+data/review_history.json
+data/ig_state.json
+data/shorts_manifest.json
 
 # ── Python ───────────────────────────────────────────────────────────────────
 __pycache__/
@@ -25,7 +41,12 @@ __pycache__/
 dist/
 build/
 .venv/
+.venv-*/
 venv/
+
+# ── Scratch / test files ────────────────────────────────────────────────────
+test_*.py
+review_shorts.html
 
 # ── OS / IDE ─────────────────────────────────────────────────────────────────
 .DS_Store
