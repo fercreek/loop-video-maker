@@ -1,0 +1,126 @@
+{
+  "review_date": "2026-05-12",
+  "batch": "batch_v6",
+  "shorts": [
+    {
+      "id": "ansiedad_001",
+      "mp4": "output/shorts/batch_v6/short_ansiedad_001_20260511.mp4",
+      "mp4_rel": "output/shorts/batch_v6/short_ansiedad_001_20260511.mp4",
+      "titulo": "Oración para la ansiedad y el miedo",
+      "hook": "¿El miedo no te deja respirar?",
+      "tema": "ansiedad",
+      "duration_s": null,
+      "status": "approved",
+      "comment": "",
+      "thumb": "output/shorts/batch_v6/thumbs/ansiedad_001.jpg"
+    },
+    {
+      "id": "corazon_001",
+      "mp4": "output/shorts/batch_v6/short_corazon_001_20260511.mp4",
+      "mp4_rel": "output/shorts/batch_v6/short_corazon_001_20260511.mp4",
+      "titulo": "Oración para sanar el corazón roto",
+      "hook": "¿Tienes el corazón roto?",
+      "tema": "sanación",
+      "duration_s": null,
+      "status": "approved",
+      "comment": "a veces los textos van muy rapidos pero en general",
+      "thumb": "output/shorts/batch_v6/thumbs/corazon_001.jpg"
+    },
+    {
+      "id": "dormir_001",
+      "mp4": "output/shorts/batch_v6/short_dormir_001_20260511.mp4",
+      "mp4_rel": "output/shorts/batch_v6/short_dormir_001_20260511.mp4",
+      "titulo": "Oración para dormir en paz esta noche",
+      "hook": "¿No puedes dormir esta noche?",
+      "tema": "dormir",
+      "duration_s": null,
+      "status": "approved",
+      "comment": "",
+      "thumb": "output/shorts/batch_v6/thumbs/dormir_001.jpg"
+    },
+    {
+      "id": "hijos_001",
+      "mp4": "output/shorts/batch_v6/short_hijos_001_20260511.mp4",
+      "mp4_rel": "output/shorts/batch_v6/short_hijos_001_20260511.mp4",
+      "titulo": "Oración por mis hijos: protégelos Señor",
+      "hook": "Esta oración es por tus hijos",
+      "tema": "familia",
+      "duration_s": null,
+      "status": "approved",
+      "comment": "",
+      "thumb": "output/shorts/batch_v6/thumbs/hijos_001.jpg"
+    },
+    {
+      "id": "manana_001",
+      "mp4": "output/shorts/batch_v6/short_manana_001_20260511.mp4",
+      "mp4_rel": "output/shorts/batch_v6/short_manana_001_20260511.mp4",
+      "titulo": "Oración de la mañana para empezar bien el día",
+      "hook": "Empieza tu día con esta oración",
+      "tema": "mañana",
+      "duration_s": null,
+      "status": "approved",
+      "comment": "",
+      "thumb": "output/shorts/batch_v6/thumbs/manana_001.jpg"
+    },
+    {
+      "id": "milagro_001",
+      "mp4": "output/shorts/batch_v6/short_milagro_001_20260511.mp4",
+      "mp4_rel": "output/shorts/batch_v6/short_milagro_001_20260511.mp4",
+      "titulo": "Oración para pedir un milagro: nada es imposible para Dios",
+      "hook": "¿Necesitas un milagro hoy?",
+      "tema": "milagro",
+      "duration_s": null,
+      "status": "approved",
+      "comment": "",
+      "thumb": "output/shorts/batch_v6/thumbs/milagro_001.jpg"
+    },
+    {
+      "id": "soledad_001",
+      "mp4": "output/shorts/batch_v6/short_soledad_001_20260511.mp4",
+      "mp4_rel": "output/shorts/batch_v6/short_soledad_001_20260511.mp4",
+      "titulo": "Oración para cuando te sientes solo y sin esperanza",
+      "hook": "¿Te sientes completamente solo?",
+      "tema": "soledad",
+      "duration_s": null,
+      "status": "approved",
+      "comment": "",
+      "thumb": "output/shorts/batch_v6/thumbs/soledad_001.jpg"
+    },
+    {
+      "id": "tiempos_dificiles_001",
+      "mp4": "output/shorts/batch_v6/short_tiempos_dificiles_001_20260511.mp4",
+      "mp4_rel": "output/shorts/batch_v6/short_tiempos_dificiles_001_20260511.mp4",
+      "titulo": "Oración para tiempos difíciles: Dios no te ha abandonado",
+      "hook": "¿Sientes que Dios te abandonó?",
+      "tema": "esperanza",
+      "duration_s": null,
+      "status": "approved",
+      "comment": "",
+      "thumb": "output/shorts/batch_v6/thumbs/tiempos_dificiles_001.jpg"
+    },
+    {
+      "id": "trabajo_001",
+      "mp4": "output/shorts/batch_v6/short_trabajo_001_20260511.mp4",
+      "mp4_rel": "output/shorts/batch_v6/short_trabajo_001_20260511.mp4",
+      "titulo": "Oración para el trabajo: abre puertas que nadie puede cerrar",
+      "hook": "¿Necesitas un milagro en tu trabajo?",
+      "tema": "trabajo",
+      "duration_s": null,
+      "status": "pending",
+      "comment": "",
+      "thumb": "output/shorts/batch_v6/thumbs/trabajo_001.jpg"
+    },
+    {
+      "id": "tristeza_001",
+      "mp4": "output/shorts/batch_v6/short_tristeza_001_20260511.mp4",
+      "mp4_rel": "output/shorts/batch_v6/short_tristeza_001_20260511.mp4",
+      "titulo": "Oración para cuando estás triste sin saber por qué",
+      "hook": "¿Estás triste sin saber por qué?",
+      "tema": "tristeza",
+      "duration_s": null,
+      "status": "pending",
+      "comment": "",
+      "thumb": "output/shorts/batch_v6/thumbs/tristeza_001.jpg"
+    }
+  ]
+}

@@ -86,7 +86,7 @@ def get_channel_id(handle_or_id: str | None = None) -> str:
     raise RuntimeError("No se encontró ningún canal en la cuenta autenticada.")
 
 SCOPES = [
-    "https://www.googleapis.com/auth/youtube.readonly",
+    "https://www.googleapis.com/auth/youtube",
     "https://www.googleapis.com/auth/yt-analytics.readonly",
 ]
 

@@ -1,0 +1,844 @@
+{
+  "version": "1.0",
+  "created": "2026-05-11",
+  "description": "Content registry — spec + metrics por pieza de contenido",
+  "content": [
+    {
+      "id": "david-goliat",
+      "type": "long_form",
+      "session": "2026-05-11",
+      "title": "David y Goliat: El Gigante que Cayó ante Dios",
+      "spec": {
+        "voice": "es-MX-JorgeNeural",
+        "music_mood": "varies",
+        "lufs": -14.18,
+        "ken_burns": "linear_pan_4_directions",
+        "subtitle_style": "pillow_karaoke_gold_word_by_word",
+        "thumbnail": "Impact_Bold_stopwords_skip",
+        "chapters": true,
+        "tags_max_chars": 30,
+        "hook_first_frame": true
+      },
+      "upload": {
+        "platform": "youtube",
+        "video_id": "9w16_VFEbBw",
+        "url": "https://youtube.com/watch?v=9w16_VFEbBw",
+        "upload_date": "2026-05-11",
+        "scheduled_date": null,
+        "scheduled_time_mty": null
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "noe",
+      "type": "long_form",
+      "session": "2026-05-11",
+      "title": "Noé y el Diluvio: Cuando Dios Salvó a la Humanidad",
+      "spec": {
+        "voice": "es-MX-JorgeNeural",
+        "music_mood": "varies",
+        "lufs": -14.18,
+        "ken_burns": "linear_pan_4_directions",
+        "subtitle_style": "pillow_karaoke_gold_word_by_word",
+        "thumbnail": "Impact_Bold_stopwords_skip",
+        "chapters": true,
+        "tags_max_chars": 30,
+        "hook_first_frame": true
+      },
+      "upload": {
+        "platform": "youtube",
+        "video_id": "Fp44KoQurkM",
+        "url": "https://youtube.com/watch?v=Fp44KoQurkM",
+        "upload_date": "2026-05-11",
+        "scheduled_date": null,
+        "scheduled_time_mty": null
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "jonas",
+      "type": "long_form",
+      "session": "2026-05-11",
+      "title": "Jonás y la Ballena: La Misericordia de Dios",
+      "spec": {
+        "voice": "es-MX-JorgeNeural",
+        "music_mood": "varies",
+        "lufs": -14.18,
+        "ken_burns": "linear_pan_4_directions",
+        "subtitle_style": "pillow_karaoke_gold_word_by_word",
+        "thumbnail": "Impact_Bold_stopwords_skip",
+        "chapters": true,
+        "tags_max_chars": 30,
+        "hook_first_frame": true
+      },
+      "upload": {
+        "platform": "youtube",
+        "video_id": "9517jJFubYk",
+        "url": "https://youtube.com/watch?v=9517jJFubYk",
+        "upload_date": "2026-05-11",
+        "scheduled_date": null,
+        "scheduled_time_mty": null
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "moises",
+      "type": "long_form",
+      "session": "2026-05-11",
+      "title": "Moisés: El Hombre que Habló con Dios",
+      "spec": {
+        "voice": "es-MX-JorgeNeural",
+        "music_mood": "varies",
+        "lufs": -14.18,
+        "ken_burns": "linear_pan_4_directions",
+        "subtitle_style": "pillow_karaoke_gold_word_by_word",
+        "thumbnail": "Impact_Bold_stopwords_skip",
+        "chapters": true,
+        "tags_max_chars": 30,
+        "hook_first_frame": true
+      },
+      "upload": {
+        "platform": "youtube",
+        "video_id": "4OxApIJ7L-E",
+        "url": "https://youtube.com/watch?v=4OxApIJ7L-E",
+        "upload_date": "2026-05-11",
+        "scheduled_date": null,
+        "scheduled_time_mty": null
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "abraham-e-isaac",
+      "type": "long_form",
+      "session": "2026-05-11",
+      "title": "Abraham e Isaac: La Prueba del Sacrificio",
+      "spec": {
+        "voice": "es-MX-JorgeNeural",
+        "music_mood": "varies",
+        "lufs": -14.18,
+        "ken_burns": "linear_pan_4_directions",
+        "subtitle_style": "pillow_karaoke_gold_word_by_word",
+        "thumbnail": "Impact_Bold_stopwords_skip",
+        "chapters": true,
+        "tags_max_chars": 30,
+        "hook_first_frame": true
+      },
+      "upload": {
+        "platform": "youtube",
+        "video_id": "JgWIisil1r0",
+        "url": "https://youtube.com/watch?v=JgWIisil1r0",
+        "upload_date": "2026-05-11",
+        "scheduled_date": null,
+        "scheduled_time_mty": null
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "jose-y-sus-hermanos",
+      "type": "long_form",
+      "session": "2026-05-11",
+      "title": "José y sus Hermanos: De la Traición al Triunfo",
+      "spec": {
+        "voice": "es-MX-JorgeNeural",
+        "music_mood": "varies",
+        "lufs": -14.18,
+        "ken_burns": "linear_pan_4_directions",
+        "subtitle_style": "pillow_karaoke_gold_word_by_word",
+        "thumbnail": "Impact_Bold_stopwords_skip",
+        "chapters": true,
+        "tags_max_chars": 30,
+        "hook_first_frame": true
+      },
+      "upload": {
+        "platform": "youtube",
+        "video_id": "XQ20DI64QG0",
+        "url": "https://youtube.com/watch?v=XQ20DI64QG0",
+        "upload_date": "2026-05-11",
+        "scheduled_date": null,
+        "scheduled_time_mty": null
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "daniel-foso-leones",
+      "type": "long_form",
+      "session": "2026-05-11",
+      "title": "Daniel en el Foso de los Leones: La Fe que Venció",
+      "spec": {
+        "voice": "es-MX-JorgeNeural",
+        "music_mood": "varies",
+        "lufs": -14.18,
+        "ken_burns": "linear_pan_4_directions",
+        "subtitle_style": "pillow_karaoke_gold_word_by_word",
+        "thumbnail": "Impact_Bold_stopwords_skip",
+        "chapters": true,
+        "tags_max_chars": 30,
+        "hook_first_frame": true
+      },
+      "upload": {
+        "platform": "youtube",
+        "video_id": "RXMxEkJpLvs",
+        "url": "https://youtube.com/watch?v=RXMxEkJpLvs",
+        "upload_date": "2026-05-11",
+        "scheduled_date": null,
+        "scheduled_time_mty": null
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "sanson-y-dalila",
+      "type": "long_form",
+      "session": "2026-05-11",
+      "title": "Sansón y Dalila: La Fuerza que Perdió y Recuperó",
+      "spec": {
+        "voice": "es-MX-JorgeNeural",
+        "music_mood": "varies",
+        "lufs": -14.18,
+        "ken_burns": "linear_pan_4_directions",
+        "subtitle_style": "pillow_karaoke_gold_word_by_word",
+        "thumbnail": "Impact_Bold_stopwords_skip",
+        "chapters": true,
+        "tags_max_chars": 30,
+        "hook_first_frame": true
+      },
+      "upload": {
+        "platform": "youtube",
+        "video_id": "KPePog2wijo",
+        "url": "https://youtube.com/watch?v=KPePog2wijo",
+        "upload_date": "2026-05-11",
+        "scheduled_date": null,
+        "scheduled_time_mty": null
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "ester-y-el-rey",
+      "type": "long_form",
+      "session": "2026-05-11",
+      "title": "Ester y el Rey Asuero: La Reina que Salvó a su Pueblo",
+      "spec": {
+        "voice": "es-MX-JorgeNeural",
+        "music_mood": "varies",
+        "lufs": -14.18,
+        "ken_burns": "linear_pan_4_directions",
+        "subtitle_style": "pillow_karaoke_gold_word_by_word",
+        "thumbnail": "Impact_Bold_stopwords_skip",
+        "chapters": true,
+        "tags_max_chars": 30,
+        "hook_first_frame": true
+      },
+      "upload": {
+        "platform": "youtube",
+        "video_id": "nwiCsnBco2Q",
+        "url": "https://youtube.com/watch?v=nwiCsnBco2Q",
+        "upload_date": "2026-05-11",
+        "scheduled_date": null,
+        "scheduled_time_mty": null
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "ruth-y-noemi",
+      "type": "long_form",
+      "session": "2026-05-11",
+      "title": "Ruth y Noemí: La Lealtad que Trascendió la Muerte",
+      "spec": {
+        "voice": "es-MX-JorgeNeural",
+        "music_mood": "varies",
+        "lufs": -14.18,
+        "ken_burns": "linear_pan_4_directions",
+        "subtitle_style": "pillow_karaoke_gold_word_by_word",
+        "thumbnail": "Impact_Bold_stopwords_skip",
+        "chapters": true,
+        "tags_max_chars": 30,
+        "hook_first_frame": true
+      },
+      "upload": {
+        "platform": "youtube",
+        "video_id": "HeGUMgQlfFo",
+        "url": "https://youtube.com/watch?v=HeGUMgQlfFo",
+        "upload_date": "2026-05-11",
+        "scheduled_date": "2026-05-31",
+        "scheduled_time_mty": "18:00"
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "hijo-prodigo",
+      "type": "long_form",
+      "session": "2026-05-11",
+      "title": "El Hijo Pródigo: La Historia del Amor que Perdona Todo",
+      "spec": {
+        "voice": "es-MX-JorgeNeural",
+        "music_mood": "varies",
+        "lufs": -14.18,
+        "ken_burns": "linear_pan_4_directions",
+        "subtitle_style": "pillow_karaoke_gold_word_by_word",
+        "thumbnail": "Impact_Bold_stopwords_skip",
+        "chapters": true,
+        "tags_max_chars": 30,
+        "hook_first_frame": true
+      },
+      "upload": {
+        "platform": "youtube",
+        "video_id": "V1GdUjw2GVk",
+        "url": "https://youtube.com/watch?v=V1GdUjw2GVk",
+        "upload_date": "2026-05-11",
+        "scheduled_date": "2026-05-28",
+        "scheduled_time_mty": "18:00"
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "buen-samaritano",
+      "type": "long_form",
+      "session": "2026-05-11",
+      "title": "El Buen Samaritano: Lo que Significa Amar al Prójimo",
+      "spec": {
+        "voice": "es-MX-JorgeNeural",
+        "music_mood": "varies",
+        "lufs": -14.18,
+        "ken_burns": "linear_pan_4_directions",
+        "subtitle_style": "pillow_karaoke_gold_word_by_word",
+        "thumbnail": "Impact_Bold_stopwords_skip",
+        "chapters": true,
+        "tags_max_chars": 30,
+        "hook_first_frame": true
+      },
+      "upload": {
+        "platform": "youtube",
+        "video_id": "uxwYipwPVlY",
+        "url": "https://youtube.com/watch?v=uxwYipwPVlY",
+        "upload_date": "2026-05-11",
+        "scheduled_date": "2026-05-25",
+        "scheduled_time_mty": "18:00"
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "lazaro-resurreccion",
+      "type": "long_form",
+      "session": "2026-05-11",
+      "title": "Lázaro: Jesús Venció a la Muerte",
+      "spec": {
+        "voice": "es-MX-JorgeNeural",
+        "music_mood": "varies",
+        "lufs": -14.18,
+        "ken_burns": "linear_pan_4_directions",
+        "subtitle_style": "pillow_karaoke_gold_word_by_word",
+        "thumbnail": "Impact_Bold_stopwords_skip",
+        "chapters": true,
+        "tags_max_chars": 30,
+        "hook_first_frame": true
+      },
+      "upload": {
+        "platform": "youtube",
+        "video_id": "5PhNZPFp9sA",
+        "url": "https://youtube.com/watch?v=5PhNZPFp9sA",
+        "upload_date": "2026-05-11",
+        "scheduled_date": "2026-05-29",
+        "scheduled_time_mty": "18:00"
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "resurreccion-de-jesus",
+      "type": "long_form",
+      "session": "2026-05-11",
+      "title": "La Resurrección de Jesús: El Milagro que Fundó la Fe",
+      "spec": {
+        "voice": "es-MX-JorgeNeural",
+        "music_mood": "varies",
+        "lufs": -14.18,
+        "ken_burns": "linear_pan_4_directions",
+        "subtitle_style": "pillow_karaoke_gold_word_by_word",
+        "thumbnail": "Impact_Bold_stopwords_skip",
+        "chapters": true,
+        "tags_max_chars": 30,
+        "hook_first_frame": true
+      },
+      "upload": {
+        "platform": "youtube",
+        "video_id": "AEwRB7r21nA",
+        "url": "https://youtube.com/watch?v=AEwRB7r21nA",
+        "upload_date": "2026-05-11",
+        "scheduled_date": "2026-05-30",
+        "scheduled_time_mty": "18:00"
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "job-sufrimiento",
+      "type": "long_form",
+      "session": "2026-05-11",
+      "title": "Job: La Prueba del Sufrimiento y la Fe Inquebrantable",
+      "spec": {
+        "voice": "es-MX-JorgeNeural",
+        "music_mood": "varies",
+        "lufs": -14.18,
+        "ken_burns": "linear_pan_4_directions",
+        "subtitle_style": "pillow_karaoke_gold_word_by_word",
+        "thumbnail": "Impact_Bold_stopwords_skip",
+        "chapters": true,
+        "tags_max_chars": 30,
+        "hook_first_frame": true
+      },
+      "upload": {
+        "platform": "youtube",
+        "video_id": "iMPxY1zAsFw",
+        "url": "https://youtube.com/watch?v=iMPxY1zAsFw",
+        "upload_date": "2026-05-11",
+        "scheduled_date": "2026-06-01",
+        "scheduled_time_mty": "18:00"
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "pentecostes",
+      "type": "long_form",
+      "session": "2026-05-11",
+      "title": "Pentecostés: El Fuego del Espíritu Santo Desciende",
+      "spec": {
+        "voice": "es-MX-JorgeNeural",
+        "music_mood": "varies",
+        "lufs": -14.18,
+        "ken_burns": "linear_pan_4_directions",
+        "subtitle_style": "pillow_karaoke_gold_word_by_word",
+        "thumbnail": "Impact_Bold_stopwords_skip",
+        "chapters": true,
+        "tags_max_chars": 30,
+        "hook_first_frame": true
+      },
+      "upload": {
+        "platform": "youtube",
+        "video_id": "0eJRwqC3dGs",
+        "url": "https://youtube.com/watch?v=0eJRwqC3dGs",
+        "upload_date": "2026-05-11",
+        "scheduled_date": null,
+        "scheduled_time_mty": null
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "ansiedad_001",
+      "type": "short",
+      "session": "2026-05-11",
+      "title": "Oración para la ansiedad y el miedo",
+      "spec": {
+        "voice": "es-MX-DaliaNeural",
+        "duration_s": null,
+        "hook": "¿El miedo no te deja respirar?",
+        "cta": "Guarda este video para cuando lo necesites",
+        "font": "Montserrat-ExtraBold",
+        "sub_color": "#F5C842",
+        "sub_chars_per_line": 26,
+        "images": [
+          "fondo_ai_heaven_clouds.jpg"
+        ],
+        "music_mood": "contemplacion",
+        "ken_burns": true,
+        "voice_eq": "highpass+equalizer+acompressor+aecho",
+        "music_vol_db": -18,
+        "version": "v2"
+      },
+      "upload": {
+        "platform": null,
+        "video_id": null,
+        "upload_date": null
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "corazon_001",
+      "type": "short",
+      "session": "2026-05-11",
+      "title": "Oración para sanar el corazón roto",
+      "spec": {
+        "voice": "es-MX-DaliaNeural",
+        "duration_s": null,
+        "hook": "¿Tienes el corazón roto?",
+        "cta": "Guarda este video para cuando lo necesites",
+        "font": "Montserrat-ExtraBold",
+        "sub_color": "#F5C842",
+        "sub_chars_per_line": 26,
+        "images": [
+          "fondo_ai_river_life.jpg"
+        ],
+        "music_mood": "restauracion",
+        "ken_burns": true,
+        "voice_eq": "highpass+equalizer+acompressor+aecho",
+        "music_vol_db": -18,
+        "version": "v2"
+      },
+      "upload": {
+        "platform": null,
+        "video_id": null,
+        "upload_date": "2026-05-11",
+        "youtube_id": "5O_4RD49pkA",
+        "youtube_url": "https://youtube.com/shorts/5O_4RD49pkA",
+        "status": "live"
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "dormir_001",
+      "type": "short",
+      "session": "2026-05-11",
+      "title": "Oración para dormir en paz esta noche",
+      "spec": {
+        "voice": "es-MX-DaliaNeural",
+        "duration_s": null,
+        "hook": "¿No puedes dormir esta noche?",
+        "cta": "Guarda este video para cuando lo necesites",
+        "font": "Montserrat-ExtraBold",
+        "sub_color": "#F5C842",
+        "sub_chars_per_line": 26,
+        "images": [
+          "fondo_ai_night_stars.jpg"
+        ],
+        "music_mood": "paz",
+        "ken_burns": true,
+        "voice_eq": "highpass+equalizer+acompressor+aecho",
+        "music_vol_db": -18,
+        "version": "v2"
+      },
+      "upload": {
+        "platform": null,
+        "video_id": null,
+        "upload_date": "2026-05-11",
+        "youtube_id": "1fX0qAfHfjg",
+        "youtube_url": "https://youtube.com/shorts/1fX0qAfHfjg",
+        "status": "live"
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "hijos_001",
+      "type": "short",
+      "session": "2026-05-11",
+      "title": "Oración por mis hijos: protégelos Señor",
+      "spec": {
+        "voice": "es-MX-DaliaNeural",
+        "duration_s": null,
+        "hook": "Esta oración es por tus hijos",
+        "cta": "Guarda este video para cuando lo necesites",
+        "font": "Montserrat-ExtraBold",
+        "sub_color": "#F5C842",
+        "sub_chars_per_line": 26,
+        "images": [
+          "fondo_ai_rain_blessing.jpg"
+        ],
+        "music_mood": "adoracion",
+        "ken_burns": true,
+        "voice_eq": "highpass+equalizer+acompressor+aecho",
+        "music_vol_db": -18,
+        "version": "v2"
+      },
+      "upload": {
+        "platform": null,
+        "video_id": null,
+        "upload_date": "2026-05-11",
+        "youtube_id": "s_PwWnTdUF0",
+        "youtube_url": "https://youtube.com/shorts/s_PwWnTdUF0",
+        "status": "live"
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "manana_001",
+      "type": "short",
+      "session": "2026-05-11",
+      "title": "Oración de la mañana para empezar bien el día",
+      "spec": {
+        "voice": "es-MX-DaliaNeural",
+        "duration_s": null,
+        "hook": "Empieza tu día con esta oración",
+        "cta": "Guarda este video para cuando lo necesites",
+        "font": "Montserrat-ExtraBold",
+        "sub_color": "#F5C842",
+        "sub_chars_per_line": 26,
+        "images": [
+          "fondo_ai_divine_sunrise.jpg"
+        ],
+        "music_mood": "adoracion",
+        "ken_burns": true,
+        "voice_eq": "highpass+equalizer+acompressor+aecho",
+        "music_vol_db": -18,
+        "version": "v2"
+      },
+      "upload": {
+        "platform": null,
+        "video_id": null,
+        "upload_date": "2026-05-11",
+        "youtube_id": "OFk9INs0sKo",
+        "youtube_url": "https://youtube.com/shorts/OFk9INs0sKo",
+        "status": "live"
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "milagro_001",
+      "type": "short",
+      "session": "2026-05-11",
+      "title": "Oración para pedir un milagro: nada es imposible para Dios",
+      "spec": {
+        "voice": "es-MX-DaliaNeural",
+        "duration_s": null,
+        "hook": "¿Necesitas un milagro hoy?",
+        "cta": "Guarda este video para cuando lo necesites",
+        "font": "Montserrat-ExtraBold",
+        "sub_color": "#F5C842",
+        "sub_chars_per_line": 26,
+        "images": [
+          "fondo_ai_parting_waters.jpg"
+        ],
+        "music_mood": "liberacion",
+        "ken_burns": true,
+        "voice_eq": "highpass+equalizer+acompressor+aecho",
+        "music_vol_db": -18,
+        "version": "v2"
+      },
+      "upload": {
+        "platform": null,
+        "video_id": null,
+        "upload_date": "2026-05-11",
+        "youtube_id": "0PICmupuYW0",
+        "youtube_url": "https://youtube.com/shorts/0PICmupuYW0",
+        "status": "live"
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "soledad_001",
+      "type": "short",
+      "session": "2026-05-11",
+      "title": "Oración para cuando te sientes solo y sin esperanza",
+      "spec": {
+        "voice": "es-MX-DaliaNeural",
+        "duration_s": null,
+        "hook": "¿Te sientes completamente solo?",
+        "cta": "Guarda este video para cuando lo necesites",
+        "font": "Montserrat-ExtraBold",
+        "sub_color": "#F5C842",
+        "sub_chars_per_line": 26,
+        "images": [
+          "fondo_ai_night_stars.jpg"
+        ],
+        "music_mood": "contemplacion",
+        "ken_burns": true,
+        "voice_eq": "highpass+equalizer+acompressor+aecho",
+        "music_vol_db": -18,
+        "version": "v2"
+      },
+      "upload": {
+        "platform": null,
+        "video_id": null,
+        "upload_date": "2026-05-11",
+        "youtube_id": "623T2r851og",
+        "youtube_url": "https://youtube.com/shorts/623T2r851og",
+        "status": "live"
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "tiempos_dificiles_001",
+      "type": "short",
+      "session": "2026-05-11",
+      "title": "Oración para tiempos difíciles: Dios no te ha abandonado",
+      "spec": {
+        "voice": "es-MX-DaliaNeural",
+        "duration_s": null,
+        "hook": "¿Sientes que Dios te abandonó?",
+        "cta": "Guarda este video para cuando lo necesites",
+        "font": "Montserrat-ExtraBold",
+        "sub_color": "#F5C842",
+        "sub_chars_per_line": 26,
+        "images": [
+          "fondo_ai_galilee_storm.jpg"
+        ],
+        "music_mood": "intercesion",
+        "ken_burns": true,
+        "voice_eq": "highpass+equalizer+acompressor+aecho",
+        "music_vol_db": -18,
+        "version": "v2"
+      },
+      "upload": {
+        "platform": null,
+        "video_id": null,
+        "upload_date": "2026-05-11",
+        "youtube_id": "yzIsR2FRr1U",
+        "youtube_url": "https://youtube.com/shorts/yzIsR2FRr1U",
+        "status": "live"
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "trabajo_001",
+      "type": "short",
+      "session": "2026-05-11",
+      "title": "Oración para el trabajo: abre puertas que nadie puede cerrar",
+      "spec": {
+        "voice": "es-MX-DaliaNeural",
+        "duration_s": null,
+        "hook": "¿Necesitas un milagro en tu trabajo?",
+        "cta": "Guarda este video para cuando lo necesites",
+        "font": "Montserrat-ExtraBold",
+        "sub_color": "#F5C842",
+        "sub_chars_per_line": 26,
+        "images": [
+          "fondo_ai_pilgrimage_road.jpg"
+        ],
+        "music_mood": "",
+        "ken_burns": true,
+        "voice_eq": "highpass+equalizer+acompressor+aecho",
+        "music_vol_db": -18,
+        "version": "v2"
+      },
+      "upload": {
+        "platform": null,
+        "video_id": null,
+        "upload_date": "2026-05-11",
+        "youtube_id": "88q9A1hZA4A",
+        "youtube_url": "https://youtube.com/shorts/88q9A1hZA4A",
+        "status": "live"
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "tristeza_001",
+      "type": "short",
+      "session": "2026-05-11",
+      "title": "Oración para cuando estás triste sin saber por qué",
+      "spec": {
+        "voice": "es-MX-DaliaNeural",
+        "duration_s": null,
+        "hook": "¿Estás triste sin saber por qué?",
+        "cta": "Guarda este video para cuando lo necesites",
+        "font": "Montserrat-ExtraBold",
+        "sub_color": "#F5C842",
+        "sub_chars_per_line": 26,
+        "images": [
+          "fondo_ai_gethsemane.jpg"
+        ],
+        "music_mood": "solemnidad",
+        "ken_burns": true,
+        "voice_eq": "highpass+equalizer+acompressor+aecho",
+        "music_vol_db": -18,
+        "version": "v2"
+      },
+      "upload": {
+        "platform": null,
+        "video_id": null,
+        "upload_date": "2026-05-11",
+        "youtube_id": "2d30joNqkuE",
+        "youtube_url": "https://youtube.com/shorts/2d30joNqkuE",
+        "status": "live"
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    }
+  ]
+}
