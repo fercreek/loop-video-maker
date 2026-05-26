@@ -400,17 +400,45 @@ def run_pipeline(
         titulo_corto = oracion.get("titulo", "")
         # Extraer solo la primera parte del título (antes de ":")
         # Verse label: solo tema — corto y legible en pantalla
-        verse_label = f"@VersiculoDeDios  ·  {tema.upper()}"
+        verse_label = tema.upper()
 
-        # Segunda imagen: diferente a la primera, para corte a los 18s (v3)
-        fondo2_especifico = oracion.get("fondo2")
-        if fondo2_especifico and (FONDOS_POOL_DIR / fondo2_especifico).exists():
-            image2_path = FONDOS_POOL_DIR / fondo2_especifico
+        # v6: Multi-imagen — preferir campo `fondos: [a, b, c, d]`
+        # Si no existe, fallback a fondo + fondo2 (legacy)
+        images_list: list[Path] = [image_path]
+        fondos_list = oracion.get("fondos")
+        if isinstance(fondos_list, list) and fondos_list:
+            # Usar lista explícita del pool. Primera ya es image_path (de `fondo`).
+            # Si `fondos` y `fondo` coexisten, la lista manda.
+            images_list = []
+            for fn in fondos_list:
+                p = FONDOS_POOL_DIR / fn
+                if p.exists():
+                    images_list.append(p)
+            # Si todos los fondos definidos fallaron, fallback a image_path
+            if not images_list:
+                images_list = [image_path]
         else:
-            # Solo Gemini AI para imagen2 — sin pinturas al óleo
+            # Auto-fill: usar 4 imágenes únicas del pool por defecto (target multi-image)
             all_fondos = sorted(glob.glob(str(FONDOS_POOL_DIR / "fondo_ai_*.jpg")))
-            candidatos = [f for f in all_fondos if f != str(image_path)]
-            image2_path = Path(random.choice(candidatos)) if candidatos else None
+            target_n = 4
+            used_names = {Path(p).name for p in images_list}
+            # legacy fondo2 explícito tiene prioridad como #2
+            fondo2_especifico = oracion.get("fondo2")
+            if fondo2_especifico and (FONDOS_POOL_DIR / fondo2_especifico).exists():
+                p2 = FONDOS_POOL_DIR / fondo2_especifico
+                if p2.name not in used_names:
+                    images_list.append(p2)
+                    used_names.add(p2.name)
+            # Rellenar hasta target_n con random no usados
+            candidatos = [f for f in all_fondos if Path(f).name not in used_names]
+            random.shuffle(candidatos)
+            while len(images_list) < target_n and candidatos:
+                cand = Path(candidatos.pop())
+                images_list.append(cand)
+                used_names.add(cand.name)
+                _BATCH_USED_FONDOS.add(cand.name)
+
+        image2_path = images_list[1] if len(images_list) > 1 else None  # legacy compat
 
         out_filename = f"short_{oid}_{time.strftime('%Y%m%d')}.mp4"
         out_path = output_dir / out_filename
@@ -421,6 +449,7 @@ def run_pipeline(
             narr_path=narr_path,
             image_path=image_path,
             image2_path=image2_path,
+            images=images_list,
             out_path=out_path,
             music_path=music_path,
             hook_text=hook_text,
@@ -428,8 +457,8 @@ def run_pipeline(
             force=force,
         ))
 
-        img2_name = image2_path.name if image2_path else "—"
-        print(f"  {oid}: {image_path.name} → {img2_name} + {music_path.name if music_path else 'sin música'}")
+        imgs_str = " → ".join(p.name for p in images_list)
+        print(f"  {oid}: [{len(images_list)} imgs] {imgs_str} + {music_path.name if music_path else 'sin música'}")
 
     # ── Paso 3: Render batch ────────────────────────────────────────────────
     print(f"\n[3/3] Renderizando {len(configs)} clips [paralelo {workers}x]...")

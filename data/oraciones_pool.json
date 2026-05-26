@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "description": "Pool de oraciones devocionales en español ES-MX. Dominio público / propias. 30-50 palabras. Anti-strike: sin copyright moderno.",
+  "description": "Pool de oraciones devocionales en español ES-MX. Dominio público / propias. Anti-strike: sin copyright moderno. Entries 'venom_*' son fórmula 1m-1m15s con mismatch título-narración (replica bi_B78HZuJ4 — 188% retención).",
   "oraciones": [
     {
       "id": "fe_001",
@@ -294,6 +294,512 @@
       "texto": "Padre, me siento solo aunque estoy rodeado de personas. Hay un vacío dentro de mí que las conversaciones no llenan, que las distracciones no calman, que el ruido no tapa. Es un vacío que solo tú puedes llenar porque fuiste tú quien lo dejó ahí para que te buscara. Llénalo tú. Hazme sentir tu presencia cerca de una manera real, tangible, que no pueda ignorar. Recuérdame que no soy invisible ante tus ojos. Que me ves, me conoces por nombre, y me amas con amor eterno tal como soy, no como debería ser. Que en ti no hay soledad verdadera porque tú prometiste estar conmigo todos los días hasta el fin. En el nombre de Jesús, amén.",
       "fondo": "fondo_ai_starry_desert.jpg",
       "musica": "contemplacion"
+    },
+    {
+      "id": "venom_001",
+      "tema": "reposo",
+      "titulo": "🕊️ Reposo Profundo: Descanso del Alma #Paz #Confianza",
+      "hook": "¿Cargas algo que ya no puedes soltar?",
+      "texto": "Hay un descanso que el mundo no puede dar. No es dormir más, no es trabajar menos, no es huir del problema. Es algo más profundo. Es soltar el peso que nunca te tocaba cargar. Porque tu identidad nunca dependió de lo que produces. Tu valor no se mide en tareas terminadas, en aprobaciones recibidas, en errores cometidos. En Cristo eres nueva criatura. Las cosas viejas pasaron, todo es hecho nuevo. Tu pasado no te define. Tus miedos no te gobiernan. El cansancio del alma se va cuando descubres quién eres en Él. Hoy te invito a soltar la máscara, soltar el control, soltar la deuda emocional que cargas por años. Ven a sus brazos como hijo, no como empleado. Su yugo es fácil, su carga ligera. Descansa de verdad. Amén.",
+      "hashtags": [
+        "#Reposo",
+        "#Paz",
+        "#Identidad",
+        "#Cristo",
+        "#shorts"
+      ],
+      "cta": "Comenta REPOSO si recibes esta palabra",
+      "fondo": "fondo_ai_still_waters.jpg",
+      "musica": "contemplacion",
+      "spec_venom": {
+        "target_duration_sec": [
+          60,
+          75
+        ],
+        "mismatch_titulo_narracion": "Título promete reposo/descanso, narración profundiza en identidad en Cristo (mismatch intencional replica formula bi_B78HZuJ4)",
+        "replica_de": "bi_B78HZuJ4"
+      },
+      "fondos": [
+        "fondo_ai_still_waters.jpg",
+        "fondo_ai_galilee_sunrise.jpg",
+        "fondo_ai_shepherd_hills.jpg",
+        "fondo_ai_cedar_forest.jpg"
+      ]
+    },
+    {
+      "id": "venom_002",
+      "tema": "identidad",
+      "titulo": "🔥 NUEVA CRIATURA: Lo viejo MURIO en ti #Identidad #Libertad",
+      "hook": "¿Sigues cargando quien fuiste ayer?",
+      "texto": "Si estás en Cristo, eres nueva criatura. Las cosas viejas pasaron. Pero no estamos hablando solo de identidad. Estamos hablando de libertad real. Libertad del juicio constante de los demás. Libertad de la voz interna que te recuerda cada falla. Libertad de las cadenas generacionales que crees que no puedes romper. La cruz no fue un gesto simbólico. Fue un acto legal en el reino espiritual que canceló la deuda contra ti. Cada acusación tiene respuesta: ya fue pagada. Cada vergüenza tiene cobertura: la sangre de Cristo. Cada miedo tiene antídoto: el amor perfecto echa fuera el temor. Hoy levántate distinto. No porque te sientas distinto. Sino porque legalmente, espiritualmente, eternamente, ya lo eres. Camina como quien ya fue declarado libre. Amén.",
+      "hashtags": [
+        "#NuevaCriatura",
+        "#Libertad",
+        "#Cristo",
+        "#Identidad",
+        "#shorts"
+      ],
+      "cta": "Comenta LIBRE si recibes esta palabra",
+      "fondo": "fondo_ai_sunrise_cross.jpg",
+      "musica": "victoria",
+      "spec_venom": {
+        "target_duration_sec": [
+          60,
+          75
+        ],
+        "mismatch_titulo_narracion": "Título promete identidad nueva, narración pivota a libertad legal/espiritual de la cruz",
+        "replica_de": "bi_B78HZuJ4"
+      }
+    },
+    {
+      "id": "venom_003",
+      "tema": "carga",
+      "titulo": "💪 CARGA LIGERA: El secreto que cambia TODO #Mateo11 #Descanso",
+      "hook": "¿Y si el yugo nunca fue el problema?",
+      "texto": "Jesús dijo: vengan a mí los cansados y yo les daré descanso. Pero el versículo no termina ahí. Sigue diciendo: lleven mi yugo. Espera. ¿Otro yugo? Sí. Pero diferente. Porque el problema nunca fue cargar. El problema fue cargar solo. La carga ligera no es ausencia de peso. Es presencia de compañía. Es comunión profunda con Aquel que va a tu lado en el mismo arado. Cuando estás solo cualquier carga aplasta. Cuando estás con Él, hasta lo imposible camina contigo. Hoy deja de pedir que la carga se vaya. Pide que su presencia se quede. Porque el descanso del alma no llega cuando dejas de trabajar. Llega cuando dejas de trabajar solo. Camina con Él hoy. Cada paso. Cada hora. Su yugo es fácil. Su carga, ligera. Amén.",
+      "hashtags": [
+        "#Mateo11",
+        "#Descanso",
+        "#Comunion",
+        "#Carga",
+        "#shorts"
+      ],
+      "cta": "Comenta CONTIGO si recibes esta palabra",
+      "fondo": "fondo_ai_field_path.jpg",
+      "musica": "intercesion",
+      "spec_venom": {
+        "target_duration_sec": [
+          60,
+          75
+        ],
+        "mismatch_titulo_narracion": "Título promete secreto de carga ligera, narración pivota a comunión/presencia",
+        "replica_de": "bi_B78HZuJ4"
+      }
+    },
+    {
+      "id": "venom_004",
+      "tema": "paz",
+      "titulo": "🕊️ PAZ que SOBREPASA: Calma sin razon #Filipenses4 #Presencia",
+      "hook": "¿Por qué hay personas que tienen paz en medio del caos?",
+      "texto": "Hay una paz que no se explica. Que no depende de circunstancias resueltas. Que no espera que el problema termine. Llega cuando todo está peor, no cuando todo mejoró. Pablo escribió Filipenses preso, con cadenas reales, sin saber si vivía o moría. Y aun así habló de paz que sobrepasa todo entendimiento. ¿Cómo? Porque la paz no es la ausencia de tormenta. Es la presencia de Aquel que calma la tormenta. Tu mente busca seguridad en resolver, en controlar, en entender. Pero la paz verdadera nace cuando dejas de buscar respuestas y empiezas a buscar su presencia. Hoy no pidas que la situación cambie primero. Pide su presencia primero. Y verás cómo la calma llega antes que la solución. Su paz no se explica. Se experimenta. Amén.",
+      "hashtags": [
+        "#Filipenses4",
+        "#Paz",
+        "#Presencia",
+        "#Calma",
+        "#shorts"
+      ],
+      "cta": "Comenta PAZ si recibes esta palabra",
+      "fondo": "fondo_ai_calm_lake.jpg",
+      "musica": "contemplacion",
+      "spec_venom": {
+        "target_duration_sec": [
+          60,
+          75
+        ],
+        "mismatch_titulo_narracion": "Título promete paz Filipenses 4:7, narración pivota a presencia vs ausencia",
+        "replica_de": "bi_B78HZuJ4"
+      }
+    },
+    {
+      "id": "venom_005",
+      "tema": "refugio",
+      "titulo": "🛡️ REFUGIO SECRETO: Donde nada te toca #Salmo91 #Padre",
+      "hook": "¿Hay un lugar donde el miedo no llega?",
+      "texto": "El que habita al abrigo del Altísimo morará bajo la sombra del Omnipotente. Salmo 91. Pero no es solo un texto de protección. Es una invitación a un lugar. Hay un lugar secreto en Dios. No físico. Espiritual. Donde el miedo pierde acceso. Donde las flechas que vuelan de día no encuentran blanco. Y ese lugar no se encuentra corriendo. Se encuentra deteniéndote. No se conquista luchando. Se recibe descansando como hijo. Porque el refugio verdadero no es un escudo externo. Es un Padre cercano. Cuando un niño llora, no pide explicaciones. Pide brazos. Hoy deja de pedir que Dios resuelva. Pídele que te abrace. Entra al lugar secreto. Donde el ruido del mundo no llega. Donde el miedo se desarma. Donde tú, otra vez, eres su hijo amado. Amén.",
+      "hashtags": [
+        "#Salmo91",
+        "#Refugio",
+        "#Padre",
+        "#Proteccion",
+        "#shorts"
+      ],
+      "cta": "Comenta ABBA si recibes esta palabra",
+      "fondo": "fondo_ai_mountain_shelter.jpg",
+      "musica": "intercesion",
+      "spec_venom": {
+        "target_duration_sec": [
+          60,
+          75
+        ],
+        "mismatch_titulo_narracion": "Título promete refugio Salmo 91, narración pivota a Padre/relación filial",
+        "replica_de": "bi_B78HZuJ4"
+      }
+    },
+    {
+      "id": "venom_006",
+      "tema": "perdon",
+      "titulo": "🕊️ PERDON Total: Libertad del Alma #Perdon #Sanacion",
+      "hook": "¿Cargas algo que pasó hace años?",
+      "texto": "El perdón no es sentir que el otro merece quedar libre. El perdón es decidir que tú mereces dejar de cargar. La amargura es una piedra que solo pesa en quien la lleva, no en quien la causó. Mientras esperas que el otro pida perdón, tú sigues atado. Mientras revives la herida, tú la sigues abriendo. Hoy elige soltar. No por el otro. Por ti. Porque Cristo ya pagó esa deuda en la cruz y tú no necesitas seguir cobrándola. El alma que perdona respira distinto. Camina más liviana. Duerme más profundo. El perdón es regalo que te das primero a ti. Hoy entrégale a Dios el nombre y la herida. Y suéltalo. De verdad. Amén.",
+      "hashtags": [
+        "#Perdon",
+        "#Sanacion",
+        "#Libertad",
+        "#Alma",
+        "#shorts"
+      ],
+      "cta": "Comenta SUELTO si recibes esta palabra",
+      "fondo": "fondo_ai_open_hands.jpg",
+      "musica": "intercesion",
+      "spec_venom": {
+        "target_duration_sec": [
+          60,
+          75
+        ],
+        "mismatch_titulo_narracion": "Título promete perdón, narración pivota a auto-liberación",
+        "replica_de": "bi_B78HZuJ4"
+      }
+    },
+    {
+      "id": "venom_007",
+      "tema": "sanacion",
+      "titulo": "🙏 SANACION Profunda: Cuerpo y Alma #Sanidad #Esperanza",
+      "hook": "¿Y si el dolor tenía un proposito que no viste?",
+      "texto": "La sanación no siempre quita el dolor. A veces revela el propósito que el dolor cargaba. Job no fue sanado para que perdiera lo aprendido en la noche. Pablo pidió tres veces que su aguijón se quitara, y la respuesta fue: mi gracia te basta. Hay heridas que se cierran físicamente. Y hay heridas que se transforman en testimonios que sanan a otros. Ambas son sanación. Hoy no le pidas solo a Dios que te quite el dolor. Pídele que te muestre qué nació en ti que sin ese dolor no habría existido. Tu compasión más profunda. Tu fe más sólida. Tu dependencia más real. La sanación verdadera no siempre se siente en el cuerpo primero. Se siente en el alma que ya no le tiene miedo a lo que vivió. Amén.",
+      "hashtags": [
+        "#Sanacion",
+        "#Esperanza",
+        "#Proposito",
+        "#Fe",
+        "#shorts"
+      ],
+      "cta": "Comenta SANIDAD si recibes esta palabra",
+      "fondo": "fondo_ai_dawn_field.jpg",
+      "musica": "contemplacion",
+      "spec_venom": {
+        "target_duration_sec": [
+          60,
+          75
+        ],
+        "mismatch_titulo_narracion": "Título promete sanación, narración pivota a propósito del dolor",
+        "replica_de": "bi_B78HZuJ4"
+      }
+    },
+    {
+      "id": "venom_008",
+      "tema": "provision",
+      "titulo": "💰 PROVISION DIVINA: Lo que NECESITAS llega #Provision #Confianza",
+      "hook": "¿Y si la escasez fuera para enseñarte a depender?",
+      "texto": "Dios no siempre da lo que pides. Da lo que necesitas. Y a veces lo que necesitas primero no es el milagro. Es la lección de depender. El maná en el desierto solo duraba un día. No se podía guardar. Cada mañana había que confiar de nuevo. Porque Dios quería pueblo dependiente, no pueblo autosuficiente. La provisión más profunda no es la cuenta llena. Es el corazón que sabe que aunque no haya higo en la higuera, Él sigue siendo bueno. Cuando dejas de medir su amor por tu saldo, descubres que nunca te ha faltado lo esencial. Comida. Aliento. Su presencia. Hoy en lugar de pedir más, agradece lo que ya tienes. Y verás cómo la provisión cambia de forma. Amén.",
+      "hashtags": [
+        "#Provision",
+        "#Confianza",
+        "#Mana",
+        "#Dependencia",
+        "#shorts"
+      ],
+      "cta": "Comenta JEHOVA-JIREH si recibes",
+      "fondo": "fondo_ai_bread_field.jpg",
+      "musica": "intercesion",
+      "spec_venom": {
+        "target_duration_sec": [
+          60,
+          75
+        ],
+        "mismatch_titulo_narracion": "Título promete provisión, narración pivota a dependencia espiritual",
+        "replica_de": "bi_B78HZuJ4"
+      }
+    },
+    {
+      "id": "venom_009",
+      "tema": "miedo",
+      "titulo": "⚔️ MIEDO VENCIDO: Autoridad Espiritual #Miedo #Victoria",
+      "hook": "¿Y si el miedo nunca tuvo autoridad sobre ti?",
+      "texto": "El miedo grita pero no tiene autoridad legal sobre el hijo de Dios. Es un inquilino ilegal que se metió a la casa de tu mente y te convenció de que es el dueño. Pero no lo es. Cristo te dio autoridad. Pisar serpientes y escorpiones. Sobre toda fuerza del enemigo. Y nada te dañará. El miedo se alimenta de tu silencio. Cuando dejas de hablar con verdad, el miedo construye narrativa. Pero cuando declaras la Palabra, el miedo retrocede porque no puede coexistir con la verdad declarada en voz alta. Hoy abre tu boca. Di: no recibo este miedo. No es mío. Soy hijo de Dios. Y como hijo, tengo autoridad. Verás cómo el ambiente cambia. La autoridad espiritual no se siente primero. Se ejerce. Amén.",
+      "hashtags": [
+        "#Miedo",
+        "#Autoridad",
+        "#Victoria",
+        "#Hijo",
+        "#shorts"
+      ],
+      "cta": "Comenta AUTORIDAD si recibes",
+      "fondo": "fondo_ai_lion_dawn.jpg",
+      "musica": "victoria",
+      "spec_venom": {
+        "target_duration_sec": [
+          60,
+          75
+        ],
+        "mismatch_titulo_narracion": "Título promete vencer miedo, narración pivota a autoridad legal espiritual",
+        "replica_de": "bi_B78HZuJ4"
+      }
+    },
+    {
+      "id": "venom_010",
+      "tema": "ansiedad",
+      "titulo": "🌿 ANSIEDAD se VA: Vivir el Presente #Ansiedad #Calma",
+      "hook": "¿Y si el problema no es lo que pasa sino lo que imaginas?",
+      "texto": "La ansiedad no vive en el presente. Vive en el futuro inventado. Te roba el hoy proyectándote escenarios que aún no existen. Por eso Jesús dijo: no se afanen por el mañana, basta a cada día su afán. No era un consejo motivacional. Era una llave espiritual. El presente es el único lugar donde Dios se encuentra. El pasado ya no se puede cambiar y el futuro aún no se puede tocar. Pero el ahora es sagrado. Es el único lugar donde puedes respirar Su presencia. Hoy regresa al presente. Siente tus pies en el piso. Siente el aire entrando. Recuerda que estás vivo y Él está contigo en este segundo. La ansiedad pierde fuerza cuando dejas de visitar lo que aún no existe. Amén.",
+      "hashtags": [
+        "#Ansiedad",
+        "#Calma",
+        "#Presente",
+        "#Paz",
+        "#shorts"
+      ],
+      "cta": "Comenta AHORA si recibes",
+      "fondo": "fondo_ai_breath_meadow.jpg",
+      "musica": "contemplacion",
+      "spec_venom": {
+        "target_duration_sec": [
+          60,
+          75
+        ],
+        "mismatch_titulo_narracion": "Título promete fin ansiedad, narración pivota a presente vs futuro imaginado",
+        "replica_de": "bi_B78HZuJ4"
+      }
+    },
+    {
+      "id": "venom_011",
+      "tema": "proposito",
+      "titulo": "🎯 PROPOSITO ETERNO: Para esto NACISTE #Proposito #Llamado",
+      "hook": "¿Y si tu propósito ya estaba antes de tu nombre?",
+      "texto": "Antes de formarte en el vientre, ya te conocía. Antes que nacieras, te santifiqué. Jeremías uno cinco. Tu propósito no se inventa. Se descubre. No se construye con esfuerzo. Se rinde con obediencia. Muchos pasan la vida buscando qué hacer cuando la pregunta verdadera es a quién pertenecer. Porque cuando perteneces a Él, el qué hacer se revela en el camino. Moisés no sabía que iba a libertar a un pueblo cuando cuidaba ovejas. David no sabía que iba a ser rey cuando tocaba el arpa. Tu propósito se manifiesta en la obediencia diaria. No en la planeación perfecta. Hoy no preguntes qué quieres ser. Pregunta a quién quieres servir. Y el propósito vendrá. Vendrá. Porque ya estaba escrito antes que tú llegaras. Amén.",
+      "hashtags": [
+        "#Proposito",
+        "#Llamado",
+        "#Jeremias1",
+        "#Identidad",
+        "#shorts"
+      ],
+      "cta": "Comenta LLAMADO si recibes",
+      "fondo": "fondo_ai_path_horizon.jpg",
+      "musica": "victoria",
+      "spec_venom": {
+        "target_duration_sec": [
+          60,
+          75
+        ],
+        "mismatch_titulo_narracion": "Título promete propósito, narración pivota a obediencia/pertenencia",
+        "replica_de": "bi_B78HZuJ4"
+      }
+    },
+    {
+      "id": "venom_012",
+      "tema": "esperanza",
+      "titulo": "✨ ESPERANZA REAL: El tiempo de Dios #Esperanza #Espera",
+      "hook": "¿Y si la espera era parte del milagro?",
+      "texto": "Dios nunca llega tarde. Llega exacto. Pero su exacto rara vez coincide con el nuestro. Abraham esperó veinticinco años por Isaac. José trece en prisión antes del palacio. Moisés cuarenta en el desierto antes del llamado. Lo que para ti es retraso, para Él es preparación. Lo que para ti es injusticia, para Él es formación de carácter que necesitarás cuando el milagro llegue. Porque hay milagros que destruyen a quien no estaba listo para recibirlos. La espera no es castigo. Es construcción. Cada día sin respuesta es un día tallándote para sostener lo que viene. Hoy no te desesperes. Si el milagro tarda es porque la versión tuya que va a recibirlo aún se está formando. Confía en el tiempo perfecto. Amén.",
+      "hashtags": [
+        "#Esperanza",
+        "#Espera",
+        "#TiempoDeDios",
+        "#Fe",
+        "#shorts"
+      ],
+      "cta": "Comenta ESPERO si recibes",
+      "fondo": "fondo_ai_sunrise_wait.jpg",
+      "musica": "intercesion",
+      "spec_venom": {
+        "target_duration_sec": [
+          60,
+          75
+        ],
+        "mismatch_titulo_narracion": "Título promete esperanza, narración pivota a formación de carácter en la espera",
+        "replica_de": "bi_B78HZuJ4"
+      }
+    },
+    {
+      "id": "venom_013",
+      "tema": "gracia",
+      "titulo": "💎 GRACIA INFINITA: No la mereces #Gracia #Cruz",
+      "hook": "¿Y si nunca tuviste que ganartela?",
+      "texto": "La gracia es el escándalo más grande del evangelio. Porque va contra todo lo que el mundo te enseñó. El mundo dice: te ganas lo que tienes. Dios dice: te lo regalo sin que lo merezcas. El mundo dice: si fallas, pagas. Dios dice: alguien ya pagó por ti. La religión te enseña a esforzarte para que Dios te ame. El evangelio te revela que Él ya te amó antes que hicieras nada. Por eso muchos no pueden recibirla. Porque están entrenados para merecer. Pero la gracia no se merece. Se recibe. No se conquista. Se descansa en ella. Hoy deja de tratar de ser suficiente. Ya lo eres. No porque seas bueno. Porque Él es bueno. Y su bondad cubre lo que tu esfuerzo nunca pudo. Amén.",
+      "hashtags": [
+        "#Gracia",
+        "#Cruz",
+        "#Evangelio",
+        "#Amor",
+        "#shorts"
+      ],
+      "cta": "Comenta GRACIA si recibes",
+      "fondo": "fondo_ai_cross_light.jpg",
+      "musica": "contemplacion",
+      "spec_venom": {
+        "target_duration_sec": [
+          60,
+          75
+        ],
+        "mismatch_titulo_narracion": "Título promete gracia, narración pivota a contraste mérito vs regalo",
+        "replica_de": "bi_B78HZuJ4"
+      }
+    },
+    {
+      "id": "venom_014",
+      "tema": "amor",
+      "titulo": "❤️ AMOR de DIOS: Sin Condiciones #Amor #1Juan4",
+      "hook": "¿Y si Su amor no dependía de tu desempeno?",
+      "texto": "Dios no te ama porque seas bueno. Te ama porque Él es bueno. Esa diferencia cambia todo. Porque si te amara por lo que haces, dejaría de amarte cuando fallaras. Pero el amor de Dios no es transaccional. Es esencial. Es lo que Él es. Uno Juan cuatro dice: Dios es amor. No tiene amor. ES amor. Por eso amar es Su naturaleza, no Su humor del día. Tu peor día no cambia Su amor. Tu mejor día no lo aumenta. Es constante. Es perfecto. Es eterno. Y echa fuera todo temor. Hoy deja de tratar de ganarte algo que ya tienes. Recíbelo. Descansa en él. Y verás cómo cambia la forma en que te tratas a ti, a los demás, a la vida. Su amor te transforma cuando lo recibes. Amén.",
+      "hashtags": [
+        "#Amor",
+        "#1Juan4",
+        "#Dios",
+        "#Naturaleza",
+        "#shorts"
+      ],
+      "cta": "Comenta AMADO si recibes",
+      "fondo": "fondo_ai_warm_light.jpg",
+      "musica": "contemplacion",
+      "spec_venom": {
+        "target_duration_sec": [
+          60,
+          75
+        ],
+        "mismatch_titulo_narracion": "Título promete amor incondicional, narración pivota a naturaleza vs comportamiento",
+        "replica_de": "bi_B78HZuJ4"
+      }
+    },
+    {
+      "id": "venom_015",
+      "tema": "fe",
+      "titulo": "🔥 FE que MUEVE: Obediencia Radical #Fe #Hebreos11",
+      "hook": "¿Y si la fe no era creer sino obedecer?",
+      "texto": "Hebreos once no es lista de soñadores. Es lista de obedientes. Por la fe Noé construyó. Por la fe Abraham salió sin saber a dónde. Por la fe Moisés rehusó. Cada uno hizo algo. La fe que no se mueve no es fe. Es ilusión religiosa. Santiago dijo: la fe sin obras está muerta. No porque las obras te salven. Sino porque la fe verdadera siempre se manifiesta en acción. Si crees pero no obedeces, no crees. Solo estás de acuerdo intelectualmente. La fe que mueve montañas primero te mueve a ti. Hoy no esperes a sentir más fe. Obedece con la que tienes. Da el primer paso. Aunque sea pequeño. Aunque sea solo. Porque cuando obedeces, la fe crece. Y entonces el milagro encuentra terreno donde aterrizar. Amén.",
+      "hashtags": [
+        "#Fe",
+        "#Hebreos11",
+        "#Obediencia",
+        "#Accion",
+        "#shorts"
+      ],
+      "cta": "Comenta OBEDEZCO si recibes",
+      "fondo": "fondo_ai_walking_water.jpg",
+      "musica": "victoria",
+      "spec_venom": {
+        "target_duration_sec": [
+          60,
+          75
+        ],
+        "mismatch_titulo_narracion": "Título promete fe que mueve, narración pivota a obediencia activa",
+        "replica_de": "bi_B78HZuJ4"
+      }
+    },
+    {
+      "id": "venom_016",
+      "tema": "oracion",
+      "titulo": "🙏 ORACION REAL: Mas que palabras #Oracion #Relacion",
+      "hook": "¿Y si la oración no era pedir sino estar?",
+      "texto": "La oración no es lista de compras espirituales. No es decirle a Dios qué hacer. Es venir a Su presencia. Estar. Escuchar. Reconocer que Él ya sabe lo que necesitas antes que abras la boca. La oración más profunda no siempre tiene palabras. A veces es silencio. A veces es lágrima. A veces es solo respirar Su nombre. Jesús se retiraba a orar largas horas. No porque tuviera mucho que pedir. Sino porque tenía mucho que recibir. Mucho que recordar. Mucho de quién era. Tú también. La oración te recuerda quién eres y de quién eres. Hoy no vengas solo a pedir. Ven a estar. Ven a recibir. Ven a recordar que el Padre del universo conoce tu nombre, escucha tu corazón y nunca se cansa de tu voz. Amén.",
+      "hashtags": [
+        "#Oracion",
+        "#Relacion",
+        "#Presencia",
+        "#Padre",
+        "#shorts"
+      ],
+      "cta": "Comenta AQUI si recibes",
+      "fondo": "fondo_ai_quiet_chapel.jpg",
+      "musica": "contemplacion",
+      "spec_venom": {
+        "target_duration_sec": [
+          60,
+          75
+        ],
+        "mismatch_titulo_narracion": "Título promete oración real, narración pivota a relación/presencia vs pedido",
+        "replica_de": "bi_B78HZuJ4"
+      }
+    },
+    {
+      "id": "venom_017",
+      "tema": "espiritu_santo",
+      "titulo": "🕊️ ESPIRITU SANTO: La voz que te guia #EspirituSanto #Guia",
+      "hook": "¿Has escuchado esa voz interior y la ignoraste?",
+      "texto": "El Espíritu Santo no grita. Susurra. Y muchos pasan la vida ignorando esa voz pensando que es intuición, casualidad, instinto. Pero es Él. Recordándote. Avisándote. Guiándote. La paz que sientes ante una decisión correcta. La inquietud antes de un error. La idea repentina que cambia todo. Esa voz se afina con tiempo en Su presencia. Mientras más lo conoces, más distingues Su voz de las otras. La de tu mente. La del enemigo. La del mundo. Hoy presta atención al susurro. No lo ignores. Detente. Respira. Pregunta: Espíritu Santo, ¿qué me estás diciendo? Y escucha. Porque el Consolador prometido por Jesús no vino a quedarse en silencio. Vino a guiarte a toda verdad. Cada día. Si aprendes a escuchar, jamás caminarás solo. Amén.",
+      "hashtags": [
+        "#EspirituSanto",
+        "#Guia",
+        "#Voz",
+        "#Discernimiento",
+        "#shorts"
+      ],
+      "cta": "Comenta ESCUCHO si recibes",
+      "fondo": "fondo_ai_dove_light.jpg",
+      "musica": "intercesion",
+      "spec_venom": {
+        "target_duration_sec": [
+          60,
+          75
+        ],
+        "mismatch_titulo_narracion": "Título promete voz Espíritu Santo, narración pivota a discernimiento/práctica diaria",
+        "replica_de": "bi_B78HZuJ4"
+      }
+    },
+    {
+      "id": "venom_018",
+      "tema": "cruz",
+      "titulo": "✝️ LA CRUZ: Lo que REALMENTE pasó #Cruz #Salvacion",
+      "hook": "¿Y si la cruz fue un intercambio legal?",
+      "texto": "La cruz no fue solo un acto de amor. Fue una transacción legal en el reino espiritual. Tu deuda fue puesta sobre Él. Su justicia fue puesta sobre ti. Dos Corintios cinco veintiuno. Al que no conoció pecado, por nosotros lo hizo pecado. Para que nosotros fuésemos hechos justicia de Dios en Él. Eso no es metáfora. Es realidad legal eterna. Cuando el enemigo te recuerda tu pasado, tú recuérdale el acto legal. Ya fue pagado. Ya está cancelado. Tu nombre fue escrito en el libro de la vida y nadie lo borra. Hoy deja de pagar deudas que ya fueron saldadas. Camina como el justificado que eres. No por mérito. Por sentencia divina firmada en sangre. La cruz no fue derrota. Fue victoria legal contra todo cargo en tu contra. Amén.",
+      "hashtags": [
+        "#Cruz",
+        "#Salvacion",
+        "#2Corintios5",
+        "#Justicia",
+        "#shorts"
+      ],
+      "cta": "Comenta PAGADO si recibes",
+      "fondo": "fondo_ai_empty_cross.jpg",
+      "musica": "victoria",
+      "spec_venom": {
+        "target_duration_sec": [
+          60,
+          75
+        ],
+        "mismatch_titulo_narracion": "Título promete revelación de la cruz, narración pivota a transacción legal espiritual",
+        "replica_de": "bi_B78HZuJ4"
+      }
+    },
+    {
+      "id": "venom_019",
+      "tema": "resurreccion",
+      "titulo": "⚡ RESURRECCION DIARIA: Vida nueva HOY #Resurreccion #VidaNueva",
+      "hook": "¿Y si la resurrección no fue solo de Cristo?",
+      "texto": "Romanos seis dice: si fuimos plantados juntamente con Él en la semejanza de su muerte, así también lo seremos en la de su resurrección. La resurrección no es solo evento histórico. Es realidad diaria del creyente. Cada mañana que despiertas en Cristo es resurrección. Cada hábito que muere y nace nuevo es resurrección. Cada perdón que reemplaza amargura es resurrección. Vives en estado constante de muerte y resurrección. Lo viejo cayendo. Lo nuevo brotando. Por eso Pablo dijo: cada día muero. Y cada día también resucitaba. Hoy no esperes el cielo para experimentar vida nueva. Está disponible ahora. En este momento. Lo que tenga que morir en ti hoy déjalo morir. Lo que tenga que nacer hoy déjalo nacer. La resurrección es tu derecho diario. Amén.",
+      "hashtags": [
+        "#Resurreccion",
+        "#VidaNueva",
+        "#Romanos6",
+        "#Cristo",
+        "#shorts"
+      ],
+      "cta": "Comenta VIVO si recibes",
+      "fondo": "fondo_ai_dawn_burst.jpg",
+      "musica": "victoria",
+      "spec_venom": {
+        "target_duration_sec": [
+          60,
+          75
+        ],
+        "mismatch_titulo_narracion": "Título promete resurrección, narración pivota a aplicación diaria muerte/vida",
+        "replica_de": "bi_B78HZuJ4"
+      }
+    },
+    {
+      "id": "venom_020",
+      "tema": "familia",
+      "titulo": "🏠 FAMILIA RESTAURADA: Bendicion Generacional #Familia #Restauracion",
+      "hook": "¿Y si lo que rompes hoy libera a tres generaciones?",
+      "texto": "Las cadenas generacionales son reales. Pero las bendiciones generacionales también lo son. Cada patrón que rompes en ti libera a tus hijos, a tus nietos, a generaciones que ni conocerás. Por eso tu sanidad no es solo tuya. Es herencia. Lo que decides hoy en silencio cambia la línea familiar mañana. Josué dijo: yo y mi casa serviremos a Jehová. No solo yo. Mi casa. Mi descendencia. Mi futuro. Hoy tu obediencia escribe historia para los que vienen. Tu rendición es semilla. Tu fidelidad es fundamento. Tus hijos no van a heredar tu cuenta de banco más que tu temor de Dios. Y eso vale más que cualquier herencia material. Hoy elige bien. Porque tres generaciones después alguien va a darte gracias por la decisión que tomaste hoy. Amén.",
+      "hashtags": [
+        "#Familia",
+        "#Restauracion",
+        "#Generaciones",
+        "#Josue24",
+        "#shorts"
+      ],
+      "cta": "Comenta MI CASA si recibes",
+      "fondo": "fondo_ai_family_dawn.jpg",
+      "musica": "intercesion",
+      "spec_venom": {
+        "target_duration_sec": [
+          60,
+          75
+        ],
+        "mismatch_titulo_narracion": "Título promete familia restaurada, narración pivota a herencia generacional espiritual",
+        "replica_de": "bi_B78HZuJ4"
+      }
     }
   ]
 }
