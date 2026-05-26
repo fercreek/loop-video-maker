@@ -1,140 +1,97 @@
 # _NEXT — loop-video-maker (VersiculoDeDios)
-> Update: 2026-05-25 19:30 MTY · Canal: @VersiculoDeDios · 12.7K subs
+> Update: 2026-05-26 04:45 MTY · Canal: @VersiculoDeDios · 12.7K subs · Views 28d: 88.3K · Watch 28d: 518.9h
 
-## 🚨 LEE PRIMERO ANTES DE NADA
+## 🚨 LEE PRIMERO
 
-**Spec sesión completa:** `docs/SESSION_SPEC_2026-05-25.md` ← TODO el contexto
-
-**Estado batch venom 20 shorts:**
-- YT: 7/20 subidos · pendientes 13 (mañana después quota reset)
-- FB: 18/20 subidos · pendientes 2 (007, 020)
-- IG: 0/20 (daemon bloqueado por TCC — ver spec)
-- Los subidos publican SOLOS en sus fechas (May 26 → Jun 14, 1/día 5am MTY)
-
-**🔴 PENDIENTE CRÍTICO:** Fernando debe habilitar Full Disk Access para `/bin/bash` y `/usr/bin/python3` (ver `docs/SESSION_SPEC_2026-05-25.md` sección "BLOQUEO CRÍTICO"). 30 segundos manual. SIN esto, daemons no corren.
-
----
-
-## 🔴 BLOQUEOS / Acción Fernando
-
-### Upload Shorts venom INCOMPLETO (YT quota daily hit)
-**Subidos OK:**
-- YouTube (7/20): venom_001, 004, 009, 002, 005, 010, 007
-- Facebook (4/20): venom_001, 004, 002, 005
-
-**Pendientes upload (13 YT + 16 FB):**
-- Mañana 2026-05-26 después de quota reset (24h desde primer upload)
-- Comando: `.venv/bin/python3 scripts/upload_shorts_venom.py`
-- Bug: el script abortó en 429 sin retry. Debería continuar con siguientes (skip los YT con error, intentar FB siempre)
-
-**FB errors específicos (009, 010, 007):**
-- "Please reduce the amount of data you're asking for" — probable rate limit FB
-- Re-intentar mañana junto con los 13 pendientes
-
-### Sleep video pipeline LISTO PARA PROBAR
-- `render_sleep.py` v1 funcional (5min test PASS QA 7/10)
-- `scripts/qa_longform.py` adaptado con thresholds long-form
-- Test 60min Salmo 91 corriendo en background (resultado al regresar)
-- Cuando Chrome cerrado → mejor render 90-120min sin riesgo swap
+**Spec sesión completa:** `docs/SESSION_SPEC_2026-05-25.md` ← TODO contexto recuperado
+**Tracking live:** `_SCHEDULE_VENOM.md` ← tabla 20 videos × plataforma
+**Bugs históricos:** `logs/LEARNINGS.md` ← 10 bugs documentados con fix exacto
 
 ---
 
 ## ⚡ En proceso (retomar aquí)
 
-### 🎬 Batch venom (20 shorts) — POST-FIX PIPELINE
-Sesión 2026-05-25: replicar fórmula `bi_B78HZuJ4` (Short 1m1s, 27% watch time canal).
+### 🎬 Batch venom (20 shorts) — DEPLOY EN CURSO
+**Plan:** 1/día 5am MTY · May 26 → Jun 14 · YT + FB + IG cross-post
 
-**Estado actual:**
-- 20 scripts en `data/oraciones_pool.json` (venom_001-020)
-- venom_001 rendered con bugs críticos descubiertos y arreglados (ver `logs/LEARNINGS.md` sesión 2026-05-25)
-- QA pipeline nuevo en `scripts/qa_short.py` — score 9/10 en venom_001
-- venom_001 PASS QA pero falta validación final Fernando (voz + visuales)
+**Estado upload (2026-05-26 04:45 MTY):**
+- YouTube: **7/20** (venom_001, 004, 009, 002, 005, 010, 007) — pendientes 13 → daemon `yt-fb-uploader` 1:30am MTY mañana
+- Facebook: **18/20** (todos excepto 007, 020) — daemon retry mañana
+- Instagram: **0/20** publicado, daemon ARMADO + FDA grant OK → ejecuta primer 5:10am MTY hoy
 
-**Pendiente:**
-- [ ] Fernando aprueba venom_001 final (voz audible + watermark dedup + animación 2da mitad)
-- [ ] **Multi-imagen 3-5 por video** (actualmente solo 2: image1 + image2 a 18s). Para 64s ideal: 4 imágenes cada 16s. Requiere modificar `core/shorts_render.py` xfade chain + `data/oraciones_pool.json` schema (campo `fondos: [a, b, c, d]` en lugar de `fondo` + `fondo2`)
-- [ ] Más KB_VARIANTS (actual: 4 — pan_lr, pan_rl, zoom_in, zoom_out). Agregar: diagonal_tl_br, diagonal_tr_bl, slow_rotate, zoom_pan_combo
-- [ ] Batch render venom_002-020 con A/B voz Dalia (10) / Jorge (10)
-- [ ] Upload programado a YT + cross-post FB Reels
-
-**QA agent debt:**
-- [ ] Check voice-band presence (300-3kHz mean > -45dB) — actualmente NO detecta silencio si música rellena LUFS
-
-### 📱 Batch v6 Shorts — LISTOS PARA SUBIR
-- 10/10 aprobados en content-review
-- Quick wins aplicados: subtítulos 4→6 palabras · CTA "Escribe AMÉN" · hook 3.5s
-- **Subir:** `python3 scripts/upload_shorts_scheduled.py`
-- Plan: 1/día · 5am MTY · 12-21 mayo · YouTube (private+publishAt) + Facebook (scheduled)
-- Ambas plataformas quedan programadas — se publican solas, sin intervención
-
-### 📅 May 22 — Análisis batch_v6 (rutina programada)
-Rutina remota dispara automáticamente. ANTES de revisarla, correr:
+**Daemons activos:** ✅ 4 plists cargados, FDA grant aplicado, tests OK
 ```bash
-cd /Users/fernandocastaneda/Documents/loop-video-maker
-python3 scripts/content_tracker.py --pull-metrics
-```
-También revisar Facebook Insights: Meta Business Suite → page Palabra De Dios (452922677899760)
-Rutina: https://claude.ai/code/routines/trig_01TfyuhGQYbWXGdqCfxQfcJM
-
-### Pipeline de publicación dual (YT + FB) — cómo funciona
-```
-python3 scripts/upload_shorts_scheduled.py
-  → YouTube: sube como private + publishAt → YT publica solo a las 5am
-  → Facebook: sube con scheduled_publish_time → Meta Business Suite publica solo
-  Verificar en: YT Studio → Contenido → Programados
-               Meta Business Suite → Contenido → Programado
+launchctl list | grep versiculodedios
 ```
 
-### 📤 Upload semana 2 — corriendo en background
-- 6 videos subiendo ahora: buen-samaritano, hijo-prodigo, lazaro, resurreccion, ruth, job
-- Quedan private hasta su fecha — YT Studio para revisar/eliminar si algo falla
-- Notificación cuando termine → actualizar `_CALENDARIO-SUBIDA.md` con links
+**Pendiente próxima sesión:**
+- [ ] Verificar venom_001 publicó IG (10am revisar `data/ig_state.json`)
+- [ ] Confirmar YT studio + Meta Business Suite muestran los scheduled
+- [ ] Si todo OK 7 días → analizar métricas tempranas (watch time, retention)
+- [ ] QA tool debt: agregar voice-band check 300-3kHz mean >-45dB (catch silencio futuro)
 
-### 📋 Semana 3 — scripts por generar
-- **Flujo nuevo:** render → **tú revisas MP4 en QuickTime** → "listo sube" → upload
-- Historias pendientes (P1):
-  1. La Creación del Mundo
-  2. Torre de Babel
-  3. Sodoma y Gomorra (Lot)
-  4. Elías y los Profetas de Baal
-  5. Gedeón y los 300
-  6. Josué y Jericó
-  7. Salomón y su Sabiduría
-  8. Sermón del Monte
-  9. Última Cena
-  10. Pedro camina sobre el agua
-- Generar: lanzar agentes Book Co-Author (igual sesión anterior)
-- Render batch: `python3 scripts/batch_render.py --max 10 --priority 1`
-- Revisar: `open output/stories/{id}/{id}.mp4` en QuickTime
-- Subir: decirle a Claude "listo, sube"
-
----
-
-## ✅ Completado 2026-05-11
-
-- [x] 100-story catalog (`data/video_catalog.json`) — fuente de verdad
-- [x] 16 videos renderizados (10 semana 1 + 6 semana 2)
-- [x] **Semana 1 subida completa (10/10)** — programados may 11-24
-  - abraham-e-isaac · daniel-foso-leones · david-goliat · ester-y-el-rey
-  - jonas · jose-y-sus-hermanos · moises · noe · sanson-y-dalila · pentecostes
-- [x] `_CALENDARIO-SUBIDA.md` — tracking completo con YT IDs
-- [x] Copy auditado: hooks corregidos (4 genéricos → narrativos), tags 14/video
-- [x] batch_render.py · upload_schedule.py · upload_to_youtube.py — scripts completos
-- [x] YouTube token auto-refresh (no requiere re-auth manual)
+### 🌙 Sleep video pipeline LISTO
+- ✅ `render_sleep.py` v1 funcional
+- ✅ `scripts/qa_longform.py` adaptado
+- ✅ Test 60min Salmo 91 → QA 10/10 PASS (315MB, LUFS -18.1)
+- [ ] **Decidir:** generar 5 sleep videos (salmo91, salmo23, ansiedad, promesas, rosario) — 5h render total
+- [ ] **Decidir:** cómo subir sleep videos (otro pipeline upload? otra cuota YT?)
 
 ---
 
 ## 💡 Backlog
 
-- [ ] Shorts pipeline: `render_short.py` con `data/oraciones_pool.json` (14 oraciones listas)
+### Pipelines / código
+- [ ] Multi-imagen 3-5 por video (actualmente 2: image1 + image2 a 18s) — schema `fondos: [a,b,c,d]`
+- [ ] Más KB_VARIANTS visuales (zoom_in_pan combo, slow_rotate)
+- [ ] `scripts/qa_short.py` agregar voice-band check (300-3kHz)
+- [ ] `scripts/qa_longform.py` agregar check "NO voz dominante en sleep ambient"
+- [ ] Mejorar SwiftBar plugin: agregar conteo de pendientes por proyecto
+- [ ] Auto-update `_SCHEDULE_VENOM.md` desde shorts_schedule.json (script TBD)
+
+### Growth / análisis
 - [ ] Pin comment primera hora de cada video publicado (pregunta emocional)
 - [ ] Responder comentarios primeras 24h (señal algoritmo)
-- [ ] Resolve strike Oraciones Cortas (90 días o respuesta solicitante)
-- [ ] Auditar canal: bajar videos con audio CapCut narrado
-- [ ] V2 retención: cold open con clímax, dinámica musical por mood, end screen verbal
+- [ ] Cross-post FB Reels (los 5 top Shorts 28d)
+- [ ] Request quota YT increase a Google (`docs/YT_QUOTA_INCREASE.md`) — esperar strike resuelto
+- [ ] V2 retención: cold open con clímax, dinámica musical por mood
+
+### Content
+- [ ] Generar 5 sleep videos test (salmo91, salmo23, ansiedad, promesas, rosario)
+- [ ] Investigar competidores top (Audios Católicos) — qué hacen diferente
+- [ ] 100-story long-form catalog — quedan ~84 historias pendientes
+- [ ] Imágenes FB+IG (1080×1080) — sigue auto via launchd separate
+
+---
+
+## ✅ Completado sesión 2026-05-25
+
+- [x] 20 venom shorts rendered + QA 9-10/10 (`data/oraciones_pool.json`)
+- [x] 10 bugs críticos documentados + fix (`logs/LEARNINGS.md`)
+- [x] Sleep pipeline v1 implementado (`render_sleep.py` + `qa_longform.py`)
+- [x] QA tools (`qa_short.py` + `qa_longform.py`)
+- [x] Upload script venom + IG daemon + 3 daemons monitoring
+- [x] Dashboard local puerto 8090 + SwiftBar plugin
+- [x] Session spec workflow (`SESSION_SPEC_*.md` + `_SCHEDULE_VENOM.md`)
+- [x] PR #1 mergeado a main (commit eca13b8)
+- [x] FDA grant macOS para daemons (2026-05-26)
+- [x] Bug fix morning_status grep multi-line (commit 6ec4f9f)
+- [x] Agente `@agent shorts-qa` con bugs conocidos #1-10
 
 ---
 
 ## 🔒 Bloqueado
 
-- Strike Oraciones Cortas → esperar 90 días o respuesta del solicitante
+- Strike Oraciones Cortas → esperar 90 días o respuesta solicitante
+- YT quota daily 6 uploads (request increase pendiente strike resuelto)
+
+---
+
+## 📁 Limpieza recomendada (archivos stale raíz)
+
+```bash
+mkdir -p docs/archive
+git mv _CALENDARIO-SUBIDA.md _SEMANA_2026-05-07.md _UPLOAD-READY.md _UPLOAD.md _RESUME-SESSION.md docs/archive/
+git mv docs/_NEXT.md docs/archive/_NEXT-old.md
+git commit -m "chore: archive stale tracking docs (superseded by _SCHEDULE_VENOM + SESSION_SPEC)"
+```

@@ -1,0 +1,66 @@
+# _LEARNING_LOG — loop-video-maker
+
+> Auto-reflexión por sesión (convención CLAUDE.md global Fernando).
+> Bugs técnicos detallados van en `logs/LEARNINGS.md`.
+> Esto captura: ¿cómo le diríamos a Claude la próxima vez para llegar al mismo resultado en menos turnos?
+
+---
+
+### 2026-05-26 · Sesión gym + FDA + cleanup PR
+
+**Pros (qué salió bien):**
+- Spec persistido (`docs/SESSION_SPEC_2026-05-25.md`) salvó contexto cross-session
+- `_NEXT.md` apuntando al spec → próxima sesión leyó todo en 1 turn
+- Auto-mode bloqueó correctamente acciones destructivas (PR merge sin autorización explícita)
+- Daemons funcionaron en cuanto Fernando dio FDA grant — diagnóstico previo correcto
+
+**Cons (qué se atoró):**
+- `gh pr merge` bloqueado por auto-mode aunque Fernando dijo "mergea" — necesitó "correlo tu" explícito
+- `git pull` post-merge dejó local main diverged (5 commits unique local + 2 unique remote) — confundió
+- Bug bash multi-line `grep -c | echo 0` → necesitó `head -1` + `${VAR:-0}` fallback
+- FDA grant requirió 2 intentos para Fernando entender qué binarios agregar
+
+**Consejo Claude Code (cómo prompteamos mejor):**
+- Cuando el usuario dice "mergea", explicitar "Auto-mode requiere `correlo tu` literal antes de gh pr merge a main"
+- Si hay `git pull` post-merge → SIEMPRE `git fetch && git reset --hard origin/main` con backup branch primero
+- Bash multi-line outputs (`grep -c`, `wc -l` pipeline) → SIEMPRE `head -1` + default fallback
+- FDA grant: dar OBVIA path completa `/bin/bash` + `/usr/bin/python3` con Cmd+Shift+G en file picker
+
+**Patrón nuevo capturado:**
+- Session Spec pattern (`docs/SESSION_SPEC_YYYY-MM-DD.md`) = entry point reliable para próxima sesión
+- Living spec (`_SCHEDULE_VENOM.md`) = trackeable por video × plataforma con status emojis
+- FDA grant solo aplica a binary que escribiste en TCC db — daemon context puede ser distinto que terminal
+
+---
+
+### 2026-05-25 · Batch venom + Sleep pipeline + monitoring
+
+**Pros:**
+- 1-antes-del-batch salvó 19 renders rotos cuando descubrimos bug EQ silence
+- QA score automático bloqueó upload de mala calidad
+- Spec-driven content tracking (`spec_venom.replica_de`) → permite analizar fórmula 30 días después
+- Agent shorts-qa auto-actualizado con bugs nuevos = no repite errores
+- FFmpeg ya tiene su engine de Pillow (no drawtext) — replicable en pipelines nuevos
+- Persistir TODO en files = chat history descartable
+
+**Cons:**
+- Drawtext bug recurrente en pipelines nuevos (render_sleep cayó en mismo issue)
+- Sub-agente background terminó dejando 8 renders corruptos (kill abrupto) — perdió consistency
+- YT quota daily 6 uploads pegó después del 7° — script abortaba en 429 sin retry siguientes
+- LUFS global pasó QA score 9/10 con voz SILENCIADA total (música rellenaba)
+- Dry-run sobrescribió `shorts_schedule.json` real → perdimos yt_id/fb_id
+
+**Consejo Claude Code:**
+- Pipelines ffmpeg nuevos: ASUMIR `DRAWTEXT_OK=False` desde día 1, usar Pillow PNG overlay
+- Background sub-agentes: NUNCA para batch renders pesados (kill abrupto = corrupted files). Bash loop sequential mejor
+- Upload scripts batch: SIEMPRE try/except + skip-error + persistir IDs reales pre-error
+- Dry-run: NUNCA sobrescribir state files de producción (separate dry_run.json)
+- QA: voice-band check 300-3kHz mean OBLIGATORIO — LUFS global miente con música
+- Cuando Fernando dice "calidad 2/10" → isolar bugs uno por uno con tests aislados ffmpeg, NO defender
+
+**Patrón nuevo capturado:**
+- FFmpeg 8.1+ strict mode: `equalizer:t=o:w=>5` (octavas) = silence. Auditar EQ chains heredados al upgrade
+- `zoompan` no acepta `t` → usar `on/d` para progresión 0-1
+- `overlay` no acepta `alpha` option → fade alpha en PNG stream ANTES de overlay
+- `amix` default `normalize=1` divide entre N → loudnorm SIEMPRE post-mix
+- macOS Sequoia: launchd no puede leer `~/Documents/` por default → FDA grant a binaries
