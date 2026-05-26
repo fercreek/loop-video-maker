@@ -51,13 +51,18 @@ FADE_IN_SEC           = 0.05    # v2: casi hard cut (era 0.4s)
 FADE_OUT_SEC          = 0.6
 CROSSFADE_SEC         = 0.5
 
-# Ken Burns — 4 variantes para evitar detección de template
-# Cada video usa una variante diferente basada en hash del oracion_id
+# Ken Burns — 8 variantes para evitar detección de template
+# Cada video usa una variante diferente basada en hash del oracion_id.
+# Multi-image: cada segmento rota a la siguiente variant.
 KB_VARIANTS = [
-    "pan_lr",    # pan izquierda → derecha (default)
-    "pan_rl",    # pan derecha → izquierda
-    "zoom_in",   # zoom in lento centro
-    "zoom_out",  # zoom out + pan diagonal
+    "pan_lr",            # pan izquierda → derecha (default)
+    "pan_rl",            # pan derecha → izquierda
+    "zoom_in",           # zoom in lento centro
+    "zoom_out",          # zoom out + pan diagonal
+    "diagonal_tl_br",    # v6: pan diagonal top-left → bottom-right
+    "diagonal_tr_bl",    # v6: pan diagonal top-right → bottom-left
+    "zoom_in_pan_right", # v6: zoom in + pan derecha
+    "slow_rotate",       # v6: rotación sutil ±3°
 ]
 KB_ZOOM_RANGE = 0.12   # 12% movement — VISIBLE, no sutil (era 4%)
 
@@ -126,13 +131,23 @@ class ShortClipConfig:
     out_path: Path
 
     music_path: Path | None = None
-    image2_path: Path | None = None  # v3: segunda imagen para corte a IMAGE_SWITCH_SEC
+    image2_path: Path | None = None  # v3: segunda imagen para corte a IMAGE_SWITCH_SEC (legacy)
+    images: list[Path] | None = None  # v6: N imágenes (3-5). Si None → usa image_path + image2_path
     hook_text: str = ""        # Texto de gancho (ej: "¿Estás creyendo sin ver el camino?")
     verse_label: str = ""      # Label superior: tema o referencia (ej: "Fe · Filipenses 4:13")
     cta_text: str = CTA_TEXT   # CTA al final (default global)
     fps: int = DEFAULT_FPS
     preset: str = DEFAULT_PRESET
     force: bool = False
+
+    def resolved_images(self) -> list[Path]:
+        """Resuelve lista final de imágenes (compatibilidad legacy)."""
+        if self.images:
+            return [p for p in self.images if p and Path(p).exists()]
+        imgs = [self.image_path]
+        if self.image2_path and Path(self.image2_path).exists():
+            imgs.append(self.image2_path)
+        return imgs
 
 
 # ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -272,9 +287,28 @@ def _build_bg_ffmpeg(input_label: str, out_label: str, duration: float,
         # Implementado como pan al centro con escala fija
         x_expr = f"({sw}-{SHORT_W})/2"
         y_expr = f"({sh}-{SHORT_H})*(1-{t_rel}/{dur_expr})"
-    else:  # zoom_out / diagonal
+    elif variant == "zoom_out":
         x_expr = f"({sw}-{SHORT_W})*{t_rel}/{dur_expr}"
         y_expr = f"({sh}-{SHORT_H})*(1-{t_rel}/{dur_expr})"
+    elif variant == "diagonal_tl_br":
+        # top-left → bottom-right
+        x_expr = f"({sw}-{SHORT_W})*{t_rel}/{dur_expr}"
+        y_expr = f"({sh}-{SHORT_H})*{t_rel}/{dur_expr}"
+    elif variant == "diagonal_tr_bl":
+        # top-right → bottom-left
+        x_expr = f"({sw}-{SHORT_W})*(1-{t_rel}/{dur_expr})"
+        y_expr = f"({sh}-{SHORT_H})*{t_rel}/{dur_expr}"
+    elif variant == "zoom_in_pan_right":
+        # bg: pan derecho (el zoom real va en fg)
+        x_expr = f"({sw}-{SHORT_W})*{t_rel}/{dur_expr}"
+        y_expr = f"({sh}-{SHORT_H})/2"
+    elif variant == "slow_rotate":
+        # bg estático centrado (rotate aplicado en fg para no afectar blur)
+        x_expr = f"({sw}-{SHORT_W})/2"
+        y_expr = f"({sh}-{SHORT_H})/2"
+    else:  # fallback
+        x_expr = f"({sw}-{SHORT_W})*{t_rel}/{dur_expr}"
+        y_expr = f"({sh}-{SHORT_H})/2"
 
     return (
         f"{input_label}"
@@ -288,23 +322,84 @@ def _build_bg_ffmpeg(input_label: str, out_label: str, duration: float,
 
 def _build_fg_ffmpeg(input_label: str, out_label: str, variant: str,
                      duration: float, t_offset: float) -> str:
-    """Imagen principal con leve movimiento opuesto al BG (parallax sutil)."""
-    fg_h = int(SHORT_H * 1.04)
+    """Imagen principal con movimiento (parallax horizontal, zoom, diagonal, rotación)."""
     t_rel = f"(t-{t_offset:.2f})"
     dur_e = f"max(1,{duration:.2f})"
+    frames = max(2, int(duration * DEFAULT_FPS))
 
-    # Parallax: si BG va izquierda→derecha, FG va ligeramente derecha→izquierda
-    if variant in ("pan_lr",):
+    if variant == "pan_lr":
+        fg_h = int(SHORT_H * 1.04)
         x_expr = f"(iw-{SHORT_W})/2 + (iw-{SHORT_W})*0.15*(1-{t_rel}/{dur_e})"
-    elif variant in ("pan_rl",):
-        x_expr = f"(iw-{SHORT_W})/2 + (iw-{SHORT_W})*0.15*{t_rel}/{dur_e}"
-    else:
-        x_expr = f"(iw-{SHORT_W})/2"
+        return (f"{input_label}scale=-1:{fg_h}:flags=lanczos,"
+                f"crop={SHORT_W}:{SHORT_H}:x='{x_expr}':y=0,setsar=1{out_label}")
 
+    if variant == "pan_rl":
+        fg_h = int(SHORT_H * 1.04)
+        x_expr = f"(iw-{SHORT_W})/2 + (iw-{SHORT_W})*0.15*{t_rel}/{dur_e}"
+        return (f"{input_label}scale=-1:{fg_h}:flags=lanczos,"
+                f"crop={SHORT_W}:{SHORT_H}:x='{x_expr}':y=0,setsar=1{out_label}")
+
+    if variant == "diagonal_tl_br":
+        # pan diagonal top-left → bottom-right (crop sobre imagen escalada más grande)
+        fg_w = int(SHORT_W * 1.15)
+        fg_h = int(SHORT_H * 1.15)
+        x_expr = f"(iw-{SHORT_W})*{t_rel}/{dur_e}"
+        y_expr = f"(ih-{SHORT_H})*{t_rel}/{dur_e}"
+        return (f"{input_label}scale={fg_w}:{fg_h}:flags=lanczos:force_original_aspect_ratio=increase,"
+                f"crop={SHORT_W}:{SHORT_H}:x='{x_expr}':y='{y_expr}',setsar=1{out_label}")
+
+    if variant == "diagonal_tr_bl":
+        # pan diagonal top-right → bottom-left
+        fg_w = int(SHORT_W * 1.15)
+        fg_h = int(SHORT_H * 1.15)
+        x_expr = f"(iw-{SHORT_W})*(1-{t_rel}/{dur_e})"
+        y_expr = f"(ih-{SHORT_H})*{t_rel}/{dur_e}"
+        return (f"{input_label}scale={fg_w}:{fg_h}:flags=lanczos:force_original_aspect_ratio=increase,"
+                f"crop={SHORT_W}:{SHORT_H}:x='{x_expr}':y='{y_expr}',setsar=1{out_label}")
+
+    if variant == "zoom_in_pan_right":
+        # zoom in 1.00 → 1.10 + pan derecha
+        zoom_expr = f"1.00+0.10*on/{frames}"
+        fg_h = int(SHORT_H * 1.10)
+        return (
+            f"{input_label}"
+            f"scale=-1:{fg_h}:flags=lanczos,"
+            f"zoompan=z='{zoom_expr}':d={frames}:s={SHORT_W}x{SHORT_H}:fps={DEFAULT_FPS}"
+            f":x='(iw-iw/zoom)*on/{frames}':y='ih/2-(ih/zoom/2)',setsar=1"
+            f"{out_label}"
+        )
+
+    if variant == "slow_rotate":
+        # rotación sutil ±3° en duración del segmento.
+        # angle = (t/dur - 0.5) * PI * 0.0333 (linear, ~±3° total swing)
+        # Pre-escalar 1.22x para que el rectángulo rotado siempre cubra 1080x1920
+        # sin bordes negros. Después crop al tamaño final.
+        rot_expr = f"(({t_rel})/({dur_e})-0.5)*PI*0.0333"
+        fg_w = int(SHORT_W * 1.22)
+        fg_h = int(SHORT_H * 1.22)
+        # rotate: usar a='...' (quoted angle expr) para que `:` siguientes sean separadores
+        return (
+            f"{input_label}"
+            f"scale={fg_w}:{fg_h}:flags=lanczos:force_original_aspect_ratio=increase,"
+            f"crop={fg_w}:{fg_h},"
+            f"rotate=a='{rot_expr}':fillcolor=black@0:ow={fg_w}:oh={fg_h},"
+            f"crop={SHORT_W}:{SHORT_H}:x=(in_w-{SHORT_W})/2:y=(in_h-{SHORT_H})/2,"
+            f"setsar=1{out_label}"
+        )
+
+    # zoom_in: arranca al 100% → termina al 108% (zoom hacia adentro)
+    # zoom_out: arranca al 108% → termina al 100% (zoom hacia afuera)
+    if variant == "zoom_in":
+        zoom_expr = f"1.00+0.08*on/{frames}"
+    else:  # zoom_out (y fallback)
+        zoom_expr = f"1.08-0.08*on/{frames}"
+
+    fg_h = int(SHORT_H * 1.10)
     return (
         f"{input_label}"
         f"scale=-1:{fg_h}:flags=lanczos,"
-        f"crop={SHORT_W}:{SHORT_H}:x='{x_expr}':y=0,setsar=1"
+        f"zoompan=z='{zoom_expr}':d={frames}:s={SHORT_W}x{SHORT_H}:fps={DEFAULT_FPS}"
+        f":x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)',setsar=1"
         f"{out_label}"
     )
 
@@ -341,8 +436,8 @@ def _build_video_filter(
             _build_bg_ffmpeg("[0:v]", "[bg1]", dur_a, 0.0,      variant),
             _build_fg_ffmpeg("[0:v]", "[fg1]", variant,  dur_a, 0.0),
             "[bg1][fg1]overlay=(W-w)/2:(H-h)/2[frame1]",
-            _build_bg_ffmpeg("[2:v]", "[bg2]", dur_b, t_switch,  variant2),
-            _build_fg_ffmpeg("[2:v]", "[fg2]", variant2, dur_b, t_switch),
+            _build_bg_ffmpeg("[2:v]", "[bg2]", dur_b, 0.0,  variant2),
+            _build_fg_ffmpeg("[2:v]", "[fg2]", variant2, dur_b, 0.0),
             "[bg2][fg2]overlay=(W-w)/2:(H-h)/2[frame2]",
             f"[frame1][frame2]xfade=transition=fade:offset={t_switch-0.2:.2f}:duration=0.4[frame]",
         ]
@@ -367,20 +462,8 @@ def _build_video_filter(
         filters.append(f"{last_label}copy[vout]")
         return ";".join(filters)
 
-    # ── 4. Watermark (siempre visible) ────────────────────────────────────────
-    safe_wm = _escape_drawtext(WATERMARK_TEXT)
-    wm = (
-        f"{last_label}"
-        f"drawtext=fontfile='{font}'"
-        f":text='{safe_wm}'"
-        f":fontsize={WATERMARK_SZ}"
-        f":fontcolor={WATERMARK_COLOR}"
-        f":x=w-text_w-28:y=60"
-        f":shadowcolor=black@0.8:shadowx=2:shadowy=2"
-        "[vwm]"
-    )
-    filters.append(wm)
-    last_label = "[vwm]"
+    # ── 4. Watermark — DEDUP: Pillow lo dibuja en core/shorts_subtitle.py:_draw_watermark
+    # No drawear aquí para evitar duplicado arriba derecha.
 
     # ── 5a. Verse/tema label — esquina superior izquierda, todo el video ─────
     if verse_label:
@@ -498,32 +581,69 @@ def _build_video_filter(
 
 
 # ─── Video base filter (sin texto — solo imagen + KB + vignette) ──────────────
-def _build_video_base(duration: float, has_image2: bool, variant: str, oracion_id: str) -> str:
+def _build_video_base(
+    duration: float,
+    variant: str,
+    oracion_id: str,
+    image_video_indices: list[int],
+) -> str:
     """
-    Construye el filter_complex de video SIN texto.
+    Construye el filter_complex de video SIN texto para N imágenes (1..5).
+
+    image_video_indices: lista de input indices (en orden) de los streams de imagen.
+        ej. [0, 2, 3, 4] para 4 imágenes (input 1 es narración).
+
+    Cada imagen ocupa duration/N segundos. Transiciones xfade de 0.4s entre cada par.
+    Cada segmento usa una variant distinta rotando desde `variant` base.
+
     Output label: [vvig] — listo para overlay de text layers.
     """
     filters: list[str] = []
+    n = len(image_video_indices)
+    if n == 0:
+        raise ValueError("Se requiere al menos 1 imagen")
 
-    if has_image2 and duration > IMAGE_SWITCH_SEC + 4:
-        t_switch = IMAGE_SWITCH_SEC
-        dur_a, dur_b = t_switch, duration - t_switch
-        variant2 = KB_VARIANTS[(KB_VARIANTS.index(variant) + 2) % len(KB_VARIANTS)]
+    # Caso 1 imagen — sin xfade
+    if n == 1:
+        idx = image_video_indices[0]
         filters += [
-            _build_bg_ffmpeg("[0:v]", "[bg1]", dur_a, 0.0, variant),
-            _build_fg_ffmpeg("[0:v]", "[fg1]", variant, dur_a, 0.0),
-            "[bg1][fg1]overlay=(W-w)/2:(H-h)/2[frame1]",
-            _build_bg_ffmpeg("[2:v]", "[bg2]", dur_b, t_switch, variant2),
-            _build_fg_ffmpeg("[2:v]", "[fg2]", variant2, dur_b, t_switch),
-            "[bg2][fg2]overlay=(W-w)/2:(H-h)/2[frame2]",
-            f"[frame1][frame2]xfade=transition=fade:offset={t_switch-0.2:.2f}:duration=0.4[frame]",
-        ]
-    else:
-        filters += [
-            _build_bg_ffmpeg("[0:v]", "[bg]", duration, 0.0, variant),
-            _build_fg_ffmpeg("[0:v]", "[fg]", variant, duration, 0.0),
+            _build_bg_ffmpeg(f"[{idx}:v]", "[bg]", duration, 0.0, variant),
+            _build_fg_ffmpeg(f"[{idx}:v]", "[fg]", variant, duration, 0.0),
             "[bg][fg]overlay=(W-w)/2:(H-h)/2[frame]",
         ]
+    else:
+        # N segmentos de igual duración
+        xfade_dur = 0.4
+        seg_dur = duration / n
+        # Cada segmento renderea seg_dur + xfade_dur extra para hacer crossfade
+        # Pero como cada stream va via -loop -t, ya tiene su duración asignada
+        # Aquí calculamos duración de cada segmento Ken Burns:
+        # Para xfade: offset = tiempo donde inicia transition en compositor
+        # Como los segmentos se concatenan via xfade, cada segmento dura seg_dur
+        # excepto que su KB debe cubrir seg_dur + xfade_dur para overlap suave
+        per_seg_dur = seg_dur + xfade_dur
+
+        for i, idx in enumerate(image_video_indices):
+            seg_variant = KB_VARIANTS[(KB_VARIANTS.index(variant) + i * 2) % len(KB_VARIANTS)]
+            filters += [
+                _build_bg_ffmpeg(f"[{idx}:v]", f"[bg{i}]", per_seg_dur, 0.0, seg_variant),
+                _build_fg_ffmpeg(f"[{idx}:v]", f"[fg{i}]", seg_variant, per_seg_dur, 0.0),
+                f"[bg{i}][fg{i}]overlay=(W-w)/2:(H-h)/2[seg{i}]",
+            ]
+
+        # Chain xfades
+        # offset_i = (i+1)*seg_dur - xfade_dur  (transition center alineado a cada switch)
+        prev_label = "[seg0]"
+        for i in range(1, n):
+            # offset relativo al inicio del primer stream chain
+            # Para xfade encadenado, offset es relativo al inicio del compositor previo
+            # ffmpeg xfade: offset = momento en el compositor donde inicia transition
+            offset = i * seg_dur - xfade_dur
+            out_label = f"[xf{i}]" if i < n - 1 else "[frame]"
+            filters.append(
+                f"{prev_label}[seg{i}]xfade=transition=fade:offset={offset:.2f}:duration={xfade_dur:.2f}{out_label}"
+            )
+            prev_label = out_label
 
     fade_out_start = max(0.0, duration - FADE_OUT_SEC)
     filters.append(
@@ -536,19 +656,22 @@ def _build_video_base(duration: float, has_image2: bool, variant: str, oracion_i
 
 
 def _build_audio_filter_indexed(duration: float, has_music: bool, music_idx: int) -> str:
-    """Audio filter con índice explícito para música."""
+    """Audio filter con índice explícito para música.
+
+    Mix flow: narr (EQ/compressor/reverb) + música (atenuada) → amix(normalize=0)
+    → loudnorm final al output mezclado para target -16 LUFS (YouTube standard).
+    """
     fade_out_start = max(0.0, duration - CROSSFADE_SEC)
     narr_filter = (
         "[1:a]"
         "highpass=f=100,"
         "equalizer=f=250:t=o:w=200:g=-3,"
         "equalizer=f=3000:t=o:w=800:g=+4,"
-        "equalizer=f=8000:t=o:w=3000:g=-2,"
+        "equalizer=f=8000:t=h:w=3000:g=-2,"
         "acompressor=threshold=0.089:ratio=3:attack=5:release=50:makeup=2,"
         "aecho=0.8:0.6:40:0.12,"
         f"afade=t=in:ss=0:d={FADE_IN_SEC:.2f},"
-        f"afade=t=out:st={fade_out_start:.2f}:d={CROSSFADE_SEC:.2f},"
-        "loudnorm=I=-14:TP=-1:LRA=7"
+        f"afade=t=out:st={fade_out_start:.2f}:d={CROSSFADE_SEC:.2f}"
         "[narr]"
     )
     if has_music:
@@ -559,8 +682,12 @@ def _build_audio_filter_indexed(duration: float, has_music: bool, music_idx: int
             f"atrim=0:{duration:.2f},"
             "aloop=loop=-1:size=2e9[bg]"
         )
-        return f"{narr_filter};{music_filter};[narr][bg]amix=inputs=2:duration=first:dropout_transition=0.5[a]"
-    return narr_filter.replace("[narr]", "[a]")
+        return (
+            f"{narr_filter};{music_filter};"
+            "[narr][bg]amix=inputs=2:duration=first:normalize=0:dropout_transition=0.5[mixed];"
+            "[mixed]loudnorm=I=-16:TP=-1.5:LRA=11[a]"
+        )
+    return narr_filter.replace("[narr]", "[narr_only]") + ";[narr_only]loudnorm=I=-16:TP=-1.5:LRA=11[a]"
 
 
 # ─── Audio filter (legacy — kept for reference) ──────────────────────────────
@@ -578,7 +705,7 @@ def _build_audio_filter(duration: float, has_music: bool, has_image2: bool = Fal
         "highpass=f=100,"
         "equalizer=f=250:t=o:w=200:g=-3,"      # quita barro nasal
         "equalizer=f=3000:t=o:w=800:g=+4,"     # presencia y calidez
-        "equalizer=f=8000:t=o:w=3000:g=-2,"    # recorta sibilancias
+        "equalizer=f=8000:t=h:w=3000:g=-2,"    # recorta sibilancias
         # Compresión para consistencia
         "acompressor=threshold=0.089:ratio=3:attack=5:release=50:makeup=2,"
         # Reverb de sala pequeña — sensación sagrada, no corporativa
@@ -659,34 +786,49 @@ def render_short_clip(cfg: ShortClipConfig) -> Path:
     text_track = build_text_track(text_layers, txt_dir, duration, fps=cfg.fps)
     print(f"  [short] text track: {text_track.name}")
 
-    # ── Video base filter ─────────────────────────────────────────────────────
-    has_image2 = cfg.image2_path is not None and cfg.image2_path.exists()
-    variant    = _kb_variant(cfg.oracion_id)
-    vf_base    = _build_video_base(duration, has_image2, variant, cfg.oracion_id)
+    # ── Resolver lista de imágenes (multi-image v6) ───────────────────────────
+    images = cfg.resolved_images()
+    n_images = len(images)
+    if n_images == 0:
+        raise RuntimeError(f"Sin imágenes válidas para {cfg.oracion_id}")
+    variant = _kb_variant(cfg.oracion_id)
+
+    # Layout de inputs:
+    #   0 = primera imagen
+    #   1 = narración
+    #   2..N = imágenes 2..N (si n_images > 1)
+    #   N+1 = text track
+    #   N+2 = music (opcional)
+    image_input_indices: list[int] = [0]
+    for i in range(1, n_images):
+        image_input_indices.append(1 + i)  # 2, 3, 4, ...
+
+    vf_base = _build_video_base(duration, variant, cfg.oracion_id, image_input_indices)
 
     # 1 overlay: alpha_composite del text track sobre el video base
     full_vf = vf_base + ";[vvig][txt_trk]overlay=0:0:format=auto[vout]"
 
     # ── Audio filter ──────────────────────────────────────────────────────────
-    # Inputs: 0=img1, 1=narr, [2=img2], N=txt_track, [N+1=music]
-    base_inputs = 2 + (1 if has_image2 else 0)
-    txt_track_idx = base_inputs       # txt_track input index
-    music_idx     = base_inputs + 1   # music comes after txt_track
+    base_inputs   = 1 + n_images   # 1 narración + N imágenes
+    txt_track_idx = base_inputs
+    music_idx     = base_inputs + 1
     af = _build_audio_filter_indexed(duration, has_music=cfg.music_path is not None, music_idx=music_idx)
 
     full_filter = f"{full_vf};{af}"
 
     # ── Construir comando ffmpeg ───────────────────────────────────────────────
     video_duration = duration + 0.5
+    # Cada segmento dura duration/n + 0.4 xfade + buffer
+    seg_dur_with_buffer = (duration / max(1, n_images)) + 0.6 if n_images > 1 else video_duration
+
     cmd: list[str] = ["ffmpeg", "-y"]
-    cmd += ["-loop", "1", "-t", f"{video_duration:.2f}", "-i", str(cfg.image_path)]   # 0
-    cmd += ["-i", str(cfg.narr_path)]                                                   # 1
-    if has_image2:
-        dur_b = duration - IMAGE_SWITCH_SEC + 1.0
-        cmd += ["-loop", "1", "-t", f"{dur_b:.2f}", "-i", str(cfg.image2_path)]        # 2
-    cmd += ["-i", str(text_track)]                                                      # txt_track
+    cmd += ["-loop", "1", "-t", f"{video_duration:.2f}", "-i", str(images[0])]   # 0
+    cmd += ["-i", str(cfg.narr_path)]                                              # 1
+    for img in images[1:]:
+        cmd += ["-loop", "1", "-t", f"{seg_dur_with_buffer:.2f}", "-i", str(img)] # 2..N
+    cmd += ["-i", str(text_track)]                                                  # txt_track
     if cfg.music_path:
-        cmd += ["-stream_loop", "-1", "-i", str(cfg.music_path)]                        # last
+        cmd += ["-stream_loop", "-1", "-i", str(cfg.music_path)]                    # last
 
     # Mapear txt_track como label [txt_trk]
     filter_with_label = full_filter.replace(
@@ -708,7 +850,14 @@ def render_short_clip(cfg: ShortClipConfig) -> Path:
 
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
-        print(f"  [short] STDERR:\n{result.stderr[-1200:]}")
+        # Dump full stderr to log file for debug + last 2500 chars to console
+        err_log = cfg.out_path.parent / f"_ffmpeg_err_{cfg.oracion_id}.log"
+        try:
+            err_log.write_text(result.stderr)
+        except Exception:
+            pass
+        print(f"  [short] STDERR (last 2500):\n{result.stderr[-2500:]}")
+        print(f"  [short] Full stderr → {err_log}")
         raise RuntimeError(f"ffmpeg falló {cfg.oracion_id} (code {result.returncode})")
 
     if not cfg.out_path.exists():
