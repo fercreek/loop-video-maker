@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>VersiculoDeDios Dashboard</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #0a0a0f; color: #fff; padding: 20px; }
+h1 { font-size: 24px; margin-bottom: 4px; color: #F5C842; }
+.sub { color: #888; font-size: 13px; margin-bottom: 24px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.card { background: #1a1a22; border-radius: 12px; padding: 20px; border: 1px solid #2a2a35; }
+.card h2 { font-size: 14px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+.big { font-size: 32px; font-weight: 700; color: #F5C842; }
+.metric { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #2a2a35; }
+.metric:last-child { border-bottom: none; }
+.ok { color: #4ade80; }
+.warn { color: #fbbf24; }
+.err { color: #f87171; }
+.pending { color: #94a3b8; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { text-align: left; padding: 8px; border-bottom: 1px solid #2a2a35; }
+th { color: #888; font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; }
+.log { background: #0a0a0f; padding: 12px; border-radius: 8px; font-family: 'SF Mono', Monaco, monospace; font-size: 11px; max-height: 200px; overflow-y: auto; white-space: pre-wrap; color: #888; }
+.refresh { color: #666; font-size: 12px; }
+.btn { background: #F5C842; color: #0a0a0f; padding: 8px 16px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; margin-right: 8px; }
+.btn:hover { background: #e0b73c; }
+.error-banner { background: #7f1d1d; padding: 12px; border-radius: 8px; margin-bottom: 16px; }
+.full-width { grid-column: 1 / -1; }
+</style>
+</head>
+<body>
+<h1>🎬 VersiculoDeDios Dashboard</h1>
+<div class="sub">Refresca cada 30s · <span id="last-refresh"></span></div>
+
+<div id="errors-banner"></div>
+
+<div class="grid">
+    <div class="card">
+        <h2>YouTube</h2>
+        <div class="big"><span id="yt-ok">-</span><span style="color:#666;font-size:20px">/<span id="total-1">20</span></span></div>
+        <div style="color:#888;font-size:13px;margin-top:8px">programados</div>
+    </div>
+    <div class="card">
+        <h2>Facebook</h2>
+        <div class="big"><span id="fb-ok">-</span><span style="color:#666;font-size:20px">/<span id="total-2">20</span></span></div>
+        <div style="color:#888;font-size:13px;margin-top:8px">programados</div>
+    </div>
+    <div class="card">
+        <h2>Instagram</h2>
+        <div class="big"><span id="ig-ok">-</span><span style="color:#666;font-size:20px">/<span id="total-3">20</span></span></div>
+        <div style="color:#888;font-size:13px;margin-top:8px">publicados (vía daemon)</div>
+    </div>
+</div>
+
+<div class="grid">
+    <div class="card">
+        <h2>Daemons activos</h2>
+        <table>
+            <thead><tr><th>Nombre</th><th>PID</th><th>Status</th></tr></thead>
+            <tbody id="daemons-tbody"></tbody>
+        </table>
+    </div>
+    <div class="card">
+        <h2>Próximas publicaciones (48h)</h2>
+        <table>
+            <thead><tr><th>Cuándo</th><th>ID</th><th>YT</th><th>FB</th><th>IG</th></tr></thead>
+            <tbody id="upcoming-tbody"></tbody>
+        </table>
+    </div>
+</div>
+
+<div class="grid">
+    <div class="card full-width">
+        <h2>Logs en vivo</h2>
+        <div style="margin-bottom:8px">
+            <button class="btn" onclick="loadLog('ig_daemon.log')">IG daemon</button>
+            <button class="btn" onclick="loadLog('yt_fb_uploader.stdout')">YT/FB uploader</button>
+            <button class="btn" onclick="loadLog('morning_status.stdout')">Morning status</button>
+        </div>
+        <div class="log" id="log-content">Click un botón ↑</div>
+    </div>
+</div>
+
+<script>
+async function refresh() {
+    try {
+        const r = await fetch('/api/status?_=' + Date.now());
+        const d = await r.json();
+
+        // Métricas
+        document.getElementById('yt-ok').textContent = d.yt_ok;
+        document.getElementById('fb-ok').textContent = d.fb_ok;
+        document.getElementById('ig-ok').textContent = d.ig_ok;
+        for (let i=1; i<=3; i++) document.getElementById('total-'+i).textContent = d.total;
+
+        // Banner errors
+        const eb = document.getElementById('errors-banner');
+        if (d.errors && d.errors.length) {
+            eb.className = 'error-banner';
+            eb.innerHTML = '⚠️ ' + d.errors.join(' · ');
+        } else { eb.className = ''; eb.innerHTML = ''; }
+
+        // Daemons
+        const dtb = document.getElementById('daemons-tbody');
+        dtb.innerHTML = d.daemons.map(x => {
+            const st = x.pid > 0 ? `<span class="ok">running</span>` :
+                       x.last_exit === 0 ? `<span class="ok">idle (last exit 0)</span>` :
+                       `<span class="err">exit ${x.last_exit}</span>`;
+            return `<tr><td>${x.label}</td><td>${x.pid || '—'}</td><td>${st}</td></tr>`;
+        }).join('');
+
+        // Upcoming
+        const utb = document.getElementById('upcoming-tbody');
+        utb.innerHTML = d.upcoming.map(x => {
+            const cls = (k) => x[k] === '✅' ? 'ok' : x[k] === '⏳' ? 'pending' : 'err';
+            return `<tr>
+                <td>${x.when}</td><td>${x.id}</td>
+                <td class="${cls('yt')}">${x.yt}</td>
+                <td class="${cls('fb')}">${x.fb}</td>
+                <td class="${cls('ig')}">${x.ig}</td>
+            </tr>`;
+        }).join('');
+
+        document.getElementById('last-refresh').textContent = 'Última actualización: ' + new Date().toLocaleTimeString();
+    } catch (e) {
+        document.getElementById('errors-banner').className = 'error-banner';
+        document.getElementById('errors-banner').innerHTML = '⚠️ Server no responde: ' + e.message;
+    }
+}
+
+async function loadLog(name) {
+    try {
+        const r = await fetch('/api/log?name=' + encodeURIComponent(name) + '&_=' + Date.now());
+        const t = await r.text();
+        document.getElementById('log-content').textContent = t || '(vacío)';
+    } catch (e) {
+        document.getElementById('log-content').textContent = 'Error: ' + e.message;
+    }
+}
+
+refresh();
+setInterval(refresh, 30000);
+</script>
+</body>
+</html>

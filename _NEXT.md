@@ -1,5 +1,17 @@
 # _NEXT — loop-video-maker (VersiculoDeDios)
-> Update: 2026-05-25 (tarde) · Canal: @VersiculoDeDios · 12.7K subs · Views 28d: 88.3K · Watch 28d: 518.9h
+> Update: 2026-05-25 19:30 MTY · Canal: @VersiculoDeDios · 12.7K subs
+
+## 🚨 LEE PRIMERO ANTES DE NADA
+
+**Spec sesión completa:** `docs/SESSION_SPEC_2026-05-25.md` ← TODO el contexto
+
+**Estado batch venom 20 shorts:**
+- YT: 7/20 subidos · pendientes 13 (mañana después quota reset)
+- FB: 18/20 subidos · pendientes 2 (007, 020)
+- IG: 0/20 (daemon bloqueado por TCC — ver spec)
+- Los subidos publican SOLOS en sus fechas (May 26 → Jun 14, 1/día 5am MTY)
+
+**🔴 PENDIENTE CRÍTICO:** Fernando debe habilitar Full Disk Access para `/bin/bash` y `/usr/bin/python3` (ver `docs/SESSION_SPEC_2026-05-25.md` sección "BLOQUEO CRÍTICO"). 30 segundos manual. SIN esto, daemons no corren.
 
 ---
 
