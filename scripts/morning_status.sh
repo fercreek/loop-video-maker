@@ -42,8 +42,10 @@ FB_OK=$(echo $SCHED | cut -d'|' -f2)
 TOTAL=$(echo $SCHED | cut -d'|' -f3)
 
 # ── Errores en logs ──────────────────────────────────────────────────────
-IG_ERR=$(grep -c "ERROR\|Exception" logs/ig_daemon.log 2>/dev/null || echo 0)
-YT_FB_ERR=$(grep -c "error\|Error\|✗" logs/yt_fb_uploader.stderr 2>/dev/null || echo 0)
+IG_ERR=$(grep -c "ERROR\|Exception" logs/ig_daemon.log 2>/dev/null | head -1 || echo 0)
+YT_FB_ERR=$(grep -c "error\|Error\|✗" logs/yt_fb_uploader.stderr 2>/dev/null | head -1 || echo 0)
+IG_ERR=${IG_ERR:-0}
+YT_FB_ERR=${YT_FB_ERR:-0}
 
 # ── Build report ─────────────────────────────────────────────────────────
 cat > "$OUT" <<EOF
