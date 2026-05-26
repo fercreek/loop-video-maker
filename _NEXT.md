@@ -1,9 +1,52 @@
 # _NEXT — loop-video-maker (VersiculoDeDios)
-> Update: 2026-05-12 · Canal: @VersiculoDeDios · 11,700 subs
+> Update: 2026-05-25 (tarde) · Canal: @VersiculoDeDios · 12.7K subs · Views 28d: 88.3K · Watch 28d: 518.9h
+
+---
+
+## 🔴 BLOQUEOS / Acción Fernando
+
+### Upload Shorts venom INCOMPLETO (YT quota daily hit)
+**Subidos OK:**
+- YouTube (7/20): venom_001, 004, 009, 002, 005, 010, 007
+- Facebook (4/20): venom_001, 004, 002, 005
+
+**Pendientes upload (13 YT + 16 FB):**
+- Mañana 2026-05-26 después de quota reset (24h desde primer upload)
+- Comando: `.venv/bin/python3 scripts/upload_shorts_venom.py`
+- Bug: el script abortó en 429 sin retry. Debería continuar con siguientes (skip los YT con error, intentar FB siempre)
+
+**FB errors específicos (009, 010, 007):**
+- "Please reduce the amount of data you're asking for" — probable rate limit FB
+- Re-intentar mañana junto con los 13 pendientes
+
+### Sleep video pipeline LISTO PARA PROBAR
+- `render_sleep.py` v1 funcional (5min test PASS QA 7/10)
+- `scripts/qa_longform.py` adaptado con thresholds long-form
+- Test 60min Salmo 91 corriendo en background (resultado al regresar)
+- Cuando Chrome cerrado → mejor render 90-120min sin riesgo swap
 
 ---
 
 ## ⚡ En proceso (retomar aquí)
+
+### 🎬 Batch venom (20 shorts) — POST-FIX PIPELINE
+Sesión 2026-05-25: replicar fórmula `bi_B78HZuJ4` (Short 1m1s, 27% watch time canal).
+
+**Estado actual:**
+- 20 scripts en `data/oraciones_pool.json` (venom_001-020)
+- venom_001 rendered con bugs críticos descubiertos y arreglados (ver `logs/LEARNINGS.md` sesión 2026-05-25)
+- QA pipeline nuevo en `scripts/qa_short.py` — score 9/10 en venom_001
+- venom_001 PASS QA pero falta validación final Fernando (voz + visuales)
+
+**Pendiente:**
+- [ ] Fernando aprueba venom_001 final (voz audible + watermark dedup + animación 2da mitad)
+- [ ] **Multi-imagen 3-5 por video** (actualmente solo 2: image1 + image2 a 18s). Para 64s ideal: 4 imágenes cada 16s. Requiere modificar `core/shorts_render.py` xfade chain + `data/oraciones_pool.json` schema (campo `fondos: [a, b, c, d]` en lugar de `fondo` + `fondo2`)
+- [ ] Más KB_VARIANTS (actual: 4 — pan_lr, pan_rl, zoom_in, zoom_out). Agregar: diagonal_tl_br, diagonal_tr_bl, slow_rotate, zoom_pan_combo
+- [ ] Batch render venom_002-020 con A/B voz Dalia (10) / Jorge (10)
+- [ ] Upload programado a YT + cross-post FB Reels
+
+**QA agent debt:**
+- [ ] Check voice-band presence (300-3kHz mean > -45dB) — actualmente NO detecta silencio si música rellena LUFS
 
 ### 📱 Batch v6 Shorts — LISTOS PARA SUBIR
 - 10/10 aprobados en content-review

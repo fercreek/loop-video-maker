@@ -65,6 +65,12 @@ Después de cada render, revisar el log y mover las mejores lecciones aquí.
 | 2026-04-28 | esperanza | v3.2-69d235b | 34.3min render | 3050MB | 120min video | Amanecer + Esperanza + Anhelo + Restauración + Gloria + Manantial | [log](renders/2026-04-28_01-36_esperanza.md) |
 | 2026-04-28 | amor | v3.2-69d235b | 26.1min render | 3049MB | 120min video | Adoración serena + Paz tarde + Sanación + Ungimiento + Reposo + Manantial | [log](renders/2026-04-28_02-11_amor.md) |
 | 2026-04-28 | gratitud | v3.2-69d235b | 18.9min render | 3047MB | 120min video | Gloria + Alabanza + Júbilo + Manantial + Adoración + Gracia | [log](renders/2026-04-28_02-37_gratitud.md) |
+| 2026-05-06 | esperanza | v3.2-f6cb85f | 17.7min render | 3055MB | 120min video | Amanecer + Esperanza + Anhelo + Restauración + Gloria + Manantial | [log](renders/2026-05-06_03-59_esperanza.md) |
+| 2026-05-06 | salmos | v3.2-f6cb85f | 31.0min render | 3054MB | 120min video | Salmos + Adoración + Alabanza + Contemplación + Reverencia + Silencio | [log](renders/2026-05-06_04-23_salmos.md) |
+| 2026-05-06 | paz | v3.2-f6cb85f | 21.7min render | 3053MB | 120min video | Paz profunda + Contemplación + Silencio + Reposo + Quietud + Madrugada | [log](renders/2026-05-06_04-35_paz.md) |
+| 2026-05-06 | sanacion | v3.2-f6cb85f | 54.9min render | 3053MB | 120min video | Sanación + Ungimiento + Restauración + Reposo + Paz profunda + Manantial | [log](renders/2026-05-06_05-00_sanacion.md) |
+| 2026-05-06 | fe | v3.2-f6cb85f | 47.9min render | 3054MB | 120min video | Adoración + Fe viva + Devoción + Gracia + Reverencia + Promesa | [log](renders/2026-05-06_05-09_fe.md) |
+| 2026-05-06 | provision | v3.2-f6cb85f | 69.5min render | 3050MB | 120min video | Adoración + Júbilo + Gracia + Promesa + Fe viva + Gloria | [log](renders/2026-05-06_06-01_provision.md) |
 <!-- renders-table-end -->
 
 ---
@@ -134,3 +140,159 @@ Después de cada render, revisar el log y mover las mejores lecciones aquí.
 - [ ] Considerar texto animado (fade in letra por letra) para engagement
 - [ ] Re-renderizar temas con crossfade dip (esperanza, victoria, salmos, paz) para tener videos 60min limpios
 - [ ] Thumbnails con foto de persona (Suno/Midjourney) para mayor CTR — pinturas al óleo son únicos pero foto puede generar más clicks
+
+---
+
+## Sesión 2026-05-25 — Shorts venom batch + QA pipeline
+
+### Contexto
+Replica fórmula `bi_B78HZuJ4` (Short 1m1s "Reposo Sagrado" — 13.4K views, 138.6h watch, 127.6% retención = 27% del watch time canal en 28d). Mismatch título-narración intencional. 20 scripts venom_001-020 escritos en `data/oraciones_pool.json`.
+
+### Bugs encontrados (críticos)
+
+**1. Voz INAUDIBLE (-91dB silencio) — `core/shorts_render.py:546`**
+`equalizer=f=8000:t=o:w=3000:g=-2` — el flag `t=o` interpreta `w=3000` como **octavas** (no Hz). Matemáticamente nonsense, FFmpeg 8.1 lo aplica estrictamente → voz cae a silencio total. Bug latente desde versiones anteriores.
+- Fix: cambiar `t=o:w=3000` → `t=h:w=3000` (Hz, ancho válido)
+- Verificación: voice band 300-3kHz pasó de -91dB → -22.8dB mean
+
+**2. Fondo segunda mitad CONGELADO — `core/shorts_render.py:344-345 + 516-517`**
+`_build_bg_ffmpeg([2:v], bg2, dur_b, t_switch=18, variant)` — el stream `[2:v]` tiene su propia timeline interna que arranca en t=0, pero el filtro Ken-Burns calculaba `(t - 18)` dando valores negativos en los primeros 18 segundos del segmento → x/y exprs fuera de rango → frame estático.
+- Fix: pasar `t_offset=0.0` para bg2/fg2 (cada stream tiene su propia timeline)
+- Verificación: SSIM avg pasó de "static 4s" → 0s static
+
+**3. FG estático en variantes `zoom_in` y `zoom_out` — `core/shorts_render.py:296-302`**
+`_build_fg_ffmpeg` solo aplica movimiento horizontal para `pan_lr` y `pan_rl`. Para `zoom_in`/`zoom_out` cae al else → `x_expr` fijo → imagen principal sin movimiento. Como `_kb_variant("venom_001")` resuelve a `pan_rl` (variant) → `zoom_out` (variant2 = idx+2), el segundo segmento heredaba FG estático.
+- Fix: agregar `zoompan=z=...:d=frames` para `zoom_in`/`zoom_out`. Variables válidas en zoompan son `on` (output frame), `d` (duration en frames), NO `t`. Initial intento usando `t` falló con `Unknown function in t-0.00)/max(1,46.10)`.
+
+**4. Audio LUFS final -39.5dB (target -16) — `core/shorts_render.py:_build_audio_filter_indexed`**
+`loudnorm=I=-14` aplicado SOLO a narr antes del amix. `amix` con default `normalize=1` divide el output entre N inputs → reduce todo. Música (volume 0.126) + narr normalizada → mezcla final atenuada.
+- Fix:
+  - Quitar `loudnorm` de narr filter
+  - `amix=normalize=0` (no dividir)
+  - Aplicar `loudnorm=I=-16:TP=-1.5:LRA=11` POST-mix al stream [mixed]
+- Verificación: LUFS pasó de -39.5 → -16.2 (target YouTube)
+
+**5. Watermark duplicado**
+- `core/shorts_render.py:386-398` dibujaba `@VersiculoDeDios` con ffmpeg drawtext arriba derecha
+- `core/shorts_subtitle.py:_draw_watermark` ya lo dibuja con Pillow en misma posición
+- `render_short.py:403` `verse_label = f"@VersiculoDeDios · {tema.upper()}"` agregaba el handle TAMBIÉN al label superior izquierdo
+- Fix: quitar drawtext ffmpeg, mantener Pillow (más fino/transparente), simplificar verse_label a solo `tema.upper()`
+
+### Tooling nuevo
+
+**`scripts/qa_short.py`** — QA visual automático pre-upload. Checks:
+- Movimiento del fondo (SSIM entre frames cada 2s, threshold 0.985, flag >5s estáticos)
+- Duración válida YT Shorts
+- Sync audio/video
+- Volumen voz vs música (LUFS integrado)
+
+Output: score 1-10, lista issues priorizados, JSON en `logs/qa/`. Exit code != 0 si score <7. Bloquea uploads de mala calidad.
+
+**Hueco actual:** QA no detecta `mean_volume == -91dB` (silencio total) como ISSUE. Solo mide LUFS general. Si voz silencio pero música presente → LUFS pasa (música satisfacía target) → QA falso positivo. **TODO:** agregar check "voice band 300-3kHz mean > -45dB".
+
+### Consejo Claude Code
+
+- **Antes de aceptar un score QA verde**, validar que cada componente individual del audio esté presente. LUFS final OK no implica voz audible.
+- **FFmpeg 8.1+ es estricto** con parámetros que versiones viejas silenciaban. Auditar EQ chains heredados cuando se actualice FFmpeg.
+- **Ken-Burns con xfade de 2 streams**: cada stream tiene timeline propia. NUNCA pasar t_offset basado en tiempo del compositor exterior.
+- **zoompan** no acepta `t`. Usa `on/d` para progresión normalizada 0-1.
+- **Cuando Fernando dice "calidad 2/10"** → no defender, isolar bugs uno por uno con tests aislados (`ffmpeg -af filter -af volumedetect`). El QA solo es tan bueno como sus checks.
+
+### Patrón nuevo capturado
+
+**Regla:** ningún batch de render se ejecuta sin que `qa_short.py` pase con score ≥8/10 en venom_001. Si baseline falla, fix → re-render → re-QA. NO renderear los 19 restantes con bugs replicados x20.
+
+
+
+---
+
+## 2026-05-25 — Supervisión visual final (agent shorts-qa, batch venom 20/20)
+
+### Resultado batch
+
+- 20/20 PASS `qa_short.py` (score 9/10, único INFO: duración 65-75s >60s, no bloquea YT Shorts)
+- 20/20 PASS motion check (MSE entre frames 10s/30s/50s > 1600 en todos)
+- 20/20 PASS voice-band (mean_vol -22.6 a -24.3 dB, target >-35dB)
+- 20/20 watermark VISIBLE (verificación visual de crops)
+
+### Bug encontrado: heurística de detección de watermark vía pixel-threshold
+
+- Watermark Pillow `WM_COLOR = (255,255,255,170)` (alpha 170/255 = 67% opaco)
+- Stroke negro alpha=200 alrededor del texto
+- Sobre fondos oscuros (videos 004 desierto nocturno, 017 bosque oscuro), el alpha-blending baja la intensidad blanca a ~150-180 px (no >220)
+- Heurística inicial `(region > 220).mean() > 1%` → 0/20 false negatives
+- Heurística `(region > 180).mean() > 2%` → 18/20 (false negatives en 004 y 017)
+- **Validación robusta = inspección visual de crops** del área top-right (y∈[30,140], x∈[700,1080]). El pixel-threshold por sí solo NO es confiable
+
+### Consejo Claude Code
+
+- Para detectar overlays Pillow alpha-blended, usar **edge density (Sobel) o template matching**, no thresholds globales de brillo
+- Cuando un check automático da 0/N o falsos negativos en batch grande → siempre hacer crop+visual antes de declarar fail
+- El cuerpo del agent debe distinguir "detectado por heurística" vs "verificado visualmente"
+
+---
+
+## Sesión 2026-05-25 (tarde-noche) — Sleep pipeline + upload partial + bug fixes
+
+### Contexto
+Fernando se fue 1h gym. Plan: upload Shorts venom + implement sleep pipeline + render test. Mac con Chrome abierto (RAM 868MB libre → 4.7GB después de algo de release).
+
+### Bugs descubiertos
+
+**7. Upload YT quota exceeded después de 7 videos — `scripts/upload_shorts_venom.py`**
+YouTube Data API quota daily = ~6 uploads/día por proyecto OAuth default. Después de 7° upload (venom_013) → `quotaExceeded` 429. Script abortaba con stack trace SIN intentar el FB de ese mismo video ni los siguientes.
+- **Fix:** wrap upload_youtube y upload_facebook en try/except; skip 429 sin abortar; permitir re-correr siguiente día con SKIP de IDs ya subidos (lee SCHEDULE_PATH previo).
+- **Fix:** print de progreso usa `len(schedule)` (era hardcoded `/10`).
+- **Patrón:** quota daily YT reset = 24h desde primer upload (no medianoche UTC necesariamente).
+
+**8. FB error 429-like "Please reduce amount of data" — algunos uploads (009, 010, 007)**
+3 de 7 videos fallaron en FB sin causa clara — los otros subieron OK. Probable rate limit FB no documentado o file específico problemático.
+- **Fix temporal:** try/except + skip + retry siguiente día con SKIP de IDs OK.
+- **TODO:** investigar si videos específicos tienen issue (tamaño, codec, duration).
+
+**9. Drawtext bug recurrente en sleep pipeline — `render_sleep.py`**
+FFmpeg 8.1 local NO tiene libfreetype compilado → `[AVFilterGraph] No such filter: 'drawtext'`. Mismo bug que `core/shorts_render.py` ya resuelto (v4 Pillow text engine).
+- **Fix:** mismo approach que shorts — Pillow genera PNG overlay con texto, ffmpeg overlay (no drawtext). Function `build_overlay_pngs(titulo, out_dir)` en `render_sleep.py`.
+
+**10. Overlay alpha expression no soportada — `render_sleep.py:build_video_filter`**
+Intenté `overlay=...:alpha='if(lt(t,1.5),t/1.5,...)'` para fade in/out del título. Error: `Unable to parse "alpha" option value`. Overlay filter NO acepta `alpha` parameter.
+- **Fix:** aplicar fade ANTES del overlay con `fade=t=in:alpha=1` y `fade=t=out:alpha=1` en el stream del PNG, luego overlay con `enable='between(t,a,b)'`.
+
+### Tooling nuevo
+
+**`render_sleep.py` v1** — Pipeline sleeping content 60-120min:
+- Reusa `core/music_gen.py` para audio (MusicGen local, moods "Reposo"/"Madrugada"/"Paz profunda")
+- Ken-Burns ultra-lento `zoom 1.00 → 1.05` en duración total (5% / 60min = 0.083%/min)
+- Overlay título primeros 10s (Pillow + ffmpeg overlay con fade alpha)
+- Watermark `@VersiculoDeDios` siempre visible top-right (Pillow PNG)
+- 5 temas preset: salmo91, salmo23, ansiedad, promesas, rosario
+- Output: 1920x1080 @ 24fps, ~30MB/5min ≈ 360MB/60min
+
+**`scripts/qa_longform.py`** — QA adaptado long-form:
+- SSIM threshold MÁS PERMISIVO (0.998) — KB ultra-lento llega naturalmente a 0.99
+- LUFS target -18 (sleep, no -16 que es para voz Shorts)
+- Duration check 50-130 min válido
+- NO requiere voice-band (audio puro instrumental)
+- Sample frames cada 30s (vs 2s Shorts)
+
+### Validación pipeline
+
+- ✅ Sleep test 5min Salmo 91: render 55.9s, 30.2MB, QA 7/10 PASS (motion OK, sync OK, LUFS -17.9 target)
+- 🔄 Sleep test 60min Salmo 91: corriendo en background al cerrar sesión Fernando gym
+
+### Mejoras pendientes al QA tool
+
+- `scripts/qa_short.py`: agregar check voice-band 300-3kHz mean >-45dB (capturaría bug #1 del silencio EQ que QA actual no detecta)
+- `scripts/qa_longform.py`: agregar check audio NO tiene voz (banda 300-3kHz NO debería ser dominante en sleep ambient — si lo es, hay narración accidental)
+- Agente shorts-qa: bug #6 (pixel-threshold WM detection) → próxima iter usar Sobel/template matching
+
+### Consejo Claude Code
+
+- **Cuando un comando tipo `cmd & echo done` se lanza con run_in_background del tool, el wrapper Bash captura exit 0 inmediato pero el proceso real sigue.** Usar `run_in_background=True` directo en la herramienta, NO `&` shell.
+- **Quota YT diaria es severa (~6 videos/día)** — para batch de 20+, dividir en 4 días o pedir aumento de quota a Google.
+- **Drawtext bug** sigue siendo recurrente — cualquier pipeline ffmpeg nuevo debe ASUMIR `DRAWTEXT_OK=False` y usar Pillow overlay desde el inicio.
+
+### Patrón nuevo capturado
+
+**Regla:** Pipelines de render (sleep, shorts, long-form) DEBEN usar overlay PNG Pillow + ffmpeg overlay. Drawtext queda PROHIBIDO en código nuevo del repo. Documentar en CLAUDE.md.
+

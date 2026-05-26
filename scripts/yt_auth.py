@@ -27,7 +27,7 @@ CLIENT_SECRET = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__f
 TOKEN_PATH    = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "yt_token.json")
 
 SCOPES = [
-    "https://www.googleapis.com/auth/youtube.readonly",
+    "https://www.googleapis.com/auth/youtube",           # read + write (update titles, descriptions)
     "https://www.googleapis.com/auth/yt-analytics.readonly",
 ]
 
