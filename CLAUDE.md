@@ -349,4 +349,63 @@ cat /tmp/versiculos_publish.log
 | `docs/ANALYTICS_SNAPSHOT_*.md` | Métricas históricas del canal |
 | `docs/COPY_YOUTUBE.md` | Templates de título/descripción |
 | `data/versiculos/` | Banco de versículos por tema |
+
+---
+
+## Principio arquitectónico — Todo pasa por n8n en producción
+
+**INVARIANTE:** En producción, n8n (VPS root@2.24.111.80) es el orquestador. La Mac local
+es solo para prototipado y renders pesados. Ningún flujo de producción debe depender de
+que la Mac esté encendida.
+
+**Patrón correcto:**
+```
+n8n cron (VPS) → APIs externas (Ideogram, ElevenLabs, YT, Claude)
+  → si render local necesario: n8n webhook → Mac renderiza → sube resultado
+  → log en /var/www/stats/actions.jsonl
+  → alerta @cero_ops_bot Telegram
+```
+
+**loop-video-maker local = prototipado.** Cuando un pipeline está validado aquí,
+se migra a workflow n8n en VPS. Scripts como `render_sleep.py` son la referencia
+de implementación, no el destino final de producción.
+
+---
+
+## Guardrails anti-AI slop — Contenido de valor
+
+**Contexto (investigación Mayo 2026):** YouTube eliminó canales masivos de AI religioso
+("Imperio de Jesús" 5.87M subs, AI Jesús como influencer Gen-Z). El riesgo es real.
+
+**Lo que diferencia contenido de valor vs AI slop eliminado:**
+
+| AI Slop (eliminado) | Contenido de valor (sobrevive) |
+|--------------------|-------------------------------|
+| Jesús como meme/influencer | Escritura real + reflexión genuina |
+| 10+ videos/día | 1-2/día, ritmo humano |
+| Sin engagement real | Replies reales con Claude (cero-agent) |
+| Sin disclosure AI | "Creado con asistencia de IA" en descripción |
+| Shorts sin destino | Shorts → sleep videos (watch time real) |
+| Voz robótica genérica | ElevenLabs voz cálida consistente |
+| Formato repetido infinito | Rotación de temas y formatos |
+
+**Guardrails que DEBEN estar en cada pipeline:**
+
+1. **Claude valida script** antes de render — si score <7 en valor espiritual, no producir
+2. **Disclosure automático** en descripción: `"Contenido creado con asistencia de IA 🙏"`
+3. **Cross-link Shorts → long-form**: cada Short apunta al sleep video correspondiente
+4. **Pacing máximo:** 1 Short/día. No publicar si canal tiene strike activo.
+5. **Rotación de temas** semanal: miedo→propósito→gratitud→fe (no mismo tema siempre)
+6. **Imágenes bíblicas cinematics**, NO Jesús fotorrealista hablando (riesgo strike)
+
+**Fórmula viral segura (replicar esto):**
+```
+Hook 2s: pregunta que detiene el scroll ("¿Por qué Dios permite el dolor?")
+  ↓
+Versículo + imagen cinematic (3-5s)
+  ↓
+Reflexión corta + voz ElevenLabs cálida (15-20s)
+  ↓
+CTA + link sleep video (3s)
+```
 | `data/oraciones_pool.json` | Pool 43 oraciones (23 originales + 20 venom_*) |

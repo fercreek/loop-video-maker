@@ -111,21 +111,26 @@ def upload_to_ig(video_path: Path, caption: str, token: str, dry_run: bool = Fal
         return None
     log.info(f"Container created: {container_id}")
 
-    # Upload video bytes
+    # Upload video in 4MB chunks (LSVP requires chunked upload, single-request = 400)
+    CHUNK_SIZE = 4 * 1024 * 1024
     size = video_path.stat().st_size
     with open(video_path, "rb") as f:
-        headers = {
-            "Authorization": f"OAuth {token}",
-            "offset": "0",
-            "file_size": str(size),
-        }
-        up = requests.post(upload_url, headers=headers, data=f, timeout=600)
-        up.raise_for_status()
-        log.info(f"Upload bytes done ({size} bytes)")
-
-    # Add caption (POST /{container-id} with caption)
-    caption_url = f"https://graph.facebook.com/v19.0/{container_id}"
-    requests.post(caption_url, params={"caption": caption, "access_token": token}, timeout=30)
+        offset = 0
+        while True:
+            chunk = f.read(CHUNK_SIZE)
+            if not chunk:
+                break
+            headers = {
+                "Authorization": f"OAuth {token}",
+                "Content-Type": "application/octet-stream",
+                "offset": str(offset),
+                "file_size": str(size),
+            }
+            up = requests.post(upload_url, headers=headers, data=chunk, timeout=120)
+            up.raise_for_status()
+            offset += len(chunk)
+            log.info(f"Uploaded {offset}/{size} bytes ({up.status_code})")
+    log.info(f"Upload complete: {size} bytes")
 
     # Poll status
     status_url = f"https://graph.facebook.com/v19.0/{container_id}"

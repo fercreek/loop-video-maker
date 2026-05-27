@@ -211,9 +211,23 @@ def upload_facebook(entry: dict, dry_run: bool) -> str | None:
     token    = get_fb_token()
     pub_ts   = entry["publish_ts"]
     # FB requiere: mínimo 10 min en el futuro, máximo 30 días
+    # IMPORTANTE: si pub_ts pasó, calcular desde el día siguiente al último video programado
+    # (nunca agrupar múltiples videos en el mismo día vía API)
     now_ts   = int(datetime.now(timezone.utc).timestamp())
     if pub_ts < now_ts + 600:
-        pub_ts = now_ts + 700  # fallback: 11+ min
+        # Calcular cuántos videos de este batch ya tienen fb_id en el schedule
+        try:
+            sched = json.loads((PROJECT_DIR / "data" / "shorts_schedule.json").read_text())
+            entries_done = [e for e in sched.get("schedule", []) if e.get("fb_id") and e["fb_id"] not in (None, "dry-fb-id")]
+            # 1 día por video ya programado, +1 para este
+            days_offset = len(entries_done) + 1
+        except Exception:
+            days_offset = 1
+        # Publicar a las 5am MTY del día correspondiente
+        base = datetime.now(MTY_TZ).replace(hour=5, minute=0, second=0, microsecond=0)
+        if base.timestamp() < now_ts:
+            base = base + timedelta(days=1)
+        pub_ts = int((base + timedelta(days=days_offset - 1)).timestamp())
 
     description = (
         f"{entry['titulo']}\n\n"
