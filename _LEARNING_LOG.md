@@ -6,6 +6,28 @@
 
 ---
 
+### 2026-05-27 · Debug IG upload 400 + bulk FB fix
+
+**Pros:**
+- Bug root cause encontrado en <10 pasos: single-request vs chunked LSVP — test empírico directo
+- venom_001 publicado en IG en misma sesión que se encontró el bug
+- Identificamos 3 sistemas independientes publicando en FB (schedule_vd, venom batch, batch anterior)
+
+**Cons:**
+- Se iteró 5+ variantes (Content-Type, bytes vs fileobj, versión API, token type) antes de probar chunked — la doc de Meta no dice claramente que LSVP requiere chunks
+- El daemon `yt-fb-uploader` lleva roto sin detectarse (PermissionError silencioso)
+- No hay monitoring centralizado — cada daemon loguea a `/tmp` o a `logs/` separados sin vista unificada
+
+**Consejo Claude Code:**
+- Para errores `rupload.facebook.com 400`: PRIMERO probar chunked 4MB antes de cualquier otra variante — es el protocolo LSVP de Meta, no soporta single-request >4MB
+- Al diagnosticar bulk uploads en FB: siempre `GET /{page}/posts?limit=50` en lugar del JSON cacheado — el cache solo trae 10
+- Antes de reportar "el daemon está corriendo", verificar exit code en `launchctl list` Y revisar stderr log — `-1` o `-9` = fallando silencioso
+
+**Patrón nuevo capturado:**
+- Meta LSVP (rupload.facebook.com): chunks de 4MB con headers `offset` + `file_size` + `Content-Type: application/octet-stream`. Respuestas 206 × N chunks + 200 en último.
+
+---
+
 ### 2026-05-26 · Sesión gym + FDA + cleanup PR
 
 **Pros (qué salió bien):**
