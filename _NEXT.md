@@ -1,5 +1,5 @@
 # _NEXT — loop-video-maker (VersiculoDeDios)
-> Update: 2026-05-27 MTY · Canal: @VersiculoDeDios · FB: 1,583 fans (+252 en 8d) · IG: venom_001 publicado ✅
+> Update: 2026-05-27 14:30 MTY · Canal: @VersiculoDeDios · FB: 1,583 fans · IG: venom_001+004 publicados ✅ · 4/4 daemons OK
 
 ## 🚨 LEE PRIMERO
 
@@ -12,32 +12,27 @@
 ## ⚡ En proceso (retomar aquí)
 
 ### 🎬 Batch venom (20 shorts) — EN PRODUCCIÓN
-**Plan:** 1/día 5am MTY · May 26 → Jun 14 · YT + FB + IG cross-post
+**Plan:** 1/día 5:10am MTY IG · 5:00am YT/FB · daemon auto diario
 
-**Estado upload (2026-05-27 MTY):**
-- YouTube: **7/20** (venom_001, 004, 009, 002, 005, 010, 007) — daemon `yt-fb-uploader` ROTO (PermissionError pyvenv.cfg) → subir manualmente o fixear daemon
-- Facebook: **18/20** programados OK (venom_007 y venom_020 fallaron) — ✅ 1/día correcto
-- Instagram: **venom_001 publicado** ✅ (`18087886448579249`) · venom_004 falla chunk final (intermitente) · resto pendiente daemon
+**Estado upload (2026-05-27 14:30 MTY):**
+- YouTube: **7/20** scheduled · daemon `yt-fb-uploader` ✅ FIXEADO · sube ~6/noche 1:30am
+- Facebook: **17/20** scheduled · venom_007 + venom_020 pendientes retry
+- Instagram: **2/20** publicados (venom_001 + venom_004 ✅) · venom_009 mañana 5:10am auto
 
-**Bug fix deployado (commit 9f2b62c):**
-- `ig_daemon.py`: upload en chunks 4MB (API rupload requiere LSVP chunked, no single-request)
-- `upload_shorts_venom.py`: fallback pub_ts → 1/día desde último fb_id (evita bulk)
-
-**Daemons activos:**
+**Daemons: 4/4 exit 0** (commit be44a27 — bash wrapper FDA)
 ```bash
-launchctl list | grep versiculodedios
-# com.versiculodedios.ig-daemon       ← IG publisher (FIXEADO hoy)
-# com.versiculodedios.yt-fb-uploader  ← ROTO (PermissionError)
-# com.versiculos.publish              ← texto/imagen 3x/día (9am,1pm,7pm MTY)
+launchctl list | grep versiculodedios      # verificar exit codes
+cat data/ig_state.json                     # IG publicados
+tail -20 logs/ig_daemon.log                # último run IG
+tail -20 logs/yt_fb_uploader.stdout        # último run YT/FB
 ```
 
 **Pendiente próxima sesión:**
-- [ ] Fix daemon `yt-fb-uploader`: PermissionError en `.venv/pyvenv.cfg` — posiblemente `chmod` o rehacer venv
-- [ ] Subir venom_007 y venom_020 a FB manualmente (fallaron por quota)
-- [ ] Monitorear IG: daemon corre 5am MTY, revisar `data/ig_state.json` diario
-- [ ] venom_004 IG: retry manual si sigue fallando (video puede tener issue específico en chunk 16MB)
-- [ ] Metrics 7 días batch venom (watch time, retention FB reels vs YT)
-- [ ] QA tool debt: agregar voice-band check 300-3kHz mean >-45dB (catch silencio futuro)
+- [ ] Verificar venom_009 publicó IG 5:10am (`data/ig_state.json`)
+- [ ] Verificar YT subió ~6 más en noche (`logs/yt_fb_uploader.stdout`)
+- [ ] Reintentar venom_007 + venom_020 FB (failed, retry daemon)
+- [ ] Metrics 7 días batch venom (watch time, retention)
+- [ ] QA tool debt: voice-band check 300-3kHz mean >-45dB
 
 ### 🌙 Sleep video pipeline LISTO
 - ✅ `render_sleep.py` v1 funcional
@@ -86,6 +81,14 @@ launchctl list | grep versiculodedios
 - [x] FDA grant macOS para daemons (2026-05-26)
 - [x] Bug fix morning_status grep multi-line (commit 6ec4f9f)
 - [x] Agente `@agent shorts-qa` con bugs conocidos #1-10
+
+## ✅ Completado sesión 2026-05-27 (tarde)
+
+- [x] Análisis exhaustivo estado sistema — daemons, uploads, errores
+- [x] Fix plists bash wrapper FDA: ig-daemon + yt-fb-uploader (ambos exit 0)
+- [x] Fix `ig_daemon.py`: dry-run no escribe ig_state.json (commit be44a27)
+- [x] venom_004 publicado IG (`17992374638986813`) vía force-publish
+- [x] Pushed a origin/main
 
 ---
 

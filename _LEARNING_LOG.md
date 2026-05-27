@@ -6,6 +6,28 @@
 
 ---
 
+### 2026-05-27 · Análisis sistema + FDA daemons + dry-run bug
+
+**Pros:**
+- Diagnóstico exhaustivo del sistema en 1 sesión: daemons, upload state, errores silenciosos
+- FDA root cause resuelto definitivamente: bash wrapper en plists = launchd hereda FDA de /bin/bash
+- Bug dry-run→save_state encontrado y corregido antes de que dañara producción masiva
+- 4/4 daemons exit 0 al cerrar sesión
+
+**Cons:**
+- yt-fb-uploader llevaba con exit 1 desde días anteriores sin detectarse — monitoring reactivo, no proactivo
+- No hay health-check automático que alerte cuando daemon falla (solo se ve al abrir Claude)
+
+**Consejo Claude Code:**
+- Prompt óptimo: "revisa todos los daemons con `launchctl list | grep versiculodedios` Y sus stderr logs antes de reportar estado" — exit code + log juntos
+- Para FDA en macOS Sequoia: plist siempre con `/bin/bash -c "cd WORKDIR && .venv/bin/python3 script.py"` — nunca python directo en ProgramArguments
+- Dry-run en cualquier daemon: verificar que NO guarda state antes de correr — patrón `if not dry_run: save_state()`
+
+**Patrón nuevo capturado:**
+- macOS Sequoia launchd FDA: bash (si está en FDA) puede lanzar python sin que python tenga FDA propio. Bash abre el .py via fork/exec, python hereda el file descriptor ya abierto.
+
+---
+
 ### 2026-05-27 · Debug IG upload 400 + bulk FB fix
 
 **Pros:**
