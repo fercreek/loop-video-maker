@@ -250,7 +250,8 @@ def process_schedule(dry_run: bool = False, force_id: str | None = None, verbose
 
     state["published"] = published
     state["errors"] = errors
-    save_state(state)
+    if not dry_run:
+        save_state(state)
     return summary
 
 
