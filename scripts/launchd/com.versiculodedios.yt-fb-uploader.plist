@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.versiculodedios.yt-fb-uploader</string>
+
+    <!-- bash wrapper obligatorio — macOS Sequoia launchd no hereda FDA para python directo -->
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>-c</string>
+        <string>cd /Users/fernandocastaneda/Documents/loop-video-maker && .venv/bin/python3 scripts/upload_shorts_venom.py</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/fernandocastaneda/Documents/loop-video-maker</string>
+
+    <!-- 1x día 1:30am MTY (YT quota reset ~midnight PT = ~2am MTY, 1:30 conservador) -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>1</integer>
+        <key>Minute</key>
+        <integer>30</integer>
+    </dict>
+
+    <!-- RunAtLoad false — no queremos subir al login, solo a las 1:30am -->
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>ProcessType</key>
+    <string>Background</string>
+
+    <key>StandardOutPath</key>
+    <string>/Users/fernandocastaneda/Documents/loop-video-maker/logs/yt_fb_uploader.stdout</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/fernandocastaneda/Documents/loop-video-maker/logs/yt_fb_uploader.stderr</string>
+</dict>
+</plist>

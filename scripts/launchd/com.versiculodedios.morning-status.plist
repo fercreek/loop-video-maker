@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.versiculodedios.morning-status</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/fernandocastaneda/Documents/loop-video-maker/scripts/morning_status.sh</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/fernandocastaneda/Documents/loop-video-maker</string>
+
+    <!-- 11:00am MTY — genera STATUS_TODAY.md + notif macOS -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>11</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>StandardOutPath</key>
+    <string>/Users/fernandocastaneda/Documents/loop-video-maker/logs/morning_status.stdout</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/fernandocastaneda/Documents/loop-video-maker/logs/morning_status.stderr</string>
+</dict>
+</plist>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.versiculodedios.ig-daemon</string>
+
+    <!-- bash wrapper obligatorio — macOS Sequoia launchd no hereda FDA para python directo -->
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>-c</string>
+        <string>cd /Users/fernandocastaneda/Documents/loop-video-maker && .venv/bin/python3 scripts/ig_daemon.py</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/fernandocastaneda/Documents/loop-video-maker</string>
+
+    <!-- 1x día 5:10am MTY (después de YT/FB que publican 5:00) -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>5</integer>
+        <key>Minute</key>
+        <integer>10</integer>
+    </dict>
+
+    <!-- Catch-up al login si Mac estuvo off a las 5am -->
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>ProcessType</key>
+    <string>Background</string>
+
+    <key>StandardOutPath</key>
+    <string>/Users/fernandocastaneda/Documents/loop-video-maker/logs/ig_daemon.stdout</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/fernandocastaneda/Documents/loop-video-maker/logs/ig_daemon.stderr</string>
+</dict>
+</plist>
