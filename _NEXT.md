@@ -11,6 +11,38 @@
 
 ## ⚡ En proceso (retomar aquí)
 
+### 🎵 Lo-Fi Cristiano — Batch v1 EN RENDER
+
+**Estado (2026-05-28):**
+- [ ] v01 `dormir` — renderizando (`lofi_veo3_clean_8s.mp4` noche, Biblia+vela)
+- [ ] v02 `orar` — renderizando (`lofi_veo3_clip2_clean_8s.mp4` noche, cruz+libros)
+- [ ] v03 `ansiedad` — renderizando (`lofi_v03_kb30s.mp4` mañana KB 30s, tonos dorados)
+- [ ] Todos: 6 verse overlays Pillow PNG dorado cada 20min, 25s fade · audio `output/sleep/playlist.wav`
+
+**Stack:** `Imagen 4 API → Veo3 Google Flow (16:9, 8s) → ffmpeg watermark+crop → ffmpeg loop×900 + audio + verse overlays → YouTube`
+
+**Assets reutilizables en `output/lofi/`:**
+- `lofi_veo3_clean_8s.mp4` · `lofi_veo3_clip2_clean_8s.mp4` · `lofi_v03_kb30s.mp4`
+- `verse_cards/verse_01-06.png` (6 overlays) · `_wm_1280.png` · `youtube_metadata.json`
+
+**Pendientes post-render:**
+- [ ] Agregar verses faltantes en v02 y v03
+- [ ] Crear playlist "Lo-Fi Cristiano" en YouTube Studio
+- [ ] Upload — esperar **APRUEBO Fernando** antes de subir cualquier video
+
+**7 mejoras engagement (aplicar a todos los futuros):**
+1. Playlist "Lo-Fi Cristiano" → autoplay encadena watch time ×3
+2. Capítulos en descripción (timestamps por versículo)
+3. Comentario fijado: "¿Cuál versículo resonó contigo? 👇"
+4. End screen → siguiente video de la playlist
+5. Subir domingo 9pm MTY (pico consumo religioso)
+6. "sin anuncios" en descripción (alto search volume)
+7. Keyword "PARA DORMIR" en primeras 3 palabras del título
+
+**Métrica objetivo:** >200h watch time/video en 30 días (baseline: 1 lofi 2h visto al 30% = 36min vs 21s avg Short)
+
+---
+
 ### 🎬 Batch venom (20 shorts) — EN PRODUCCIÓN
 **Plan:** 1/día 5:10am MTY IG · 5:00am YT/FB · daemon auto diario
 
