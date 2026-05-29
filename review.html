@@ -9,15 +9,20 @@
 
 :root {
   /* Defaults — overridden by review.json brand colors at runtime */
-  --gold: #F5C842;
+  --gold: #F5C842; /* brand primary */
   --accent: #F5C842;
   --green: #2ECC71;
   --red: #E74C3C;
   --orange: #E67E22;
   --bg: #0a0a0a;
-  --card-w: 280px;
-  --card-h: 500px;
+  --card-w: 360px;
+  --card-h: 360px;
 }
+/* Format-aware card dimensions — set on #card-wrap via JS */
+#card-wrap.fmt-story            { --card-w: 220px; --card-h: 390px; }
+#card-wrap.fmt-post             { --card-w: 360px; --card-h: 360px; }
+#card-wrap.fmt-video-horizontal { --card-w: 480px; --card-h: 270px; }
+#card-wrap.fmt-video            { --card-w: 480px; --card-h: 270px; }
 
 body {
   background: var(--bg);
@@ -123,7 +128,7 @@ video.card-media { cursor: pointer; }
   border: 1px solid rgba(255,255,255,0.2);
 }
 .card:hover .play-btn { opacity: 0.7; }
-.play-btn.hidden { opacity: 0; }
+.play-btn.hidden { display: none !important; }
 
 .card-overlay {
   position: absolute;
@@ -298,7 +303,8 @@ video.card-media { cursor: pointer; }
 <body>
 
 <div id="header">
-  <h1 id="page-title">Content Review</h1>
+  <div id="header-logo" style="flex-shrink:0;display:flex;align-items:center;height:28px;"></div>
+  <h1 id="page-title" style="display:none">Content Review</h1>
   <div id="progress-wrap"><div id="progress-fill"></div></div>
   <div id="counter">– / –</div>
   <div id="header-save" style="font-size:11px;color:#333;min-width:60px;text-align:right" title="Estado del auto-save">●</div>
@@ -410,10 +416,20 @@ fetch('data/review.json')
     // Brand colors injected from review.json (set once, no extra requests)
     applyBrand(d.brand);
 
-    // Title
+    // Title + logo
     const label = [d.project, d.batch].filter(Boolean).join(' · ') || 'Content Review';
     document.getElementById('page-title').textContent = label;
     document.title = label;
+    const logoWrap = document.getElementById('header-logo');
+    if (d.brand?.logo) {
+      const li = document.createElement('img');
+      li.src = d.brand.logo;
+      li.alt = d.brand?.name || d.project || '';
+      li.style.cssText = 'height:28px;width:auto;object-fit:contain;';
+      logoWrap.appendChild(li);
+    } else {
+      document.getElementById('page-title').style.display = '';
+    }
 
     // Detect repeated backgrounds
     duplicateMap = buildDuplicateMap(shorts);
@@ -455,6 +471,11 @@ function renderCard() {
   card.className = 'card';
   card.style.zIndex = 10;
 
+  // Resize card-wrap to match content format
+  const fmt = s.format || 'post';
+  wrap.className = wrap.className.replace(/\bfmt-\S+/g, '').trim();
+  wrap.classList.add('fmt-' + fmt);
+
   // Thumbnail first, video on click
   const img = document.createElement('img');
   img.className = 'card-media';
@@ -462,9 +483,9 @@ function renderCard() {
   img.alt = s.hook;
   card.appendChild(img);
 
-  // Play button
+  // Play button — hidden for images
   const playBtn = document.createElement('div');
-  playBtn.className = 'play-btn';
+  playBtn.className = 'play-btn' + (s.mp4 ? '' : ' hidden');
   playBtn.textContent = '▶';
   card.appendChild(playBtn);
 

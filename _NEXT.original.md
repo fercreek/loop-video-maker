@@ -28,16 +28,16 @@
 **Pendientes post-render:**
 - [ ] Agregar verses faltantes en v02 y v03
 - [ ] Crear playlist "Lo-Fi Cristiano" en YouTube Studio
-- [ ] Upload — esperar **APRUEBO Fernando** antes de subir
+- [ ] Upload — esperar **APRUEBO Fernando** antes de subir cualquier video
 
-**7 mejoras engagement (aplicar a futuros):**
+**7 mejoras engagement (aplicar a todos los futuros):**
 1. Playlist "Lo-Fi Cristiano" → autoplay encadena watch time ×3
 2. Capítulos en descripción (timestamps por versículo)
 3. Comentario fijado: "¿Cuál versículo resonó contigo? 👇"
-4. End screen → siguiente video playlist
+4. End screen → siguiente video de la playlist
 5. Subir domingo 9pm MTY (pico consumo religioso)
 6. "sin anuncios" en descripción (alto search volume)
-7. Keyword "PARA DORMIR" en primeras 3 palabras título
+7. Keyword "PARA DORMIR" en primeras 3 palabras del título
 
 **Métrica objetivo:** >200h watch time/video en 30 días (baseline: 1 lofi 2h visto al 30% = 36min vs 21s avg Short)
 
@@ -70,7 +70,7 @@ tail -20 logs/yt_fb_uploader.stdout        # último run YT/FB
 - ✅ `render_sleep.py` v1 funcional
 - ✅ `scripts/qa_longform.py` adaptado
 - ✅ Test 60min Salmo 91 → QA 10/10 PASS (315MB, LUFS -18.1)
-- [ ] **Decidir:** generar 5 sleep videos (salmo91, salmo23, ansiedad, promesas, rosario) — 5h render
+- [ ] **Decidir:** generar 5 sleep videos (salmo91, salmo23, ansiedad, promesas, rosario) — 5h render total
 - [ ] **Decidir:** cómo subir sleep videos (otro pipeline upload? otra cuota YT?)
 
 ---
@@ -78,17 +78,17 @@ tail -20 logs/yt_fb_uploader.stdout        # último run YT/FB
 ## 💡 Backlog
 
 ### Pipelines / código
-- [ ] Multi-imagen 3-5 por video (hoy 2: image1 + image2 a 18s) — schema `fondos: [a,b,c,d]`
+- [ ] Multi-imagen 3-5 por video (actualmente 2: image1 + image2 a 18s) — schema `fondos: [a,b,c,d]`
 - [ ] Más KB_VARIANTS visuales (zoom_in_pan combo, slow_rotate)
 - [ ] `scripts/qa_short.py` agregar voice-band check (300-3kHz)
 - [ ] `scripts/qa_longform.py` agregar check "NO voz dominante en sleep ambient"
-- [ ] Mejorar SwiftBar plugin: conteo pendientes por proyecto
+- [ ] Mejorar SwiftBar plugin: agregar conteo de pendientes por proyecto
 - [ ] Auto-update `_SCHEDULE_VENOM.md` desde shorts_schedule.json (script TBD)
 
 ### Growth / análisis
-- [ ] Pin comment primera hora cada video (pregunta emocional)
+- [ ] Pin comment primera hora de cada video publicado (pregunta emocional)
 - [ ] Responder comentarios primeras 24h (señal algoritmo)
-- [ ] Cross-post FB Reels (top 5 Shorts 28d)
+- [ ] Cross-post FB Reels (los 5 top Shorts 28d)
 - [ ] Request quota YT increase a Google (`docs/YT_QUOTA_INCREASE.md`) — esperar strike resuelto
 - [ ] V2 retención: cold open con clímax, dinámica musical por mood
 
