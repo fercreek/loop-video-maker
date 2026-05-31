@@ -1,5 +1,54 @@
 # _NEXT — loop-video-maker (VersiculoDeDios)
-> Update: 2026-05-27 14:30 MTY · Canal: @VersiculoDeDios · FB: 1,583 fans · IG: venom_001+004 publicados ✅ · 4/4 daemons OK
+> Update: 2026-05-31 (Upload schedule de venom) · Prev update: 2026-05-27 14:30 MTY · Canal: @VersiculoDeDios-v1u (UC2l5TZjHzRtaRjH8kT_yQ2w)
+
+## 🎯 Upload schedule (de venom 2026-05-31) — RETOMAR AQUÍ
+
+### Estado YT actual (stats frescos hoy, OAuth real watch time)
+- **Subs:** 13,900 · **Total views:** 1,062,433 · **Video count:** 1,093
+- **Watch hours 28d:** 813.7 hrs
+- **YPP:** 27.1% del gate (faltan **2,186.3 hrs** de las 3,000 requeridas) · subs requirement ✅ ya cumplido · watch hours ❌ = el único gate vivo
+- Top performer Short: `tVxo-PnrnTQ` RESTAURACION COMPLETA — **240.7% retención media**, +61 subs en 28d
+
+### ⚡ Tensión estratégica (la decisión central)
+- **Shorts crecen SUBS** (~+125/día implícito, el mejor Short pegó 240% retención + 4,984 views) PERO los Shorts NO mueven la aguja del gate YPP.
+- **Watch hours (único gate vivo) dependen de LONG-FORM** — y la cola long-form en el canal está **vacía** (`pending_120min: 0`, `pending_60min: 0` en el fetch).
+- **Conclusión:** hay 6×120min + 3 lofi 2h + 16 stories **renderizados y sin subir** = ~30+ horas de contenido long-form parado en disco que es exactamente lo que cierra el gate YPP. Subir esto es la prioridad #1 sobre generar más Shorts.
+
+### 📅 Schedule recomendado (orden de ejecución)
+1. **6×120min PRIMERO** — 1 cada 2-3 días (respetar quota YT 6 uploads/día + no saturar). Título SEO obligatorio: `"PARA DORMIR · X HORAS · Sin Anuncios"` con keyword en primeras 3 palabras (FOCUS-085).
+2. **Luego los 3 lofi 2h** (dormir / orar / ansiedad) — usar versiones `_verses_final` donde existan (FOCUS-086).
+3. **Shorts diario** en paralelo — sigue alimentando subs, no compite con el long-form (FOCUS-087).
+4. **Re-test 1-2 stories** (17-22min) con thumbnail nuevo — eran long-form pero con bajo view; validar si thumbnail nuevo levanta CTR antes de subir las 16 (FOCUS-088).
+
+### 📦 Inventario exacto (paths reales confirmados 2026-05-31)
+
+**6×120min — LISTOS (3.2GB c/u):** `output/semana_2026-05-06/videos/`
+- `esperanza_120min.mp4` · `fe_120min.mp4` · `paz_120min.mp4` · `provision_120min.mp4` · `salmos_120min.mp4` · `sanacion_120min.mp4`
+- Thumbnails en `output/SUBIR/120min/`: `esperanza_thumb.jpg`, `fe_thumb.jpg`, `paz_thumb.jpg`, `provision_thumb.jpg`, `salmos_thumb.jpg`, `sanacion_thumb.jpg` (carpeta tiene 10 thumbs; estos 6 son los que matchean los videos renderizados)
+- Copy 120min: `docs/COPY_YOUTUBE_120MIN.md`
+
+**3 lofi 2h — LISTOS:** `output/lofi/`
+- v01 dormir → `lofi_v01_dormir_2h.mp4` (838M)
+- v02 orar → `lofi_v02_verses_final.mp4` (874M, con verses) · base sin verses: `lofi_v02_orar_2h.mp4`
+- v03 ansiedad → `lofi_v03_verses_final.mp4` (431M, con verses) · base sin verses: `lofi_v03_ansiedad_2h.mp4`
+- Thumbs en `output/lofi/thumbs/` (varias versiones v2/v3/v4 por video) · metadata: `output/lofi/youtube_metadata.json`
+- NOTA: la realidad supera el _NEXT viejo — dormir TAMBIÉN está renderizado (no solo orar/ansiedad).
+
+**16 stories 14-22min — LISTAS (mp4 final + thumbnail.jpg cada una):** `output/stories/{slug}/`
+- abraham-e-isaac · buen-samaritano · daniel-foso-leones · david-goliat · ester-y-el-rey · hijo-prodigo · job-sufrimiento · jonas · jose-y-sus-hermanos · lazaro-resurreccion · moises · noe · pentecostes · resurreccion-de-jesus · ruth-y-noemi · sanson-y-dalila
+- (Algunas ya subidas como long-form al canal con bajo view — re-test thumbnail antes de subir el resto.)
+
+### ✅ Hecho 2026-05-31 (sesión upload)
+- **6×120min:** subidos como private+publishAt (Salmos→Provisión, c/2 días 9pm MTY, 31may→10jun). Títulos SEO keyword-led. `data/upload_schedule.json`.
+- **3 lofi 2h:** prep listo (NO subidos) — `data/lofi_upload_schedule.json` (12/14/16 jun). Activar: `cp` → `upload_schedule.json` → run.
+- **8 thumbnails re-test** swapeados en YT (verificado API 23:09 GMT): Pródigo/Daniel/Jonás/Samaritano/José/Pentecostés/Moisés/Noé. Copy curiosity-gap, subtítulo "Historia Bíblica" eliminado. Originales sin tocar (solo swap imagen). Medir CTR delta en 7-14 días.
+- Scripts nuevos: `swap_thumbnail.py` · `archive_uploaded.py` · `_build_120min_schedule.py` · `_build_lofi_schedule.py`. Generador `core/story_thumbnail.py` ahora auto-shrink (no overflow).
+
+### 🔒 Constraints de upload
+- **Quota YT:** 6 uploads/día (request increase pendiente strike resuelto — `docs/YT_QUOTA_INCREASE.md`)
+- **APRUEBO Fernando** obligatorio antes de cualquier upload real.
+
+---
 
 ## 🚨 LEE PRIMERO
 

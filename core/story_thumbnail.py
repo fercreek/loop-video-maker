@@ -140,13 +140,23 @@ def generate_story_thumbnail(
     img = img.convert("RGBA")
     draw = ImageDraw.Draw(img)
 
-    title_font     = _load_font(FONT_IMPACT, TITLE_FONT_SIZE)
     subtitle_font  = _load_font(FONT_ARIAL,  SUBTITLE_FONT_SIZE)
     watermark_font = _load_font(FONT_ARIAL,  WATERMARK_FONT_SIZE)
 
     # Título centrado, en tercio inferior-medio
     title_text = title_text.upper()
-    bbox = draw.textbbox((0, 0), title_text, font=title_font, stroke_width=TITLE_STROKE_WIDTH)
+
+    # Auto-shrink: baja el font hasta que el título quepa en una línea con margen.
+    side_margin = 60   # px libres a cada lado
+    max_w = THUMB_W - 2 * side_margin
+    title_size = TITLE_FONT_SIZE
+    while title_size > 60:
+        title_font = _load_font(FONT_IMPACT, title_size)
+        bbox = draw.textbbox((0, 0), title_text, font=title_font, stroke_width=TITLE_STROKE_WIDTH)
+        if bbox[2] - bbox[0] <= max_w:
+            break
+        title_size -= 6
+
     tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
     tx = (THUMB_W - tw) // 2
     ty = int(THUMB_H * 0.55)
