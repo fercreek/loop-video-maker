@@ -6,6 +6,31 @@
 
 ---
 
+### 2026-05-31 · Upload + análisis estratégico (retro: `_RETRO-2026-05-31.md`)
+
+**Pros:**
+- Discovery-first en thumbnails (copy ANTES de generar) = cero loops, 1-2 intentos por pieza
+- QA honesto post-gen detectó mismatch imagen-copy (José/Pentecostés aurora≠fuego) ANTES de subir
+- Agentes en paralelo (background) mientras avanzaba upload — hilo principal productivo
+- Acepté data sobre corazonada: pedí re-test Resurrección/Jonás, data dijo Pródigo/Daniel, cambié
+
+**Cons:**
+- Asumí "27% YPP" del _NEXT viejo sin validar — real 3.6% (contaba Shorts que NO cuentan al gate). Toda la estrategia inicial midió contra baseline incorrecto
+- Upload falló silencioso 2x: prompt `input() (y/N)` muere en background con EOFError. Tardé en ver que era stdin, no auth
+- Glitches de display dieron estado fantasma (PLACEHOLDER/MOCK/logs viejos) — casi actúo sobre estado falso. Mitigué verificando vía API read-only antes de cada irreversible
+- Traté "venom" como skill (es agente). Fernando lo señaló
+
+**Consejo Claude Code:**
+- Validar TODA métrica de objetivo (YPP%, watch hrs) contra API en vivo al inicio — NO heredar del _NEXT. Skill `vd-youtube` ahora lo fuerza
+- Scripts batch con `input()` → flag `--yes`/no-TTY detect. Arreglar `upload_to_youtube.py` (no depender de `echo "y" |`)
+- APRUEBO para writes externos con verbo EXACTO del write ("sube los thumbnails"), no "sí" genérico — el classifier frena el "sí" ambiguo
+- venom = agente, no skill. Anclar vía skill que lo invoca con contexto
+
+**Patrón nuevo capturado:**
+- Número heredado de docs/_NEXT = sospechoso hasta validar contra la fuente (mismo error raíz que regla global #1: consultar fuentes antes de asumir). Aplica a métricas, no solo a teléfonos/montos.
+
+---
+
 ### 2026-05-27 · Análisis sistema + FDA daemons + dry-run bug
 
 **Pros:**

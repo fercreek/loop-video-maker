@@ -1,7 +1,31 @@
 # CLAUDE.md — Versículos de Dios (loop-video-maker)
 > Repo principal de todo el contenido de @VersiculoDeDios-v1u
 > Leer este archivo PRIMERO en cualquier sesión. Tiempo: ~90 segundos.
-> Última actualización: 2026-05-26
+> Última actualización: 2026-05-31
+
+---
+
+## 🎯 OBJETIVO #1 — Monetización (leer SIEMPRE primero)
+
+**Gate YPP = 4,000 h de LONG-FORM en 365 días. Real (2026-05-31): ~146 h = 3.6%.**
+NO es 27% — ese número viejo contaba Shorts, que tienen ruta aparte (10M views/90d) y
+NO cuentan para las 4,000h. **Solo long-form** (sleep 2h, 120min, historias, lofi) mueve la aguja.
+Toda decisión se mide: *¿esto sube watch hours de long-form?* Producir Shorts NO acerca monetización.
+
+Palancas gratis (auditoría venom): playlists binge ✅ · Shorts→long funnel · fix intros long-form.
+
+## Skills recomendados (cargar por defecto en este repo)
+
+| Skill | Cuándo usarlo |
+|-------|--------------|
+| `vd-youtube` | **Default del repo.** "cómo va el canal", "stats", "qué subo", "playlists", "YPP". Ancla objetivo + corre snapshot + lanza @agent venom |
+| `@agent venom` | Análisis profundo cross-marca del canal (NO es skill, es agente — read-only) |
+| `supernova` | Retro de sesión / "qué aprendimos" / post sobre aprendizajes |
+| `content-review` | Revisar videos/thumbs antes de subir (swipe tipo Tinder) |
+| `post-qa` | QA visual de cualquier thumbnail/post antes de publicar |
+| `parallel-research` | Decisión de estrategia/nicho con data real (3 ángulos) |
+
+**Regla:** al iniciar sesión de análisis/estrategia del canal → invocar `vd-youtube` (carga el objetivo real, evita re-explicar 146h/4000h cada vez).
 
 ---
 
