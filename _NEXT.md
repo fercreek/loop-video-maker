@@ -38,7 +38,14 @@
 - abraham-e-isaac · buen-samaritano · daniel-foso-leones · david-goliat · ester-y-el-rey · hijo-prodigo · job-sufrimiento · jonas · jose-y-sus-hermanos · lazaro-resurreccion · moises · noe · pentecostes · resurreccion-de-jesus · ruth-y-noemi · sanson-y-dalila
 - (Algunas ya subidas como long-form al canal con bajo view — re-test thumbnail antes de subir el resto.)
 
+### 🎯 OBJETIVO REAL (corregido 2026-05-31 — auditoría venom)
+**Gate YPP = 4,000h LONG-FORM en 365d. Real: ~146h = 3.6%** (NO 27% — eso contaba Shorts que NO cuentan).
+Solo long-form (sleep 2h / 120min / historias / lofi) mueve la aguja. Shorts = ruta aparte, no toca este gate.
+Skill `vd-youtube` ancla esto cada sesión. Palancas gratis: playlists ✅ · Shorts→long funnel · fix intros long-form.
+
 ### ✅ Hecho 2026-05-31 (sesión upload)
+- **3 playlists binge creadas** (55 vids): PARA DORMIR (32) · Historias Biblia (17) · Lo-Fi (6). IDs en `data/playlists.json`. Mantener con `scripts/build_playlists.py`.
+- **Skill `vd-youtube`** creado (`~/.claude/skills/vd-youtube/`) — ancla objetivo + snapshot + venom.
 - **6×120min:** subidos como private+publishAt (Salmos→Provisión, c/2 días 9pm MTY, 31may→10jun). Títulos SEO keyword-led. `data/upload_schedule.json`.
 - **3 lofi 2h:** prep listo (NO subidos) — `data/lofi_upload_schedule.json` (12/14/16 jun). Activar: `cp` → `upload_schedule.json` → run.
 - **8 thumbnails re-test** swapeados en YT (verificado API 23:09 GMT): Pródigo/Daniel/Jonás/Samaritano/José/Pentecostés/Moisés/Noé. Copy curiosity-gap, subtítulo "Historia Bíblica" eliminado. Originales sin tocar (solo swap imagen). Medir CTR delta en 7-14 días.
