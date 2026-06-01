@@ -6,6 +6,28 @@
 
 ---
 
+### 2026-06-01 · venom monetización VD + Sistema de Operaciones
+
+**Pros (qué salió bien):**
+- `venom_truth.json` como SSOT vivo mató el "27%" stale (era Shorts mezclados; real 3.8% long-form).
+- Verify-before-build (regla #17): disk-check corrigió 2 errores — el Explore que dijo "no hay long-form" y el propio venom_truth que double-conteaba "30h parado".
+- 2 research en background (ads + biz models) mientras se escribía el doc = paralelización real, data citada.
+- Reflejé el modelo de Operaciones antes de construir (regla #13) — confirmación A/B/C antes de 5 archivos.
+
+**Cons (qué se atoró):**
+- El SSOT se auto-contradijo (`anomalia` double-conteaba). "venom manda" se leyó como "venom correcto" — no lo era. Solo el disk-check manual lo cachó.
+- Explore agent concluyó "no existe long-form" alrededor de un gap que él mismo declaró ("no examiné sleep/"). Casi propaga premisa falsa.
+- 1 Explore murió "Prompt is too long" (repo cero-agent grande, prompt sin acotar lectura).
+
+**Consejo Claude Code (cómo prompteamos mejor):**
+- Antes de construir sobre un número de un SSOT → spot-check los de alto impacto contra ground-truth (`find`/`ls`/DB). La fuente de verdad puede estar stale o auto-contradictoria.
+- Explore de inventario: dar dirs exactos + "si no pudiste revisar algo, repórtalo como gap, NO concluyas alrededor".
+
+**Patrón nuevo capturado:**
+- **SSOT ≠ infalible.** Validar datos de alto impacto de cualquier fuente-de-verdad contra ground-truth vivo antes de construir. Extiende #17 a las SSOT internas. Retro completa: `angels/focus/_RETRO-2026-06-01-venom-monetizacion.md`.
+
+---
+
 ### 2026-05-31 · Upload + análisis estratégico (retro: `_RETRO-2026-05-31.md`)
 
 **Pros:**
