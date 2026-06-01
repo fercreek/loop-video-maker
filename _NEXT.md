@@ -51,6 +51,15 @@ Skill `vd-youtube` ancla esto cada sesión. Palancas gratis: playlists ✅ · Sh
 - **8 thumbnails re-test** swapeados en YT (verificado API 23:09 GMT): Pródigo/Daniel/Jonás/Samaritano/José/Pentecostés/Moisés/Noé. Copy curiosity-gap, subtítulo "Historia Bíblica" eliminado. Originales sin tocar (solo swap imagen). Medir CTR delta en 7-14 días.
 - Scripts nuevos: `swap_thumbnail.py` · `archive_uploaded.py` · `_build_120min_schedule.py` · `_build_lofi_schedule.py`. Generador `core/story_thumbnail.py` ahora auto-shrink (no overflow).
 
+### ⏭️ PENDIENTE próxima sesión (de 2026-05-31 noche)
+- [ ] **Medir CTR delta 8 thumbnails** (7-14 días) — Pródigo/Daniel/Jonás/Samaritano/José/Pentecostés/Moisés/Noé. Replicar el copy ganador
+- [ ] **Verificar 6×120min publicaron** en sus fechas (31may→10jun) + que entraron a playlist PARA DORMIR
+- [ ] **Subir 3 lofi** cuando toque (12/14/16 jun): `cp data/lofi_upload_schedule.json data/upload_schedule.json` → `echo "y" | python3 scripts/upload_to_youtube.py`
+- [ ] **Fix `upload_to_youtube.py`** — agregar flag `--yes`/no-TTY detect (hoy depende de `echo "y" |`, falla silencioso en background)
+- [ ] **Shorts→long funnel** (palanca #2 venom, sin tocar aún): pinned comment + link a sleep video en top 10 Shorts
+- [ ] **Reconciliar `#4B6BFF`→`#1f4bff`** en `cc-post-image` SKILL.md + `compose_pro.py` (deuda brand CC)
+- [ ] **4 posts CC** en `_LISTOS_METRICOOL/` listos para programar en Metricool
+
 ### 🔒 Constraints de upload
 - **Quota YT:** 6 uploads/día (request increase pendiente strike resuelto — `docs/YT_QUOTA_INCREASE.md`)
 - **APRUEBO Fernando** obligatorio antes de cualquier upload real.
