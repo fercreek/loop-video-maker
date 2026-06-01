@@ -1,13 +1,17 @@
 # CLAUDE.md — Versículos de Dios (loop-video-maker)
 > Repo principal de todo el contenido de @VersiculoDeDios-v1u
 > Leer este archivo PRIMERO en cualquier sesión. Tiempo: ~90 segundos.
-> Última actualización: 2026-05-31
+> Última actualización: 2026-06-01 · Stats = `data/venom_truth.json` (venom manda)
 
 ---
 
 ## 🎯 OBJETIVO #1 — Monetización (leer SIEMPRE primero)
 
-**Gate YPP = 4,000 h de LONG-FORM en 365 días. Real (2026-05-31): ~146 h = 3.6%.**
+> 📡 **FUENTE DE VERDAD = `data/venom_truth.json`** — venom es dueño, data viva (YT Analytics + Meta Graph API).
+> Cualquier número en ESTE doc es snapshot stale. Para stats reales → LEER el JSON primero, venom manda.
+> Regenerar: `@agent venom` analiza YT+FB+IG y reescribe el JSON. NUNCA editar a mano con números inventados.
+
+**Gate YPP = 4,000 h de LONG-FORM en 365 días. Real (venom 2026-06-01): 151.6 h = 3.8%.**
 NO es 27% — ese número viejo contaba Shorts, que tienen ruta aparte (10M views/90d) y
 NO cuentan para las 4,000h. **Solo long-form** (sleep 2h, 120min, historias, lofi) mueve la aguja.
 Toda decisión se mide: *¿esto sube watch hours de long-form?* Producir Shorts NO acerca monetización.
@@ -29,19 +33,26 @@ Palancas gratis (auditoría venom): playlists binge ✅ · Shorts→long funnel 
 
 ---
 
-## Estado del canal (Mayo 2026)
+## Estado del canal — ⚠️ NO hardcodear aquí
 
-| Métrica | Valor |
-|---------|-------|
-| Suscriptores | ~12,700 (+700 en 12d) |
-| Views/28d | ~88,300 (95.9% Shorts) |
-| Watch time/28d | ~518.9h (necesita 3,000h/365d para YPP) |
-| Monetización YPP | ❌ Bloqueada — pivot a sleep content (Track 4) |
-| Strikes activos | 1 (Oraciones Cortas — audio narrado CapCut) |
+**Los números viven en `data/venom_truth.json` (venom manda).** Esta sección antes tenía una tabla
+estática que quedó stale (decía 12,700 subs / YPP bloqueada / 27%). Eliminada a propósito.
 
-**Caminos para monetizar:**
-- Long-form sleep content (Track 4): 10 videos × 1.5h × 200 views × 50% ret = 15K h/año → desbloquea YPP en 6-8 semanas
-- Shorts (Track 2): 3,000,000 vistas en 90 días → fórmula `bi_B78HZuJ4` replicada en venom batch
+Para el estado actual:
+```bash
+cat data/venom_truth.json | python3 -m json.tool   # snapshot completo
+# o regenerar fresco:  @agent venom
+```
+
+**Snapshot venom 2026-06-01** (referencia rápida — el JSON es la verdad):
+- YouTube: 14k subs · YPP long-form **3.8%** (151.6h / 4,000h) · motor del canal = Short `r43LS0y0Wrg` (324h/28d, 30% del watch time, pero NO cuenta YPP)
+- Facebook: 1,917 fans · monetización por umbral (10k in-stream / Reels bonus invite >1k ✅) · formato reflexión-hook gana (200+ likes)
+- Instagram: 1,189 followers · canal más chico, baja prioridad
+
+**Caminos para monetizar (dos lógicas distintas):**
+- **YouTube = GATE:** subir las ~30h de long-form parado en disco (6×120min ya programados + 3 lofi 2h). Es lo único que llena las 4,000h.
+- **Facebook = UMBRAL:** Reels Play Bonus (path rápido, ya >1k fans) > in-stream ads (lejos, faltan 8,083 fans).
+- **Activo compartido:** Shorts devocionales-hook alimentan subs YT + Reels FB/IG. Reciclar 1, publicar en 3.
 
 ---
 
