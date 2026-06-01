@@ -1,23 +1,36 @@
 # _NEXT — loop-video-maker (VersiculoDeDios)
-> Update: 2026-05-31 (Upload schedule de venom) · Prev update: 2026-05-27 14:30 MTY · Canal: @VersiculoDeDios-v1u (UC2l5TZjHzRtaRjH8kT_yQ2w)
+> Update: 2026-06-01 · Canal: @VersiculoDeDios-v1u (UC2l5TZjHzRtaRjH8kT_yQ2w)
+> 🚨 LEE PRIMERO: `docs/STRATEGY_MONETIZATION_2026-06-01.md` (subir horas / cross-promo / negocio alterno / ads)
+> 📡 Stats reales: `data/venom_truth.json` (venom manda)
 
-## 🎯 Upload schedule (de venom 2026-05-31) — RETOMAR AQUÍ
+## 🎯 Estado real (venom 2026-06-01) — RETOMAR AQUÍ
 
-### Estado YT actual (stats frescos hoy, OAuth real watch time)
-- **Subs:** 13,900 · **Total views:** 1,062,433 · **Video count:** 1,093
-- **Watch hours 28d:** 813.7 hrs
-- **YPP:** 27.1% del gate (faltan **2,186.3 hrs** de las 3,000 requeridas) · subs requirement ✅ ya cumplido · watch hours ❌ = el único gate vivo
-- Top performer Short: `tVxo-PnrnTQ` RESTAURACION COMPLETA — **240.7% retención media**, +61 subs en 28d
+- **Subs:** 14k · **YPP long-form:** 3.8% (151.6h / **4,000h**) — el "27%" viejo contaba Shorts, FALSO.
+- Gate = **4,000h de long-form** (no 3,000). Solo long-form cuenta; Shorts NO.
+- Motor del canal = Short `r43LS0y0Wrg` (324h/28d, 30% del watch time) — pero 0 para el gate.
 
-### ⚡ Tensión estratégica (la decisión central)
-- **Shorts crecen SUBS** (~+125/día implícito, el mejor Short pegó 240% retención + 4,984 views) PERO los Shorts NO mueven la aguja del gate YPP.
-- **Watch hours (único gate vivo) dependen de LONG-FORM** — y la cola long-form en el canal está **vacía** (`pending_120min: 0`, `pending_60min: 0` en el fetch).
-- **Conclusión:** hay 6×120min + 3 lofi 2h + 16 stories **renderizados y sin subir** = ~30+ horas de contenido long-form parado en disco que es exactamente lo que cierra el gate YPP. Subir esto es la prioridad #1 sobre generar más Shorts.
+### ✅ Ya resuelto (corrige _NEXT viejo)
+- **6×120min YA subidos + programados** (`upload_schedule.json`, May31–Jun10, todos uploaded:true). NO están parados.
+- **16 stories** ya subidas.
 
-### 📅 Schedule recomendado (orden de ejecución)
-1. **6×120min PRIMERO** — 1 cada 2-3 días (respetar quota YT 6 uploads/día + no saturar). Título SEO obligatorio: `"PARA DORMIR · X HORAS · Sin Anuncios"` con keyword en primeras 3 palabras (FOCUS-085).
-2. **Luego los 3 lofi 2h** (dormir / orar / ansiedad) — usar versiones `_verses_final` donde existan (FOCUS-086).
-3. **Shorts diario** en paralelo — sigue alimentando subs, no compite con el long-form (FOCUS-087).
+### ⚡ Palanca #1 (lo único realmente parado en disco)
+- **7 archivos lofi/sleep SIN subir** (~11h long-form): 5 lofi 2h en `output/lofi/` + `sleep_salmo91_120min` + `_60min`.
+- **Acción:** encolar en `upload_schedule.json` con publishAt escalonado tras Jun 10. (No ejecutado — requiere "sí".)
+
+### 🔁 Cross-promo loop→cero (diseñado, no implementado — doc §2)
+- cero-agent `auto-publicador.json` ya postea links YT en FB/IG, pero `VIDEO_MAP` es hardcoded a mano.
+- Falta: sync `promote_queue.json` (loop escribe) → nodo n8n lo lee. Cada long-form nuevo se auto-promociona.
+
+### 💵 Ingresos paralelos (no esperan las 4,000h — doc §3)
+- 3 AHORA: productos digitales (PDF/planner versículos), donaciones (Super Thanks ya calificas + Ko-fi), afiliados cristianos. ~$100-500/mes.
+
+### 📣 Ads (veredicto doc §4)
+- Google/YT = **NO** (watch pagado no cuenta YPP + pierdes ~90%). FB = **test $300-500 MXN** solo Reels bonus, nunca el gate.
+
+### 📅 Schedule viejo (referencia — algunos ya hechos)
+1. ~~6×120min~~ ✅ subidos+programados.
+2. **Los lofi/sleep parados** (dormir / orar / ansiedad / salmo91) — usar `_verses_final` donde exista (FOCUS-086).
+3. **Shorts diario** en paralelo — alimenta subs, no compite con long-form (FOCUS-087).
 4. **Re-test 1-2 stories** (17-22min) con thumbnail nuevo — eran long-form pero con bajo view; validar si thumbnail nuevo levanta CTR antes de subir las 16 (FOCUS-088).
 
 ### 📦 Inventario exacto (paths reales confirmados 2026-05-31)
