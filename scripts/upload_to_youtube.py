@@ -184,6 +184,8 @@ def main():
                         help=f"Máximo uploads (default {MAX_UPLOADS_PER_DAY} = YT quota límite)")
     parser.add_argument("--story", help="Subir solo esta story_id")
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("-y", "--yes", action="store_true",
+                        help="Saltar confirmación (requerido en background/no-TTY)")
     args = parser.parse_args()
 
     schedule = load_schedule()
@@ -230,10 +232,16 @@ def main():
         return
 
     # Confirmar
-    resp = input(f"\n¿Subir {len(pending)} videos? (y/N) ")
-    if resp.lower() != "y":
-        print("Cancelado.")
-        return
+    if args.yes:
+        print(f"\n✓ --yes: confirmando upload de {len(pending)} videos.")
+    elif not sys.stdin.isatty():
+        print("✗ stdin no interactivo: usa --yes para confirmar el upload.")
+        sys.exit(1)
+    else:
+        resp = input(f"\n¿Subir {len(pending)} videos? (y/N) ")
+        if resp.lower() != "y":
+            print("Cancelado.")
+            return
 
     youtube = load_youtube_service()
 
