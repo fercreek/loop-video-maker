@@ -51,7 +51,13 @@ Skill `vd-youtube` ancla esto cada sesión. Palancas gratis: playlists ✅ · Sh
 - **8 thumbnails re-test** swapeados en YT (verificado API 23:09 GMT): Pródigo/Daniel/Jonás/Samaritano/José/Pentecostés/Moisés/Noé. Copy curiosity-gap, subtítulo "Historia Bíblica" eliminado. Originales sin tocar (solo swap imagen). Medir CTR delta en 7-14 días.
 - Scripts nuevos: `swap_thumbnail.py` · `archive_uploaded.py` · `_build_120min_schedule.py` · `_build_lofi_schedule.py`. Generador `core/story_thumbnail.py` ahora auto-shrink (no overflow).
 
+### ✅ Cerrado 2026-05-31 noche
+- 6/6 120min subidos (provision completo) · 3 playlists binge (55 vids) · skill vd-youtube · 4 posts CC en _LISTOS_METRICOOL · hex CC unificado #1f4bff · fix upload --yes · 4 skills Cortex archivados
+- Focus: FOCUS-118/119/121 done · 085/086/088 (dup) cerradas
+
 ### ⏭️ PENDIENTE próxima sesión (de 2026-05-31 noche)
+- [ ] **Commit 2 repos externos:** `contreras-code-website` (5 SVGs logo #1f4bff + llms.txt) + `context` (~13 logos CC). NO commiteados aún — revisar render logo primero
+- [ ] FOCUS-122 programar 4 posts CC en Metricool · FOCUS-123 rasterizar PNGs logo · FOCUS-120 CTR thumbnails (7-14d)
 - [ ] **Medir CTR delta 8 thumbnails** (7-14 días) — Pródigo/Daniel/Jonás/Samaritano/José/Pentecostés/Moisés/Noé. Replicar el copy ganador
 - [ ] **Verificar 6×120min publicaron** en sus fechas (31may→10jun) + que entraron a playlist PARA DORMIR
 - [ ] **Subir 3 lofi** cuando toque (12/14/16 jun): `cp data/lofi_upload_schedule.json data/upload_schedule.json` → `echo "y" | python3 scripts/upload_to_youtube.py`

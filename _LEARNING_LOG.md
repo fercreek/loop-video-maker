@@ -28,6 +28,8 @@
 
 **Patrón nuevo capturado:**
 - Número heredado de docs/_NEXT = sospechoso hasta validar contra la fuente (mismo error raíz que regla global #1: consultar fuentes antes de asumir). Aplica a métricas, no solo a teléfonos/montos.
+- **Agentes background para código aislado (cero writes externos) = paralelo sin fricción.** Fix upload --yes + hex CC + accent clean corrieron simultáneos, cada uno verificado, sin commit. Patrón a repetir para deuda técnica.
+- **Verificar entry point REAL del tooling antes de escribirlo en un skill.** Inventé `scripts/focus_add.py` (no existe; era `f.py add`) y lo metí al skill supernova. Igual: `for $FILES` sin comillas rompió un sed (usar `while IFS= read -r`).
 
 ---
 
