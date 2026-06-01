@@ -24,7 +24,7 @@
 - Explore de inventario: dar dirs exactos + "si no pudiste revisar algo, repórtalo como gap, NO concluyas alrededor".
 
 **Patrón nuevo capturado:**
-- **SSOT ≠ infalible.** Validar datos de alto impacto de cualquier fuente-de-verdad contra ground-truth vivo antes de construir. Extiende #17 a las SSOT internas. Retro completa: `angels/focus/_RETRO-2026-06-01-venom-monetizacion.md`.
+- **"venom manda" = controla + delega + SUPERVISA, no "venom infalible".** venom tiene el control y delega ejecución (sensores/API/agentes), pero la supervisión incluye validar lo delegado contra ground-truth. El fallo fue delegar sin supervisar: venom_truth tomó un dato sin validarlo con `find`/`ls`. La regla #17 corre DENTRO del flujo de venom. Retro: `angels/focus/_RETRO-2026-06-01-venom-monetizacion.md`.
 
 ---
 
