@@ -49,7 +49,8 @@
       "publish_date": "2026-06-06",
       "publish_time_mty": "21:00",
       "publish_at_utc": "2026-06-07T03:00:00Z",
-      "uploaded": false
+      "uploaded": true,
+      "youtube_id": "9ydXq8BlvWY"
     },
     {
       "story_id": "paz120_fe",
@@ -61,7 +62,8 @@
       "publish_date": "2026-06-08",
       "publish_time_mty": "21:00",
       "publish_at_utc": "2026-06-09T03:00:00Z",
-      "uploaded": false
+      "uploaded": true,
+      "youtube_id": "wF356NTu_I0"
     },
     {
       "story_id": "paz120_provision",
@@ -73,7 +75,8 @@
       "publish_date": "2026-06-10",
       "publish_time_mty": "21:00",
       "publish_at_utc": "2026-06-11T03:00:00Z",
-      "uploaded": false
+      "uploaded": true,
+      "youtube_id": "zSxs3wnTq9U"
     }
   ]
 }
