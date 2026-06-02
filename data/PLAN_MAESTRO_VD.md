@@ -253,11 +253,11 @@ FB Reels Bonus (semanas) →  Bonus $50-300/mes
 | E1 | 9 videos long-form scheduled Jun 2-13 | ✅ | Retención >30% en lofi | 🔄 En ejecución |
 | E2 | Pinned comment funnel Short→sleep | ✅ | CTR >2% al sleep video | 🔄 En ejecución |
 | E3 | lofi_push_plan.json → cero-agent push | ✅ | Engagement posts FB/IG Jun 11-13 | 🔄 Pendiente publish |
-| E4 | Meta Ads test $50 Lookalike 1% | ❌ | CPF real <$0.08 | Pendiente lanzar |
+| E4 | Meta Ads test $50 Lookalike 1% | 🔄 | CPF real <$0.08 | 🔄 En ejecución — $200 MXN ($10 USD), Lookalike 1%, lanzar Jun 10, 7 días |
 | E5 | Shoutout canal devocional LATAM $50 | ❌ | >200 fans nuevos calidad | Pendiente buscar canal |
 | E6 | Ko-fi membresía activa | ❌ | >10 miembros mes 1 | Pendiente activar |
 | E7 | Etsy listings en español | ❌ | >5 ventas mes 1 | Pendiente crear |
-| E8 | Stars FB — pinned post educativo | ❌ | Stars recibidas >0 | Pendiente |
+| E8 | Stars FB — pinned post educativo | 🔄 | Stars recibidas >0 | 🔄 En ejecución — publicando 2026-06-02 |
 | E9 | Super Thanks YT activado | ❌ | >$10 mes 1 | Pendiente activar |
 | E10 | Fix MusicGen → audio comercial | ❌ | Audio distribuible en Spotify | Pendiente cambiar stack |
 
@@ -268,10 +268,23 @@ FB Reels Bonus (semanas) →  Bonus $50-300/mes
 
 ---
 
+## Dinámica operativa — venom + carnage en loop-video-maker
+
+Ambos agentes coexisten como base en este repo desde 2026-06-02:
+- **venom** = conservador, analiza data, emite briefs, actualiza este plan
+- **carnage** = ejecutor con criterio propio, ve potencial, "entra como entrometido" a optimizar ejecución
+- Tensión natural entre ambos = mejor decisión para Fernando
+
+Brief activo: `data/brief-carnage-vd-2026-06-02.md`
+Reporte ejecución: `data/carnage-execution-2026-06-02.md` (carnage lo llena)
+
+---
+
 ## LOG DE CAMBIOS
 
 | Fecha | Cambio |
 |-------|--------|
+| 2026-06-02 | v4 — Budget ads ajustado a $200 MXN (único intento). Stars post lanzado. Meta Ads programado Jun 10. Brief carnage emitido + aprobado. |
 | 2026-06-02 | v3 — Digital products research integrado: Ko-fi + Etsy español + Hotmart + POD. Red flag MusicGen CC BY-NC. AstroCap framework con 10 experimentos activos. |
 | 2026-06-02 | v2 — Ads research integrado: YT Ads descartado (oficial: no cuenta YPP), Meta stack $50+$50, shoutout > Meta para calidad. Scoreboard FB actualizado con Stars $0, Subscriptions ruta 250 return viewers. Proyección FB por ruta. cero-agent 5 workflows documentados. |
 | 2026-06-02 | v1 — Plan dual YT+FB con métricas separadas por plataforma. Operación de Dios. |
