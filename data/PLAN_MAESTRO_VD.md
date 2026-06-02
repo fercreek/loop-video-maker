@@ -251,12 +251,61 @@ Ecosistema orgánico (5-8 meses) →  Ko-fi+beehiiv+Hotmart+Etsy $200-500/mes
 
 ## ECOSISTEMA ORGÁNICO — Tercer eje de monetización
 
-> Research 2026-06-02 · 3 fuentes (web + Perplexity + community) · data real verificada
-> Archivos: `data/organic-monetization-ecosystem/SYNTHESIS.md`
+> Research 2026-06-02 · 5 fuentes (web + Perplexity + community + willingness-to-pay + website-developer) · data real verificada
+> Archivos: `data/organic-monetization-ecosystem/SYNTHESIS.md` · `willingness-to-pay-research.md` · `website-developer-angle.md`
 > Contexto: 14k subs YT · 1,933 fans FB · LATAM español · 0 CTA activo hoy
 
 **El gap no es contenido (ya lo tienes). El gap es CTA.**
 14k personas ya te escuchan. Ninguna sabe que puede apoyarte, comprar tu planner ni unirse a una comunidad. Un link en la descripción de los próximos 9 videos + Ko-fi activo esta semana = las primeras ventas antes de junio 15.
+
+### Willingness to Pay — la audiencia SÍ paga, pero no por cualquier cosa
+
+> Investigación 2026-06-02 · 15 fuentes · evidencia directa verificada
+
+**Veredicto:** La audiencia cristiana LATAM paga por **transformación** (planner, curso, app) y por **relación** (donación a ministerio de confianza). No por imágenes sueltas de versículos.
+
+**Evidencia de pago real:**
+- Etsy: Star Seller en español con 12,774 ventas de plan de escritura de Escrituras ($2-8 USD)
+- Hotmart: espiritualidad = top-5 nicho en ventas; ticket medio-alto $30-200
+- Hallow App: 10M descargas · $51.4M ingresos anuales · $69.99/año · 85% contenido de pago
+- Donorbox: 60% feligreses dispuestos a dar digitalmente; iglesias con giving online +32% donaciones
+
+**Ajuste de producto principal:**
+| Producto | Conversión | Precio | Prioridad |
+|---|---|---|---|
+| Planner devocional PDF 30 días | Alta (12K+ compradores en Etsy) | $12-15 en Hotmart | 🔴 Principal |
+| Pack wallpapers premium | Media (lead magnet / primera venta) | $4-7 Etsy | 🟡 Secundario |
+| Ko-fi membresía | Media-alta con relación establecida | $5/mes | 🔴 Base recurrente |
+
+**La objeción "la Palabra es gratis" se supera con formato:**
+- El planner no vende la Biblia — vende 30 minutos de ritual diario más fácil
+- El wallpaper no vende el versículo — vende el diseño y el momento de reflexión
+- La membresía no vende fe — vende comunidad + apoyo al ministerio
+
+**Factores que aumentan conversión:**
+- 3-6 meses de relación previa con la audiencia (ya los tienes con 14k)
+- Lenguaje de "ofrenda/apoyo al ministerio" vs "compra de producto"
+- Urgencia real: kit de Adviento, plan de Cuaresma, agenda 2027
+- Precio en pesos/moneda local (no USD)
+- Bundle de valor vs producto suelto
+
+**Perfil comprador real: mujeres 35-55 LATAM.** Controlan 60-80% del presupuesto familiar, ya adoptaron pagos digitales, audiencia principal de páginas devocionales en FB.
+
+### Norte de largo plazo — Hallow App en español
+
+> Hallow (app oración católica-cristiana, inglés): 10M descargas · $51.4M/año · $69.99/año.
+> La primera app religiosa en alcanzar Top 10 Apple. Prueba que el cristiano paga por fe digital.
+
+**El vacuum en español es real.** Hallow es mayoritariamente en inglés y no ha penetrado LATAM. No existe un equivalente en español con experiencia de calidad. El mercado Spiritual Tech en México solo es $35.4M en 2025 proyectando $103.7M para 2033 (13.5% CAGR).
+
+**Esto NO es un proyecto inmediato.** El canal necesita primero:
+1. Autoridad de ministerio establecida (email list 5k+, Ko-fi activo, productos vendidos)
+2. Gate YPP activo (credibilidad plataforma)
+3. Catálogo de oraciones curadas + voz ElevenLabs consistente
+
+**Norte 2027-2028:** App de oración guiada en español — oraciones curadas + plan devocional + versículos diarios. $4.99/mes × comunidad LATAM = el mayor margen a largo plazo del canal. Modelo: Hallow pero en español, enfoque evangélico/cristiano general.
+
+**Hito previo obligatorio:** website propio con /oraciones/[tema] como prueba de concepto SEO + email list 5k+.
 
 ### Stack confirmado (3 fuentes coinciden)
 
@@ -303,8 +352,41 @@ LARGO PLAZO (6+ meses)
 | Fase | Acciones | Resultado esperado |
 |---|---|---|
 | Semana 1-2 (esta semana) | Ko-fi setup + beehiiv + link en 9 videos | Primeros miembros / primeras donaciones |
-| Mes 1-2 | Planner $12 en Hotmart + 5 listings Etsy + email semanal | $200-350/mes |
-| Mes 3-6 | Membresía Ko-fi Gold $5/mes + Telegram privado para miembros | $500/mes |
+| Mes 1-2 | Planner $12-15 en Hotmart (producto principal) + 5 listings Etsy wallpapers (lead magnet) + email semanal | $200-350/mes |
+| Mes 3 | Website propio Next.js (Fernando lo construye en ~15h) + páginas SEO /versiculos/[tema] + /planner | +tráfico SEO + email capture orgánico |
+| Mes 3-6 | Membresía Ko-fi Gold $5/mes + Telegram privado para miembros + beehiiv embed en website | $500/mes |
+| Mes 6+ | Website hub principal; Etsy solo discovery; Hotmart si hay afiliados activos | Reducir fees +$600-1,140/año |
+
+### Fase 2 — Website Developer (Mes 3)
+
+> Fernando = developer Next.js/Rails. Build cost = $0. Dominio ~$12/año. Vercel = free.
+> Condición para activar: primeras ventas confirmadas (Ko-fi + planner funcionando).
+
+**El gap SEO en español está casi sin trabajar:**
+- "versículos para dormir", "versículos contra la ansiedad", "oración de paz para antes de dormir"
+- Competencia técnica baja — los que rankean no tienen SEO optimizado ni products
+- El contenido ya existe: scripts de videos = páginas MDX del sitio
+
+**Stack del website:**
+```
+Next.js App Router + MDX → SSG → Vercel (free)
+  /versiculos/[tema]  — SEO long-tail (ansiedad, paz, duelo, etc.)
+  /oracion/[tipo]     — SEO intención alta (para dormir, de la mañana, etc.)
+  /planner            — Landing producto + Stripe directo (sin fees Hotmart)
+  /comunidad          — Hub links (YT, Ko-fi, Telegram) — reemplaza Linktree
+  /blog               — Scripts de videos reciclados en MDX (SEO compound)
+```
+
+**ROI del website (a $500/mes en productos):**
+- Etsy/Hotmart: ~$50-65/mes en fees
+- Website + Stripe: ~$17/mes en fees
+- Ahorro: ~$33-48/mes = $396-576/año desde el primer mes de ventas
+- Con dominio $12/año y Vercel gratis: ROI positivo desde mes 1
+
+**Proyección tráfico SEO (6-12 meses):**
+- 5k-20k visitas/mes con 50 páginas bien optimizadas
+- Con 10k visitas/mes + 3% conversión → 300 nuevos subs email/mes
+- Con 1,800 subs email (6 meses) + 5% Ko-fi → 90 miembros → $450/mes adicionales
 
 ### Plataformas confirmadas vs descartadas
 
@@ -379,6 +461,7 @@ Reporte ejecución: `data/carnage-execution-2026-06-02.md` (carnage lo llena)
 
 | Fecha | Cambio |
 |-------|--------|
+| 2026-06-02 | v6 — Integración willingness-to-pay + website developer angle. Ajuste producto principal: planner Hotmart $12-15 > wallpapers Etsy $5 en conversión. Wallpapers reasignados como lead magnet/primera venta, no producto principal. Sección WTP con evidencia (Etsy 12K ventas, Hallow $51.4M/año, Hotmart top-5 nicho). Hallow App en español como norte 2027-2028. Fase 2 (mes 3): website Next.js con páginas SEO /versiculos/[tema] + /planner + ROI fees. Timeline ampliado. |
 | 2026-06-02 | v5 — Ecosistema orgánico integrado: Ko-fi+beehiiv+Hotmart+Etsy. Email list = backbone. Gap crítico: sin CTA activo hoy = 0 ingresos a pesar de 14k audiencia. Tercer camino paralelo en META NORTE. FASE 1 actualizada con acciones esta semana. Experimentos E11-E14 en AstroCap. Sección ECOSISTEMA ORGÁNICO con stack completo + math $500/mes + plataformas confirmadas/descartadas. |
 | 2026-06-02 | v4 — Budget ads ajustado a $200 MXN (único intento). Stars post lanzado. Meta Ads programado Jun 10. Brief carnage emitido + aprobado. |
 | 2026-06-02 | v3 — Digital products research integrado: Ko-fi + Etsy español + Hotmart + POD. Red flag MusicGen CC BY-NC. AstroCap framework con 10 experimentos activos. |

@@ -124,3 +124,56 @@ LARGO PLAZO (6+ meses)
 **El gap no es contenido (ya lo tienes). El gap es CTA.**
 
 14k personas ya te escuchan. NINGUNA sabe que puede apoyarte, comprar tu planner ni unirse a una comunidad. Un link en la descripción de los próximos 9 videos + Ko-fi activo esta semana = las primeras ventas antes de junio 15.
+
+---
+
+## Willingness to Pay — qué pagan y qué no
+
+> Integrado desde `willingness-to-pay-research.md` · 2026-06-02
+
+### La audiencia cristiana LATAM SÍ paga, pero con condiciones específicas
+
+**Pagan por:**
+- Transformación prometida: planner de 30 días, curso bíblico, formación espiritual, app premium
+- Relación y confianza: donación/ofrenda a ministerio que conocen (mínimo 3-6 meses de consumo gratis)
+- Formato que hace algo por ellos: journaling, guía de oración estructurada, ritual diario
+- Bundle de valor: 5 productos × $3 en vez de 1 × $3
+
+**No pagan (o conversión muy baja) por:**
+- Imágenes sueltas de versículos genéricas (demasiado disponibles gratis en YouVersion/Canva)
+- Contenido sin identidad de marca establecida
+- Primer contacto sin relación previa
+- Precio en USD sin conversión explícita
+
+### Evidencia de pago real (directa, no proxy)
+
+| Evidencia | Dato | Qué prueba |
+|---|---|---|
+| Etsy Star Seller español | 12,774 ventas de plan de escritura de Escrituras | Imprimibles devocionales en español se compran |
+| Hallow App | 10M descargas · $51.4M/año · $70/año | Cristiano paga por fe digital — sin vacuum en inglés |
+| Hotmart espiritualidad | Top-5 nicho más vendido | LATAM paga cursos bíblicos $30-200 |
+| Donorbox | 60% feligreses dispuestos a dar digitalmente | Hábito de pago digital ya instalado |
+| Spiritual Tech México | $35.4M en 2025 → $103.7M para 2033 | Mercado real y creciendo |
+
+### La objeción "la Palabra de Dios es gratis"
+
+Existe pero no es insuperable. Se supera cuando:
+- El producto es el **formato y el esfuerzo** del creador, no la Palabra en sí
+- El framing es "apoya este ministerio" / "inversión en tu crecimiento espiritual"
+- Hay urgencia temporal (plan de Adviento, kit de Cuaresma, agenda 2027)
+- Hay relación previa establecida
+
+Los 12,774 compradores de Etsy ya superaron esta objeción. Hallow cobra $70/año y tiene 10M usuarios.
+
+### Ajuste de productos por conversión real
+
+| Producto | Conversión evidencia | Precio óptimo | Rol |
+|---|---|---|---|
+| Planner devocional PDF 30 días | Alta — Etsy + Hotmart activos | $12-15 Hotmart | Producto principal |
+| Ko-fi membresía $5/mes | Media-alta con audiencia cálida | $5/mes | Ingreso recurrente base |
+| Pack wallpapers premium | Media — sirve como primera compra | $4-7 Etsy | Lead magnet / puerta de entrada |
+| Curso bíblico estructurado | Alta en Hotmart — requiere autoridad | $30-200 | Fase 3 (6+ meses) |
+
+### Perfil comprador real
+
+Mujeres 35-55 LATAM. Controlan 60-80% del presupuesto familiar, ya usan pagos digitales, audiencia principal de páginas devocionales en FB. El producto debe verse como "algo para mi tiempo devocional", no como "contenido de internet".
