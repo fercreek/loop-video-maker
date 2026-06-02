@@ -241,7 +241,9 @@ FB Reels Bonus (semanas) →  Bonus $50-300/mes
 
 ## ASTROCAP — Marco de evaluación de experimentos
 
-> Todos los experimentos de la Operación de Dios se evalúan en la fecha AstroCap.
+> **AstroCap = entrada laboral con Cesareo Frías ~18-23 jul 2026.**
+> Meta real: llenar Barra de XP antes del 6-jul. VD = 1 de los 7 proyectos del leveling.
+> Todos los experimentos se evalúan al llegar a esa fecha.
 > Cada apuesta se marca como ✅ funcionó / ❌ no funcionó / 🔄 optimizar.
 
 ### Experimentos activos (lanzados 2026-06-02)
