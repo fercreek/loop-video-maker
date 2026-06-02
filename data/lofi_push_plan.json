@@ -1,0 +1,58 @@
+{
+  "created": "2026-06-02",
+  "purpose": "Plan de push para venom + cero-agent. Videos lofi 2h ya en YouTube (private scheduled). Empujar con comentarios, posts y Shorts cuando publiquen.",
+  "videos": [
+    {
+      "story_id": "lofi_dormir",
+      "title": "BIBLIA PARA DORMIR EN PAZ · 2 HORAS · Lo-Fi Cristiano | Sin Anuncios",
+      "publish_date": "2026-06-11",
+      "youtube_id": "jdOSUMO3dbk",
+      "youtube_url": "https://youtu.be/jdOSUMO3dbk",
+      "push_strategy": {
+        "comentario_pinned": "🙏 ¿Cuál versículo fue tu favorito esta noche? Déjalo en los comentarios 👇",
+        "fb_post_copy": "🌙 Nueva música cristiana para dormir ya disponible en YouTube. 2 horas sin anuncios para que tu noche sea de paz. Link 👉 https://youtu.be/jdOSUMO3dbk\n\n#LoFiCristiano #BibliaDormir #PazDeDios",
+        "ig_caption": "🌙 2 horas de Biblia lofi para dormir en paz. Sin anuncios, sin interrupciones. El link está en el perfil 🔗\n\n#versiculosdedios #lofi #musicacristiana #dormir #pazinterior",
+        "short_hook": "¿No puedes dormir? Pon esto y duerme en paz 🌙",
+        "cta_link": "https://youtu.be/jdOSUMO3dbk"
+      }
+    },
+    {
+      "story_id": "lofi_ansiedad",
+      "title": "VERSÍCULOS CONTRA LA ANSIEDAD · 2 HORAS · Lo-Fi Cristiano | Sin Anuncios",
+      "publish_date": "2026-06-12",
+      "youtube_id": "l5LFYLVZOd4",
+      "youtube_url": "https://youtu.be/l5LFYLVZOd4",
+      "push_strategy": {
+        "comentario_pinned": "💙 Si esto te ayudó con la ansiedad, deja un 🙏 en los comentarios. Que Dios te bendiga.",
+        "fb_post_copy": "😌 La ansiedad no tiene la última palabra. 2 horas de versículos y música cristiana para calmar tu mente. Sin anuncios. Link 👉 https://youtu.be/l5LFYLVZOd4\n\n#VersiculosContraAnsiedad #PazDeDios #LoFiCristiano",
+        "ig_caption": "😌 Versículos para cuando la ansiedad llega a las 3am. 2 horas · sin anuncios · lofi cristiano. Link en bio 🔗\n\n#ansiedad #versiculosdedios #lofi #paz #musicacristiana",
+        "short_hook": "La Biblia tiene la respuesta a la ansiedad. Escúchala 2 horas seguidas 👇",
+        "cta_link": "https://youtu.be/l5LFYLVZOd4"
+      }
+    },
+    {
+      "story_id": "lofi_orar",
+      "title": "LO-FI CRISTIANO PARA ORAR · 2 HORAS · Música de Adoración | Sin Anuncios",
+      "publish_date": "2026-06-13",
+      "youtube_id": "7cOYmo27qS4",
+      "youtube_url": "https://youtu.be/7cOYmo27qS4",
+      "push_strategy": {
+        "comentario_pinned": "🙏 ¿Por qué estás orando hoy? Compártelo aquí — toda la comunidad ora contigo.",
+        "fb_post_copy": "🙏 ¿Necesitas una atmósfera para orar? 2 horas de lo-fi cristiano sin anuncios para que tu tiempo con Dios sea profundo. Link 👉 https://youtu.be/7cOYmo27qS4\n\n#LoFiCristiano #MusicaParaOrar #Adoracion",
+        "ig_caption": "🙏 Música lofi cristiana para orar 2 horas sin parar. Sin anuncios, sin distracciones. Solo tú y Dios. Link en bio 🔗\n\n#oración #lofi #versiculosdedios #adoracion #musicacristiana",
+        "short_hook": "Pon esto cuando vayas a orar. 2 horas de adoración sin anuncios 🙏",
+        "cta_link": "https://youtu.be/7cOYmo27qS4"
+      }
+    }
+  ],
+  "instrucciones_cero_agent": {
+    "cuando": "Día del publish de cada video (ver publish_date)",
+    "acciones": [
+      "1. Postear fb_post_copy en Facebook Page Palabra De Dios con link real al video",
+      "2. Postear ig_caption en Instagram @palabradedios111 con link en bio",
+      "3. Dejar comentario_pinned como comentario YT y pinnearlo",
+      "4. Generar Short con short_hook como intro → CTA al video largo (watch time funnel)"
+    ],
+    "nota": "youtube_id se llena DESPUÉS de subir. Reemplazar {youtube_id} con el ID real antes de publicar posts."
+  }
+}

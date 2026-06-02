@@ -87,6 +87,7 @@ def get_channel_id(handle_or_id: str | None = None) -> str:
 
 SCOPES = [
     "https://www.googleapis.com/auth/youtube",
+    "https://www.googleapis.com/auth/youtube.force-ssl", # required for comments API
     "https://www.googleapis.com/auth/yt-analytics.readonly",
 ]
 

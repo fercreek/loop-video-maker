@@ -77,6 +77,45 @@
       "publish_at_utc": "2026-06-11T03:00:00Z",
       "uploaded": true,
       "youtube_id": "zSxs3wnTq9U"
+    },
+    {
+      "story_id": "lofi_dormir",
+      "title": "BIBLIA PARA DORMIR EN PAZ · 2 HORAS · Lo-Fi Cristiano | Sin Anuncios",
+      "mp4_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/lofi/lofi_v01_dormir_2h.mp4",
+      "thumbnail_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/lofi/thumbs/thumb_v01_dormir_v3.jpg",
+      "description_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/lofi/upload/lofi_dormir_description.txt",
+      "metadata_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/lofi/upload/lofi_dormir_metadata.json",
+      "publish_date": "2026-06-11",
+      "publish_time_mty": "21:00",
+      "publish_at_utc": "2026-06-12T03:00:00Z",
+      "uploaded": true,
+      "youtube_id": "jdOSUMO3dbk"
+    },
+    {
+      "story_id": "lofi_ansiedad",
+      "title": "VERSÍCULOS CONTRA LA ANSIEDAD · 2 HORAS · Lo-Fi Cristiano | Sin Anuncios",
+      "mp4_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/lofi/lofi_v03_verses_final.mp4",
+      "thumbnail_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/lofi/thumbs/lofi_v03_thumb.jpg",
+      "description_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/lofi/upload/lofi_ansiedad_description.txt",
+      "metadata_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/lofi/upload/lofi_ansiedad_metadata.json",
+      "publish_date": "2026-06-12",
+      "publish_time_mty": "21:00",
+      "publish_at_utc": "2026-06-13T03:00:00Z",
+      "uploaded": true,
+      "youtube_id": "l5LFYLVZOd4"
+    },
+    {
+      "story_id": "lofi_orar",
+      "title": "LO-FI CRISTIANO PARA ORAR · 2 HORAS · Música de Adoración | Sin Anuncios",
+      "mp4_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/lofi/lofi_v02_verses_final.mp4",
+      "thumbnail_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/lofi/thumbs/lofi_v02_thumb.jpg",
+      "description_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/lofi/upload/lofi_orar_description.txt",
+      "metadata_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/lofi/upload/lofi_orar_metadata.json",
+      "publish_date": "2026-06-13",
+      "publish_time_mty": "21:00",
+      "publish_at_utc": "2026-06-14T03:00:00Z",
+      "uploaded": true,
+      "youtube_id": "7cOYmo27qS4"
     }
   ]
 }

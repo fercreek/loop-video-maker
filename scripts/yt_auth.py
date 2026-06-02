@@ -28,6 +28,7 @@ TOKEN_PATH    = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__f
 
 SCOPES = [
     "https://www.googleapis.com/auth/youtube",           # read + write (update titles, descriptions)
+    "https://www.googleapis.com/auth/youtube.force-ssl", # required for comments API
     "https://www.googleapis.com/auth/yt-analytics.readonly",
 ]
 

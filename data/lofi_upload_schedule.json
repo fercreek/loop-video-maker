@@ -7,9 +7,9 @@
       "thumbnail_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/lofi/thumbs/thumb_v01_dormir_v3.jpg",
       "description_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/lofi/upload/lofi_dormir_description.txt",
       "metadata_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/lofi/upload/lofi_dormir_metadata.json",
-      "publish_date": "2026-06-12",
+      "publish_date": "2026-06-11",
       "publish_time_mty": "21:00",
-      "publish_at_utc": "2026-06-13T03:00:00Z",
+      "publish_at_utc": "2026-06-12T03:00:00Z",
       "uploaded": false
     },
     {
@@ -19,9 +19,9 @@
       "thumbnail_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/lofi/thumbs/lofi_v03_thumb.jpg",
       "description_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/lofi/upload/lofi_ansiedad_description.txt",
       "metadata_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/lofi/upload/lofi_ansiedad_metadata.json",
-      "publish_date": "2026-06-14",
+      "publish_date": "2026-06-12",
       "publish_time_mty": "21:00",
-      "publish_at_utc": "2026-06-15T03:00:00Z",
+      "publish_at_utc": "2026-06-13T03:00:00Z",
       "uploaded": false
     },
     {
@@ -31,9 +31,9 @@
       "thumbnail_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/lofi/thumbs/lofi_v02_thumb.jpg",
       "description_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/lofi/upload/lofi_orar_description.txt",
       "metadata_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/lofi/upload/lofi_orar_metadata.json",
-      "publish_date": "2026-06-16",
+      "publish_date": "2026-06-13",
       "publish_time_mty": "21:00",
-      "publish_at_utc": "2026-06-17T03:00:00Z",
+      "publish_at_utc": "2026-06-14T03:00:00Z",
       "uploaded": false
     }
   ]

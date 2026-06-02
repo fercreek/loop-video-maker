@@ -5,6 +5,14 @@
 
 ---
 
+## ✝️ OPERACIÓN DE DIOS — Plan Maestro
+
+> Plan de monetización canal @VersiculoDeDios. Equivalente al Plan 20K de Studio Link.
+> Fuente de verdad: `data/PLAN_MAESTRO_VD.md` — leer al inicio de sesión de estrategia.
+> Nombre operación: **Operación de Dios** — usar este nombre en todos los contextos (venom, cero-agent, planificación).
+
+---
+
 ## 🎯 OBJETIVO #1 — Monetización (leer SIEMPRE primero)
 
 > 📡 **FUENTE DE VERDAD = `data/venom_truth.json`** — venom es dueño, data viva (YT Analytics + Meta Graph API).
@@ -444,3 +452,87 @@ Reflexión corta + voz ElevenLabs cálida (15-20s)
 CTA + link sleep video (3s)
 ```
 | `data/oraciones_pool.json` | Pool 43 oraciones (23 originales + 20 venom_*) |
+
+---
+
+## Arquitectura del código
+
+### `core/` — biblioteca reutilizable
+
+| Módulo | Rol |
+|--------|-----|
+| `shorts_render.py` | Motor de render 9:16 — Pillow text engine v4, backgrounds, subtítulos |
+| `video_render.py` | Render long-form 16:9 — Ken-Burns, fade in/out, watermark |
+| `music_gen.py` | Genera audio MusicGen local. Reusado por render_sleep y render_60/120 |
+| `youtube_client.py` | YT Data API v3 + Analytics. `_youtube()` = instancia autenticada. `mark_uploaded()` actualiza schedule + catalog |
+| `narration_gen.py` | Edge TTS / ElevenLabs para voz |
+| `thumbnail_gen.py` | Genera thumbnails post-render |
+| `quality_gate.py` | Gate score ≥8; consumer de qa_short/qa_longform |
+
+### Entrypoints de render
+
+```
+render_short.py       → core/shorts_render.py     → output/shorts/
+render_120min.py      → core/video_render.py       → output/semana_YYYY-MM-DD/
+render_sleep.py       → core/music_gen.py          → output/sleep/
+render_60min.py       → core/video_render.py       → output/semana_YYYY-MM-DD/
+```
+
+### Pipeline de upload
+
+**Uploader canónico:** `scripts/upload_to_youtube.py` lee `data/upload_schedule.json`.
+
+Flujo completo:
+```
+render_*.py → QA (score ≥8) → agregar entry a data/upload_schedule.json → upload_to_youtube.py
+```
+
+`mark_uploaded()` en `core/youtube_client.py` actualiza `data/upload_schedule.json` + `data/video_catalog.json`.
+`data/lofi_upload_schedule.json` NO se actualiza automáticamente — solo es el source para construir el schedule; las fechas definitivas viven en `data/upload_schedule.json`.
+
+**⚠️ `scripts/upload_lofi_batch.py` es dead code** — usa campos (`file`, `thumbnail`, `description`, `tags`, `category_id`) que no existen en `lofi_upload_schedule.json`. No usar; agregar videos lofi directamente a `upload_schedule.json`.
+
+**Nota chunksize:** `MediaFileUpload(chunksize=-1)` carga el MP4 completo en RAM. Para archivos >500MB cerrar Chrome antes de subir.
+
+### Data files clave
+
+```
+data/upload_schedule.json      ← schedule canónico (add aquí nuevos videos)
+data/lofi_push_plan.json       ← plan FB/IG/comentario por video lofi; youtube_id=null hasta subir
+data/venom_truth.json          ← stats live YT+Meta; regenerar con @agent venom
+data/content_registry.json     ← registro de todo batch con spec + métricas
+data/ig_state.json             ← runtime del ig-daemon (idempotente)
+```
+
+---
+
+## Responsabilidades: loop-video-maker vs cero-agent
+
+### loop-video-maker (este repo — local Mac)
+
+- Renderizar: Shorts, long-form, sleep, lofi
+- QA local pre-upload (`qa_short.py`, `qa_longform.py`)
+- Upload programado a YouTube (`upload_to_youtube.py`)
+- Publicar imágenes FB/IG (Track 3, automático via daemons)
+- Mantener `data/lofi_push_plan.json` con IDs reales post-upload
+
+### cero-agent (VPS n8n — root@2.24.111.80)
+
+- Postear en Facebook Page + Instagram con links a videos (usa `lofi_push_plan.json` como brief)
+- Dejar y pinear comentarios de bienvenida en videos YT
+- Responder comentarios de audiencia (engagement)
+- Crear posts FB/IG de Shorts ya publicados (reciclar contenido)
+
+### Handoff estándar después de upload
+
+1. `upload_to_youtube.py` sube y obtiene `youtube_id`
+2. Actualizar `data/lofi_push_plan.json` con el `youtube_id` real
+3. **venom** lee el plan y emite brief para cero-agent
+4. cero-agent ejecuta: FB post + IG caption + YT pinned comment
+
+```bash
+# Patrón post-upload
+.venv/bin/python3 scripts/upload_to_youtube.py          # sube + guarda youtube_id en schedule
+# → actualizar youtube_id en data/lofi_push_plan.json manualmente o con script
+# → venom analiza y crea brief para cero-agent
+```
