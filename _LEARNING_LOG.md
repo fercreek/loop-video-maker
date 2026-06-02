@@ -6,6 +6,30 @@
 
 ---
 
+### 2026-06-02 · Operación de Dios — sesión fundacional
+
+**Pros (qué salió bien):**
+- 3 lofi 2h subidos + programados en 1 sesión.
+- Plan Maestro VD completo con dual YT+FB, 10 experimentos AstroCap.
+- 3 parallel-research (ads, digital products, mercados) = decisiones con data real.
+- venom + carnage operativos con matriz de responsabilidades.
+- Stars post publicado (E8), Meta Ads 4/5 objetos creados (E4).
+
+**Cons (qué se atoró):**
+- Token Meta Ads de app Studio Link (dev mode) → blocker descubierto al final de carnage. Paró la ejecución en el último paso.
+- MusicGen CC BY-NC red flag = bloquea Spotify/DistroKid, no se resolvió en sesión.
+- Metricool no cargó via Chrome MCP (SPA pesada).
+
+**Consejo Claude Code:**
+- Rule #15 viola: probar creative creation ANTES de crear campaign/adset/audiences. El error 1885183 solo aparece en ese paso.
+- Antes de cualquier campaña Meta → verificar `meta.ads_token._app_id` en venom-config + estado Live/Dev de esa app.
+- AstroCap no preguntar — está en `venom/_SPRINT-ASTROCAP.md` (20-jul entrada, meta XP 6-jul).
+
+**Patrón nuevo capturado:**
+- Brief venom → carnage pre-flight → ejecución = el flujo correcto. Sin pre-flight se construye sobre muros invisibles (token dev-mode vs live).
+
+---
+
 ### 2026-06-01 · venom monetización VD + Sistema de Operaciones
 
 **Pros (qué salió bien):**
