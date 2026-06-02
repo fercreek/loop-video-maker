@@ -54,21 +54,31 @@
 
 ## META NORTE
 
-**Dos llaves en paralelo, no secuencial:**
+**Tres caminos en paralelo — no secuencial:**
 
 ```
-YT YPP (8-10 meses)     →  AdSense $300-900/mes
-FB Reels Bonus (semanas) →  Bonus $50-300/mes
+YT YPP (8-10 meses)          →  AdSense $300-900/mes
+FB Reels Bonus (semanas)      →  Bonus $50-300/mes
+Ecosistema orgánico (5-8 meses) →  Ko-fi+beehiiv+Hotmart+Etsy $200-500/mes
 ```
+
+> Ecosistema orgánico no depende de ningún gate de plataforma. Comienza con $0 inversión esta semana.
+> El único acelerador: email list (beehiiv). Sin email, todo tarda 3× más.
 
 **MRR objetivo Operación de Dios:**
-- Fase 1 (0-30d): $100–500/mes sin gate (donaciones + afiliados + digital)
-- Fase 2 (30-90d): $200–600/mes (FB Reels Bonus activo + digital)
-- Fase 3 (gate YPP): $600–1,500/mes (AdSense + FB + digital)
+- Fase 1 (0-30d): $100–500/mes sin gate (Ko-fi activo + Etsy + donaciones)
+- Fase 2 (30-90d): $200–600/mes (FB Reels Bonus activo + Hotmart + email list)
+- Fase 3 (gate YPP): $600–1,500/mes (AdSense + FB + digital + membresía)
 
 ---
 
 ## FASE 1 — Quick Wins (0-30 días)
+
+### Ecosistema Orgánico — Esta semana ($0 inversión)
+1. **Ko-fi activo** — username `versiculosdedios`, bio VD, PDF "7 días de paz" como lead magnet gratuito.
+2. **beehiiv cuenta creada** — formulario de email en descripción de los 9 videos scheduled Jun 2-13.
+3. **Link Ko-fi en los 9 videos scheduled** — agregar a descripción antes de que publiquen.
+4. **Primer post Ko-fi** — "gracias por estar aquí, este es el espacio para apoyar el ministerio..."
 
 ### YouTube
 1. ✅ **Subir 3 lofi 2h** — Jun 11/12/13 (ya encolados + subiendo)
@@ -239,6 +249,87 @@ FB Reels Bonus (semanas) →  Bonus $50-300/mes
 
 ---
 
+## ECOSISTEMA ORGÁNICO — Tercer eje de monetización
+
+> Research 2026-06-02 · 3 fuentes (web + Perplexity + community) · data real verificada
+> Archivos: `data/organic-monetization-ecosystem/SYNTHESIS.md`
+> Contexto: 14k subs YT · 1,933 fans FB · LATAM español · 0 CTA activo hoy
+
+**El gap no es contenido (ya lo tienes). El gap es CTA.**
+14k personas ya te escuchan. Ninguna sabe que puede apoyarte, comprar tu planner ni unirse a una comunidad. Un link en la descripción de los próximos 9 videos + Ko-fi activo esta semana = las primeras ventas antes de junio 15.
+
+### Stack confirmado (3 fuentes coinciden)
+
+```
+TOP OF FUNNEL (ya existe)
+  YouTube Shorts + Sleep videos (14k subs)
+  FB/IG posts + Reels (1,933 fans)
+              ↓
+LEAD MAGNET ($0)
+  PDF "7 días de paz" gratis → captura email
+  Plataforma: Ko-fi (descarga gratuita a cambio de soporte)
+              ↓
+EMAIL LIST (gratis hasta 2,500 subs) ← BACKBONE
+  beehiiv — 0% comisión, mejor que Substack/Mailchimp para growth
+  1 email/semana: devocional corto + link a producto/video
+              ↓
+MONETIZACIÓN RECURRENTE
+  Ko-fi membresía $5/mes — "cafecito mensual al ministerio"
+  Target: 40 miembros = $200/mes
+              ↓
+PRODUCTOS DIGITALES (one-time)
+  Hotmart: Planner devocional 30d → $12-15 USD (LATAM, fees ~10%)
+  Etsy: Wallpapers packs → $4-7 USD (discovery global)
+  Target: 12 ventas/mes mix = $100-180/mes
+              ↓
+LARGO PLAZO (6+ meses)
+  FB Subscriptions (si llega a 10k fans)
+  YouTube AdSense (si llega a 4,000h YPP)
+  Telegram comunidad de pago ($6/mes × 50 = $300/mes)
+```
+
+### Math de $500/mes (0.3% de 14k subs = completamente alcanzable)
+
+| Canal | Conversión | Ingreso/mes |
+|---|---|---|
+| Ko-fi $5/mes × 40 miembros | 0.3% de 14k | $200 |
+| Hotmart planner $15 × 12 ventas | 2 ventas/semana | $180 |
+| Etsy wallpapers × 20 ventas | discovery orgánico | $80 |
+| Ko-fi donaciones one-time | variable | $40 |
+| **TOTAL** | | **$500** |
+
+### Timeline por fase
+
+| Fase | Acciones | Resultado esperado |
+|---|---|---|
+| Semana 1-2 (esta semana) | Ko-fi setup + beehiiv + link en 9 videos | Primeros miembros / primeras donaciones |
+| Mes 1-2 | Planner $12 en Hotmart + 5 listings Etsy + email semanal | $200-350/mes |
+| Mes 3-6 | Membresía Ko-fi Gold $5/mes + Telegram privado para miembros | $500/mes |
+
+### Plataformas confirmadas vs descartadas
+
+| Plataforma | Veredicto | Por qué |
+|---|---|---|
+| Ko-fi | ✅ HOY | 0% fee, framing "cafecito" = orgánico para audiencia LATAM fe |
+| beehiiv | ✅ HOY | gratis hasta 2.5k subs, 0% comisión, mejor growth que Substack |
+| Hotmart | ✅ Mes 1 | mejor discovery LATAM, fees ~10%, audiencia ya existe |
+| Etsy | ✅ HOY | discovery global, tierra virgen en español |
+| Telegram comunidad | ✅ Mes 3+ | mejor técnico, pero audiencia LATAM religiosa primero email > TG |
+| Discord | ❌ Descartar | demografía equivocada (gamer/tech/joven masculina) |
+| Substack paid | ❌ Descartar | 1-3% conversión en español vs 6% global |
+| Gumroad | ❌ Descartar | $25/mes sin lista email propia |
+| WhatsApp (broadcast) | 🟡 Meses 2-3 | audiencia de fe LATAM vive en WA, usar DESPUÉS de email |
+
+### Expectativas honestas (anti-hype)
+
+- FaithWorks Media (inglés, Patreon, 6 AÑOS) = $291/mes. Calibrar expectativas.
+- Con audiencia ya existente (14k) → más rápido que empezar de cero.
+- **$200-350/mes en 90 días** con Ko-fi + planner activos es el rango realista.
+- **$500/mes en 5-8 meses** con email list + productos + consistencia.
+- El único acelerador real: email list. Sin email, todo tarda 3× más.
+
+---
+
 ## ASTROCAP — Marco de evaluación de experimentos
 
 > **AstroCap = entrada laboral con Cesareo Frías ~18-23 jul 2026.**
@@ -260,6 +351,10 @@ FB Reels Bonus (semanas) →  Bonus $50-300/mes
 | E8 | Stars FB — pinned post educativo | 🔄 | Stars recibidas >0 | 🔄 En ejecución — publicando 2026-06-02 |
 | E9 | Super Thanks YT activado | ❌ | >$10 mes 1 | Pendiente activar |
 | E10 | Fix MusicGen → audio comercial | ❌ | Audio distribuible en Spotify | Pendiente cambiar stack |
+| E11 | Ko-fi activo con lead magnet PDF "7 días de paz" | ❌ | >10 miembros mes 1 / primeras donaciones antes Jun 15 | Pendiente activar esta semana |
+| E12 | beehiiv lista email creada + formulario en descripciones YT | ❌ | >50 subs email mes 1 | Pendiente crear esta semana |
+| E13 | Hotmart planner devocional $12-15 publicado | ❌ | >12 ventas/mes (2/semana) = $180/mes | Pendiente — mes 1 |
+| E14 | Etsy 5 listings wallpapers premium v2 en español | ❌ | >20 ventas/mes = $80/mes | Pendiente — esta semana (listing fee $2) |
 
 ### Regla AstroCap
 - Experimentos con 2+ meses de data → decisión: escalar / matar / pivotar
@@ -284,6 +379,7 @@ Reporte ejecución: `data/carnage-execution-2026-06-02.md` (carnage lo llena)
 
 | Fecha | Cambio |
 |-------|--------|
+| 2026-06-02 | v5 — Ecosistema orgánico integrado: Ko-fi+beehiiv+Hotmart+Etsy. Email list = backbone. Gap crítico: sin CTA activo hoy = 0 ingresos a pesar de 14k audiencia. Tercer camino paralelo en META NORTE. FASE 1 actualizada con acciones esta semana. Experimentos E11-E14 en AstroCap. Sección ECOSISTEMA ORGÁNICO con stack completo + math $500/mes + plataformas confirmadas/descartadas. |
 | 2026-06-02 | v4 — Budget ads ajustado a $200 MXN (único intento). Stars post lanzado. Meta Ads programado Jun 10. Brief carnage emitido + aprobado. |
 | 2026-06-02 | v3 — Digital products research integrado: Ko-fi + Etsy español + Hotmart + POD. Red flag MusicGen CC BY-NC. AstroCap framework con 10 experimentos activos. |
 | 2026-06-02 | v2 — Ads research integrado: YT Ads descartado (oficial: no cuenta YPP), Meta stack $50+$50, shoutout > Meta para calidad. Scoreboard FB actualizado con Stars $0, Subscriptions ruta 250 return viewers. Proyección FB por ruta. cero-agent 5 workflows documentados. |
