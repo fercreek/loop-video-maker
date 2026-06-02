@@ -149,3 +149,25 @@ Objetos creados y listos en el ad account:
 - Imagen lofi subida al ad account (hash `2467b87819cea8cc51685fc7c65fa315`) — disponible
 
 El blocker es de token/app, no de estrategia ni de plataforma. Una vez resuelto el token, la campaña puede estar live en <5 minutos.
+
+---
+
+## UPDATE 2026-06-02 — Campaña activada
+
+**Blocker resuelto:** Pipeboard MCP tiene auth propio independiente del token Studio Link app.
+No se necesita token nuevo — Pipeboard funciona directo.
+
+**Objetos completos:**
+
+| Objeto | ID | Estado final |
+|--------|-----|------|
+| Creative | `1004017758752293` | ✅ |
+| Ad | `120245946921170194` | ✅ ACTIVE |
+| Adset | `120245943144590194` | ✅ ACTIVE (Jun 2 → Jun 17) |
+| Campaña | `120245943071430194` | ✅ ACTIVE |
+
+**Cambio de estrategia:** start date movido de Jun 10 → Jun 2 (HOY).
+15 días vs 7 — mismo $1,400 MXN lifetime, mejor optimización del algoritmo.
+Para Jun 11 (lofi publica) el ad ya salió del learning phase → plena entrega.
+
+Preview: https://fb.me/25kYCQCU8hJFBMj
