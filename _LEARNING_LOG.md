@@ -181,3 +181,25 @@
 - `overlay` no acepta `alpha` option → fade alpha en PNG stream ANTES de overlay
 - `amix` default `normalize=1` divide entre N → loudnorm SIEMPRE post-mix
 - macOS Sequoia: launchd no puede leer `~/Documents/` por default → FDA grant a binaries
+
+### 2026-06-03 · Sesión Operación de Dios
+
+**Pros (qué salió bien):**
+- parallel-research × 3 con data real verificada — el patrón 3 fuentes funciona
+- Pipeboard MCP auth propio resolvió Meta Ads blocker que Python no podía
+- PDF lead magnet + Ko-fi live en una sola sesión (zero a published)
+- Plan Maestro VD con números reales (Hallow $51.4M, Etsy 12,774 ventas)
+
+**Cons (qué se atoró):**
+- Budget Meta Ads ambiguo → carnage asumió $200/día × 7 = $1,400 (quería $200 total)
+- Error 1885183 se descubrió después de 4 objetos ya creados (violación Rule #15)
+- Texto invisible en PDF × 3 iteraciones — `✦` Unicode crashea Helvetica silenciosamente
+- pdftoppm falsa alarma 40min — el PDF estaba bien, el renderer de macOS era el problema
+
+**Consejo Claude Code:**
+- Budget monetario → SIEMPRE preguntar "¿lifetime total o daily?" antes de crear objeto
+- Meta Ads → probar `create_ad_creative` primero antes de crear campaign/adset
+- PDF ReportLab → `pdftotext` para verificar contenido, NO `pdftoppm` en macOS
+
+**Patrón nuevo capturado:**
+- Auth routing Meta = origen del token (qué app lo generó), NO los scopes. Token con ads_management pero de app en dev mode = error 1885183 en creative creation. Solución: Pipeboard MCP (auth propio) o token de app en Live mode.
