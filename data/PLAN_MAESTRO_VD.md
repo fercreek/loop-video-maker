@@ -431,7 +431,7 @@ Next.js App Router + MDX → SSG → Vercel (free)
 | E6 | Ko-fi membresía activa | ❌ | >10 miembros mes 1 | Pendiente activar |
 | E7 | Etsy listings en español | ❌ | >5 ventas mes 1 | Pendiente crear |
 | E8 | Stars FB — pinned post educativo | 🔄 | Stars recibidas >0 | 🔄 En ejecución — publicando 2026-06-02 |
-| E9 | Super Thanks YT activado | ❌ | >$10 mes 1 | Pendiente activar |
+| E9 | Super Thanks YT activado | 🔒 BLOQUEADO | >$10 mes 1 | Requiere 3,000h válidas (tiene 139h) |
 | E10 | Fix MusicGen → audio comercial | ❌ | Audio distribuible en Spotify | Pendiente cambiar stack |
 | E11 | Ko-fi activo con lead magnet PDF "7 días de paz" | ❌ | >10 miembros mes 1 / primeras donaciones antes Jun 15 | Pendiente activar esta semana |
 | E12 | beehiiv lista email creada + formulario en descripciones YT | ❌ | >50 subs email mes 1 | Pendiente crear esta semana |
