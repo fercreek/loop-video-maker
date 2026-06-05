@@ -76,6 +76,14 @@
 
 ---
 
+## 4.5 · Lab operable (capa de captura)
+
+- **Ledger:** `data/experiments.jsonl` (1 línea/experimento: id, hipótesis, video_id, métrica, baseline, ventana, status, decisión, measurements[]).
+- **Medición por-video:** `python3 scripts/measure_experiment.py <video_id> [--since YYYY-MM-DD] [--exp EXP-NNN]` → views/watch-h/retención/avg-view. Graba al ledger con `--exp`.
+- **EXP-001/002 sembrados** (status: planned) — thumbnail A/B + título intención-búsqueda sobre `6eHgRtGjaYA` (atacan descubrimiento, cuello de D2).
+- ⚠️ **Limitación:** impresiones + CTR NO disponibles vía Analytics API con scope actual → medir CTR MANUAL en YT Studio. Views/retención/watch SÍ son auto.
+- **Loop ahora cerrado:** experimento (ledger) → medición (script) → log (measurements[] + §6) → decisión (§4). Falta solo el paso de PROMOCIÓN cross-proyecto (venom: hook ritual domingo — decisión de Fernando).
+
 ## 5. PAUTAS acumuladas (aprendizajes que ya son regla)
 
 > Se agregan aquí conforme emergen. Son las reglas duras del sistema.
