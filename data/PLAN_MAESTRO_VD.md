@@ -2,6 +2,8 @@
 > Nombre operación: **Operación de Dios** · Equivalente: Plan 20K (Studio Link)
 > Owner: Fernando · Stats: `venom_truth.json` (venom manda) · Update: 2026-06-02
 > Hermano: `docs/STRATEGY_MONETIZATION_2026-06-01.md` (análisis completo)
+> Frentes alternos: `docs/PLAN_MONETIZACION_ALTERNA_2026-06-04.md` (Ko-fi/Etsy/Hotmart/beehiiv · tablero priorizado venom)
+> **Flywheel + automatización: `docs/FLYWHEEL_VDD_2026-06-04.md`** (Ko-fi×YT×FB×email · 4 workflows n8n · venom+carnage)
 > Anti-switching: un solo plan. Cambio = editar ESTE archivo, no crear otro.
 
 ---

@@ -116,6 +116,19 @@
       "publish_at_utc": "2026-06-14T03:00:00Z",
       "uploaded": true,
       "youtube_id": "7cOYmo27qS4"
+    },
+    {
+      "story_id": "sleep_salmo91_120",
+      "title": "SALMO 91 PARA DORMIR · Protección Toda la Noche · 2 HORAS Sin Anuncios 📖",
+      "mp4_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/sleep/sleep_salmo91_120min.mp4",
+      "thumbnail_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/sleep/thumbs/sleep_salmo91_thumb.jpg",
+      "description_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/sleep/upload/sleep_salmo91_description.txt",
+      "metadata_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/sleep/upload/sleep_salmo91_metadata.json",
+      "publish_date": "2026-06-15",
+      "publish_time_mty": "21:00",
+      "publish_at_utc": "2026-06-16T03:00:00Z",
+      "uploaded": false,
+      "youtube_id": null
     }
   ]
 }
