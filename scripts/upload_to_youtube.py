@@ -123,15 +123,28 @@ def upload_video(youtube, entry: dict, dry_run: bool = False) -> str | None:
 
     from googleapiclient.http import MediaFileUpload
 
+    import time as _time
+    from googleapiclient.errors import HttpError
     print(f"  📤 Subiendo: {title[:50]} ({mp4.stat().st_size/1024/1024:.0f} MB)...")
-    media = MediaFileUpload(str(mp4), chunksize=-1, resumable=True, mimetype="video/mp4")
+    # Chunks de 10MB (no -1) → resumable real: sobrevive broken pipe / blips de red.
+    media = MediaFileUpload(str(mp4), chunksize=10 * 1024 * 1024, resumable=True, mimetype="video/mp4")
     req = youtube.videos().insert(part="snippet,status", body=body, media_body=media)
 
     response = None
+    retries = 0
     while response is None:
-        status, response = req.next_chunk()
-        if status:
-            print(f"    Upload: {int(status.progress() * 100)}%")
+        try:
+            status, response = req.next_chunk()
+            if status:
+                print(f"    Upload: {int(status.progress() * 100)}%")
+            retries = 0
+        except (HttpError, BrokenPipeError, ConnectionError, OSError) as e:
+            retries += 1
+            if retries > 8:
+                raise
+            wait = min(2 ** retries, 30)
+            print(f"    ⚠ chunk falló ({type(e).__name__}), retry {retries} en {wait}s...")
+            _time.sleep(wait)
 
     video_id = response["id"]
     print(f"  ✓ Subido: https://youtube.com/watch?v={video_id}")

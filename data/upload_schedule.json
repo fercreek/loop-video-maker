@@ -127,8 +127,8 @@
       "publish_date": "2026-06-15",
       "publish_time_mty": "21:00",
       "publish_at_utc": "2026-06-16T03:00:00Z",
-      "uploaded": false,
-      "youtube_id": null
+      "uploaded": true,
+      "youtube_id": "MYITKgMsMOU"
     }
   ]
 }

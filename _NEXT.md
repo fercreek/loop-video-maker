@@ -76,11 +76,13 @@
 
 ### Content pipeline
 - [x] **FOCUS-223 encolar long-form parado** (2026-06-04) — hallazgo: los "7 parados ~11h" estaban STALE. `lofi_v02_orar_2h`/`v03_ansiedad_2h` = raws viejos superseded por `_verses_final` YA subidos. Único real parado = `sleep_salmo91_120min` (QA 10/10) → encolado en `upload_schedule.json` publish **2026-06-15** (uploaded:false, assets generados). `sleep_salmo91_60min` no se sube (decisión A: solo 120min, evita canibalizar).
-- [ ] **Verificar daemon yt-fb-uploader vivo** (FOCUS-178) — el salmo91 encolado depende de él + token YT. Si daemon roto → no sube.
+- [x] **FOCUS-178 diagnosticado (2026-06-04):** el daemon `yt-fb-uploader` corre SOLO `upload_shorts_venom.py` (Shorts) — NO sube long-form, NO lee `upload_schedule.json`. El salmo91 NO se auto-subía. Fix aplicado: corrida manual de `upload_to_youtube.py --yes` (sube private + publishAt → YT publica solo). **Deuda sistémica:** ningún daemon sube long-form del schedule → agregar 2do daemon o sumar upload_to_youtube.py al existente.
+- [ ] **Fix daemon long-form:** sumar `upload_to_youtube.py --yes` al daemon yt-fb-uploader (hoy solo Shorts) para que futuros encolados del schedule auto-suban.
 - [ ] **Medir CTR delta 8 thumbnails** (7-14 días) — Pródigo/Daniel/Jonás/Samaritano/José/Pentecostés/Moisés/Noé.
 - [ ] **Verificar 6×120min publicaron** en sus fechas (31may→10jun) + que entraron a playlist PARA DORMIR.
-- [ ] **Shorts→long funnel:** pinned comment + link a sleep video en top 10 Shorts.
-- [ ] Generar 5 sleep videos test (salmo91, salmo23, ansiedad, promesas, rosario).
+- [x] Playlists binge: PARA DORMIR 32→39 + Lo-Fi 6→9 (2026-06-04) — 10 largos sueltos ahora encadenan autoplay
+- [~] Generar 5 sleep videos test — salmo91 ✅ encolado · salmo23 renderizando (2026-06-04) · faltan ansiedad/promesas/rosario.
+- [x] **TRIAGE historias bíblicas (2026-06-04):** 16 en disco (14-27min), 9 subidas. Mediana solo **88 views**. Math: historia ≈10 watch-h/video vs sleep ≈120 watch-h/video → **sleep 12× más eficiente para el gate.** Verdicto: NO mass-subir las 7 historias flojas (slop + bajo retorno). Pivotar a producir SLEEP. venom-confirmed.
 - [ ] Request quota YT increase a Google (`docs/YT_QUOTA_INCREASE.md`) — esperar strike resuelto.
 - [ ] 100-story long-form catalog — quedan ~84 historias pendientes.
 
