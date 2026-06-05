@@ -36,6 +36,7 @@
 |---------|----------------------|--------|------|----------|
 | YPP long-form watch-h | 151.6h (3.8%) | — | 4,000h | semanal |
 | Subs YT | 14,000 | — | — | semanal |
+| **Retención long-form** | — | **5.2%** (1 video, 23 views) | >40% sleep | semanal |
 | **Subscribers beehiiv** | 0 | 0 (post-cleanup) | primeros 10 | **3-5 días** |
 | **Apoyos Ko-fi** | 0 | 0 | primer $ | **3-5 días** |
 | Fans FB | 1,917 | — | — | semanal |
@@ -63,9 +64,12 @@
 - **Estado:** ABIERTA. Default actual = manual. Decidir en sesión con cola real de long-form.
 
 ### D2 · Producir más sleep vs medir primero
-- **Qué:** rendir salmo23/ansiedad/promesas/rosario (sleep 12× más watch-h que historias).
-- **Criterio:** producir tras confirmar que los sleep ya vivos retienen >40% (medir en §2). No producir a ciegas.
-- **Estado:** ABIERTA. salmo23 assets listos; render pospuesto (RAM).
+- **Qué:** rendir salmo23/ansiedad/promesas/rosario.
+- **DATA 2026-06-04 (YT Analytics):** único largo con data = `6eHgRtGjaYA` → **23 views, retención 5.2%, avg 6:17 de 120min**. Los otros 8 ≈0 data (recién publicados). El math "sleep 12× historias" asumía 30% ret; real = 5.2% → sleep rinde MUCHO menos de lo proyectado.
+- **Verdicto: NO mass-producir sleep aún.** El cuello NO es cantidad de contenido — es **descubrimiento (23 views/5sem) + retención (5.2%) bajos**. Producir 4 sleep al 5% = poco watch-h.
+- **Antes de producir, diagnosticar:** ¿por qué no retiene (intro larga? audio? loop obvio?) y por qué no se descubre (thumbnail CTR? título? 0 recomendación del algoritmo?). 
+- **Caveat:** sample chico (1 video, 23 views). Re-medir cuando los otros 8 acumulen views (semanal §2).
+- **Estado:** ABIERTA → inclinada a PAUSAR producción. salmo23 assets listos (no desperdiciados, esperan).
 
 ### D3 · Rotar BEEHIIV_API_KEY (quedó expuesto en chat)
 - **Estado:** Fernando dijo NO rotar por ahora. Revisar si el canal es sensible. ABIERTA (low prio).
@@ -84,6 +88,7 @@
 6. **Uploads >500MB: chunks de 10MB + retry**, nunca `chunksize=-1` (broken pipe). Fix en `upload_to_youtube.py`.
 7. **Verify-before-build:** confirmar estado REAL antes de construir. Hoy ahorró: 7 "historias para subir" eran flojas, "long-form parado" estaba casi todo subido, daemon "yt-fb-uploader" solo hacía Shorts.
 8. **Uploads largos: usar `nohup` detached**, no background del harness (muere en session resume).
+9. **MEDIR retención antes de producir.** Data 2026-06-04: sleep largo real retiene 5.2% (no 30% asumido) + 23 views/5sem. El cuello del gate NO es cantidad de contenido — es **descubrimiento + retención**. Más videos al 5% no acerca las 4,000h. Diagnosticar thumbnail/intro/algoritmo ANTES de rendir más. (mató el supuesto "produce más sleep").
 
 ---
 
