@@ -58,7 +58,20 @@ PASO 5 — WF#4 weekly email (cuando lista tenga subs)
 - 🟡 CTA 1 de cada 3 comments (audiencia 35-55 valora "tiempo devocional", no venta).
 - 🟡 Disclosure IA siempre.
 
-## ✅ Cuello único: **beehiiv** (Fernando, 1-2h). Sin él, flywheel lineal.
+## ✅ FLYWHEEL LIVE (2026-06-04) — validado end-to-end
+
+Loop completo funcionando: Ko-fi (PDF gratis) → webhook → WF#3 → beehiiv subscriber. Probado con token válido (subscribe OK) + token falso (rechazado, 0 subs).
+
+- **WF#3 deployed:** n8n id `7gp5BTokGi4DRlh1`, webhook `https://n8n.agenciacero.com.mx/webhook/kofi-capture-vdd`.
+- **beehiiv:** pub `pub_46a515e4-3b0d-4d6f-a041-8d63845fbee3`. Key + KOFI_VERIFICATION_TOKEN en VPS .env + docker-compose.
+- **Ko-fi webhook conectado** (Settings → API → URL guardada + verification token activo).
+- Fixes aplicados: webhook `responseMode:responseNode` + beehiiv v2 requiere `pub_` prefix.
+
+**Pendiente menor:** rotar BEEHIIV_API_KEY (quedó en chat) · borrar test subs (fercreek+kofitest) · IG bio link.
+
+---
+
+## (histórico) Cuello único: **beehiiv** — RESUELTO.
 
 ---
 
