@@ -4,6 +4,7 @@
 > Hermano: `docs/STRATEGY_MONETIZATION_2026-06-01.md` (análisis completo)
 > Frentes alternos: `docs/PLAN_MONETIZACION_ALTERNA_2026-06-04.md` (Ko-fi/Etsy/Hotmart/beehiiv · tablero priorizado venom)
 > **Flywheel + automatización: `docs/FLYWHEEL_VDD_2026-06-04.md`** (Ko-fi×YT×FB×email · 4 workflows n8n · venom+carnage)
+> 🕷️ **Monitor vivo + decisiones abiertas + pautas: `docs/_MONITOR-OPERACION-DIOS.md`** (venom — leer antes de asumir cambios estructurales)
 > Anti-switching: un solo plan. Cambio = editar ESTE archivo, no crear otro.
 
 ---
