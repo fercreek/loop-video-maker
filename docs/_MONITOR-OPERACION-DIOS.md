@@ -76,6 +76,14 @@
 
 ---
 
+## 4.6 · DIAGNÓSTICO del cuello (2026-06-04, curva retención 6eHgRtGjaYA)
+
+Curva audienceWatchRatio: **1%→100%, 5%→22%, 20%+→4.3% estable**.
+- **El cuello tiene 2 capas:** (1) descubrimiento (23 views/5sem) + (2) **early-drop: 78% se va en los primeros ~6min**.
+- La **cola 4.3%** que llega a 60min+ = audiencia real de sleep (sesiones largas, genera watch-h). Es el activo a proteger.
+- **Hipótesis del drop:** intro/primeros minutos pierden gente (text card largo? arranque de música? mismatch thumbnail↔contenido). NO es solo descubrimiento.
+- **Acción próxima sesión:** EXP-002 (intro corta / hook directo 30s) bien apuntado. Reducir el drop convierte samplers→durmientes = más watch-h sin más views. Diagnosticar QUÉ en los primeros 6min ahuyenta (ver el video, no solo la curva).
+
 ## 4.5 · Lab operable (capa de captura)
 
 - **Ledger:** `data/experiments.jsonl` (1 línea/experimento: id, hipótesis, video_id, métrica, baseline, ventana, status, decisión, measurements[]).
@@ -96,6 +104,7 @@
 6. **Uploads >500MB: chunks de 10MB + retry**, nunca `chunksize=-1` (broken pipe). Fix en `upload_to_youtube.py`.
 7. **Verify-before-build:** confirmar estado REAL antes de construir. Hoy ahorró: 7 "historias para subir" eran flojas, "long-form parado" estaba casi todo subido, daemon "yt-fb-uploader" solo hacía Shorts.
 8. **Uploads largos: usar `nohup` detached**, no background del harness (muere en session resume).
+10. **Thumbnail DEBE matchear el título + la intención.** Hallazgo 2026-06-05: 6 largos sleep tenían thumbnails de worship clickbait (¡PAZ!, ¡SANIDAD!, fondos día brillantes) contra título DORMIR → mismatch mata discovery+retención. La plantilla GANADORA (cozy/vela/noche del batch lofi) ya existía en el canal — el batch viejo usó la equivocada. Regla: thumbnail de sleep = noche/calma, "PARA DORMIR" visible, CERO clickbait. EXP-001 (6 thumbs realineados, running).
 9. **MEDIR retención antes de producir.** Data 2026-06-04: sleep largo real retiene 5.2% (no 30% asumido) + 23 views/5sem. El cuello del gate NO es cantidad de contenido — es **descubrimiento + retención**. Más videos al 5% no acerca las 4,000h. Diagnosticar thumbnail/intro/algoritmo ANTES de rendir más. (mató el supuesto "produce más sleep").
 
 ---
