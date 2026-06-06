@@ -54,6 +54,19 @@
 
 ---
 
+## 3.5 · Decision-tree de CONVERSIÓN (día 3-5, correr `check_flywheel.py`)
+
+El cuello para L5 = conversión (=0 hoy). Esta tabla evita 3 días de diagnóstico a ciegas — al revisar, mapear el estado a la acción:
+
+| Subs beehiiv | Apoyos Ko-fi | Views creciendo | Diagnóstico | Acción (<24h) |
+|:--:|:--:|:--:|---|---|
+| >0 | >0 | — | ✅ Flywheel CONVIERTE | Escalar: email semanal (WF#4) + más posts Ko-fi. → empuja L5. |
+| >0 | 0 | — | Captura OK, monetización no | Revisar oferta Ko-fi (¿precio? ¿framing del apoyo?). Email nurture primero. |
+| 0 | 0 | sí (↑ vs 23) | Discovery OK, **funnel roto** | Revisar fricción Ko-fi: ¿link visible? ¿PDF entrega? Test E2E manual del descargador. |
+| 0 | 0 | no (~plano) | **Cuello = descubrimiento** | Track B ya en marcha (thumbs ✅ + EXP-001/002/003). Esperar señal 14d, no tocar más. |
+
+> Regla: NO escalar producción ni CTAs hasta que esta tabla diga "CONVIERTE". Optimización prematura sobre funnel no-probado = desperdicio (veredicto workflow leveling 2026-06-05).
+
 ## 4. Decisiones ABIERTAS (no asumir — resolver con data)
 
 ### D1 · Daemon auto-upload long-form
