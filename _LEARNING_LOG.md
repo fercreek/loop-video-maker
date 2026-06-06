@@ -203,3 +203,23 @@
 
 **Patrón nuevo capturado:**
 - Auth routing Meta = origen del token (qué app lo generó), NO los scopes. Token con ads_management pero de app en dev mode = error 1885183 en creative creation. Solución: Pipeboard MCP (auth propio) o token de app en Live mode.
+
+### 2026-06-05 · Flywheel + Leveling (Operación de Dios)
+
+**Pros (qué salió bien):**
+- Verify-before-build pagó 4+ veces: mató subir 16 historias flojas, encontró daemon solo-Shorts, destapó mismatch sistémico de thumbnails, confirmó token OK vs falsa alarma del workflow.
+- Flywheel Ko-fi→email construido + validado E2E + lab (ledger/measure/check) que cierra el loop → marca subió L3★→L4★ con evidencia.
+- Diagnóstico real del cuello: 78% early-drop + thumbnails worship-clickbait vs título dormir.
+
+**Cons (qué se atoró):**
+- Upload rompió 3× (broken pipe) antes del fix chunked — `chunksize=-1` ya estaba flageado en CLAUDE.md; leer la deuda al 1er fallo hubiera ahorrado 2 intentos.
+- salmo91 encolado prematuro sin verificar que ningún daemon sube long-form.
+- Drift de regla #4 (⭐🕷️): Fernando corrigió 2×. Workflow caro (1.6M tok → 4 hallazgos, mayoría ya hechos).
+
+**Consejo Claude Code:**
+- Al 1er fallo técnico → leer CLAUDE.md/deuda ANTES de reintentar a ciegas.
+- Jobs largos → `nohup` detached desde el inicio (mueren en session-resume).
+- Workflow de auditoría: lanzarlo al INICIO de un dominio sin explorar, no al final (tras agotar lo obvio rinde poco).
+
+**Patrón nuevo capturado:**
+- La plantilla GANADORA suele ya existir en tus propios assets (thumbs lofi, prompts FB/IG) — el batch viejo usó la mala. Copiar lo que ya funciona, no inventar.

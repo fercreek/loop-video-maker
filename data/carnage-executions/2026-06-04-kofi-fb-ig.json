@@ -1,0 +1,31 @@
+{
+  "date": "2026-06-04",
+  "agent": "carnage",
+  "brief": "data/brief-kofi-fb-ig-2026-06-04.md",
+  "objective": "Post anuncio Ko-fi PDF gratis 7 Dias de Paz en FB + IG (flywheel VDD)",
+  "approval": "Fernando aprobo copy + imagen explicitamente",
+  "image": "output/etsy/kofi_cover_7dias.jpg (1080x1080)",
+  "token": "palabra-de-dios (PAGE token, scopes verificados: pages_manage_posts + instagram_content_publish)",
+  "ig_hosting_method": "FB photo CDN URL reusada como image_url para IG container (patron schedule_vd.py, sin servicios externos)",
+  "results": {
+    "fb": {
+      "photo_id": "122219361356553347",
+      "post_id": "452922677899760_122219361380553347",
+      "permalink": "https://www.facebook.com/122216544152553347/posts/122219361380553347",
+      "is_published": true,
+      "created": "2026-06-05T04:45:52+0000"
+    },
+    "ig": {
+      "container_id": "17954988825315113",
+      "media_id": "17976224130020690",
+      "permalink": "https://www.instagram.com/p/DZMPgsfAEC7/",
+      "media_type": "IMAGE",
+      "created": "2026-06-05T04:46:10+0000"
+    }
+  },
+  "errors": [],
+  "pending": [
+    "IG bio: poner ko-fi.com/versiculosdedios en bio (IG no permite link en caption) — accion manual Fernando, no automatizable con scopes actuales"
+  ],
+  "pacing": "1 post hoy. No repetir mismo anuncio >1x/semana (anti-fatiga)."
+}
