@@ -6,6 +6,26 @@
 
 ---
 
+### 2026-06-10 · Orphan-upload guard (daily YT reconciliation)
+
+**Pros (qué salió bien):**
+- Verify-before-build mató 2 supuestos: probé canal vivo (1004 vids, tracking solo 55) antes de codear severidad → el spec literal "watch>0=HIGH" habría disparado 21 falsas alarmas/día. Reencuadré a windowed + threshold.
+- Probe del token: refresh falló `invalid_scope`; comparé scopes nativos del token vs los pedidos por youtube_client → cargué creds con los del token (rule #15). 1 diagnóstico, cero loops.
+- Tracé los 28 orphans → cadencia 16:02 = n8n VPS, no este repo. Frené el "fix write-back" mal-dirigido; allowlist local + FOCUS-441 para la raíz n8n.
+
+**Cons (qué se atoró o sobrecomplicó):**
+- Committeé el guard (`09da0c2`) ANTES de correr carnage-kill. El red-team reveló 4 BUGs estructurales (muere callado si API falla, Mac-off=no corre, WA sin fallback, analytics lag ciega al foráneo nuevo 72h) — todos en prod ahora. Adversarial debió correr pre-commit.
+- Severidad atada a una sola señal lagging (watch_hours) sin modelar el lag de Analytics (24-72h) = ventana temprana descubierta.
+
+**Consejo Claude Code (cómo prompteamos mejor):**
+- En features defensivas (guard/validador/detector): correr `carnage-kill` ANTES de `git commit`, no en la retro. El happy-path verde ≠ listo; listo = sobrevive su propio red-team.
+- Métrica de riesgo nunca debe ser una sola señal lagging — combinar leading (recencia, duración anómala) + lagging (watch).
+
+**Patrón nuevo capturado:**
+- Adversarial-before-commit en todo lo que existe para proteger/detectar.
+
+---
+
 ### 2026-06-02 · Operación de Dios — sesión fundacional
 
 **Pros (qué salió bien):**
