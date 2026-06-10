@@ -24,7 +24,7 @@
 ## ⚡ Próximos pasos (orden corregido por verify-before-build de venom)
 1. ✅ **P0-2 colector `engagement.jsonl` — SHIPPED 06-10** (FB phase). n8n `DuBfplAMAOGbxWzR` activo en VPS · cron 0,6,12,18 UTC · FB Graph API → `/var/www/stats/engagement.jsonl`. Smoke test: 5 posts fetched, file write OK. YT Analytics = stub (pendiente P0-1 token). **El loop venom-nexo ya puede medir hipótesis de FB.**
 2. ✅ **P0-3 guard uploads huérfanos — SHIPPED 06-10** (`09da0c2`). `scripts/orphan_guard.py` + launchd `com.versiculodedios.orphan-guard` @8pm MX (local, NO cron VPS — token+venv en Mac). Windowed 14d · HIGH=licensedContent o ≥50h → WA venom. allowlist + `--ack-low` (28 auto-publishes n8n acked). 0 huérfanos hoy, TikToks borrados. ⏳ **4 BUGs carnage por reparar:** FOCUS-442 (API muere callado + analytics lag 72h ciega foráneo nuevo), FOCUS-443 (WA sin fallback), FOCUS-444 (Mac-off=no corre). FOCUS-441 = raíz n8n write-back.
-3. **Y1 funnel** — pinned/end-screen de los ~5 Shorts L4 → sleep 2h (sube Funnel-wiring a L5 sin producir). Manual YT Studio.
+3. ✅ **Y1 funnel — SHIPPED 06-10** — pinned comment en 5 Shorts L4 → sleep 2h + Ko-fi via Chrome MCP. IDs: `zfQYgA88gcU` `hvV1P06nUck` `jvEokzazN4o` `5mv5kXnfZ1U` `GFlD5gfxHkY`. ⏳ **Fernando pendiente: end-screens** (ver `docs/Y1_FUNNEL_ACTION.md`).
 4. **P1-3** generar 3 Shorts revelación/reframe (temas sin usar: `milagro_001`/`soledad_001`/`tristeza_001`) wired al sleep.
 
 ## 🔒 Bloqueado / Fernando manual

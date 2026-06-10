@@ -6,6 +6,26 @@
 
 ---
 
+### 2026-06-10-b · Y1 Funnel + P1-3 Renders (Chrome MCP + 3 nuevos Shorts)
+
+**Pros (qué salió bien):**
+- Chrome MCP `execCommand('insertText')` pattern estable — 5/5 pinned comments sin fallo una vez establecido el flow.
+- Y1 funnel (5 Shorts → sleep 2h + Ko-fi) ejecutado sin producir contenido nuevo. Mayor ROI/esfuerzo de la sesión.
+- 3 renders P1-3 limpios, QA 10/10. Assets (pool + fondos + música) todos presentes, cero bloqueo.
+- Reel IG verificado via API antes de borrar — evitó falso positivo (caption era propio, no TikTok ajeno).
+
+**Cons (qué se atoró):**
+- `soledad_001` render en background → `moov atom not found` (ffmpeg interrumpido, archivo 22MB corrupto). Re-render 80s extra.
+- QA corrido al final del batch, no inmediatamente post-render. El error se detectó tarde.
+- Sin benchmarks SIN_AI → DELTA no mide valor real de la sesión.
+
+**Consejo Claude Code:**
+- `render_short.py` / `render_120min.py` NUNCA en `run_in_background` — siempre foreground. ffmpeg necesita cerrar el moov atom.
+- Correr `qa_short.py` inmediatamente después de cada render (no al final del batch) para detectar corrupción en el mismo bloque.
+
+**Patrón nuevo capturado:**
+- Render background → moov atom corruption: señal = `file` dice MP4 válido pero `ffprobe` falla. Fix = re-render foreground.
+
 ### 2026-06-10 · Orphan-upload guard (daily YT reconciliation)
 
 **Pros (qué salió bien):**
