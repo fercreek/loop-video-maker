@@ -1,9 +1,15 @@
 {
-  "generated": "2026-06-09",
+  "generated": "2026-06-10",
   "generated_by": "venom",
   "rubric": "venom/registry/video-leveling.md",
   "_note": "Score creativo por-video (6 ejes 0-10 -> promedio -> tier L1-L5). Retencion = data dura de venom_truth.json. Ejes sin data dura = juicio venom, marcados en hipotesis_flags. NO confundir con quality_gate.py (tecnico). Solo videos >=L4 se replican/generan (gate del content-gen loop).",
-  "tier_bands": { "L5": "8.0-10", "L4": "6.0-7.9", "L3": "4.0-5.9", "L2": "2.0-3.9", "L1": "0-1.9" },
+  "tier_bands": {
+    "L5": "8.0-10",
+    "L4": "6.0-7.9",
+    "L3": "4.0-5.9",
+    "L2": "2.0-3.9",
+    "L1": "0-1.9"
+  },
   "ejes_data_status": {
     "retencion": "data dura (venom_truth) cuando hay views; sin views = hipotesis",
     "formato": "data parcial (subs/1k de top performers)",
@@ -12,235 +18,581 @@
     "seo": "juicio (titulo observable)",
     "funnel": "juicio (verificable manual en YT Studio)"
   },
-
   "scores": [
     {
       "id": "hvV1P06nUck",
       "titulo": "LLAMA DIVINA (pasion que transforma)",
       "tipo": "short",
-      "ejes": { "hook": 9, "thumb_match": 7, "formato": 10, "retencion": 9, "seo": 5, "funnel": 2 },
+      "ejes": {
+        "hook": 9,
+        "thumb_match": 7,
+        "formato": 10,
+        "retencion": 9,
+        "seo": 5,
+        "funnel": 2
+      },
       "score": 7.0,
       "tier": "L4",
       "que_necesita": "Funnel (2): es el MEJOR conversor de subs (+474) pero huerfano. Agregar pinned comment + end-screen -> sleep 2h lo cruza a L5.",
-      "hipotesis_flags": ["hook", "thumb_match", "seo", "funnel"]
+      "hipotesis_flags": [
+        "hook",
+        "thumb_match",
+        "seo",
+        "funnel"
+      ]
     },
     {
       "id": "zfQYgA88gcU",
       "titulo": "UN SECRETO que la sangre de Jesus REVELA",
       "tipo": "short",
-      "ejes": { "hook": 10, "thumb_match": 7, "formato": 10, "retencion": 9, "seo": 6, "funnel": 2 },
+      "ejes": {
+        "hook": 10,
+        "thumb_match": 7,
+        "formato": 10,
+        "retencion": 9,
+        "seo": 6,
+        "funnel": 2
+      },
       "score": 7.3,
       "tier": "L4",
       "que_necesita": "Funnel (2): control de 'revelacion', convierte 12.9x subs. Wire a sleep 2h via pinned comment lo sube a L5. Plantilla a replicar.",
-      "hipotesis_flags": ["hook", "thumb_match", "seo", "funnel"]
+      "hipotesis_flags": [
+        "hook",
+        "thumb_match",
+        "seo",
+        "funnel"
+      ]
     },
     {
       "id": "jvEokzazN4o",
       "titulo": "EL DOLOR TIENE PROPOSITO (asi es como lo encuentras)",
       "tipo": "short",
-      "ejes": { "hook": 9, "thumb_match": 7, "formato": 8, "retencion": 10, "seo": 6, "funnel": 2 },
+      "ejes": {
+        "hook": 9,
+        "thumb_match": 7,
+        "formato": 8,
+        "retencion": 10,
+        "seo": 6,
+        "funnel": 2
+      },
       "score": 7.0,
       "tier": "L4",
       "que_necesita": "Funnel (2): motor #1 de watch-time (55h, ret 133%) pero no linkea a long-form. Pinned comment -> sleep 2h transfiere su trafico al gate YPP.",
-      "hipotesis_flags": ["hook", "thumb_match", "seo", "funnel"]
+      "hipotesis_flags": [
+        "hook",
+        "thumb_match",
+        "seo",
+        "funnel"
+      ]
     },
     {
       "id": "gRxIKks-ILc",
       "titulo": "Gracia Abundante: Favor Inmerecido",
       "tipo": "short",
-      "ejes": { "hook": 7, "thumb_match": 7, "formato": 8, "retencion": 9, "seo": 5, "funnel": 2 },
+      "ejes": {
+        "hook": 7,
+        "thumb_match": 7,
+        "formato": 8,
+        "retencion": 9,
+        "seo": 5,
+        "funnel": 2
+      },
       "score": 6.3,
       "tier": "L4",
       "que_necesita": "Funnel (2): +90 subs, ret 134%. Hook generico (7). Wire a funnel + hook tipo revelacion sube medio nivel.",
-      "hipotesis_flags": ["hook", "thumb_match", "seo", "funnel"]
+      "hipotesis_flags": [
+        "hook",
+        "thumb_match",
+        "seo",
+        "funnel"
+      ]
     },
     {
       "id": "5mv5kXnfZ1U",
       "titulo": "La Cruz NO era muerte... era ENTRADA al Cielo",
       "tipo": "short",
-      "ejes": { "hook": 9, "thumb_match": 7, "formato": 10, "retencion": 9, "seo": 5, "funnel": 2 },
+      "ejes": {
+        "hook": 9,
+        "thumb_match": 7,
+        "formato": 10,
+        "retencion": 9,
+        "seo": 5,
+        "funnel": 2
+      },
       "score": 7.0,
       "tier": "L4",
       "que_necesita": "Funnel (2): control de 'reframe NO-era-X' (+189 subs). Plantilla ganadora. Wire a sleep 2h lo cruza a L5.",
-      "hipotesis_flags": ["hook", "thumb_match", "seo", "funnel"]
+      "hipotesis_flags": [
+        "hook",
+        "thumb_match",
+        "seo",
+        "funnel"
+      ]
     },
     {
       "id": "gEHFYvu1SwI",
       "titulo": "Luz Eterna: Brillantez Divina",
       "tipo": "short",
-      "ejes": { "hook": 6, "thumb_match": 7, "formato": 7, "retencion": 9, "seo": 3, "funnel": 2 },
+      "ejes": {
+        "hook": 6,
+        "thumb_match": 7,
+        "formato": 7,
+        "retencion": 9,
+        "seo": 3,
+        "funnel": 2
+      },
       "score": 5.7,
       "tier": "L3",
       "que_necesita": "SEO (3) + Funnel (2): ret 124% pero titulo poetico sin keyword buscable y huerfano. Retitular con intencion de busqueda + wire funnel = +1 nivel.",
-      "hipotesis_flags": ["hook", "thumb_match", "seo", "funnel"]
+      "hipotesis_flags": [
+        "hook",
+        "thumb_match",
+        "seo",
+        "funnel"
+      ]
     },
     {
       "id": "RzGs_o-cyBk",
       "titulo": "Descanso en Fe: Paz Sobrenatural",
       "tipo": "short",
-      "ejes": { "hook": 6, "thumb_match": 7, "formato": 7, "retencion": 9, "seo": 4, "funnel": 2 },
+      "ejes": {
+        "hook": 6,
+        "thumb_match": 7,
+        "formato": 7,
+        "retencion": 9,
+        "seo": 4,
+        "funnel": 2
+      },
       "score": 5.8,
       "tier": "L3",
       "que_necesita": "SEO (4) + Funnel (2): devocional-medio ret 92%. Titulo evocativo. Keyword + wire funnel lo sube a L4.",
-      "hipotesis_flags": ["hook", "thumb_match", "seo", "funnel"]
+      "hipotesis_flags": [
+        "hook",
+        "thumb_match",
+        "seo",
+        "funnel"
+      ]
     },
     {
       "id": "HeGUMgQlfFo",
       "titulo": "Rut y Noemi: La Lealtad que Dios Recompenso",
       "tipo": "long_form",
-      "ejes": { "hook": 7, "thumb_match": 7, "formato": 7, "retencion": 5, "seo": 7, "funnel": 4 },
+      "ejes": {
+        "hook": 7,
+        "thumb_match": 7,
+        "formato": 7,
+        "retencion": 5,
+        "seo": 7,
+        "funnel": 4
+      },
       "score": 6.2,
       "tier": "L4",
       "que_necesita": "Retencion (5): mejor long-form del periodo (25%, driver +116h YPP) pero retencion sigue baja. Acortar/mejorar intro sube retencion -> L5. Ya es destino narrativo del VIDEO_MAP (funnel 4).",
-      "hipotesis_flags": ["hook", "thumb_match", "seo", "funnel"]
+      "hipotesis_flags": [
+        "hook",
+        "thumb_match",
+        "seo",
+        "funnel"
+      ]
     },
     {
       "id": "6eHgRtGjaYA",
       "titulo": "SALMOS PARA DORMIR PROFUNDAMENTE (2h)",
       "tipo": "long_form",
-      "ejes": { "hook": 3, "thumb_match": 8, "formato": 6, "retencion": 2, "seo": 9, "funnel": 5 },
+      "ejes": {
+        "hook": 3,
+        "thumb_match": 8,
+        "formato": 6,
+        "retencion": 2,
+        "seo": 9,
+        "funnel": 5
+      },
       "score": 5.5,
       "tier": "L3",
       "que_necesita": "Retencion (2) + Hook (3): 78% drop en primeros 6min. Es el DESTINO del funnel (genera horas YPP) pero como contenido retiene 10.8%. Arreglar intro (hook 30s directo, EXP-002) ataca el cuello. Su valor de horas es real aunque su calidad-retencion puntue L3 — correcto.",
-      "hipotesis_flags": ["hook", "thumb_match", "seo", "funnel"]
+      "hipotesis_flags": [
+        "hook",
+        "thumb_match",
+        "seo",
+        "funnel"
+      ]
     },
     {
       "id": "Fp44KoQurkM",
       "titulo": "Noe y el Diluvio",
       "tipo": "long_form",
-      "ejes": { "hook": 4, "thumb_match": 5, "formato": 3, "retencion": 2, "seo": 6, "funnel": 3 },
+      "ejes": {
+        "hook": 4,
+        "thumb_match": 5,
+        "formato": 3,
+        "retencion": 2,
+        "seo": 6,
+        "funnel": 3
+      },
       "score": 3.8,
       "tier": "L2",
       "que_necesita": "Retencion (2) + Formato (3): ret 12% (intro/thumb pierde audiencia). Formato Noe/Moises es perdedor confirmado vs Rut. Re-test thumbnail + acortar intro o retirar de rotacion.",
-      "hipotesis_flags": ["hook", "thumb_match", "seo", "funnel"]
+      "hipotesis_flags": [
+        "hook",
+        "thumb_match",
+        "seo",
+        "funnel"
+      ]
     },
     {
       "id": "4OxApIJ7L-E",
       "titulo": "Moises: El Hombre que Hablo con Dios",
       "tipo": "long_form",
-      "ejes": { "hook": 4, "thumb_match": 5, "formato": 3, "retencion": 3, "seo": 6, "funnel": 3 },
+      "ejes": {
+        "hook": 4,
+        "thumb_match": 5,
+        "formato": 3,
+        "retencion": 3,
+        "seo": 6,
+        "funnel": 3
+      },
       "score": 4.0,
       "tier": "L3",
       "que_necesita": "Formato (3) + Retencion (3): ret 16%, formato Noe/Moises perdedor. Mismo fix que Noe: re-test thumb/intro o reemplazar formato por el de Rut.",
-      "hipotesis_flags": ["hook", "thumb_match", "seo", "funnel"]
+      "hipotesis_flags": [
+        "hook",
+        "thumb_match",
+        "seo",
+        "funnel"
+      ]
     },
-
     {
       "id": "cPnxbjtH9xQ",
       "ref_id": "venom_001",
       "titulo": "Reposo Profundo: Descanso del Alma",
       "tipo": "short",
-      "ejes": { "hook": 7, "thumb_match": 7, "formato": 8, "retencion": 8, "seo": 5, "funnel": 2 },
+      "ejes": {
+        "hook": 7,
+        "thumb_match": 7,
+        "formato": 8,
+        "retencion": 8,
+        "seo": 5,
+        "funnel": 2
+      },
       "score": 6.2,
       "tier": "L4",
       "que_necesita": "Funnel (2): formula bi_B78HZuJ4 (mismatch titulo-narracion, 188% ret base). Programado dia 1. Agregar pinned comment -> sleep 2h al publicar.",
-      "hipotesis_flags": ["hook", "thumb_match", "formato", "retencion", "seo", "funnel"]
+      "hipotesis_flags": [
+        "hook",
+        "thumb_match",
+        "formato",
+        "retencion",
+        "seo",
+        "funnel"
+      ]
     },
     {
       "id": "Rt8Q-D1LJpk",
       "ref_id": "venom_004",
       "titulo": "PAZ que SOBREPASA: Calma sin razon",
       "tipo": "short",
-      "ejes": { "hook": 8, "thumb_match": 7, "formato": 8, "retencion": 8, "seo": 6, "funnel": 2 },
+      "ejes": {
+        "hook": 8,
+        "thumb_match": 7,
+        "formato": 8,
+        "retencion": 8,
+        "seo": 6,
+        "funnel": 2
+      },
       "score": 6.5,
       "tier": "L4",
       "que_necesita": "Funnel (2): hook fuerte (¿por que paz en el caos?) + keyword Filipenses4. Wire a sleep 2h al publicar.",
-      "hipotesis_flags": ["hook", "thumb_match", "formato", "retencion", "seo", "funnel"]
+      "hipotesis_flags": [
+        "hook",
+        "thumb_match",
+        "formato",
+        "retencion",
+        "seo",
+        "funnel"
+      ]
     },
     {
       "id": "GFlD5gfxHkY",
       "ref_id": "venom_009",
       "titulo": "MIEDO VENCIDO: Autoridad Espiritual",
       "tipo": "short",
-      "ejes": { "hook": 9, "thumb_match": 7, "formato": 9, "retencion": 8, "seo": 6, "funnel": 2 },
+      "ejes": {
+        "hook": 9,
+        "thumb_match": 7,
+        "formato": 9,
+        "retencion": 8,
+        "seo": 6,
+        "funnel": 2
+      },
       "score": 6.8,
       "tier": "L4",
       "que_necesita": "Funnel (2): hook 'reframe' (¿y si el miedo nunca tuvo autoridad?) = plantilla ganadora. Wire a sleep 2h lo acerca a L5.",
-      "hipotesis_flags": ["hook", "thumb_match", "formato", "retencion", "seo", "funnel"]
+      "hipotesis_flags": [
+        "hook",
+        "thumb_match",
+        "formato",
+        "retencion",
+        "seo",
+        "funnel"
+      ]
     },
     {
       "id": "ynG3d1IOYwg",
       "ref_id": "venom_002",
       "titulo": "NUEVA CRIATURA: Lo viejo MURIO en ti",
       "tipo": "short",
-      "ejes": { "hook": 8, "thumb_match": 7, "formato": 9, "retencion": 8, "seo": 5, "funnel": 2 },
+      "ejes": {
+        "hook": 8,
+        "thumb_match": 7,
+        "formato": 9,
+        "retencion": 8,
+        "seo": 5,
+        "funnel": 2
+      },
       "score": 6.5,
       "tier": "L4",
       "que_necesita": "Funnel (2): formato identidad/libertad con mismatch intencional. Wire a sleep 2h al publicar.",
-      "hipotesis_flags": ["hook", "thumb_match", "formato", "retencion", "seo", "funnel"]
+      "hipotesis_flags": [
+        "hook",
+        "thumb_match",
+        "formato",
+        "retencion",
+        "seo",
+        "funnel"
+      ]
     },
     {
       "id": "1cN9Xu9dfWU",
       "ref_id": "venom_005",
       "titulo": "REFUGIO SECRETO: Donde nada te toca",
       "tipo": "short",
-      "ejes": { "hook": 8, "thumb_match": 7, "formato": 9, "retencion": 8, "seo": 7, "funnel": 2 },
+      "ejes": {
+        "hook": 8,
+        "thumb_match": 7,
+        "formato": 9,
+        "retencion": 8,
+        "seo": 7,
+        "funnel": 2
+      },
       "score": 6.8,
       "tier": "L4",
       "que_necesita": "Funnel (2): 'REFUGIO SECRETO' + keyword Salmo91 (alta intencion busqueda). Wire a sleep 2h lo acerca a L5.",
-      "hipotesis_flags": ["hook", "thumb_match", "formato", "retencion", "seo", "funnel"]
+      "hipotesis_flags": [
+        "hook",
+        "thumb_match",
+        "formato",
+        "retencion",
+        "seo",
+        "funnel"
+      ]
     },
     {
       "id": "4oRb1kQgpGg",
       "ref_id": "venom_010",
       "titulo": "ANSIEDAD se VA: Vivir el Presente",
       "tipo": "short",
-      "ejes": { "hook": 8, "thumb_match": 7, "formato": 8, "retencion": 8, "seo": 7, "funnel": 2 },
+      "ejes": {
+        "hook": 8,
+        "thumb_match": 7,
+        "formato": 8,
+        "retencion": 8,
+        "seo": 7,
+        "funnel": 2
+      },
       "score": 6.7,
       "tier": "L4",
       "que_necesita": "Funnel (2): keyword 'ansiedad' = alta intencion de busqueda devocional. Wire a sleep 2h (tema afin) al publicar.",
-      "hipotesis_flags": ["hook", "thumb_match", "formato", "retencion", "seo", "funnel"]
+      "hipotesis_flags": [
+        "hook",
+        "thumb_match",
+        "formato",
+        "retencion",
+        "seo",
+        "funnel"
+      ]
     },
-
     {
       "id": "aqFlPGDD2ww",
       "titulo": "MUSICA CRISTIANA PARA DORMIR · Paz de Dios · 2 HORAS",
       "tipo": "long_form",
-      "ejes": { "hook": 3, "thumb_match": 8, "formato": 6, "retencion": 3, "seo": 9, "funnel": 3 },
+      "ejes": {
+        "hook": 3,
+        "thumb_match": 8,
+        "formato": 6,
+        "retencion": 3,
+        "seo": 9,
+        "funnel": 3
+      },
       "score": 5.3,
       "tier": "L3",
       "que_necesita": "Retencion (3) + Hook (3): sleep, mismo cuello que 6eHgRtGjaYA (early-drop). SEO fuerte (keyword dormir). Sin data de views propia -> retencion estimada por formato. Arreglar intro + wire playlist binge.",
-      "hipotesis_flags": ["hook", "thumb_match", "formato", "retencion", "seo", "funnel"]
+      "hipotesis_flags": [
+        "hook",
+        "thumb_match",
+        "formato",
+        "retencion",
+        "seo",
+        "funnel"
+      ]
     },
     {
       "id": "N7YzBNgd3l4",
       "titulo": "SALMOS PARA DORMIR con Esperanza en Dios · 2 HORAS",
       "tipo": "long_form",
-      "ejes": { "hook": 3, "thumb_match": 8, "formato": 6, "retencion": 3, "seo": 9, "funnel": 3 },
+      "ejes": {
+        "hook": 3,
+        "thumb_match": 8,
+        "formato": 6,
+        "retencion": 3,
+        "seo": 9,
+        "funnel": 3
+      },
       "score": 5.3,
       "tier": "L3",
       "que_necesita": "Retencion (3) + Hook (3): sleep sin data propia (estimado). Keyword dormir+esperanza fuerte. Mismo fix: intro hook 30s + playlist binge encadenada.",
-      "hipotesis_flags": ["hook", "thumb_match", "formato", "retencion", "seo", "funnel"]
+      "hipotesis_flags": [
+        "hook",
+        "thumb_match",
+        "formato",
+        "retencion",
+        "seo",
+        "funnel"
+      ]
     },
     {
       "id": "MYITKgMsMOU",
       "titulo": "SALMO 91 PARA DORMIR · Proteccion Toda la Noche · 2 HORAS",
       "tipo": "long_form",
-      "ejes": { "hook": 4, "thumb_match": 8, "formato": 6, "retencion": 3, "seo": 10, "funnel": 4 },
+      "ejes": {
+        "hook": 4,
+        "thumb_match": 8,
+        "formato": 6,
+        "retencion": 3,
+        "seo": 10,
+        "funnel": 4
+      },
       "score": 5.8,
       "tier": "L3",
       "que_necesita": "Retencion (3) + Hook (4): SEO top (Salmo 91 = keyword de altisima intencion). Recien publicado (15-jun), sin data -> retencion estimada. Es candidato fuerte SI retiene; medir post-publish y wire al funnel desde Shorts afines.",
-      "hipotesis_flags": ["hook", "thumb_match", "formato", "retencion", "seo", "funnel"]
+      "hipotesis_flags": [
+        "hook",
+        "thumb_match",
+        "formato",
+        "retencion",
+        "seo",
+        "funnel"
+      ]
     },
     {
       "id": "jdOSUMO3dbk",
       "titulo": "BIBLIA PARA DORMIR EN PAZ · 2 HORAS · Lo-Fi Cristiano",
       "tipo": "long_form",
-      "ejes": { "hook": 3, "thumb_match": 8, "formato": 6, "retencion": 3, "seo": 8, "funnel": 3 },
+      "ejes": {
+        "hook": 3,
+        "thumb_match": 8,
+        "formato": 6,
+        "retencion": 3,
+        "seo": 8,
+        "funnel": 3
+      },
       "score": 5.2,
       "tier": "L3",
       "que_necesita": "Retencion (3) + Hook (3): lofi sleep sin data propia. SEO ok (biblia+dormir). Mismo cuello sleep. Su valor es volumen-hora; medir retencion real antes de producir mas lofi.",
-      "hipotesis_flags": ["hook", "thumb_match", "formato", "retencion", "seo", "funnel"]
+      "hipotesis_flags": [
+        "hook",
+        "thumb_match",
+        "formato",
+        "retencion",
+        "seo",
+        "funnel"
+      ]
     },
     {
       "id": "l5LFYLVZOd4",
       "titulo": "VERSICULOS CONTRA LA ANSIEDAD · 2 HORAS · Lo-Fi Cristiano",
       "tipo": "long_form",
-      "ejes": { "hook": 4, "thumb_match": 8, "formato": 6, "retencion": 3, "seo": 9, "funnel": 3 },
+      "ejes": {
+        "hook": 4,
+        "thumb_match": 8,
+        "formato": 6,
+        "retencion": 3,
+        "seo": 9,
+        "funnel": 3
+      },
       "score": 5.5,
       "tier": "L3",
       "que_necesita": "Retencion (3) + Hook (4): keyword 'ansiedad' (alta intencion) + lofi. Sin data propia (estimado). Wire desde venom_010 (ANSIEDAD, mismo tema) = funnel tematico natural.",
-      "hipotesis_flags": ["hook", "thumb_match", "formato", "retencion", "seo", "funnel"]
+      "hipotesis_flags": [
+        "hook",
+        "thumb_match",
+        "formato",
+        "retencion",
+        "seo",
+        "funnel"
+      ]
+    },
+    {
+      "id": "tristeza_001",
+      "titulo": "¿Estás triste sin saber por qué? (Short)",
+      "tipo": "short",
+      "estado": "pre-score (no generado)",
+      "ejes": {
+        "hook": 9,
+        "thumb_match": 7,
+        "formato": 8,
+        "retencion": 8,
+        "seo": 8,
+        "funnel": 9
+      },
+      "score": 8.2,
+      "tier": "L5",
+      "que_necesita": "Nada — predice L5 wired desde dia 1. GENERAR.",
+      "hipotesis_flags": [
+        "retencion",
+        "thumb_match"
+      ]
+    },
+    {
+      "id": "milagro_001",
+      "titulo": "¿Necesitas un milagro hoy? (Short)",
+      "tipo": "short",
+      "estado": "pre-score (no generado)",
+      "ejes": {
+        "hook": 9,
+        "thumb_match": 7,
+        "formato": 8,
+        "retencion": 8,
+        "seo": 9,
+        "funnel": 9
+      },
+      "score": 8.3,
+      "tier": "L5",
+      "que_necesita": "Nada — predice L5 wired desde dia 1. GENERAR.",
+      "hipotesis_flags": [
+        "retencion",
+        "thumb_match"
+      ]
+    },
+    {
+      "id": "soledad_001",
+      "titulo": "¿Te sientes completamente solo? (Short)",
+      "tipo": "short",
+      "estado": "pre-score (no generado)",
+      "ejes": {
+        "hook": 9,
+        "thumb_match": 7,
+        "formato": 8,
+        "retencion": 8,
+        "seo": 9,
+        "funnel": 9
+      },
+      "score": 8.3,
+      "tier": "L5",
+      "que_necesita": "Nada — predice L5 wired desde dia 1. GENERAR.",
+      "hipotesis_flags": [
+        "retencion",
+        "thumb_match"
+      ]
     }
   ]
 }
