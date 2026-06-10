@@ -19,7 +19,7 @@
         <integer>0</integer>
     </dict>
     <key>RunAtLoad</key>
-    <false/>
+    <true/>
     <key>StandardOutPath</key>
     <string>/Users/fernandocastaneda/Documents/loop-video-maker/logs/orphan_guard.stdout</string>
     <key>StandardErrorPath</key>

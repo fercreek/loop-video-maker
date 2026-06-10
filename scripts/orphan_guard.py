@@ -72,6 +72,7 @@ TRACKING_FILES = [
 ID_KEYS  = {"youtube_id", "video_id", "videoId", "yt_id"}
 ID_RE    = re.compile(r"[A-Za-z0-9_-]{11}")
 WA_DEST  = "528117655605"   # Fernando
+RECENT_H = 72   # orphan younger than this can't be vouched by analytics (lag) → MEDIUM
 
 
 # ─── Auth ───────────────────────────────────────────────────────────────────
@@ -165,33 +166,55 @@ def fetch_meta(yt, ids: list[str]) -> dict[str, dict]:
     return meta
 
 
-def fetch_watch_hours(an, ids: list[str]) -> dict[str, float]:
-    """Lifetime watch hours per video (estimatedMinutesWatched / 60)."""
+def fetch_watch_hours(an, ids: list[str]) -> tuple[dict[str, float], bool]:
+    """Lifetime watch hours per video (estimatedMinutesWatched / 60).
+    Returns (hours_by_id, degraded). degraded=True if ANY analytics call failed —
+    callers must fail SAFE (escalate, don't assume 0h = harmless)."""
     wh: dict[str, float] = {}
+    degraded = False
     today = str(datetime.now(timezone.utc).date())
     for i in range(0, len(ids), 200):  # analytics video filter caps ~500 ids
         chunk = ids[i:i + 200]
-        r = an.reports().query(
-            ids=f"channel=={CHANNEL_ID}", startDate="2024-01-01", endDate=today,
-            metrics="estimatedMinutesWatched", dimensions="video",
-            filters="video==" + ",".join(chunk), maxResults=500,
-        ).execute()
+        try:
+            r = an.reports().query(
+                ids=f"channel=={CHANNEL_ID}", startDate="2024-01-01", endDate=today,
+                metrics="estimatedMinutesWatched", dimensions="video",
+                filters="video==" + ",".join(chunk), maxResults=500,
+            ).execute()
+        except Exception as e:
+            degraded = True
+            print(f"  ⚠️  analytics failed (escalating to fail-safe): {e}", file=sys.stderr)
+            continue
         for row in r.get("rows", []):
             wh[row[0]] = round(row[1] / 60, 1)
-    return wh
+    return wh, degraded
 
 
 # ─── WhatsApp alert (venom tone) ────────────────────────────────────────────
-def build_alert(highs: list[dict], window: int) -> str:
+def _alert_flag(o: dict) -> str:
+    if o["licensed_content"]:
+        return "📜 licensed"
+    if o["severity"] == "MEDIUM":
+        age = o.get("age_hours")
+        return f"🟡 NUEVO ({age}h vida, sin vouch analytics)" if age is not None else "🟡 NUEVO"
+    return f"{o['watch_hours']}h watch"
+
+
+def build_alert(alerts: list[dict], window: int, degraded: bool = False) -> str:
+    n_high = sum(1 for o in alerts if o["severity"] == "HIGH")
+    n_med  = sum(1 for o in alerts if o["severity"] == "MEDIUM")
     lines = [
         "🕷 Venom reporta · Orphan Guard VDD",
         "",
-        f"⚠️ {len(highs)} upload(s) ENTRARON sin pasar pipeline (ventana {window}d).",
-        "",
+        f"⚠️ {len(alerts)} upload(s) sin pasar pipeline (ventana {window}d). "
+        f"HIGH {n_high} · MEDIUM {n_med}.",
     ]
-    for o in highs:
-        flag = "📜 licensed" if o["licensed_content"] else f"{o['watch_hours']}h watch"
-        lines.append(f"🛑 {o['video_id']} · {flag}")
+    if degraded:
+        lines.append("🛑 Analytics CAÍDA — todos escalados a HIGH (fail-safe).")
+    lines.append("")
+    for o in alerts:
+        mark = "🛑" if o["severity"] == "HIGH" else "🟡"
+        lines.append(f"{mark} {o['video_id']} · {_alert_flag(o)}")
         lines.append(f"   {o['title'][:48]}")
         lines.append(f"   youtube.com/watch?v={o['video_id']}")
     lines += [
@@ -199,12 +222,37 @@ def build_alert(highs: list[dict], window: int) -> str:
         "Riesgo: YPP / copyright-strike (caso TikToks 06-09).",
         "Acción inmediata:",
         "• Revisar en YT Studio — borrar si es ajeno.",
-        "• Si es propio, registrar en data/video_catalog.json.",
+        "• Si es propio: registrar en catalog, o `--ack-low` si quedó LOW.",
         "",
         "Reporte: data/orphan-uploads.json",
         "Fin del reporte. — Venom",
     ]
     return "\n".join(lines)
+
+
+def notify_fallback(text: str, alerts: list[dict], out_path: str) -> None:
+    """BUG-3 fix: if WhatsApp delivery fails, never lose the alert. Fire a macOS
+    notification + drop a sentinel JSON next to the report so a missed HIGH is
+    recoverable (and visible to the dashboard / next run)."""
+    pending = os.path.join(os.path.dirname(out_path), "orphan_ALERT_PENDING.json")
+    try:
+        json.dump(
+            {"pending_at": datetime.now(timezone.utc).isoformat(),
+             "reason": "WhatsApp send failed", "message": text, "orphans": alerts},
+            open(pending, "w"), indent=2, ensure_ascii=False,
+        )
+    except Exception as e:
+        print(f"  ⚠️  could not write sentinel: {e}", file=sys.stderr)
+    n = len(alerts)
+    try:
+        subprocess.run(
+            ["osascript", "-e",
+             f'display notification "WA falló · {n} orphan(s) · ver orphan_ALERT_PENDING.json" '
+             f'with title "🛑 Orphan Guard VDD" sound name "Basso"'],
+            check=False, timeout=10,
+        )
+    except Exception as e:
+        print(f"  ⚠️  osascript failed: {e}", file=sys.stderr)
 
 
 def send_wa(text: str) -> dict:
@@ -280,62 +328,90 @@ def main() -> int:
     if args.simulate and args.simulate in chan and args.simulate not in orphan_ids:
         orphan_ids.append(args.simulate)
 
+    now = datetime.now(timezone.utc)
+
+    def age_hours(pub: str | None) -> float | None:
+        if not pub:
+            return None
+        return (now - datetime.fromisoformat(pub.replace("Z", "+00:00"))).total_seconds() / 3600
+
     orphans: list[dict] = []
+    degraded = False
     if orphan_ids:
         meta = fetch_meta(yt, orphan_ids)
-        wh = fetch_watch_hours(an, orphan_ids)
+        wh, degraded = fetch_watch_hours(an, orphan_ids)
+        if degraded:
+            log("  ⚠️  analytics degraded — orphans fail-safe to HIGH")
         for v in orphan_ids:
             m = meta.get(v, {})
             hours = wh.get(v, 0.0)
             licensed = m.get("licensed_content", False)
-            high = licensed or hours >= args.high_hours
+            age = age_hours(m.get("published_at", chan.get(v)))
+            # Severity (fail-safe): a lagging metric (watch_hours) must not silence a
+            # brand-new orphan — analytics lags 24-72h, exactly the early window the
+            # guard exists to cover.
+            if licensed or hours >= args.high_hours or degraded:
+                sev = "HIGH"
+            elif age is not None and age < RECENT_H:
+                sev = "MEDIUM"   # too new for analytics to vouch → eyeball it
+            else:
+                sev = "LOW"
             orphans.append({
                 "video_id":         v,
                 "title":            m.get("title", "?"),
                 "published_at":     m.get("published_at", chan.get(v)),
                 "duration":         m.get("duration", "?"),
+                "age_hours":        round(age, 1) if age is not None else None,
                 "watch_hours":      hours,
                 "licensed_content": licensed,
-                "severity":         "HIGH" if high else "LOW",
+                "severity":         sev,
                 "url":              f"https://youtube.com/watch?v={v}",
                 "simulated":        bool(args.simulate and v == args.simulate),
             })
-    orphans.sort(key=lambda o: (o["severity"] != "HIGH", -o["watch_hours"]))
-    highs = [o for o in orphans if o["severity"] == "HIGH"]
+    rank = {"HIGH": 0, "MEDIUM": 1, "LOW": 2}
+    orphans.sort(key=lambda o: (rank[o["severity"]], -o["watch_hours"]))
+    highs   = [o for o in orphans if o["severity"] == "HIGH"]
+    alertable = [o for o in orphans if o["severity"] in ("HIGH", "MEDIUM")]
 
+    meds = [o for o in orphans if o["severity"] == "MEDIUM"]
     report = {
-        "generated_at":   datetime.now(timezone.utc).isoformat(),
+        "generated_at":   now.isoformat(),
         "channel_id":     CHANNEL_ID,
         "window_days":    args.window,
         "high_hours_threshold": args.high_hours,
+        "recent_hours":   RECENT_H,
+        "analytics_degraded": degraded,
         "catalog_only":   args.catalog_only,
         "known_ids":      len(known),
         "channel_videos": len(chan),
         "orphan_count":   len(orphans),
         "high_count":     len(highs),
+        "medium_count":   len(meds),
         "orphans":        orphans,
     }
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     json.dump(report, open(args.out, "w"), indent=2, ensure_ascii=False)
     log(f"  → {args.out}")
 
-    log(f"\n  orphans: {len(orphans)}  HIGH: {len(highs)}")
+    log(f"\n  orphans: {len(orphans)}  HIGH: {len(highs)}  MEDIUM: {len(meds)}"
+        + ("  [analytics DEGRADED]" if degraded else ""))
+    marks = {"HIGH": "🛑", "MEDIUM": "🟡", "LOW": "·"}
     for o in orphans[:25]:
-        mark = "🛑" if o["severity"] == "HIGH" else "·"
-        log(f"  {mark} {o['video_id']}  {o['watch_hours']:>6}h  lic={o['licensed_content']}  {o['title'][:42]}")
+        log(f"  {marks[o['severity']]} {o['video_id']}  {o['watch_hours']:>6}h  "
+            f"lic={o['licensed_content']}  {o['title'][:40]}")
 
     if args.ack_low:
         lows = [o for o in orphans if o["severity"] == "LOW" and not o.get("simulated")]
         have = allowlist_ids(al)
         added = 0
-        now = datetime.now(timezone.utc).isoformat()
+        ts = now.isoformat()
         for o in lows:
             if o["video_id"] in have:
                 continue
             al["acknowledged"].append({
                 "video_id":  o["video_id"],
                 "title":     o["title"],
-                "acked_at":  now,
+                "acked_at":  ts,
                 "reason":    "backfill --ack-low (legit-own, untracked auto-publish)",
             })
             added += 1
@@ -344,11 +420,17 @@ def main() -> int:
         if added:
             log("  re-run without --ack-low to confirm clean report.")
 
-    if highs and args.alert:
-        res = send_wa(build_alert(highs, args.window))
-        log(f"  WA alert: {'sent ✅' if res.get('success') else 'FAILED ❌ ' + str(res.get('error'))}")
-    elif highs:
-        log("  (HIGH orphans found — run with --alert to send WhatsApp)")
+    if alertable and args.alert:
+        msg = build_alert(alertable, args.window, degraded)
+        res = send_wa(msg)
+        if res.get("success"):
+            log("  WA alert: sent ✅")
+        else:
+            # BUG-3 fix: WA is the whole point — never drop an alert silently.
+            log(f"  WA alert: FAILED ❌ {res.get('error')} — firing fallback")
+            notify_fallback(msg, alertable, args.out)
+    elif alertable:
+        log(f"  ({len(alertable)} alertable orphan(s) — run with --alert to notify)")
 
     return 2 if highs else (1 if orphans else 0)
 
