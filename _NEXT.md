@@ -14,7 +14,7 @@
 
 ## ⚡ Próximos pasos (orden corregido por verify-before-build de venom)
 1. **P0-2 colector `engagement.jsonl`** — cron VPS cada 6h mide engagement REAL (hoy daily-stats cuenta acciones, no resultados). Sin esto el loop venom-nexo NO confirma hipótesis. owner: carnage build.
-2. **P0-3 guard uploads huérfanos** — cron VPS diario, previene el incidente de hoy. (artefacto: `data/orphan-uploads.json`, 0 huérfanos hoy). owner: carnage.
+2. ✅ **P0-3 guard uploads huérfanos — SHIPPED 06-10** (`09da0c2`). `scripts/orphan_guard.py` + launchd `com.versiculodedios.orphan-guard` @8pm MX (local, NO cron VPS — token+venv en Mac). Windowed 14d · HIGH=licensedContent o ≥50h → WA venom. allowlist + `--ack-low` (28 auto-publishes n8n acked). 0 huérfanos hoy, TikToks borrados. ⏳ **4 BUGs carnage por reparar:** FOCUS-442 (API muere callado + analytics lag 72h ciega foráneo nuevo), FOCUS-443 (WA sin fallback), FOCUS-444 (Mac-off=no corre). FOCUS-441 = raíz n8n write-back.
 3. **Y1 funnel** — pinned/end-screen de los ~5 Shorts L4 → sleep 2h (sube Funnel-wiring a L5 sin producir). Manual YT Studio.
 4. **P1-3** generar 3 Shorts revelación/reframe (temas sin usar: `milagro_001`/`soledad_001`/`tristeza_001`) wired al sleep.
 
