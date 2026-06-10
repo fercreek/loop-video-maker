@@ -1,129 +1,45 @@
 # _NEXT — loop-video-maker (VersiculoDeDios)
-> Update: 2026-06-04 · Canal: @VersiculoDeDios-v1u (UC2l5TZjHzRtaRjH8kT_yQ2w)
-> 🚨 LEE PRIMERO: `docs/PLAN_MONETIZACION_ALTERNA_2026-06-04.md` (plan frentes alternos · venom+research · tablero priorizado)
-> 🚨 También: `docs/STRATEGY_MONETIZATION_2026-06-01.md` (subir horas / cross-promo / ads)
+> Update: 2026-06-09 · Canal: @VersiculoDeDios-v1u (UC2l5TZjHzRtaRjH8kT_yQ2w)
+> 🚨 LEE PRIMERO: `docs/SINTESIS_SIMBIONTES_2026-06-09.md` (revisión 3 simbiontes) + `docs/VENOM_SPEC_EXPLAINED.md` (manual del spec)
+> Plan maestro de sesión: `~/.claude/plans/revisemos-el-plnm-que-iridescent-pebble.md` (v2 cimiento + v3 video-leveling)
+> Stats: `data/venom_truth.json` (venom manda) · Scores por video: `data/video_scores.json`
 
-## ⚡ Hecho 2026-06-04
-- Ko-fi link en **21 videos live** (9 largos + 12 Shorts top). FOCUS-323 ✅
-- `sleep_salmo91_120min` encolado (QA 10/10) publish 15-jun. FOCUS-223 ✅
-- **Flywheel WF#1 DEPLOYED** — Ko-fi en `first_comment` del auto-publicador-vdd (prod, active:True, verify OK). Cada post FB+IG diario fija comment con link YT + Ko-fi. Doc: `docs/FLYWHEEL_VDD_2026-06-04.md`
+## ⚡ Hecho 2026-06-09 (sesión larga)
+- **Motor B LIVE** 💰 — Ko-fi membership `🕊️ Guardián del Ministerio $5` PÚBLICA + cobrable + lead magnet "7 Días de Paz" gratis + captura email automática. `ko-fi.com/versiculosdedios`. **El primer dólar ya tiene dónde entrar** (antes el link iba a página vacía).
+- **Incidente resuelto:** 2 "motores" (`r43LS0y0Wrg`, `MdenXXdtW60`) eran **TikToks ajenos** subidos por error manual → BORRADOS de YT. Watch-time 28d cayó ~435h (esperado/sano, eran horas tóxicas que NO contaban YPP).
+- **3 cambios deployados a `auto-publicador-vdd`** (prod, active:True, via anti-venom): retiming 3×→1× a 16:30 MX + copy hook-first + VIDEO_MAP fallback→sleep 2h.
+- **IDs duplicados archivados** (`cero-agent/n8n-exports/archived/` — 2 gemelos mismo ID = peligro revert, eliminado).
+- **Venom Video-Leveling creado** (NUEVO sistema) — rúbrica 6 ejes + 22 videos puntuados. Distribución L4=12·L3=9·L2=1, **cero L5 por funnel-wiring roto** (= el cuello, confirmado por los 3 simbiontes).
+- **Spec ejecutable Batch 1b** + venom-nexo loop + explicador documentados.
 
-## 🎡 Flywheel — pendiente
-- [x] **WF#2** Ko-fi 1/3 en `Primer Comentario YT` (yt-comments-agent) DEPLOYED ✅ (FB/IG replies NO tocados, anti-spam)
-- [ ] **beehiiv** (Fernando ~20min) — signup abierto en Chrome → desbloquea WF#3/#4
-- [x] **WF#3** kofi-email-capture construido+testeado (`cero-agent/n8n-exports/kofi-email-capture.json`) — espera API key beehiiv
-- [x] **WF#4** generador email semanal (`scripts/weekly_devotional_email.py`, 7 temas, manda al video largo+Ko-fi) — beehiiv free no tiene Send API → email manual 2min
-- [ ] **beehiiv API key** (Fernando) — Stripe Identity Verification con ID+cel → desbloquea WF#3 deploy
-- [ ] Ko-fi en 33 videos ✅ (9 largos + 12 Shorts + 12 top incl. motor r43LS0y0Wrg)
-> 📡 Stats reales: `data/venom_truth.json` (venom manda)
+## ⚡ Próximos pasos (orden corregido por verify-before-build de venom)
+1. **P0-2 colector `engagement.jsonl`** — cron VPS cada 6h mide engagement REAL (hoy daily-stats cuenta acciones, no resultados). Sin esto el loop venom-nexo NO confirma hipótesis. owner: carnage build.
+2. **P0-3 guard uploads huérfanos** — cron VPS diario, previene el incidente de hoy. (artefacto: `data/orphan-uploads.json`, 0 huérfanos hoy). owner: carnage.
+3. **Y1 funnel** — pinned/end-screen de los ~5 Shorts L4 → sleep 2h (sube Funnel-wiring a L5 sin producir). Manual YT Studio.
+4. **P1-3** generar 3 Shorts revelación/reframe (temas sin usar: `milagro_001`/`soledad_001`/`tristeza_001`) wired al sleep.
 
-## 🎯 Estado real (venom 2026-06-01) — RETOMAR AQUÍ
-
-- **Subs:** 14k · **YPP long-form:** 3.8% (151.6h / **4,000h**) — el "27%" viejo contaba Shorts, FALSO.
-- Gate = **4,000h de long-form** (no 3,000). Solo long-form cuenta; Shorts NO.
-- Motor del canal = Short `r43LS0y0Wrg` (324h/28d, 30% del watch time) — pero 0 para el gate.
-
----
-
-## ⚡ En proceso (retomar aquí)
-
-### 💰 Meta Ads $200 MXN — PAUSED (blocker token)
-- 4/5 objetos creados en Meta: campaign + adset + audiences + creative.
-- **Blocker:** token Studio Link app está en dev mode → necesita token de Agencia Cero app (Live) con `ads_management`. FOCUS-259 creado.
-- **Ready para reanudar:** carnage tiene script listo en `carnage-execution-2026-06-02.md`. Cuando haya token correcto → carnage completa creative + activa ad.
-
-### 🛍️ Etsy listings — generándose
-- 5 listings generados en `data/etsy-listings.md`.
-- Assets en `output/etsy/` (generándose — PDF planner ReportLab incluido).
-- Pendiente: revisión Fernando + publicar en Etsy (acción manual).
-
-### ⭐ Stars post FB
-- Publicado en `fb.com/palabradedios111`.
-- Falta: **pin manual** (2 clicks en la página — Fernando lo hace).
-
-### 🎁 Super Thanks YT
-- Pendiente activar en YouTube Studio (Fernando, ~5 min, no requiere código).
-
----
-
-## 🔁 Scheduleds corriendo solos (sin intervención)
-
-- **9 long-form Jun 2-13:** 5×120min + 3×lofi + salmos ya live.
-- **Pinned comment** Short `r43LS0y0Wrg` → sleep `6eHgRtGjaYA` ✅
-- **cero-agent** 5 workflows VD activos ✅
-
----
-
-## ✅ Ready (listos · esperan acción de Fernando)
-
-- **Token Agencia Cero app (Live) con `ads_management`** → desbloquea Meta Ads E4 → carnage activa campaña.
-- **Pin Stars post** en `fb.com/palabradedios111` (2 clicks).
-- **Activar Super Thanks** en YT Studio (~5 min).
-- **Revisar + publicar Etsy listings** (5 listings en `data/etsy-listings.md`).
-
----
+## 🔒 Bloqueado / Fernando manual
+- **Token YT muerto 27d** (P0-1, 🟡 BAJA prioridad por venom): `yt-comments-agent` marca "success" sobre 401. NO mueve gate ni dólar, funnel redundante → arreglar de paso al tocar n8n, NO sprint. Re-auth = `scripts/yt_auth.py`.
+- **Borrar reel IG** `instagram.com/reel/DZAvD-oHzKk` (TikTok ajeno — recordatorio macOS 23:00).
+- **beehiiv API key** (Fernando, Stripe ID verify) → desbloquea email semanal.
+- **Doble-key `.env`** VPS (`N8N_API_KEY` stale + `N8N_API_KEY_VPS` válida) → consolidar (pick: sobrescribir con la válida).
 
 ## 💡 Backlog
+- Tier Ko-fi $3 "Cafecito" (opcional, con $5 ya cobra).
+- C5 cross-post FB Reels→IG (workflow nuevo, vanity IG, al fondo).
+- Génesis/Éxodo VIDEO_MAP → Rut (mejora opcional, largo comparable).
+- Fix intro sleep 2h `6eHgRtGjaYA` (ret 10.8% — la frena como destino y como tier L3).
+- Content-gen loop: producir solo lo que el leveling predice ≥L4 (ver §6 de `VENOM_SPEC_EXPLAINED.md`).
 
-### Monetización alternativa (Operación de Dios)
-- [ ] Ko-fi membresía — Fernando setup manual.
-- [ ] Shoutout canal devocional LATAM ~$50 (buscar canal).
-- [ ] MusicGen → Suno fix (CC BY-NC red flag bloquea Spotify/DistroKid).
-
-### Automatización / infra
-- [ ] n8n workflow: YT video live → auto-post FB/IG (FOCUS-259).
-- [ ] Cross-promo loop→cero: sync `promote_queue.json` (loop escribe) → nodo n8n lo lee. Cada long-form nuevo se auto-promociona.
-
-### Content pipeline
-- [x] **FOCUS-223 encolar long-form parado** (2026-06-04) — hallazgo: los "7 parados ~11h" estaban STALE. `lofi_v02_orar_2h`/`v03_ansiedad_2h` = raws viejos superseded por `_verses_final` YA subidos. Único real parado = `sleep_salmo91_120min` (QA 10/10) → encolado en `upload_schedule.json` publish **2026-06-15** (uploaded:false, assets generados). `sleep_salmo91_60min` no se sube (decisión A: solo 120min, evita canibalizar).
-- [x] **FOCUS-178 diagnosticado (2026-06-04):** el daemon `yt-fb-uploader` corre SOLO `upload_shorts_venom.py` (Shorts) — NO sube long-form, NO lee `upload_schedule.json`. El salmo91 NO se auto-subía. Fix aplicado: corrida manual de `upload_to_youtube.py --yes` (sube private + publishAt → YT publica solo). **Deuda sistémica:** ningún daemon sube long-form del schedule → agregar 2do daemon o sumar upload_to_youtube.py al existente.
-- [ ] **Fix daemon long-form:** sumar `upload_to_youtube.py --yes` al daemon yt-fb-uploader (hoy solo Shorts) para que futuros encolados del schedule auto-suban.
-- [ ] **Medir CTR delta 8 thumbnails** (7-14 días) — Pródigo/Daniel/Jonás/Samaritano/José/Pentecostés/Moisés/Noé.
-- [ ] **Verificar 6×120min publicaron** en sus fechas (31may→10jun) + que entraron a playlist PARA DORMIR.
-- [x] Playlists binge: PARA DORMIR 32→39 + Lo-Fi 6→9 (2026-06-04) — 10 largos sueltos ahora encadenan autoplay
-- [~] Generar 5 sleep videos test — salmo91 ✅ encolado · salmo23 renderizando (2026-06-04) · faltan ansiedad/promesas/rosario.
-- [x] **TRIAGE historias bíblicas (2026-06-04):** 16 en disco (14-27min), 9 subidas. Mediana solo **88 views**. Math: historia ≈10 watch-h/video vs sleep ≈120 watch-h/video → **sleep 12× más eficiente para el gate.** Verdicto: NO mass-subir las 7 historias flojas (slop + bajo retorno). Pivotar a producir SLEEP. venom-confirmed.
-- [ ] Request quota YT increase a Google (`docs/YT_QUOTA_INCREASE.md`) — esperar strike resuelto.
-- [ ] 100-story long-form catalog — quedan ~84 historias pendientes.
-
-### Deuda técnica
-- [ ] Fix `upload_to_youtube.py` — agregar flag `--yes`/no-TTY detect.
-- [ ] Reconciliar `#4B6BFF`→`#1f4bff` en `cc-post-image` SKILL.md + `compose_pro.py`.
-- [ ] Commit 2 repos externos: `contreras-code-website` (5 SVGs logo #1f4bff) + `context` (~13 logos CC).
-
----
-
-## 🔒 Bloqueado
-
-- **Meta Ads E4** — token app Live `ads_management` (FOCUS-259).
-- **Strike Oraciones Cortas** — esperar 90 días o respuesta solicitante.
-- **YT quota daily 6 uploads** — request increase pendiente strike resuelto.
-
----
-
-## 📦 Inventario long-form en disco
-
-**6×120min — SUBIDOS + PROGRAMADOS** (output/semana_2026-05-06/videos/):
-- `esperanza_120min.mp4` · `fe_120min.mp4` · `paz_120min.mp4` · `provision_120min.mp4` · `salmos_120min.mp4` · `sanacion_120min.mp4`
-
-**3 lofi 2h — PROGRAMADOS Jun 12/14/16** (output/lofi/):
-- `lofi_v01_dormir_2h.mp4` · `lofi_v02_verses_final.mp4` · `lofi_v03_verses_final.mp4`
-- Metadata: `output/lofi/youtube_metadata.json`
-
-**16 stories 14-22min — EN DISCO** (output/stories/{slug}/):
-- abraham-e-isaac · buen-samaritano · daniel-foso-leones · david-goliat · ester-y-el-rey · hijo-prodigo · job-sufrimiento · jonas · jose-y-sus-hermanos · lazaro-resurreccion · moises · noe · pentecostes · resurreccion-de-jesus · ruth-y-noemi · sanson-y-dalila
-- (Algunas con CTR bajo — re-test thumbnail antes de subir el resto.)
-
----
+## 📦 Inventario long-form en disco (sin cambios)
+- 6×120min subidos/programados · 3 lofi 2h · 16 stories en disco (mediana 88 views — NO mass-subir, sleep 12× más eficiente para gate).
 
 ## 🚨 Referencias clave
-
 | Archivo | Para qué |
 |---------|---------|
-| `docs/STRATEGY_MONETIZATION_2026-06-01.md` | Plan maestro dual YT+FB, 10 experimentos |
-| `_LEARNING_LOG.md` | Auto-reflexión por sesión |
-| `_SCHEDULE_VENOM.md` | Living spec: tabla videos × plataforma |
-| `logs/LEARNINGS.md` | 10+ bugs documentados con fix exacto |
-| `data/upload_schedule.json` | Schedule upload activo |
-| `data/lofi_upload_schedule.json` | Schedule lofi (activar jun 12) |
-| `data/etsy-listings.md` | 5 listings listos para Etsy |
+| `docs/SINTESIS_SIMBIONTES_2026-06-09.md` | Revisión fría 3 simbiontes (el cimiento roto) |
+| `docs/VENOM_SPEC_EXPLAINED.md` | Manual del venom spec + content-gen loop (§6) |
+| `data/briefs/brief-vdd-organic-2026-06-09.md` | Venom Spec Batch 1b ejecutable |
+| `data/video_scores.json` | 22 videos puntuados (rúbrica leveling) |
+| `docs/KIT_KOFI_2026-06-09.md` | Kit Ko-fi (tiers + CTA) |
+| `data/venom_truth.json` | Stats live (venom manda) |

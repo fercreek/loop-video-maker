@@ -471,3 +471,39 @@ Reporte ejecución: `data/carnage-execution-2026-06-02.md` (carnage lo llena)
 | 2026-06-02 | v2 — Ads research integrado: YT Ads descartado (oficial: no cuenta YPP), Meta stack $50+$50, shoutout > Meta para calidad. Scoreboard FB actualizado con Stars $0, Subscriptions ruta 250 return viewers. Proyección FB por ruta. cero-agent 5 workflows documentados. |
 | 2026-06-02 | v1 — Plan dual YT+FB con métricas separadas por plataforma. Operación de Dios. |
 | 2026-06-02 | v0 — Borrador inicial venom (solo YT-céntrico). |
+
+---
+
+## 💡 IDEAS COMPLEMENTARIAS — Benchmark indie (2026-06-09)
+
+> Sección de **append** (no modifica nada arriba). Ideas extraídas de casos reales de indie makers, adaptadas a @VersiculoDeDios. Cada una marcada 💡 idea o 🧪 hipótesis. **Regla venom-playbook:** sin data propia aún = no son certezas, no se inventan números.
+
+### 1. Validar la oferta ANTES de pulir el producto (caso Marc Lou)
+> Marc Lou pasó 2 años en $0 sin audiencia y llegó a $1M en 2025 con 15 income streams; validó una oferta **vendiéndola en una llamada de 42 min ANTES de escribir código.**
+
+- 💡 **Idea:** antes de construir el planner Hotmart o cualquier producto, **preguntar/vender a los que ya donaron en Ko-fi**. Si 3 personas dicen "sí lo compro", se construye. El producto terminado sin validar es deuda, no avance.
+- 💡 **Idea:** apuntar a **múltiples micro-income-streams chicos** (Ko-fi membresía + Super Thanks + Stars + planner + lead magnet) en vez de una sola apuesta grande. La audiencia devocional dispersa pagos pequeños; sumarlos > esperar un solo producto estrella.
+
+### 2. Construir en público / detrás de cámara del ministerio (caso Pieter Levels)
+> Pieter Levels llegó a ~$132k MRR como indie solo, shippeando rápido y en público (build-in-public).
+
+- 💡 **Idea:** mostrar el **detrás de cámara del ministerio** — "cómo preparo el devocional diario", "por qué elegí este versículo", el rostro/voz humana detrás del canal. Crea **relación**, y la relación es lo que convierte una audiencia gratis en gente que apoya con dinero. Diferencia VD del AI-slop anónimo que YouTube elimina.
+- 🧪 **Hipótesis:** un post/Reel ocasional "humano" (no versículo, sino persona) sube el engagement y la conversión a Ko-fi vs. el contenido 100% automatizado. Validar con un test A/B de 2–3 piezas.
+
+### 3. Monetizar el SKILL de construir pipelines de contenido cristiano (lateral)
+> Patrón "launch partner" observado: devs cobran **$1.5–4k por build** entregado con Claude Code en 5–7 días.
+
+- 🧪 **Hipótesis (explorar, no certeza):** Fernando ya construyó un pipeline completo de contenido cristiano (render, QA, auto-publish, daemons). Ese **skill es vendible como servicio** a OTROS ministerios/creators que quieren su propio canal devocional pero no saben construirlo. Sería un income stream de **servicio** (mayor ticket, no pasivo), independiente del canal propio. Marcar como ángulo a explorar — requiere validar demanda antes de invertir tiempo.
+
+### 4. Email list = acelerador estructural #1 (citado en todo el benchmark)
+> En todos los casos indie revisados, la lista de email aparece como el acelerador de mayor ROI: es el único canal que el creador **posee** (no depende de algoritmo de YT/FB).
+
+- 💡 **Idea:** **desbloquear beehiiv es la pieza de mayor ROI estructural** de toda la operación. Razón: los 14k de YT y 2,722 de FB son audiencia **alquilada** (el algoritmo decide quién la ve); una lista de email es audiencia **propia** — se le puede vender directo, sin intermediario, cada vez que haya una oferta nueva. Cada email capturado hoy (vía Ko-fi/Form mientras beehiiv se desbloquea) es un activo que multiplica el retorno de Ko-fi, planner y futuros productos. Prioridad: alta, esfuerzo bajo (20 min API key).
+
+---
+
+## LOG DE CAMBIOS (cont.)
+
+| Fecha | Cambio |
+|-------|--------|
+| 2026-06-09 | v7 (append-only) — Sección 💡 IDEAS COMPLEMENTARIAS Benchmark indie: validación pre-producto (Marc Lou), build-in-public/detrás de cámara (Pieter Levels), monetizar el skill de pipelines como servicio (hipótesis), email list como acelerador #1. NO se modificó ninguna sección existente. Correcciones de realidad (Reels Bonus muerto 31-ago-2025, Etsy descartado) viven en el plan semanal dual `docs/PLAN_SEMANA_2026-06-09.md`, no se tocó el cuerpo del maestro. |

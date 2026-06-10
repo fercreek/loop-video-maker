@@ -1,72 +1,100 @@
 {
-  "generated_at": "2026-06-01T07:15:00-06:00",
+  "generated_at": "2026-06-09T20:30:00-06:00",
   "generated_by": "venom",
   "source_of_truth": true,
   "_note": "venom es dueño de este archivo. Se regenera en cada análisis con data viva (YouTube Analytics API + Meta Graph API). Numeros null = sin acceso, ver muro/fix. NUNCA editar a mano con numeros inventados.",
+  "_prev_snapshot": "2026-06-09T16:40:00-06:00",
+
+  "_regen_2026-06-09_pm": {
+    "motivo": "Se borraron 2 TikToks ajenos subidos por error: r43LS0y0Wrg ('NACISTE MUERTO') + MdenXXdtW60 ('Este dolor fue INTENCIONAL'). El snapshot previo aun los listaba como top_performers #1 y #2 — IDs zombie. Regenerado con data viva, verificado que AMBOS devuelven 404 (no existen) y que los 8 motores legitimos siguen vivos.",
+    "deleted_ids_confirmados_fuera": ["r43LS0y0Wrg", "MdenXXdtW60"],
+    "watch_time_28d_drop_esperado": "Era 1182.9h, ahora 1172.2h. La caida es CHICA (-10.7h en total 28d) porque los borrados eran Shorts cuyo watch time ya estaba decayendo. NO es regresion — es saneamiento. El long-form 365d (lo que cuenta YPP) NO se movio (267.7h) porque los borrados eran Shorts que nunca contaron para el gate.",
+    "video_count": "1118 -> 1116 (-2 = los 2 borrados)",
+    "token_yt_fix_aplicado": "El refresh fallaba con invalid_scope: el token fue minteado con 2 scopes (youtube + yt-analytics.readonly) pero core/youtube_client.py SCOPES pide 3 (agrego youtube.force-ssl). Fix: refrescar con los scopes guardados del token, no con la constante del cliente. Token refrescado OK, expiry 2026-06-10T05:02Z. PENDIENTE: re-auth con force-ssl si se quiere usar comments API por OAuth (yt-comments-agent usa su propio token en n8n, no bloquea)."
+  },
 
   "youtube": {
     "acceso": true,
     "channel_id": "UC2l5TZjHzRtaRjH8kT_yQ2w",
-    "subs": 14000,
-    "total_views": 1071939,
-    "video_count": 1100,
+    "subs": 14200,
+    "total_views": 1096155,
+    "video_count": 1116,
+    "delta_vs_0601": { "subs": "+200", "total_views": "+24216", "video_count": "+16 (post-borrado de 2)" },
 
     "ypp_gate": {
-      "requisito": "4000 horas de LONG-FORM en 365 dias (subs >= 1000 YA CUMPLIDO)",
-      "watch_hours_longform_365d": 151.6,
-      "ypp_progress_pct": 3.8,
-      "horas_faltantes": 3848.4,
-      "nota": "Solo videoOnDemand (long-form) cuenta. Shorts NO cuentan para este gate. El _NEXT viejo decia 27% pero eso contaba Shorts. La realidad es 3.8%."
+      "requisito": "4000 horas de LONG-FORM (videoOnDemand) en 365 dias (subs >= 1000 YA CUMPLIDO)",
+      "watch_hours_longform_365d": 267.7,
+      "ypp_progress_pct": 6.7,
+      "horas_faltantes": 3732.3,
+      "delta_vs_0601": { "watch_hours_longform_365d": "+116.1", "ypp_progress_pct": "+2.9 pts (3.8% -> 6.7%)" },
+      "nota": "Solo videoOnDemand (creatorContentType==videoOnDemand) cuenta. Shorts NO. El borrado de los 2 Shorts NO afecto este numero — eran Shorts. Driver del +116h: long-form 'Rut y Noemi' (HeGUMgQlfFo, 18min, 50.5h/28d) + el sleep 2h (6eHgRtGjaYA, 06-01). El ritmo (~14.5h/dia long-form) proyecta 4000h en ~257 dias SOLO si se sostiene subiendo long-form — no es organico."
     },
 
-    "watch_hours_28d_total": 1083.5,
-    "views_28d": 146839,
-    "avg_view_duration_seg": 69,
-    "subs_gained_28d": 2765,
+    "watch_hours_28d_total": 1172.2,
+    "estimated_minutes_watched_28d": 70332,
+    "views_28d": 138206,
+    "avg_view_duration_seg": 75,
+    "subs_gained_28d": 2430,
+    "delta_vs_0601": { "watch_hours_28d_total": "+88.7 (vs 1083.5 del 06-01; -10.7 vs el snapshot stale de hoy por el borrado)", "views_28d": "-8633", "avg_view_duration_seg": "+6" },
 
     "shorts_vs_long_split": {
       "_periodo_28d": {
-        "shorts": { "views": 145093, "watch_hours": 987.2, "pct_views": 98.8 },
-        "long_form": { "views": 1746, "watch_hours": 96.3, "pct_views": 1.2 }
+        "shorts": { "views": 135229, "watch_hours": 970.2, "pct_views": 97.9 },
+        "long_form": { "views": 2810, "watch_hours": 201.9, "pct_views": 2.0 }
       },
       "_periodo_365d_ypp": {
-        "shorts": { "watch_hours": 4365.0, "cuenta_para_ypp": false },
-        "long_form": { "watch_hours": 151.6, "cuenta_para_ypp": true }
+        "shorts": { "watch_hours": 4511.4, "views": 915867, "cuenta_para_ypp": false },
+        "long_form": { "watch_hours": 267.7, "views": 4310, "cuenta_para_ypp": true }
       }
     },
 
     "retencion": {
-      "shorts_top": "120-240% (loop, excelente)",
-      "long_form_stories": "12-16% (PESIMA — intros/thumbs no retienen)",
-      "long_form_sleep_corto": "61-91% (los videos cortos tipo devocional retienen muy bien)",
-      "diagnostico": "El long-form que SUBE watch hours no es la historia de 20min (12% ret) sino el formato devocional/sleep corto-medio con alta retencion. Las 16 stories tienen retencion catastrofica."
+      "shorts_top": "95-230% (loop, excelente — varios sobre 100%)",
+      "long_form_stories_20min": "12-16% (PESIMA — Noe/Moises intros/thumbs no retienen)",
+      "long_form_rut_noemi_18min": "25.4% (mejor story-long del periodo, sigue baja pero +9pts vs Noe/Moises)",
+      "long_form_sleep_2h": "10.8% (6eHgRtGjaYA, 96 views — muestra chica, no concluyente)",
+      "long_form_devocional_medio": "61-92% (RzGs_o-cyBk 91.7% 2m23s — devocionales medios retienen mejor que historias largas)",
+      "diagnostico": "Tras el borrado, el motor de subs/watch ahora es un mix de Shorts hook-narrativo: 'EL DOLOR TIENE PROPOSITO' (jvEokzazN4o, 55.2h), 'LLAMA DIVINA' (hvV1P06nUck, +474 subs!), 'UN SECRETO que la sangre REVELA' (zfQYgA88gcU, +166 subs). El long-form que mas watch hours sumo sigue siendo 'Rut y Noemi' (50.5h/28d)."
     },
 
     "top_performers": [
-      { "id": "r43LS0y0Wrg", "titulo": "NACISTE MUERTO ESPIRITUALMENTE", "duracion": "PT2M", "watch_hours_28d": 324.0, "views": 25022, "retencion_pct": 61.3, "subs_gained": 83, "tipo": "short", "nota": "El motor #1 del canal — 30% de TODO el watch time 28d. Es Short por duracion (2min) asi que NO cuenta YPP, pero genera mas subs y watch time que todo el long-form junto." },
-      { "id": "bi_B78HZuJ4", "titulo": "Reposo Sagrado: Descanso en Dios", "duracion": "PT1M1S", "watch_hours_28d": 78.0, "views": 7348, "retencion_pct": 131.6, "subs_gained": 54, "tipo": "short" },
-      { "id": "jvEokzazN4o", "titulo": "EL DOLOR TIENE PROPOSITO", "duracion": "PT1M11S", "watch_hours_28d": 55.2, "views": 4980, "retencion_pct": 133.4, "subs_gained": 55, "tipo": "short" },
-      { "id": "gEHFYvu1SwI", "titulo": "Luz Eterna: Brillantez Divina", "duracion": "PT1M15S", "watch_hours_28d": 28.0, "views": 2838, "retencion_pct": 123.9, "subs_gained": 58, "tipo": "short" },
-      { "id": "Fp44KoQurkM", "titulo": "Noe y el Diluvio", "duracion": "PT20M42S", "watch_hours_28d": 19.9, "views": 477, "retencion_pct": 12.1, "subs_gained": 1, "tipo": "long_form", "nota": "Long-form que SI cuenta YPP, pero retencion 12% — el thumbnail/intro pierde a la audiencia. Candidato a re-test." },
-      { "id": "4OxApIJ7L-E", "titulo": "Moises: El Hombre que Hablo con Dios", "duracion": "PT23M32S", "watch_hours_28d": 17.1, "views": 273, "retencion_pct": 16.0, "subs_gained": 1, "tipo": "long_form" },
-      { "id": "-orgt0g4knA", "titulo": "LO MEJOR ESTA POR VENIR", "duracion": "PT1M32S", "watch_hours_28d": 15.6, "views": 2264, "retencion_pct": 77.3, "subs_gained": 130, "tipo": "short", "nota": "Mejor conversor de subs (+130)." }
+      { "id": "jvEokzazN4o", "titulo": "EL DOLOR TIENE PROPOSITO (asi es como lo encuentras)", "duracion": "PT1M11S", "pub": "2026-05-25", "watch_hours_28d": 55.2, "views": 4975, "retencion_pct": 133.3, "subs_gained": 55, "tipo": "short", "nota": "NUEVO motor #1 de watch time tras el borrado. Retencion 133% (loop fuerte). Es Short — NO cuenta YPP pero genera el mayor watch time del canal. Candidato #1 para funnel hacia sleep 2h." },
+      { "id": "hvV1P06nUck", "titulo": "LLAMA DIVINA (pasion que transforma)", "duracion": "PT25S", "pub": "2026-05-27", "watch_hours_28d": 10.5, "views": 5007, "retencion_pct": 95.4, "subs_gained": 474, "tipo": "short", "nota": "MEJOR conversor de subs del canal (+474 en 28d). Hook 'LLAMA DIVINA' + 25s = formato de alta conversion. Reemplaza a los borrados como sub-driver #1." },
+      { "id": "zfQYgA88gcU", "titulo": "UN SECRETO que la sangre de Jesus REVELA", "duracion": "PT1M18S", "pub": "2026-05-30", "watch_hours_28d": 29.6, "views": 3950, "retencion_pct": 97.7, "subs_gained": 166, "tipo": "short", "nota": "Formato 'revelacion/secreto' — 2o mejor conversor de subs. Replicar esta plantilla de hook." },
+      { "id": "gEHFYvu1SwI", "titulo": "Luz Eterna: Brillantez Divina", "duracion": "PT1M15S", "pub": "2026-05-20", "watch_hours_28d": 28.0, "views": 2836, "retencion_pct": 123.9, "subs_gained": 58, "tipo": "short" },
+      { "id": "gRxIKks-ILc", "titulo": "Gracia Abundante: Favor Inmerecido", "duracion": "PT29S", "pub": "2026-05-29", "watch_hours_28d": 6.6, "views": 2418, "retencion_pct": 134.3, "subs_gained": 90, "tipo": "short", "nota": "3er conversor de subs (+90). Retencion 134%." },
+      { "id": "HeGUMgQlfFo", "titulo": "Rut y Noemi: La Lealtad que Dios Recompenso", "duracion": "PT18M7S", "pub": "2026-06-01", "watch_hours_28d": 50.5, "views": 660, "retencion_pct": 25.4, "subs_gained": 2, "tipo": "long_form", "nota": "MEJOR long-form del periodo y principal driver del +116h YPP. Ret 25% sigue baja pero +9pts vs Noe/Moises (12-16%). Replicar ESTE formato de historia biblica, no Noe/Moises. Destino narrativo del VIDEO_MAP." },
+      { "id": "5mv5kXnfZ1U", "titulo": "La Cruz NO era muerte... era ENTRADA al Cielo", "duracion": "PT1M2S", "pub": "2026-05-26", "watch_hours_28d": 9.5, "views": 2206, "retencion_pct": 93.8, "subs_gained": 189, "tipo": "short", "nota": "Sub-driver fuerte (+189). Formato reframe ('NO era X... era Y')." },
+      { "id": "Fp44KoQurkM", "titulo": "Noe y el Diluvio", "duracion": "PT20M42S", "pub": "2026-05-23", "watch_hours_28d": 20.0, "views": 476, "retencion_pct": 12.2, "subs_gained": 1, "tipo": "long_form", "nota": "Long-form cuenta YPP pero ret 12% — thumbnail/intro pierde audiencia. Candidato a re-test thumbnail. YA NO usar como _fallback del VIDEO_MAP (era el fallback viejo)." },
+      { "id": "6eHgRtGjaYA", "titulo": "SALMOS PARA DORMIR PROFUNDAMENTE (2h)", "duracion": "PT2H1S", "pub": "2026-06-01", "watch_hours_28d": 18.6, "views": 96, "retencion_pct": 10.8, "subs_gained": 0, "tipo": "long_form", "nota": "DESTINO DEL FUNNEL. Sleep 2h — solo 96 views en 8 dias = falta distribucion. ES el formato de volumen-hora para YPP pero necesita trafico. Funnel desde Shorts (pinned comment + end screen) + playlist binge es lo que lo activa. Nuevo _fallback del VIDEO_MAP." },
+      { "id": "RzGs_o-cyBk", "titulo": "Descanso en Fe: Paz Sobrenatural", "duracion": "PT2M23S", "pub": "2026-05-28", "watch_hours_28d": 17.6, "views": 1272, "retencion_pct": 91.7, "subs_gained": 22, "tipo": "short" },
+      { "id": "4OxApIJ7L-E", "titulo": "Moises: El Hombre que Hablo con Dios", "duracion": "PT23M32S", "pub": "2026-05-22", "watch_hours_28d": 17.1, "views": 271, "retencion_pct": 16.1, "subs_gained": 1, "tipo": "long_form" }
     ],
 
+    "video_map_recomendado": {
+      "_para": "Cambio 3 del brief — nodo 'Lookup Video YT' del workflow auto-publicador-vdd. Todos los IDs verificados VIVOS via Data API 2026-06-09 20:30.",
+      "_fallback": "6eHgRtGjaYA",
+      "narrativos": "HeGUMgQlfFo",
+      "evitar": ["Fp44KoQurkM", "4OxApIJ7L-E"],
+      "evitar_motivo": "ret 12-16%; HeGUMgQlfFo (Rut, 25%) retiene mejor",
+      "muertos_NO_usar": ["r43LS0y0Wrg", "MdenXXdtW60"]
+    },
+
     "playlists": [
-      { "nombre": "PARA DORMIR · Musica Cristiana y Salmos (Sin Anuncios)", "count": 32, "id": "PLywpxR4rlZFgeWzor5mdOkSPKkHSpqMDr", "objetivo": "binge long-form — la palanca gratis #1 para watch hours YPP" },
-      { "nombre": "Historias de la Biblia · Relatos Narrados", "count": 17, "id": "PLywpxR4rlZFiTsmXEmlKP8TkJjRNMRDbV" },
-      { "nombre": "Lo-Fi Cristiano · Para Orar, Estudiar y Descansar", "count": 6, "id": "PLywpxR4rlZFgLeUCjHXtz8Xe6Q8G2jDpr" }
+      { "nombre": "PARA DORMIR · Musica Cristiana y Salmos (Sin Anuncios)", "id": "PLywpxR4rlZFgeWzor5mdOkSPKkHSpqMDr", "objetivo": "binge long-form — palanca gratis #1 para watch hours YPP. Agregar el sleep 2h (6eHgRtGjaYA) al inicio." },
+      { "nombre": "Historias de la Biblia · Relatos Narrados", "id": "PLywpxR4rlZFiTsmXEmlKP8TkJjRNMRDbV", "objetivo": "agregar Rut y Noemi (HeGUMgQlfFo) — el long-form con mejor retencion del periodo." },
+      { "nombre": "Lo-Fi Cristiano · Para Orar, Estudiar y Descansar", "id": "PLywpxR4rlZFgLeUCjHXtz8Xe6Q8G2jDpr" }
     ],
 
     "palancas": [
-      "SUBIR los 6x120min + 3 lofi 2h ya renderizados (parados en disco) — es el unico long-form que llena el gate YPP. 6x120min ya programados private+publishAt (31may-10jun).",
-      "Playlists binge ya creadas (55 vids) — mantener orden por retencion para encadenar watch time.",
-      "Funnel Shorts->long: el top Short (324hrs) debe linkear a un sleep/long-form via pinned comment + end screen para transferir su trafico a contenido que SI cuenta YPP.",
-      "Fix intros/thumbs de las 16 stories (12-16% ret) — re-test thumbnail YA hecho en 8, medir CTR delta 7-14d antes de re-subir el resto.",
-      "Replicar formato sleep/devocional medio (61-91% ret) en duracion larga — alta retencion + duracion = watch hours reales."
+      "El +116h de long-form en 8 dias confirma que SUBIR long-form mueve el gate. Mantener el ritmo de uploads long-form — es lo unico que cierra YPP.",
+      "Tras borrar los 2 TikToks ajenos, el nuevo sub-driver #1 es 'LLAMA DIVINA' (hvV1P06nUck, +474 subs) — hook fuerte + 25s. Replicar este formato.",
+      "Funnel Shorts->long: los Shorts top (jvEokzazN4o 55h, zfQYgA88gcU, hvV1P06nUck) deben linkear al sleep 2h (6eHgRtGjaYA) via pinned comment + end screen. El sleep solo tiene 96 views — transferir 1% del trafico de Shorts = cientos de horas long-form.",
+      "Rut y Noemi (18min, ret 25%) retiene mejor que Noe/Moises (12-16%) — replicar ESE formato de historia biblica.",
+      "Re-test thumbnails de Noe/Moises (12-16% ret) — el inventario long-form existe, el problema es CTR/retencion de intro."
     ],
 
-    "anomalia": "Hay ~30+ horas de long-form renderizado SIN SUBIR en disco (6x120min, 3 lofi 2h, 16 stories). Ese inventario parado es exactamente lo que cierra el gate YPP. Subirlo > generar mas Shorts."
+    "anomalia": "Las 28d views BAJARON (-8.6k) pero watch hours subieron vs el 06-01 (+88.7h). Parte de la baja de views es el borrado de los 2 Shorts (sumaban ~34k views/28d). Señal sana de fondo: avg view duration subio (69s->75s) — el canal captura audiencia de mayor valor."
   },
 
   "facebook": {
@@ -74,33 +102,38 @@
     "acceso_parcial": true,
     "page_id": "452922677899760",
     "page_name": "Palabra De Dios",
-    "fan_count": 1917,
-    "followers_count": 1917,
+    "fan_count": 2752,
+    "followers_count": 2752,
+    "delta_vs_0601": { "fan_count": "+835 (1917 -> 2752, +44% en 8 dias)" },
 
     "reach": null,
     "engagement": "solo por-post (agregado de pagina bloqueado)",
-    "muro_insights_agregados": "Token NO tiene scope read_insights — page-level reach/impressions/page_fans agregados devuelven (#100) invalid metric.",
-    "fix_insights": "Re-generar el token palabra-de-dios con scope read_insights agregado en el flujo OAuth de la app 'Agencia Cero' (app_id 1265193065810940). Mientras tanto, engagement por-post via /posts fields=likes,comments,shares SI funciona.",
+    "muro_insights_agregados": "Token es Page Access Token — page-level reach/impressions agregados requieren scope read_insights via user token. El /me/permissions falla con (#100) porque es page token (esperado, no es bug).",
+    "fix_insights": "Re-generar token con scope read_insights via flujo OAuth user de la app 'Agencia Cero' (app_id 1265193065810940) si se quiere reach agregado. Engagement por-post via /posts SI funciona.",
 
     "engagement_por_post_funciona": true,
     "top_posts": [
-      { "fecha": "2026-05-31", "likes": 259, "comments": 28, "shares": 17, "texto": "No es leyenda. Es HISTORIA. Sale del sepulcro...", "tipo": "reflexion-hook" },
-      { "fecha": "2026-05-31", "likes": 208, "comments": 29, "shares": 15, "texto": "Setenta veces siete. No hay limite. Tu Padre...", "tipo": "reflexion-hook" },
-      { "fecha": "2026-06-01", "likes": 161, "comments": 13, "shares": 6, "texto": "No vienes para MEJORAR. Vienes para NACER DE NUEVO", "tipo": "reflexion-hook" }
+      { "fecha": "2026-06-08", "likes": 208, "comments": 25, "shares": 17, "texto": "Cuando Somos Debiles, El es Fuerte. Nuestra debilidad es...", "tipo": "reflexion-hook" },
+      { "fecha": "2026-06-09", "likes": 68, "comments": 10, "shares": 3, "texto": "Deja Ir Para Ser Libre. Como hemos sido perdonados...", "tipo": "reflexion-hook" },
+      { "fecha": "2026-06-09", "likes": 10, "comments": 3, "shares": 1, "texto": "PROVISION DIVINA: Lo que NECESITAS llega...", "tipo": "reflexion-hook" }
     ],
-    "patron_engagement": "Los posts de REFLEXION con hook fuerte (200+ likes, 15+ shares) superan masivamente a los posts de versiculo-imagen plano (0-5 likes). El hook narrativo es el driver.",
+    "low_performers": [
+      { "fecha": "2026-06-10", "likes": 6, "comments": 2, "shares": 0, "texto": "Hebreos 13:5 (versiculo plano)", "tipo": "versiculo-imagen" },
+      { "fecha": "2026-06-09", "likes": 2, "comments": 2, "shares": 0, "texto": "Lucas 4:42 (versiculo plano)", "tipo": "versiculo-imagen" },
+      { "fecha": "2026-06-09", "likes": 5, "comments": 2, "shares": 0, "texto": "Lucas 4:18 (versiculo plano)", "tipo": "versiculo-imagen" }
+    ],
+    "patron_engagement": "CONFIRMADO de nuevo con data viva (2026-06-09): reflexion-hook (208 likes el mejor) >> versiculo-imagen plano (2-6 likes). ~50x diferencia. El hook narrativo es el unico driver. Los posts de versiculo plano siguen subiendo (daemon automatico) y mueren en 2-6 likes — Cambio 1+2 del brief atacan esto.",
 
     "monetization_eligible": false,
     "monetizacion_detalle": {
-      "in_stream_ads": { "elegible": false, "requisito": "10000 fans", "actual": 1917, "faltan": 8083, "nota": "Tambien requiere 600000 min vistos en 60d. Lejos." },
-      "reels_play_bonus": { "elegible": "desconocido", "nota": "Invite-only — verificar invitacion en Creator Studio / Professional Dashboard. >1000 fans ya cumplido (1917). Verificar manualmente si hay invite activo." }
+      "in_stream_ads": { "elegible": false, "requisito": "10000 fans", "actual": 2752, "faltan": 7248, "nota": "Avanzo +835 fans. A este ritmo (~100 fans/dia) faltan ~72 dias para 10k SI se sostiene. Tambien requiere 600000 min vistos en 60d." },
+      "reels_play_bonus": { "elegible": "MURIO globalmente 31-ago-2025", "nota": "Reels Play Bonus cerro global. Reemplazo = FB Content Monetization (invite-only, piso real ~5-10k followers). Falta llegar a 5k. NO perseguir el bonus viejo." }
     },
 
     "palancas": [
-      "Replicar el formato reflexion-hook (los 3 top posts) — es el unico que mueve engagement; matar los versiculo-imagen planos de bajo rendimiento.",
-      "Cross-post Shorts -> Reels FB: la fabrica de Shorts del canal puede alimentar Reels FB y acelerar camino a Reels Play Bonus (path mas rapido que in-stream ads que pide 10k fans).",
-      "Verificar manualmente invite de Reels Play Bonus en el dashboard (no expuesto via API).",
-      "Crecer a 10k fans para in-stream ads — gap grande (8083), no priorizar sobre Reels."
+      "El reflexion-hook funciona ~50x mejor — matar/convertir el daemon de versiculo-imagen plano al formato hook (Cambio 1+2 del brief).",
+      "Cross-post Shorts/Reels FB->IG: la fabrica de Shorts puede alimentar Reels FB+IG y acelerar crecimiento + sumar a los 600k min vistos (Cambio 5 del brief, workflow nuevo).",
+      "Hora pico FB confirmada para retiming: concentrar 1 post/dia en ventana 15:30-17:00 en vez de 3 crons dispersos (Cambio 1)."
     ]
   },
 
@@ -108,30 +141,32 @@
     "acceso": true,
     "ig_id": "17841469453382962",
     "username": "palabradedios111",
-    "followers_count": 1189,
-    "media_count": 620,
+    "followers_count": 1200,
+    "media_count": 646,
+    "delta_vs_0601": { "followers_count": "+11 (1189 -> 1200)", "media_count": "+26" },
     "insights_detallados": null,
-    "muro_insights": "Falta scope instagram_manage_insights — reach/saves/impressions por media bloqueados. Token tiene instagram_basic + content_publish pero no manage_insights.",
+    "muro_insights": "Falta scope instagram_manage_insights — reach/saves/impressions por media bloqueados.",
     "fix_insights": "Agregar scope instagram_manage_insights al re-generar token palabra-de-dios.",
     "palancas": [
-      "Mismo cross-post de Shorts -> Reels IG. IG es el canal mas chico (1189) — bajo prioridad vs YT (gate vivo) y FB (engagement real)."
+      "IG sigue siendo el canal mas lento (+11 fans vs +835 FB). Bajo prioridad vs YT (gate vivo) y FB (crecimiento real). El cross-post FB Reels->IG (Cambio 5) es la palanca de costo ~0 para activarlo sin esfuerzo extra."
     ]
   },
 
   "cross_platform_insights": [
-    "El motor de TODO el ecosistema son los Shorts/Reels de formato devocional-hook (NACISTE MUERTO 324hrs/61% ret). Generan subs y watch time en YT y engagement en FB. PERO los Shorts NO cuentan para el gate YPP — esa es la tension central del canal.",
-    "YT monetiza por GATE (4000h long-form): solo subir el inventario long-form parado mueve esto. Estamos en 3.8% (151.6h de 4000h).",
-    "FB monetiza por UMBRAL DE AUDIENCIA (10k fans in-stream / invite Reels bonus): estamos en 1917 fans. Reels Play Bonus es el path mas rapido porque ya pasamos el minimo de 1000 fans.",
-    "El mismo activo (Shorts devocionales) sirve a 3 objetivos distintos: subs YT (si), watch hours YPP (NO), Reels bonus FB (si potencial). Reciclar 1 vez, publicar en 3 lados.",
-    "Long-form stories tienen retencion catastrofica (12-16%) — subir mas como estan NO ayuda al gate. El formato que SI retiene (sleep/devocional 61-91%) en duracion larga es la apuesta real para las 4000h."
+    "PASO 0 OK: los 2 TikToks ajenos (r43LS0y0Wrg, MdenXXdtW60) estan borrados y verificados fuera. El snapshot ya no contiene IDs zombie. Briefs derivados son seguros.",
+    "AVANCE REAL en YPP: long-form 365d en 267.7h (6.7%), +116h vs 06-01. El borrado NO afecto el gate (eran Shorts). Confirma la tesis: subir long-form mueve el gate, Shorts no.",
+    "Nuevo sub-driver tras el borrado: 'LLAMA DIVINA' (hvV1P06nUck, +474 subs/28d) — el hook narrativo corto + 25s es el formato de conversion #1.",
+    "FB exploto +835 fans (+44%) — el canal de mas momentum. Reels Play Bonus MURIO (ago-2025); ruta real = llegar a 5k fans para FB Content Monetization invite.",
+    "Tension central intacta: los Shorts son el motor de subs/views pero NO cuentan YPP. El funnel Shorts->sleep 2h (6eHgRtGjaYA, solo 96 views) es la unica forma de convertir ese trafico en watch hours que SI cuentan.",
+    "Señal de salud: 28d views bajaron (parte por borrado) pero avg duration subio (69s->75s). El canal madura hacia audiencia de mayor valor."
   ],
 
   "next_actions": [
-    { "accion": "Subir 3 lofi 2h + re-test 1-2 stories con thumbnail nuevo (long-form que llena gate YPP)", "plataforma": "youtube", "impacto": "alto", "esfuerzo": "bajo (ya renderizado, scripts listos)" },
-    { "accion": "Agregar end-screen + pinned comment del top Short (r43LS0y0Wrg) hacia un sleep/long-form para transferir trafico al contenido que cuenta YPP", "plataforma": "youtube", "impacto": "medio-alto", "esfuerzo": "bajo" },
-    { "accion": "Verificar manualmente invite de Reels Play Bonus en el Professional Dashboard de la pagina (no expuesto via API)", "plataforma": "facebook", "impacto": "alto (path monetizacion mas rapido)", "esfuerzo": "bajo (5 min manual)" },
-    { "accion": "Cross-postear Shorts devocionales como Reels FB/IG para acelerar Reels bonus", "plataforma": "facebook,instagram", "impacto": "medio", "esfuerzo": "medio" },
-    { "accion": "Re-generar token palabra-de-dios con scopes read_insights (FB) + instagram_manage_insights (IG) para desbloquear reach/saves agregados", "plataforma": "facebook,instagram", "impacto": "medio (desbloquea data, no ingreso directo)", "esfuerzo": "bajo (re-OAuth app Agencia Cero)" },
-    { "accion": "Matar posts FB de versiculo-imagen plano (0-5 likes), duplicar formato reflexion-hook (200+ likes)", "plataforma": "facebook", "impacto": "medio", "esfuerzo": "bajo" }
+    { "accion": "Ejecutar batch del brief brief-vdd-organic-2026-06-09 (5 cambios n8n). Empezar por Cambio 1 (retiming FB a 16:30) + Cambio 3 (VIDEO_MAP a IDs vivos).", "plataforma": "cross", "impacto": "alto", "esfuerzo": "medio" },
+    { "accion": "Agregar end-screen + pinned comment de los Shorts top (jvEokzazN4o 55h, hvV1P06nUck +474 subs, zfQYgA88gcU) hacia el sleep 2h (6eHgRtGjaYA) — transferir trafico al long-form que cuenta YPP y solo tiene 96 views", "plataforma": "youtube", "impacto": "alto", "esfuerzo": "bajo" },
+    { "accion": "Re-auth YT con scope youtube.force-ssl si se quiere usar comments API por OAuth local (no bloquea: yt-comments-agent usa su token en n8n)", "plataforma": "youtube", "impacto": "bajo", "esfuerzo": "bajo" },
+    { "accion": "Replicar el formato de 'Rut y Noemi' (historia biblica con hook fuerte, ret 25%) para los siguientes long-form — no repetir Noe/Moises (12-16%)", "plataforma": "youtube", "impacto": "alto", "esfuerzo": "medio" },
+    { "accion": "Agregar sleep 2h + Rut y Noemi a sus playlists binge correspondientes para encadenar watch time", "plataforma": "youtube", "impacto": "medio", "esfuerzo": "bajo" },
+    { "accion": "Matar/convertir el daemon de posts versiculo-imagen plano (2-6 likes) al formato reflexion-hook (200+ likes) — Cambio 1+2 del brief", "plataforma": "facebook", "impacto": "medio", "esfuerzo": "bajo" }
   ]
 }

@@ -52,14 +52,14 @@ cat data/venom_truth.json | python3 -m json.tool   # snapshot completo
 # o regenerar fresco:  @agent venom
 ```
 
-**Snapshot venom 2026-06-01** (referencia rápida — el JSON es la verdad):
-- YouTube: 14k subs · YPP long-form **3.8%** (151.6h / 4,000h) · motor del canal = Short `r43LS0y0Wrg` (324h/28d, 30% del watch time, pero NO cuenta YPP)
-- Facebook: 1,917 fans · monetización por umbral (10k in-stream / Reels bonus invite >1k ✅) · formato reflexión-hook gana (200+ likes)
-- Instagram: 1,189 followers · canal más chico, baja prioridad
+**Snapshot venom 2026-06-09** (referencia rápida — el JSON es la verdad):
+- YouTube: 14.2k subs · YPP long-form **6.7%** (267.7h / 4,000h, +116h en 8 días) · ⚠️ ex-motores `r43LS0y0Wrg` + `MdenXXdtW60` **BORRADOS 06-09** (eran TikToks ajenos subidos por error — riesgo YPP). Motor actual = `jvEokzazN4o` (55h, ret 133%, propio). Watch time 28d va a caer ~435h en el próximo snapshot: esperado y sano.
+- Facebook: 2,722 fans (+42% en 8 días, lo impulsan Reels reflexión-hook) · ⚠️ **Reels Play Bonus CERRÓ global 31-ago-2025** — reemplazo = FB Content Monetization (invite-only, piso real ~5-10k followers, falta llegar a 5k)
+- Instagram: 1,200 followers · canal más chico, baja prioridad
 
 **Caminos para monetizar (dos lógicas distintas):**
 - **YouTube = GATE:** subir las ~30h de long-form parado en disco (6×120min ya programados + 3 lofi 2h). Es lo único que llena las 4,000h.
-- **Facebook = UMBRAL:** Reels Play Bonus (path rápido, ya >1k fans) > in-stream ads (lejos, faltan 8,083 fans).
+- **Facebook = UMBRAL:** Reels Play Bonus MURIÓ (ago-2025). Ruta real = 1 Reel/día reflexión-hook → llegar a 5k fans → invite FB Content Monetization. In-stream lejos (10k fans).
 - **Activo compartido:** Shorts devocionales-hook alimentan subs YT + Reels FB/IG. Reciclar 1, publicar en 3.
 
 ---
@@ -258,6 +258,7 @@ Auto-actualizado con bugs nuevos cada sesión (feedback loop).
 | `yt-fb-uploader` | 1:30am MTY | Sube YT+FB pendientes (post quota reset) |
 | `morning-status` | 11am MTY | Genera `STATUS_TODAY.md` + notif macOS |
 | `wake-reminder` | 10am MTY | Notif "abre Claude — pendientes X" |
+| `orphan-guard` | 8pm MTY | Reconcilia canal YT vs tracking (`scripts/orphan_guard.py`). Orphan = video en canal NO en JSONs, ventana 14d. HIGH = licensedContent o ≥50h watch → WA venom. Out: `data/orphan-uploads.json` |
 
 ### ⚠️ Requisito macOS Sequoia: Full Disk Access
 
