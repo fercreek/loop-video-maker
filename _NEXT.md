@@ -1,8 +1,17 @@
 # _NEXT — loop-video-maker (VersiculoDeDios)
 > Update: 2026-06-10 · Canal: @VersiculoDeDios-v1u (UC2l5TZjHzRtaRjH8kT_yQ2w)
 > 🚨 LEE PRIMERO: `docs/SINTESIS_SIMBIONTES_2026-06-09.md` (revisión 3 simbiontes) + `docs/VENOM_SPEC_EXPLAINED.md` (manual del spec)
-> Plan maestro de sesión: `~/.claude/plans/revisemos-el-plnm-que-iridescent-pebble.md` (v2 cimiento + v3 video-leveling)
 > Stats: `data/venom_truth.json` (venom manda) · Scores por video: `data/video_scores.json`
+
+## 🎯 North Star — Filtro de decisión (leer antes de cualquier acción)
+
+**Plataformas núcleo:** YouTube + Facebook. Todo esfuerzo mide contra esto.
+- **YouTube** = gate YPP (objetivo: 4,000h long-form). Palancas: subir sleep/lofi (más horas/view), Shorts→funnel sleep, playlists binge.
+- **Facebook** = camino al primer $ real (objetivo: 5k fans → FB Content Monetization invite). Palancas: 1 Reel/día (hook-first), engagement real, crecer 42%/semana.
+- **Ko-fi** = capa de ingresos paralela, integrada al contenido YT+FB. NO campaña separada. CTA en pinned comments y descripción. No hace sentido sin audiencia YT+FB primero.
+- **Instagram** = vanity, baja prioridad. Solo cross-post automático, sin esfuerzo dedicado.
+
+**Regla de filtro:** antes de cualquier tarea → "¿esto mueve watch-hours YT o fans FB?" Si no → al backlog.
 
 ## ⚡ Hecho 2026-06-09 (sesión larga)
 - **Motor B LIVE** 💰 — Ko-fi membership `🕊️ Guardián del Ministerio $5` PÚBLICA + cobrable + lead magnet "7 Días de Paz" gratis + captura email automática. `ko-fi.com/versiculosdedios`. **El primer dólar ya tiene dónde entrar** (antes el link iba a página vacía).
