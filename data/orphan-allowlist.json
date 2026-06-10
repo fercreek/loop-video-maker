@@ -1,0 +1,173 @@
+{
+  "description": "Orphan ids acknowledged as legit-own (not pipeline-tracked). Guard treats these as known. HIGH orphans are NEVER auto-acked.",
+  "acknowledged": [
+    {
+      "video_id": "zfQYgA88gcU",
+      "title": "⚡ UN SECRETO que la sangre de Jesus REVELA",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "1jfRoka03t8",
+      "title": "🌟 ETERNIDAD COMIENZA HOY (Pentecostes no es pasado)",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "hvV1P06nUck",
+      "title": "🔥 LLAMA DIVINA (pasion que transforma)",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "eRBTkjdk1bQ",
+      "title": "💔 EL DOLOR TIENE PROPOSITO (asi es como lo encuentras)",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "u_vAlbK6yHA",
+      "title": "🙏 LO QUE LA IGLESIA OLVIDO ENSENARTE",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "Eduk-iiuGs8",
+      "title": "💔 Este dolor fue INTENCIONAL (el Espiritu Santo te muestra POR QUE)",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "opdflzGns84",
+      "title": "💪 UN ACTO CAMBIO TODO - Y paso hace 2000 anos",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "gRxIKks-ILc",
+      "title": "✝️ Gracia Abundante: Favor Inmerecido #Misericordia #Vida",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "tVxo-PnrnTQ",
+      "title": "🕊️ RESTAURACION COMPLETA (lo que significa segunda oportunidad)",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "JP_rJOJwAsQ",
+      "title": "🌟 Brujula Divina: Direccion Celestial #Guia #Fe",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "Xlpet9_ca5U",
+      "title": "🌅 Revelación del Amor: Amor Incondicional #Compasión #Gracia",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "re1nC7eYwVY",
+      "title": "🕊️ PARADOJA DIVINA: Lo debil se hace FUERTE",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "nKQFuH3Tzqo",
+      "title": "🌟 Destino Glorioso: Futuro Resplandeciente #Esperanza #Gloria",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "sFp9zmGrUVw",
+      "title": "🎯 ¿QUIEN ERES si no eres lo que hiciste mal?",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "6hwbgQ_5_Sc",
+      "title": "💔 EL DOLOR TIENE PROPOSITO (asi es como lo encuentras)",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "7FYMkB7tP24",
+      "title": "🌱 LIBRE. COMPLETAMENTE LIBRE (el Espiritu lo demuestra)",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "uAIOYBZfU8c",
+      "title": "🕊️ 3 PALABRAS que LIBERAN CULPA INFINITA",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "NXYpjEqKGdg",
+      "title": "🌅 Luz Eterna: Brillantez Divina #Salvacion #Vida",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "FFhnAPTvH-E",
+      "title": "🙏 Oracion Respondida: Milagro Obrado #Fe #Esperanza",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "RFP6--mgDEs",
+      "title": "🔥 Llama de Amor: Pasion Divina #Compasion #Devocion",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "v-Lm4k3aDy4",
+      "title": "🙏 3 DIAS de silencio... ¿y despues? 🌅",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "2jjm98OV9Vk",
+      "title": "🌅 Luz Eterna: Brillantez Divina #Salvación #Vida",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "eBaiC9mmncQ",
+      "title": "🌱 LIBRE. COMPLETAMENTE LIBRE (el Espiritu lo demuestra)",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "XajJYfxxCzk",
+      "title": "🔥 LLAMA DIVINA (pasion que transforma)",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "e65rpdXq9No",
+      "title": "SALMO 91 PARA DORMIR · Protección Toda la Noche · 2 HORAS Sin Anuncios 📖",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "PsZt2tFim_c",
+      "title": "SALMO 91 PARA DORMIR · Protección Toda la Noche · 2 HORAS Sin Anuncios 📖",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "uu1EZlU_mIs",
+      "title": "SALMO 91 PARA DORMIR · Protección Toda la Noche · 2 HORAS Sin Anuncios 📖",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    },
+    {
+      "video_id": "br93I4rhT9g",
+      "title": "💎 ENCONTRAR TESORO CELESTIAL (Mayo te ensena)",
+      "acked_at": "2026-06-10T09:16:09.674837+00:00",
+      "reason": "backfill --ack-low (legit-own, untracked auto-publish)"
+    }
+  ]
+}
