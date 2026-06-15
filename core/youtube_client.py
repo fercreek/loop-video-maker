@@ -100,7 +100,10 @@ def _get_creds() -> Credentials:
             f"Token no encontrado: {TOKEN_PATH}\n"
             "Corre: .venv/bin/python3 scripts/yt_auth.py"
         )
-    creds = Credentials.from_authorized_user_file(TOKEN_PATH, SCOPES)
+    # Usar los scopes guardados en el token, NO la constante SCOPES.
+    # Si el token fue minteado con menos scopes (ej. sin force-ssl), forzar SCOPES
+    # hace que el refresh pida scopes nunca concedidos -> invalid_scope: Bad Request.
+    creds = Credentials.from_authorized_user_file(TOKEN_PATH)
     if creds.expired and creds.refresh_token:
         creds.refresh(Request())
         with open(TOKEN_PATH, "w") as f:

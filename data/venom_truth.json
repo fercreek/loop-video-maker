@@ -1,9 +1,17 @@
 {
-  "generated_at": "2026-06-09T20:30:00-06:00",
+  "generated_at": "2026-06-15T22:15:00-06:00",
   "generated_by": "venom",
   "source_of_truth": true,
   "_note": "venom es dueño de este archivo. Se regenera en cada análisis con data viva (YouTube Analytics API + Meta Graph API). Numeros null = sin acceso, ver muro/fix. NUNCA editar a mano con numeros inventados.",
-  "_prev_snapshot": "2026-06-09T16:40:00-06:00",
+  "_prev_snapshot": "2026-06-09T20:30:00-06:00",
+
+  "_regen_2026-06-15": {
+    "motivo": "Regen con data viva 06-15. Auth YT volvio a romper (invalid_scope: Bad Request) por la MISMA causa del 06-09: core/youtube_client.py SCOPES tiene 3 scopes (incluye youtube.force-ssl) pero el token solo tiene 2 (youtube + yt-analytics.readonly). El fix del 06-09 (refrescar con scopes guardados) NO se hizo permanente en _get_creds() — sigue pasando la constante SCOPES. Workaround aplicado de nuevo: refresh con scopes del token. Token refrescado OK, expiry 2026-06-16T05:08Z.",
+    "fix_permanente_pendiente": "En core/youtube_client.py:_get_creds() linea 103, cambiar Credentials.from_authorized_user_file(TOKEN_PATH, SCOPES) por usar los scopes guardados del token (json.load -> scopes). Mientras no se haga, ypp_tracker.py y analytics_snapshot.py seguiran fallando al primer expiry. NO requiere re-auth de browser — el refresh_token es valido, solo se piden scopes que no tiene.",
+    "gate_real_recordatorio": "ypp_tracker.py usa denominador 3000h (umbral YPP viejo) y reporta 9.3%. El gate REAL es 4000h de long-form. Live API directa (creatorContentType) = 294.1h = 7.4% de 4000. Usar 294.1h/4000 como verdad.",
+    "subs": "14300 (+100 vs 06-09)",
+    "video_count": "1129 (+13 vs 1116)"
+  },
 
   "_regen_2026-06-09_pm": {
     "motivo": "Se borraron 2 TikToks ajenos subidos por error: r43LS0y0Wrg ('NACISTE MUERTO') + MdenXXdtW60 ('Este dolor fue INTENCIONAL'). El snapshot previo aun los listaba como top_performers #1 y #2 — IDs zombie. Regenerado con data viva, verificado que AMBOS devuelven 404 (no existen) y que los 8 motores legitimos siguen vivos.",
@@ -16,36 +24,34 @@
   "youtube": {
     "acceso": true,
     "channel_id": "UC2l5TZjHzRtaRjH8kT_yQ2w",
-    "subs": 14200,
-    "total_views": 1096155,
-    "video_count": 1116,
-    "delta_vs_0601": { "subs": "+200", "total_views": "+24216", "video_count": "+16 (post-borrado de 2)" },
+    "subs": 14300,
+    "total_views": 1068715,
+    "video_count": 1129,
+    "delta_vs_0609": { "subs": "+100", "video_count": "+13", "total_views": "-27440 (baja esperada: views de Shorts viejos salen de ventana + recompute API)" },
 
     "ypp_gate": {
       "requisito": "4000 horas de LONG-FORM (videoOnDemand) en 365 dias (subs >= 1000 YA CUMPLIDO)",
-      "watch_hours_longform_365d": 267.7,
-      "ypp_progress_pct": 6.7,
-      "horas_faltantes": 3732.3,
-      "delta_vs_0601": { "watch_hours_longform_365d": "+116.1", "ypp_progress_pct": "+2.9 pts (3.8% -> 6.7%)" },
-      "nota": "Solo videoOnDemand (creatorContentType==videoOnDemand) cuenta. Shorts NO. El borrado de los 2 Shorts NO afecto este numero — eran Shorts. Driver del +116h: long-form 'Rut y Noemi' (HeGUMgQlfFo, 18min, 50.5h/28d) + el sleep 2h (6eHgRtGjaYA, 06-01). El ritmo (~14.5h/dia long-form) proyecta 4000h en ~257 dias SOLO si se sostiene subiendo long-form — no es organico."
+      "watch_hours_longform_365d": 294.1,
+      "ypp_progress_pct": 7.4,
+      "horas_faltantes": 3705.9,
+      "delta_vs_0609": { "watch_hours_longform_365d": "+26.4 (267.7 -> 294.1)", "ypp_progress_pct": "+0.7 pts (6.7% -> 7.4%)" },
+      "ritmo_sostenido": "De 130.5h (05-31) a 294.1h (06-15) = +163.6h en 15 dias = ~10.9h/dia long-form sostenido. ESTE es el ritmo real, NO el +148h/dia del log (artefacto de recompute). El delta 06-09->06-15 fue solo +26.4h en 6 dias = ~4.4h/dia: el ritmo SE DESACELERO esta semana (sin uploads long-form nuevos, la cola se enfrio).",
+      "eta_a_4000": "A 10.9h/dia sostenido: ~340 dias. A los 4.4h/dia de esta semana: ~840 dias. La diferencia = subir o no subir long-form. No es organico.",
+      "nota": "Solo videoOnDemand (creatorContentType==videoOnDemand) cuenta. Shorts NO. Hay ~30h de long-form parado en disco (6x120min programados + 3 lofi 2h) que aun NO suben — esa cola es el combustible directo del gate."
     },
 
-    "watch_hours_28d_total": 1172.2,
-    "estimated_minutes_watched_28d": 70332,
-    "views_28d": 138206,
-    "avg_view_duration_seg": 75,
-    "subs_gained_28d": 2430,
-    "delta_vs_0601": { "watch_hours_28d_total": "+88.7 (vs 1083.5 del 06-01; -10.7 vs el snapshot stale de hoy por el borrado)", "views_28d": "-8633", "avg_view_duration_seg": "+6" },
+    "watch_hours_28d_total": 1138.6,
+    "views_28d": 127529,
+    "avg_view_duration_seg": 77,
+    "subs_gained_28d": 2085,
+    "delta_vs_0609": { "watch_hours_28d_total": "-33.6 (1172.2 -> 1138.6, decaimiento natural de Shorts viejos)", "views_28d": "-10677", "avg_view_duration_seg": "+2" },
 
     "shorts_vs_long_split": {
-      "_periodo_28d": {
-        "shorts": { "views": 135229, "watch_hours": 970.2, "pct_views": 97.9 },
-        "long_form": { "views": 2810, "watch_hours": 201.9, "pct_views": 2.0 }
-      },
       "_periodo_365d_ypp": {
-        "shorts": { "watch_hours": 4511.4, "views": 915867, "cuenta_para_ypp": false },
-        "long_form": { "watch_hours": 267.7, "views": 4310, "cuenta_para_ypp": true }
-      }
+        "shorts": { "watch_hours": 4574.6, "views": 924665, "cuenta_para_ypp": false },
+        "long_form": { "watch_hours": 294.1, "views": 4492, "cuenta_para_ypp": true }
+      },
+      "_lectura": "El canal genera 4574.6h de Shorts en 365d (15.5x mas que el long-form), pero NADA de eso cuenta para YPP. El gate solo lo mueven las 294.1h de long-form. La maquina de Shorts es excelente para subs/alcance e inutil para monetizar via YPP."
     },
 
     "retencion": {
@@ -57,6 +63,7 @@
       "diagnostico": "Tras el borrado, el motor de subs/watch ahora es un mix de Shorts hook-narrativo: 'EL DOLOR TIENE PROPOSITO' (jvEokzazN4o, 55.2h), 'LLAMA DIVINA' (hvV1P06nUck, +474 subs!), 'UN SECRETO que la sangre REVELA' (zfQYgA88gcU, +166 subs). El long-form que mas watch hours sumo sigue siendo 'Rut y Noemi' (50.5h/28d)."
     },
 
+    "_top_performers_nota": "Bloque per-video congelado del snapshot 06-09 (no re-pulleado por-video el 06-15; los numeros de gate/totales SI son live 06-15). Los IDs y formatos ganadores siguen vigentes para decisiones de contenido.",
     "top_performers": [
       { "id": "jvEokzazN4o", "titulo": "EL DOLOR TIENE PROPOSITO (asi es como lo encuentras)", "duracion": "PT1M11S", "pub": "2026-05-25", "watch_hours_28d": 55.2, "views": 4975, "retencion_pct": 133.3, "subs_gained": 55, "tipo": "short", "nota": "NUEVO motor #1 de watch time tras el borrado. Retencion 133% (loop fuerte). Es Short — NO cuenta YPP pero genera el mayor watch time del canal. Candidato #1 para funnel hacia sleep 2h." },
       { "id": "hvV1P06nUck", "titulo": "LLAMA DIVINA (pasion que transforma)", "duracion": "PT25S", "pub": "2026-05-27", "watch_hours_28d": 10.5, "views": 5007, "retencion_pct": 95.4, "subs_gained": 474, "tipo": "short", "nota": "MEJOR conversor de subs del canal (+474 en 28d). Hook 'LLAMA DIVINA' + 25s = formato de alta conversion. Reemplaza a los borrados como sub-driver #1." },
@@ -94,7 +101,37 @@
       "Re-test thumbnails de Noe/Moises (12-16% ret) — el inventario long-form existe, el problema es CTR/retencion de intro."
     ],
 
-    "anomalia": "Las 28d views BAJARON (-8.6k) pero watch hours subieron vs el 06-01 (+88.7h). Parte de la baja de views es el borrado de los 2 Shorts (sumaban ~34k views/28d). Señal sana de fondo: avg view duration subio (69s->75s) — el canal captura audiencia de mayor valor."
+    "anomalia": "Las 28d views BAJARON (-8.6k) pero watch hours subieron vs el 06-01 (+88.7h). Parte de la baja de views es el borrado de los 2 Shorts (sumaban ~34k views/28d). Señal sana de fondo: avg view duration subio (69s->75s) — el canal captura audiencia de mayor valor.",
+
+    "format_roi_longform": {
+      "_doc": "docs/FORMAT_ROI_LONGFORM.md (analisis completo, leer antes de decidir que long-form subir)",
+      "_generado": "2026-06-15 con YT Analytics per-video live 365d",
+      "_hallazgo_estructural": "Los '120min temas' del CLAUDE.md NO existen como formato propio: los unicos videos de 120min vivos son sleep/lofi. Quedan 3 formatos reales: historias 18-24min, sleep 2h, lofi 2h.",
+      "per_video_365d": {
+        "historia_rut_HeGUMgQlfFo": { "wh": 51.0, "views": 660, "ret_pct": 25.6, "subs": 2, "dur_min": 18 },
+        "historia_job_iMPxY1zAsFw": { "wh": 14.8, "views": 184, "ret_pct": 23.8, "subs": 0, "dur_min": 20 },
+        "historia_moises_4OxApIJ7L-E": { "wh": 17.1, "views": 272, "ret_pct": 16.1, "subs": 1, "dur_min": 24 },
+        "historia_noe_Fp44KoQurkM": { "wh": 20.0, "views": 476, "ret_pct": 12.2, "subs": 1, "dur_min": 21 },
+        "sleep_paz_aqFlPGDD2ww": { "wh": 23.3, "views": 112, "ret_pct": 10.4, "subs": 2, "dur_min": 120 },
+        "sleep_salmos_6eHgRtGjaYA": { "wh": 19.4, "views": 98, "ret_pct": 9.9, "subs": 0, "dur_min": 120 },
+        "sleep_esperanza_N7YzBNgd3l4": { "wh": 3.1, "views": 38, "ret_pct": 4.1, "subs": 0, "dur_min": 120 },
+        "sleep_salmo91_MYITKgMsMOU": { "wh": null, "views": null, "nota": "recien publicado 15-jun, sin data; SEO top, medir a 14d", "dur_min": 120 },
+        "lofi_biblia_jdOSUMO3dbk": { "wh": 1.1, "views": 8, "ret_pct": 7.3, "subs": 0, "dur_min": 120 },
+        "lofi_ansiedad_l5LFYLVZOd4": { "wh": 0.1, "views": 7, "ret_pct": 1.2, "subs": 0, "dur_min": 120 }
+      },
+      "ranking_roi_al_gate": [
+        "1. HISTORIAS tipo Rut (ret 25%, trae views organicas, driver #1 del +116h YPP) — produce mas de este. Sub-formato: Rut/Job >> Noe/Moises (12-16%, retirar).",
+        "2. SLEEP 2h CONDICIONAL — mayor h/view (0.21) y costo ~0, pero NO producir mas hasta arreglar intro (early-drop 78%) + funnel desde Shorts. Es multiplicador de trafico, no fuente.",
+        "3. LOFI 2h PAUSAR — 1-8 views/video, mismo costo que sleep sin traccion. ROI real = 0.",
+        "4. 120min-temas = N/A (no existe, es sleep con otro nombre)."
+      ],
+      "cuello_real": "OPTIMIZACION, no produccion. ~30h long-form en disco sin subir + sleep destino con 96 views + early-drop 78% + Shorts (924k views) no wired al long-form. El gate se cierra wireando trafico Shorts->sleep + tapando fuga de retencion, NO renderizando mas.",
+      "costo_produccion_relativo": {
+        "historia": "ALTO (script Claude 14 escenas + Gemini Imagen x14-16 + TTS + QA; render 2.5min)",
+        "sleep_2h": "BAJO (MusicGen local gratis + 1-2 fondos; render 25-40min corre solo)",
+        "lofi_2h": "BAJO (igual que sleep)"
+      }
+    }
   },
 
   "facebook": {
@@ -102,9 +139,10 @@
     "acceso_parcial": true,
     "page_id": "452922677899760",
     "page_name": "Palabra De Dios",
-    "fan_count": 2752,
-    "followers_count": 2752,
-    "delta_vs_0601": { "fan_count": "+835 (1917 -> 2752, +44% en 8 dias)" },
+    "fan_count": 3325,
+    "followers_count": 3325,
+    "delta_vs_0609": { "fan_count": "+573 (2752 -> 3325, +21% en 6 dias, ~95 fans/dia)" },
+    "ruta_5k_content_monetization": "Faltan 1675 fans para 5k (piso real de invite FB Content Monetization). A ~95 fans/dia se llega en ~18 dias (~03-jul). ESTE es el hito de FB mas cercano y realista — antes que los 10k de in-stream.",
 
     "reach": null,
     "engagement": "solo por-post (agregado de pagina bloqueado)",
@@ -126,7 +164,7 @@
 
     "monetization_eligible": false,
     "monetizacion_detalle": {
-      "in_stream_ads": { "elegible": false, "requisito": "10000 fans", "actual": 2752, "faltan": 7248, "nota": "Avanzo +835 fans. A este ritmo (~100 fans/dia) faltan ~72 dias para 10k SI se sostiene. Tambien requiere 600000 min vistos en 60d." },
+      "in_stream_ads": { "elegible": false, "requisito": "10000 fans", "actual": 3325, "faltan": 6675, "nota": "A ~95 fans/dia faltan ~70 dias para 10k. Tambien requiere 600000 min vistos en 60d. El hito mas cercano es 5k (Content Monetization), no este." },
       "reels_play_bonus": { "elegible": "MURIO globalmente 31-ago-2025", "nota": "Reels Play Bonus cerro global. Reemplazo = FB Content Monetization (invite-only, piso real ~5-10k followers). Falta llegar a 5k. NO perseguir el bonus viejo." }
     },
 

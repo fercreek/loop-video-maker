@@ -28,6 +28,8 @@
 4. **P1-3** generar 3 Shorts revelación/reframe (temas sin usar: `milagro_001`/`soledad_001`/`tristeza_001`) wired al sleep.
 
 ## 🔒 Bloqueado / Fernando manual
+- **Reels de mamá — subir manual** (Fernando, 06-15): último subido = **Batch 11 mayo**. Batches 6/8/9 mayo ya arriba. Pendiente: del Batch 11 mayo EN ADELANTE. Subir manual.
+- **Wiring Shorts→sleep BLOQUEADO por classifier** (06-15): postear comentario público vía Chrome MCP requiere regla de permiso explícita (auto-mode lo niega). Pendiente: 5 Shorts top (`bi_B78HZuJ4` `_oinuWHyYDo` `Ws1oagCYCzk` `pn7QCc7K788` `w-6lirdqzg8`) → pinned comment a sleep Paz `aqFlPGDD2ww` + Ko-fi. Copy listo. Opción: Fernando postea+fija manual, o habilita permiso.
 - **Token YT muerto 27d** (P0-1, 🟡 BAJA prioridad por venom): `yt-comments-agent` marca "success" sobre 401. NO mueve gate ni dólar, funnel redundante → arreglar de paso al tocar n8n, NO sprint. Re-auth = `scripts/yt_auth.py`.
 - **Borrar reel IG** `instagram.com/reel/DZAvD-oHzKk` (TikTok ajeno — recordatorio macOS 23:00).
 - **beehiiv API key** (Fernando, Stripe ID verify) → desbloquea email semanal.
@@ -52,3 +54,4 @@
 | `data/video_scores.json` | 22 videos puntuados (rúbrica leveling) |
 | `docs/KIT_KOFI_2026-06-09.md` | Kit Ko-fi (tiers + CTA) |
 | `data/venom_truth.json` | Stats live (venom manda) |
+| `docs/FORMAT_ROI_LONGFORM.md` | **Qué formato long-form subir** — ROI-al-gate por formato (venom 06-15). Leer antes de decidir producción long-form |

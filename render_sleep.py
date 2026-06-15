@@ -56,11 +56,21 @@ RES_W, RES_H = 1920, 1080
 FPS = 24
 BITRATE = "2500k"
 AUDIO_BITRATE = "192k"
-INTRO_DUR = 10.0          # segundos de título visible al inicio
+INTRO_DUR = 14.0          # segundos de título+invitación visible al inicio (era 10 — más tiempo para que aterrice el stay-hook)
 INTRO_FADE = 1.5
 WATERMARK_TEXT = "@VersiculoDeDios"
 MUSIC_VOL_DB = -12        # sleeping: más alto que Shorts (no hay voz que compita)
 MUSICGEN_MODEL = "facebook/musicgen-medium"  # mono, ~4-5GB RAM — middle ground stereo-small vs stereo-medium
+
+# ─── Intro hook (A) — retención: la curva muestra cliff min 1-2 (98%→37% viewers).
+# Razón: la gente se VA, no se duerme. relPerf inicio 0.23 (peor que pares).
+# Fix: voz cálida 15-20s da razón de quedarse, luego música pura toda la noche.
+HOOK_ENABLED = True
+HOOK_VOICE = "dalia"      # femenina cálida contemplativa (es-MX) — ideal sleep
+HOOK_DELAY = 3.0          # seg antes de que entre la voz (deja respirar la música)
+HOOK_DUCK_TAIL = 2.0      # seg de cola tras la voz antes de volver música a full
+HOOK_MUSIC_DUCK = 0.38    # música baja a 38% mientras habla la voz
+INVITACION = "Déjalo reproduciendo toda la noche · Descansa en su paz"  # subtítulo bajo el título (sin emoji — Montserrat no los tiene)
 
 N_IMAGES   = 6            # imágenes en secuencia por video
 XFADE_DUR  = 3.0          # segundos de crossfade entre imágenes
@@ -106,6 +116,52 @@ SLEEP_TEMAS = {
 }
 
 
+# ─── Hook scripts por tema (texto mejorado — voz cálida, ~16-20s, stay-hook) ────
+# Estructura: respira → suelta el día → promesa del tema → "no te vayas, déjalo toda la noche".
+HOOK_SCRIPTS = {
+    "salmo91": (
+        "Respira hondo... y suelta el peso de este día. "
+        "Esta noche, el Salmo noventa y uno te cubre con su sombra. "
+        "Nada te hará temblar. Quédate... deja que su protección te acompañe "
+        "toda la noche, y descansa en paz."
+    ),
+    "salmo23": (
+        "Respira despacio... y entrégale a Dios lo que cargas. "
+        "El Buen Pastor está contigo, y nada te faltará esta noche. "
+        "No te vayas... déjalo reproduciendo hasta el amanecer, "
+        "y duerme junto a aguas de reposo."
+    ),
+    "ansiedad": (
+        "Respira... e inhala calma. La ansiedad no manda esta noche. "
+        "Suelta cada pensamiento en las manos de Dios. "
+        "Quédate conmigo... deja que su paz, que sobrepasa todo entendimiento, "
+        "te lleve a un descanso profundo."
+    ),
+    "promesas": (
+        "Respira hondo... y descansa. Las promesas de Dios no fallan, "
+        "y esta noche son para ti. Cierra los ojos, "
+        "déjalo sonando toda la noche, y deja que su Palabra "
+        "te sostenga mientras duermes."
+    ),
+    "rosario": (
+        "Respira en silencio... y aquieta tu corazón. "
+        "Esta noche, oramos juntos hacia el descanso. "
+        "Quédate... deja que esta paz del alma te acompañe "
+        "hasta que el sueño llegue suave."
+    ),
+}
+HOOK_DEFAULT = (
+    "Respira hondo... y suelta el peso de este día. "
+    "Durante las próximas horas, deja que la Palabra de Dios "
+    "te lleve a un descanso profundo. No te vayas... "
+    "déjalo reproduciendo toda la noche, y duerme en su paz."
+)
+
+
+def build_hook_text(tema: str) -> str:
+    return HOOK_SCRIPTS.get(tema, HOOK_DEFAULT)
+
+
 @dataclass
 class SleepConfig:
     tema: str
@@ -115,6 +171,8 @@ class SleepConfig:
     bg_images: list  # list[Path] — 6 imágenes para secuencia xfade
     out_path: Path
     dry_run: bool = False
+    hook: bool = True             # voz cálida de bienvenida (A) — stay-hook
+    hook_text: str = ""           # se llena en main() desde build_hook_text(tema)
 
 
 def _find_bg(candidates: list[str]) -> Path:
@@ -175,7 +233,25 @@ def generate_audio(mood: str, duration_min: int, out_dir: Path, dry_run: bool = 
     return out_path
 
 
-def build_overlay_pngs(titulo: str, out_dir: Path) -> tuple[Path, Path]:
+def generate_hook_audio(hook_text: str, out_dir: Path, dry_run: bool = False) -> tuple[Path | None, float]:
+    """Genera la voz cálida de bienvenida (~16-20s). Devuelve (wav, dur_sec).
+    Si falla TTS, devuelve (None, 0) y el render sigue sin hook (degrade graceful)."""
+    if dry_run:
+        print(f"  [hook DRY] generaría voz: \"{hook_text[:50]}...\"")
+        return None, 18.0
+    try:
+        from core.narration_gen import generate_narration, get_audio_duration
+        wav = generate_narration(hook_text, "sleep_hook", voice=HOOK_VOICE)
+        wav = Path(wav)
+        dur = get_audio_duration(wav)
+        print(f"  [hook] voz {HOOK_VOICE} · {dur:.1f}s · \"{hook_text[:40]}...\"")
+        return wav, dur
+    except Exception as e:
+        print(f"  ⚠️  [hook] TTS falló ({e}) — render sin hook")
+        return None, 0.0
+
+
+def build_overlay_pngs(titulo: str, out_dir: Path, invitacion: str = "") -> tuple[Path, Path]:
     """Genera 2 PNGs RGBA via Pillow: titulo (centro) + watermark (top-right)."""
     from PIL import Image, ImageDraw, ImageFont
     # Title PNG (full frame, fondo transparente)
@@ -217,6 +293,16 @@ def build_overlay_pngs(titulo: str, out_dir: Path) -> tuple[Path, Path]:
         # Shadow + text
         draw.text((x+3, y+3), L, font=font, fill=(0, 0, 0, 200))
         draw.text((x, y), L, font=font, fill=(255, 255, 255, 255))
+
+    # Subtítulo de invitación (stay-hook visual) bajo el título
+    if invitacion:
+        sub_font = ImageFont.truetype(font_path, 38) if font_path else ImageFont.load_default()
+        sbbox = draw.textbbox((0, 0), invitacion, font=sub_font)
+        stw = sbbox[2] - sbbox[0]
+        sx = (RES_W - stw) // 2
+        sy = y0 + total_h + 28
+        draw.text((sx+2, sy+2), invitacion, font=sub_font, fill=(0, 0, 0, 180))
+        draw.text((sx, sy), invitacion, font=sub_font, fill=(235, 225, 200, 235))  # dorado suave
     img.save(title_png)
 
     # Watermark image (esquina top-right, transparent fondo)
@@ -361,14 +447,36 @@ def build_video_filter(
     return ";".join(parts)
 
 
-def build_audio_filter(duration_sec: float) -> str:
-    """Audio filter: normaliza música, fade in/out, target LUFS -18 (sleep)."""
+def build_audio_filter(duration_sec: float, hook: bool = False, hook_dur: float = 0.0) -> str:
+    """Audio filter: música + (opcional) voz de bienvenida duckeada, LUFS -18 (sleep).
+
+    Placeholders [1:a]=música, [NARR:a]=voz — render() los reemplaza por el índice real.
+    B: fade-in suave 4s (era 2s) para entrada más calmada.
+    A: la voz entra a HOOK_DELAY; la música baja a HOOK_MUSIC_DUCK durante la ventana.
+    """
     fade_out_start = duration_sec - 3.0
     vol_linear = 10 ** (MUSIC_VOL_DB / 20)
+
+    if not hook or hook_dur <= 0:
+        return (
+            f"[1:a]volume={vol_linear:.4f},"
+            f"afade=t=in:ss=0:d=4.0,"
+            f"afade=t=out:st={fade_out_start:.2f}:d=3.0,"
+            f"loudnorm=I=-18:TP=-1.5:LRA=11[a]"
+        )
+
+    duck_end = HOOK_DELAY + hook_dur + HOOK_DUCK_TAIL
+    delay_ms = int(HOOK_DELAY * 1000)
     return (
+        # Música: vol base → fade-in suave → duck durante la ventana de voz → fade-out
         f"[1:a]volume={vol_linear:.4f},"
-        f"afade=t=in:ss=0:d=2.0,"
-        f"afade=t=out:st={fade_out_start:.2f}:d=3.0,"
+        f"afade=t=in:ss=0:d=4.0,"
+        f"volume={HOOK_MUSIC_DUCK:.2f}:enable='between(t,{HOOK_DELAY:.1f},{duck_end:.1f})',"
+        f"afade=t=out:st={fade_out_start:.2f}:d=3.0[mus];"
+        # Voz: retrasada para dejar respirar la música primero
+        f"[NARR:a]adelay={delay_ms}|{delay_ms},volume=1.0[narr];"
+        # Mezcla (suma, sin normalizar a la baja) → loudnorm final
+        f"[mus][narr]amix=inputs=2:duration=first:dropout_transition=0:normalize=0,"
         f"loudnorm=I=-18:TP=-1.5:LRA=11[a]"
     )
 
@@ -395,20 +503,35 @@ def render(cfg: SleepConfig) -> Path:
     seg_dur = duration_sec / n
     input_dur = seg_dur + XFADE_DUR + 1.0  # extra buffer
 
-    title_png, wm_png = build_overlay_pngs(cfg.titulo, out_dir)
+    title_png, wm_png = build_overlay_pngs(
+        cfg.titulo, out_dir, invitacion=INVITACION if cfg.hook else ""
+    )
+
+    # Hook de bienvenida (A) — voz cálida primeros ~18s
+    hook_wav, hook_dur = (None, 0.0)
+    if cfg.hook and HOOK_ENABLED:
+        hook_wav, hook_dur = generate_hook_audio(cfg.hook_text or build_hook_text(cfg.tema), out_dir)
+    use_hook = hook_wav is not None and hook_dur > 0
 
     vf = build_video_filter(duration_sec, cfg.bg_images, title_png, wm_png, n_images=n)
-    af = build_audio_filter(duration_sec)
+    af = build_audio_filter(duration_sec, hook=use_hook, hook_dur=hook_dur)
     audio_input_idx = n + 2  # bg images + wm + title
-    full_filter = f"{vf};{af}".replace("[1:a]", f"[{audio_input_idx}:a]")
+    narr_input_idx = n + 3   # narración (último input)
+    full_filter = (
+        f"{vf};{af}"
+        .replace("[1:a]", f"[{audio_input_idx}:a]")
+        .replace("[NARR:a]", f"[{narr_input_idx}:a]")
+    )
 
-    # Build cmd: N bg image inputs + wm + title + audio
+    # Build cmd: N bg image inputs + wm + title + audio (+ narración si hook)
     cmd = ["ffmpeg", "-y"]
     for bg in cfg.bg_images:
         cmd += ["-loop", "1", "-t", f"{input_dur:.1f}", "-i", str(bg)]
     cmd += ["-loop", "1", "-t", f"{duration_sec + 1:.1f}", "-i", str(wm_png)]
     cmd += ["-loop", "1", "-t", f"{duration_sec + 1:.1f}", "-i", str(title_png)]
     cmd += ["-i", str(audio_path)]
+    if use_hook:
+        cmd += ["-i", str(hook_wav)]
     cmd += [
         "-filter_complex", full_filter,
         "-map", "[vout]", "-map", f"[a]",
@@ -444,6 +567,8 @@ def main():
     p.add_argument("--bg", help="Custom background filename (en output/fondos/)")
     p.add_argument("--output", help="Custom output path")
     p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--no-hook", action="store_true", help="Sin voz de bienvenida (solo música)")
+    p.add_argument("--hook-text", help="Override del script de voz de bienvenida")
     p.add_argument("--list", action="store_true", help="Listar temas disponibles")
     args = p.parse_args()
 
@@ -479,6 +604,8 @@ def main():
         bg_images=bg_images,
         out_path=out_path,
         dry_run=args.dry_run,
+        hook=not args.no_hook,
+        hook_text=args.hook_text or build_hook_text(args.tema or "custom"),
     )
 
     print(f"\n{'='*60}")
