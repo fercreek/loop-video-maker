@@ -1,0 +1,116 @@
+{
+  "name": "VDD Longform Push — Historia/Sleep → FB + YT pinned",
+  "settings": { "executionOrder": "v1" },
+  "nodes": [
+    {
+      "parameters": {
+        "rule": { "interval": [ { "field": "hours", "hoursInterval": 3 } ] }
+      },
+      "id": "trigger",
+      "name": "Schedule 3h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [ -700, 300 ]
+    },
+    {
+      "parameters": {
+        "url": "https://n8n.agenciacero.com.mx/media/longform_push_manifest.json",
+        "options": { "response": { "response": { "neverError": true } } }
+      },
+      "id": "get-manifest",
+      "name": "Get Manifest",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ -500, 300 ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const fs = require('fs');\nconst STATE = '/home/node/.n8n/vdd_longform_pushed.json';\nlet done = {};\ntry { done = JSON.parse(fs.readFileSync(STATE, 'utf8')); } catch (e) {}\n\nconst body = $input.first().json;\nconst vids = Array.isArray(body) ? body : (body.videos || []);\nconst KOFI = 'https://ko-fi.com/versiculodedios';\nconst today = new Date().toISOString().slice(0,10);\n\nfor (const v of vids) {\n  const key = v.youtube_id;\n  if (!key || done[key]) continue;\n  if (v.publish_date && v.publish_date > today) continue;\n  const url = v.youtube_url || ('https://youtu.be/' + key);\n  const ps = v.push_strategy || {};\n  const fb_copy = ps.fb_post_copy || (`\\uD83D\\uDE4F Nueva publicación en YouTube: ${v.title || ''} \\uD83D\\uDC49 ${url}\\n\\n\\u2615 Apóyanos: ${KOFI}\\n#VersiculoDeDios #PalabraDeDios`);\n  const pinned = ps.comentario_pinned || '\\uD83D\\uDE4F ¿Cuál versículo te tocó más? Déjalo en los comentarios \\uD83D\\uDC47';\n  return [{ json: { key, youtube_id: key, youtube_url: url, fb_copy, pinned } }];\n}\nreturn [];"
+      },
+      "id": "pick",
+      "name": "Pick Next Longform",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ -300, 300 ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v25.0/{{ $env.FB_PAGE_ID }}/feed",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"message\": {{ JSON.stringify($json.fb_copy) }}, \"link\": \"{{ $json.youtube_url }}\", \"access_token\": \"{{ $env.FB_PAGE_ACCESS_TOKEN }}\"}",
+        "options": {}
+      },
+      "id": "fb-post",
+      "name": "FB Post",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ -80, 300 ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Refresh YT OAuth token (same pattern as yt-comments-agent)\nconst http = this.helpers.httpRequest.bind(this);\nconst body = [\n  'client_id=' + encodeURIComponent($env.YOUTUBE_CLIENT_ID),\n  'client_secret=' + encodeURIComponent($env.YOUTUBE_CLIENT_SECRET),\n  'refresh_token=' + encodeURIComponent($env.YOUTUBE_REFRESH_TOKEN),\n  'grant_type=refresh_token'\n].join('&');\nconst t = await http({ method: 'POST', url: 'https://oauth2.googleapis.com/token', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body });\nif (!t.access_token) throw new Error('YT token refresh failed: ' + JSON.stringify(t));\nreturn [{ json: { fresh_token: t.access_token, youtube_id: $('Pick Next Longform').first().json.youtube_id, pinned: $('Pick Next Longform').first().json.pinned } }];"
+      },
+      "id": "yt-refresh",
+      "name": "Refresh YT Token",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 140, 300 ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://www.googleapis.com/youtube/v3/commentThreads?part=snippet",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [
+          { "name": "Authorization", "value": "=Bearer {{ $json.fresh_token }}" },
+          { "name": "content-type", "value": "application/json" }
+        ] },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"snippet\": {\"videoId\": \"{{ $json.youtube_id }}\", \"topLevelComment\": {\"snippet\": {\"textOriginal\": {{ JSON.stringify($json.pinned) }}}}}}",
+        "options": { "response": { "response": { "neverError": true } } }
+      },
+      "id": "yt-comment",
+      "name": "YT Top Comment",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 360, 300 ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const fs = require('fs');\nconst STATE = '/home/node/.n8n/vdd_longform_pushed.json';\nconst key = $('Pick Next Longform').first().json.youtube_id;\nlet done = {};\ntry { done = JSON.parse(fs.readFileSync(STATE, 'utf8')); } catch (e) {}\nlet fb=null, yt=null;\ntry { fb = $('FB Post').first().json.id; } catch(e){}\ntry { const c = $('YT Top Comment').first().json; yt = c.id || (c.error ? null : null); } catch(e){}\ndone[key] = { pushed_at: new Date().toISOString(), fb_post: fb, yt_comment: yt };\nfs.writeFileSync(STATE, JSON.stringify(done, null, 2));\nconst rec = { ts: new Date().toISOString(), workflow: 'vdd-longform-push', video: key, fb_post: fb, yt_comment: yt };\ntry { fs.appendFileSync('/var/www/stats/actions.jsonl', JSON.stringify(rec)+'\\n'); } catch(e){}\nreturn [{ json: rec }];"
+      },
+      "id": "mark",
+      "name": "Mark + Log",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 580, 300 ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.telegram.org/bot{{ $env.TELEGRAM_BOT_TOKEN }}/sendMessage",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"chat_id\": \"{{ $env.TELEGRAM_AUTHORIZED_USER_ID }}\", \"text\": {{ JSON.stringify('🧬 Anti-Venom | OK\\nLong-form empujado: ' + $json.video + '\\nFB: ' + ($json.fb_post||'-') + ' · YT pin: ' + ($json.yt_comment||'-')) }}}",
+        "options": {}
+      },
+      "id": "tg",
+      "name": "Telegram Ping",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 800, 300 ]
+    }
+  ],
+  "connections": {
+    "Schedule 3h": { "main": [ [ { "node": "Get Manifest", "type": "main", "index": 0 } ] ] },
+    "Get Manifest": { "main": [ [ { "node": "Pick Next Longform", "type": "main", "index": 0 } ] ] },
+    "Pick Next Longform": { "main": [ [ { "node": "FB Post", "type": "main", "index": 0 } ] ] },
+    "FB Post": { "main": [ [ { "node": "Refresh YT Token", "type": "main", "index": 0 } ] ] },
+    "Refresh YT Token": { "main": [ [ { "node": "YT Top Comment", "type": "main", "index": 0 } ] ] },
+    "YT Top Comment": { "main": [ [ { "node": "Mark + Log", "type": "main", "index": 0 } ] ] },
+    "Mark + Log": { "main": [ [ { "node": "Telegram Ping", "type": "main", "index": 0 } ] ] }
+  }
+}

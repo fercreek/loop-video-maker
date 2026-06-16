@@ -1,0 +1,160 @@
+{
+  "name": "VDD Short to 3 — YT Short → FB Reel + IG Reel",
+  "settings": { "executionOrder": "v1" },
+  "nodes": [
+    {
+      "parameters": {
+        "rule": { "interval": [ { "field": "hours", "hoursInterval": 2 } ] }
+      },
+      "id": "trigger",
+      "name": "Schedule 2h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [ -640, 300 ]
+    },
+    {
+      "parameters": {
+        "url": "https://n8n.agenciacero.com.mx/media/shorts_push_manifest.json",
+        "options": { "response": { "response": { "neverError": true } } }
+      },
+      "id": "get-manifest",
+      "name": "Get Manifest",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ -440, 300 ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Pick the first un-reposted entry. State lives inside the n8n container.\nconst fs = require('fs');\nconst STATE = '/home/node/.n8n/vdd_reposted.json';\nlet done = {};\ntry { done = JSON.parse(fs.readFileSync(STATE, 'utf8')); } catch (e) { done = {}; }\n\nconst body = $input.first().json;\nconst entries = Array.isArray(body) ? body : (body.shorts || []);\nconst SLEEP = 'https://youtu.be/jdOSUMO3dbk';\nconst KOFI  = 'https://ko-fi.com/versiculodedios';\n\nfor (const e of entries) {\n  const key = e.youtube_id || e.id;\n  if (!key || done[key]) continue;\n  if (!e.mp4_url) continue;\n  const hook = (e.hook || e.titulo || '').trim();\n  const caption = `${hook}\\n\\n\\uD83C\\uDF19 Mira el video completo para dormir en paz \\uD83D\\uDC49 ${SLEEP}\\n\\u2615 Apóyanos: ${KOFI}\\n\\n#VersiculoDeDios #PalabraDeDios #PazDeDios`;\n  return [{ json: { key, mp4_url: e.mp4_url, caption, hook } }];\n}\nreturn [];"
+      },
+      "id": "pick",
+      "name": "Pick Next Short",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ -240, 300 ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v25.0/{{ $env.FB_PAGE_ID }}/video_reels",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"upload_phase\": \"start\", \"access_token\": \"{{ $env.FB_PAGE_ACCESS_TOKEN }}\"}",
+        "options": {}
+      },
+      "id": "fb-start",
+      "name": "FB Reel Start",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ -20, 200 ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.upload_url }}",
+        "sendHeaders": true,
+        "headerParameters": { "parameters": [
+          { "name": "Authorization", "value": "=OAuth {{ $env.FB_PAGE_ACCESS_TOKEN }}" },
+          { "name": "file_url", "value": "={{ $('Pick Next Short').first().json.mp4_url }}" }
+        ] },
+        "options": {}
+      },
+      "id": "fb-upload",
+      "name": "FB Reel Upload (hosted)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 200, 200 ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v25.0/{{ $env.FB_PAGE_ID }}/video_reels",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"video_id\": \"{{ $('FB Reel Start').first().json.video_id }}\", \"upload_phase\": \"finish\", \"video_state\": \"PUBLISHED\", \"description\": {{ JSON.stringify($('Pick Next Short').first().json.caption) }}, \"access_token\": \"{{ $env.FB_PAGE_ACCESS_TOKEN }}\"}",
+        "options": {}
+      },
+      "id": "fb-finish",
+      "name": "FB Reel Finish",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 420, 200 ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v25.0/17841469453382962/media",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"media_type\": \"REELS\", \"video_url\": \"{{ $('Pick Next Short').first().json.mp4_url }}\", \"caption\": {{ JSON.stringify($('Pick Next Short').first().json.caption) }}, \"share_to_feed\": \"true\", \"access_token\": \"{{ $env.FB_PAGE_ACCESS_TOKEN }}\"}",
+        "options": {}
+      },
+      "id": "ig-container",
+      "name": "IG Reel Container",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ -20, 420 ]
+    },
+    {
+      "parameters": { "amount": 45 },
+      "id": "ig-wait",
+      "name": "Wait IG Processing",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [ 200, 420 ],
+      "webhookId": "vdd-ig-reel-wait"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v25.0/17841469453382962/media_publish",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"creation_id\": \"{{ $('IG Reel Container').first().json.id }}\", \"access_token\": \"{{ $env.FB_PAGE_ACCESS_TOKEN }}\"}",
+        "options": {}
+      },
+      "id": "ig-publish",
+      "name": "IG Reel Publish",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 420, 420 ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Mark this short as reposted + log to actions.jsonl\nconst fs = require('fs');\nconst STATE = '/home/node/.n8n/vdd_reposted.json';\nconst key = $('Pick Next Short').first().json.key;\nlet done = {};\ntry { done = JSON.parse(fs.readFileSync(STATE, 'utf8')); } catch (e) {}\n\nlet fb_id = null, ig_id = null;\ntry { fb_id = $('FB Reel Finish').first().json.id || $('FB Reel Start').first().json.video_id; } catch (e) {}\ntry { ig_id = $('IG Reel Publish').first().json.id; } catch (e) {}\n\ndone[key] = { reposted_at: new Date().toISOString(), fb_id, ig_id };\nfs.writeFileSync(STATE, JSON.stringify(done, null, 2));\n\nconst rec = { ts: new Date().toISOString(), workflow: 'vdd-short-to-3', short: key, fb_reel: fb_id, ig_reel: ig_id };\ntry { fs.appendFileSync('/var/www/stats/actions.jsonl', JSON.stringify(rec) + '\\n'); } catch (e) {}\nreturn [{ json: rec }];"
+      },
+      "id": "mark",
+      "name": "Mark + Log",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [ 640, 320 ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.telegram.org/bot{{ $env.TELEGRAM_BOT_TOKEN }}/sendMessage",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"chat_id\": \"{{ $env.TELEGRAM_AUTHORIZED_USER_ID }}\", \"text\": {{ JSON.stringify('🧬 Anti-Venom | OK\\nShort reposteado a FB+IG Reels: ' + $json.short + '\\nFB: ' + ($json.fb_reel||'-') + ' · IG: ' + ($json.ig_reel||'-')) }}}",
+        "options": {}
+      },
+      "id": "tg",
+      "name": "Telegram Ping",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [ 860, 320 ]
+    }
+  ],
+  "connections": {
+    "Schedule 2h": { "main": [ [ { "node": "Get Manifest", "type": "main", "index": 0 } ] ] },
+    "Get Manifest": { "main": [ [ { "node": "Pick Next Short", "type": "main", "index": 0 } ] ] },
+    "Pick Next Short": { "main": [ [ { "node": "IG Reel Container", "type": "main", "index": 0 } ] ] },
+    "IG Reel Container": { "main": [ [ { "node": "Wait IG Processing", "type": "main", "index": 0 } ] ] },
+    "Wait IG Processing": { "main": [ [ { "node": "IG Reel Publish", "type": "main", "index": 0 } ] ] },
+    "IG Reel Publish": { "main": [ [ { "node": "FB Reel Start", "type": "main", "index": 0 } ] ] },
+    "FB Reel Start": { "main": [ [ { "node": "FB Reel Upload (hosted)", "type": "main", "index": 0 } ] ] },
+    "FB Reel Upload (hosted)": { "main": [ [ { "node": "FB Reel Finish", "type": "main", "index": 0 } ] ] },
+    "FB Reel Finish": { "main": [ [ { "node": "Mark + Log", "type": "main", "index": 0 } ] ] },
+    "Mark + Log": { "main": [ [ { "node": "Telegram Ping", "type": "main", "index": 0 } ] ] }
+  }
+}

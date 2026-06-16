@@ -6,6 +6,26 @@
 
 ---
 
+### 2026-06-16 · Sistema operativo religión (outlier loop + checkpoint + cross-post)
+
+**Pros:**
+- Verify-before-build evitó trabajo tirado 3× (hijo-prodigo ya subido, historias ya renderizadas, "cola vacía" falsa).
+- Sistema reusable (outlier_finder/analyzer, checkpoint enriquecido, cross-post n8n), no outputs de una vez.
+- hydra (3 Sonnet + 2 Haiku) destapó bug de crash que el Opus del hilo principal no vio — a 1/5 del costo.
+- venom (análisis) → anti-venom (ejecución VPS) end-to-end limpio.
+
+**Cons:**
+- Choqué contra el classifier (wiring/upload/self-grant) 2× c/u antes del handoff. Muro DURO, parar al 1º.
+- 14 agentes casi todos Opus default → ~1.23M tokens; tier-down solo al final.
+- cold_open como string crasheó el 1er render (schema mismatch) — no leí el schema antes.
+
+**Consejo Claude Code:**
+- Acción outbound bloqueada por classifier 1× → handoff manual inmediato. NO re-intentar.
+- Agentes stats/health/status → Sonnet desde el inicio. Script determinista existe → correrlo (cero LLM).
+- Leer el schema del pipeline ANTES de escribir el JSON que lo alimenta.
+
+**Patrón nuevo:** tier/forma del fan-out se elige por TIPO de tarea (breadth/review = Sonnet+scripts · Opus = síntesis/riesgo). En skill hydra.
+
 ### 2026-06-15 · YT auth fix — invalid_scope recurrente (mata ypp_tracker + analytics_snapshot)
 
 **Pros (qué salió bien):**
