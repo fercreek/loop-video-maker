@@ -2014,6 +2014,29 @@
         "upload_date": null,
         "views": null
       }
+    },
+    {
+      "id": "vida-tiempos-jesus",
+      "title": "Así Era la Vida en Tiempos de Jesús: Un Día que Nunca Imaginaste",
+      "type": "historia",
+      "bible_ref": "Lucas 2:51-52; Marcos 6:3",
+      "priority": 1,
+      "search_volume": "muy_alto",
+      "scenes_target": 11,
+      "duration_est_min": 15,
+      "notes": "Formato outlier 'Asi era X en tiempos de la Biblia' (2M+ views, ratio 44-63x — outlier_finder 06-15). Evergreen, no estacional. Vida cotidiana + reflexion devocional.",
+      "moods": [
+        "Madrugada",
+        "Reposo",
+        "Paz profunda",
+        "Devocion"
+      ],
+      "status": {
+        "script": true,
+        "rendered": false,
+        "uploaded": false,
+        "youtube_id": null
+      }
     }
   ]
 }

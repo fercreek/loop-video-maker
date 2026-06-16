@@ -129,6 +129,30 @@
       "publish_at_utc": "2026-06-16T03:00:00Z",
       "uploaded": true,
       "youtube_id": "MYITKgMsMOU"
+    },
+    {
+      "story_id": "hijo-prodigo",
+      "title": "El Hijo Pródigo: La Historia del Amor que Perdona Todo",
+      "mp4_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/stories/hijo-prodigo/hijo-prodigo.mp4",
+      "thumbnail_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/stories/hijo-prodigo/thumbnail.jpg",
+      "description_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/stories/hijo-prodigo/yt_description.txt",
+      "metadata_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/stories/hijo-prodigo/yt_metadata.json",
+      "publish_date": "2026-06-15",
+      "publish_time_mty": "21:00",
+      "publish_at_utc": "2026-06-16T03:00:00Z",
+      "uploaded": false
+    },
+    {
+      "story_id": "vida-tiempos-jesus",
+      "title": "Así Era la Vida en Tiempos de Jesús: Un Día que Nunca Imaginaste",
+      "mp4_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/stories/vida-tiempos-jesus/vida-tiempos-jesus.mp4",
+      "thumbnail_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/stories/vida-tiempos-jesus/thumbnail.jpg",
+      "description_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/stories/vida-tiempos-jesus/yt_description.txt",
+      "metadata_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/stories/vida-tiempos-jesus/yt_metadata.json",
+      "publish_date": "2026-06-16",
+      "publish_time_mty": "09:00",
+      "publish_at_utc": "2026-06-16T15:00:00Z",
+      "uploaded": false
     }
   ]
 }
