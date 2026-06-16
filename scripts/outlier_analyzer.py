@@ -158,7 +158,7 @@ Disecciona como OutlierLabs y responde SOLO con este JSON exacto (sin markdown, 
     "por_que_funcionaria": "por qué jalaría en VDD"
   }}
 }}"""
-    raw = _gemini_text(SYSTEM, prompt, api_key)
+    raw = _gemini_text(SYSTEM, prompt, api_key).strip()
     if raw.startswith("```"):
         raw = raw.split("```", 2)[1]
         if raw.startswith("json"):

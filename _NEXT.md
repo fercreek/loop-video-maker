@@ -13,6 +13,29 @@
 
 **Regla de filtro:** antes de cualquier tarea → "¿esto mueve watch-hours YT o fans FB?" Si no → al backlog.
 
+## ⚡ Hecho 2026-06-16 (sesión grande — ejecución táctica)
+- **2 historias subidas a YT:** El Hijo Pródigo (`V1GdUjw2GVk`, público) + Así Era la Vida en Tiempos de Jesús (`enM7jmk4WYc`, programado 9am MX). Formato historia tipo Rut = mejor ROI-al-gate.
+- **3ª historia generada (render):** Así Vivió María Después de la Muerte de Jesús (`vida-maria-despues-cruz`) — réplica del outlier misterio-bíblico `m-bz2G4AUGU` (966k views). En disco, pendiente subir.
+- **Loop de outliers SHIPPED** (mini-OutlierLabs propio): `scripts/outlier_finder.py` (índice = views/día ÷ baseline canal, estándar Spotter/vidIQ) + `scripts/outlier_analyzer.py` (Gemini diseca → brief VDD). Docs: `FORMAT_ROI_LONGFORM.md`. Veta: misterio bíblico "lo que nadie cuenta".
+- **IG responder ARREGLADO** (anti-venom, n8n `VjAbdwH9A4HLwaQr`): nodo Claude usaba comentario crudo en el body → `JSON.stringify`. Deployado. Los 3 responders FB/IG/YT 🟢.
+- **Amplificación cruzada LIVE** (anti-venom, n8n `vdd-short-to-3` `ZYC9kRoAgkMX7Tr2` active): Short YT → Reel FB + Reel IG auto con CTA al sleep + Ko-fi. Probado real (FB Reel + IG `DZoY-xqAOvb`). `vdd-longform-push` armado/inactivo (lo activa Fernando al 1er long-form). Doc: `AMPLIFICACION_CRUZADA_VD.md`.
+- **Auth YT fix permanente** (`core/youtube_client._get_creds`): lee scopes del token, no la constante → no más invalid_scope. El "token YT muerto 27d" del backlog viejo está OBSOLETO (responder YT vivo, refresh OK).
+- **Hook intro sleep** (`render_sleep.py`): voz cálida 15-20s + duck música → ataca el cliff de retención min 1-2. Aplica a futuros renders.
+- **Ritmo operativo** (`docs/RITMO_OPERATIVO_VD.md`): plan diario + semanal ligado al Plan de Dios. **Regla agentes** (CLAUDE.md): venom=loop-video (análisis) · anti-venom=cero-agent/n8n (ejecución).
+- **hydra review** (5 cabezas): bugs de checkpoint.py (crash si analytics falla) + outlier_finder (fallback) + 2 moods faltantes → TODOS arreglados esta sesión.
+
+### 🔒 Pendientes de hoy
+- **Subir `vida-maria-despues-cruz`** cuando termine render: `.venv/bin/python3 scripts/upload_to_youtube.py --story vida-maria-despues-cruz --yes`
+- **Wiring 5 Shorts → sleep Paz** (pinned comments, Chrome MCP — bloqueado para Claude, manual Fernando). Kit en sesión.
+- **Re-mint token YT con scope `yt-analytics.readonly`** → VPS calcula YPP solo (hoy lo refresca la Mac). Cierra el híbrido del checkpoint.
+- **Activar `vdd-longform-push`** (n8n) cuando subas el próximo long-form.
+
+## ⚡ Hecho 2026-06-16 (Anti-Venom: checkpoint religión → VPS)
+- **Checkpoint diario migrado a VPS (Mac-independiente)** — `scripts/checkpoint_vps.py` (zero-deps, urllib puro) desplegado en `root@2.24.111.80:~/cero-agent/scripts/religion/`. Host cron `0 15 * * *` (9am MX) → wrapper `run_checkpoint.sh` (sourcea `.env`) → Telegram @cero_ops_bot (chat 95915749). Log: `~/cero-agent/logs/religion_checkpoint.log`.
+- **Arquitectura = híbrido** (forzado por scopes): el token YT en `.env` del VPS es **force-ssl only** (sin `yt-analytics.readonly`) → VPS captura solo lo barato (YT subs/views/video_count vía refresh_token + FB fans/followers). El **YPP long-form 365d** (requiere scope analytics) se sigue calculando en Mac (`scripts/checkpoint.py`) y el VPS lo **lee del último checkpoint** en `checkpoints.jsonl` (carry-over con flag ⏳ si >3d viejo).
+- **NO se usó n8n Execute Command:** el container n8n no monta el fs del host ni tiene python3 → mismo patrón que `send_daily_stats.py` (host cron). No se movió `yt_token.json` (innecesario, refresh_token ya en `.env`).
+- ⏳ **PENDIENTE para YPP siempre-fresco en VPS:** auto-sync de `data/checkpoints.jsonl` Mac→VPS tras cada run local (scp en `checkpoint.py` o launchd), o re-mint del refresh_token YT del VPS con scope `yt-analytics.readonly` (entonces VPS calcula YPP solo → 100% Mac-independiente).
+
 ## ⚡ Hecho 2026-06-15 (YT auth fix permanente)
 - **`invalid_scope` recurrente RESUELTO** (`0eeb504`) — `core/youtube_client._get_creds()` ahora lee scopes del propio `data/yt_token.json` (2 scopes, sin force-ssl) en vez de forzar la constante `SCOPES` (3 scopes). Refresh ya no pide scopes nunca concedidos al refresh_token. `ypp_tracker.py` + `analytics_snapshot.py` corren limpios (278.9h long-form, 14.3k subs). Comments API por OAuth local = re-auth aparte (`yt_auth.py`), notado en código.
 

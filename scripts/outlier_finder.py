@@ -163,16 +163,22 @@ def find_outliers(queries: list[str], published_days: int, max_per_query: int,
         base = baselines.get(ch)
         s = subs.get(ch)
         ratio = round(views / s, 2) if s else None  # secundario (views/subs)
-        if not base:  # canal sin baseline (nuevo / playlist vacía) → fallback a ratio
-            if not ratio or ratio < max(min_index, min_ratio):
-                continue
-            index = ratio
-        else:
-            index = vpd / base
+        if base:
+            # Score primario real: velocity vs baseline del canal.
+            index = round(vpd / base, 2)
+            basis = "channel_baseline"
             if index < min_index:
                 continue
             if min_ratio and (not ratio or ratio < min_ratio):
                 continue
+        else:
+            # Canal sin baseline (nuevo / playlist vacía). NO contaminamos outlier_index
+            # con views/subs (escala distinta). Solo se incluye si el usuario activó el
+            # fallback con --min-ratio>0; si no, se omite para mantener el score limpio.
+            if not min_ratio or not ratio or ratio < min_ratio:
+                continue
+            index = None              # sin baseline = sin índice comparable
+            basis = "ratio_fallback"
         dmin = _dur_min(it["contentDetails"]["duration"])
         rows.append({
             "video_id": vid,
@@ -181,7 +187,8 @@ def find_outliers(queries: list[str], published_days: int, max_per_query: int,
             "channel_subs": s,
             "views": views,
             "views_per_day": round(vpd, 1),
-            "outlier_index": round(index, 2),   # score primario (vs baseline del canal)
+            "outlier_index": index,   # score primario (vs baseline del canal); None si fallback
+            "score_basis": basis,
             "ratio": ratio,                       # secundario (views/subs)
             "duration_min": dmin,
             "kind": _fmt_kind(dmin),
@@ -189,7 +196,8 @@ def find_outliers(queries: list[str], published_days: int, max_per_query: int,
             "query": vid_query[vid],
             "url": f"https://youtube.com/watch?v={vid}",
         })
-    rows.sort(key=lambda r: r["outlier_index"], reverse=True)
+    # outlier_index puede ser None (fallback sin baseline) → esos van al final
+    rows.sort(key=lambda r: (r["outlier_index"] if r["outlier_index"] is not None else -1), reverse=True)
     return rows
 
 
@@ -227,7 +235,8 @@ def main():
     print(f"  {'index':>6} {'v/día':>8} {'views':>9} {'kind':<8} título")
     print(f"  {'-'*6} {'-'*8} {'-'*9} {'-'*8} {'-'*40}")
     for r in rows[:args.top]:
-        print(f"  {r['outlier_index']:>6} {r['views_per_day']:>8,.0f} {r['views']:>9,} "
+        idx = f"{r['outlier_index']:>6}" if r['outlier_index'] is not None else "  ~r{}".format(r['ratio'])
+        print(f"  {idx:>6} {r['views_per_day']:>8,.0f} {r['views']:>9,} "
               f"{r['kind']:<8} {r['title'][:46]}")
     if not rows:
         print("  (sin outliers — baja --min-index o sube --published-days)")

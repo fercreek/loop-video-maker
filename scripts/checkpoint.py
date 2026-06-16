@@ -43,14 +43,24 @@ YPP_GOAL_H = 4000.0
 FB_GOAL_FANS = 5000
 
 
+def _n(v):
+    """Formato con comas si es número; si es '?'/None, devuelve string seguro (evita TypeError)."""
+    return f"{v:,}" if isinstance(v, (int, float)) else str(v if v is not None else "?")
+
+
 def _yt_snapshot() -> dict:
-    yt = _youtube()
-    ch = yt.channels().list(part="statistics", id=get_channel_id()).execute()["items"][0]["statistics"]
-    snap = {
-        "subs": int(ch.get("subscriberCount", 0)),
-        "total_views": int(ch.get("viewCount", 0)),
-        "video_count": int(ch.get("videoCount", 0)),
-    }
+    snap = {}
+    try:
+        yt = _youtube()
+        ch = yt.channels().list(part="statistics", id=get_channel_id()).execute()["items"][0]["statistics"]
+        snap = {
+            "subs": int(ch.get("subscriberCount", 0)),
+            "total_views": int(ch.get("viewCount", 0)),
+            "video_count": int(ch.get("videoCount", 0)),
+        }
+    except Exception as e:
+        print(f"  ⚠️ YT channels falló: {str(e)[:80]}")
+        return snap
     # 28d watch + views via Analytics
     try:
         ya = _analytics()
@@ -133,14 +143,14 @@ def build_telegram_text(now, prev, days) -> str:
     lines = [head, ""]
     # YouTube
     lines.append("🔴 *YouTube — VersiculoDeDios*")
-    lines.append(f"• Subs: {yt.get('subs','?'):,}{_tg_sign(_delta(yt,pyt,'subs'))}")
+    lines.append(f"• Subs: {_n(yt.get('subs'))}{_tg_sign(_delta(yt,pyt,'subs'))}")
     if "ypp_pct" in yt:
         dh = _delta(yt, pyt, "longform_365d_h")
         lines.append(f"• YPP: *{yt['ypp_pct']}%* ({yt['longform_365d_h']:,.0f}h/4000){_tg_sign(dh,'h')}")
         rem = YPP_GOAL_H - yt["longform_365d_h"]
         if days and dh and dh > 0:
             lines.append(f"  → {dh/days:.1f}h/día · ETA ~{round(rem/(dh/days))}d")
-    lines.append(f"• Watch 28d: {yt.get('watch_hours_28d','?'):,}h{_tg_sign(_delta(yt,pyt,'watch_hours_28d'),'h')}")
+    lines.append(f"• Watch 28d: {_n(yt.get('watch_hours_28d'))}h{_tg_sign(_delta(yt,pyt,'watch_hours_28d'),'h')}")
     lines.append("")
     # Facebook
     lines.append("🔵 *Facebook — Palabra De Dios*")
@@ -212,39 +222,45 @@ def main():
     print("=" * 56)
 
     print("\n  🔴 YOUTUBE — VersiculoDeDios (gate YPP)")
-    print(f"    Subs:            {yt.get('subs','?'):>10,}{_fmt_delta(_delta(yt,pyt,'subs'))}")
+    print(f"    Subs:            {_n(yt.get('subs')):>10}{_fmt_delta(_delta(yt,pyt,'subs'))}")
     if "ypp_pct" in yt:
         dh = _delta(yt, pyt, "longform_365d_h")
         print(f"    Long-form 365d:  {yt['longform_365d_h']:>10,.1f}h{_fmt_delta(dh,'h')}  →  {yt['ypp_pct']}% de 4,000h")
         rem = YPP_GOAL_H - yt["longform_365d_h"]
-        if days and dh and dh > 0:
+        if rem <= 0:
+            print(f"    🎉 Meta YPP alcanzada ({yt['longform_365d_h']:,.0f}h)")
+        elif days and dh and dh > 0:
             rate = dh / days
             eta = round(rem / rate)
             print(f"    Ritmo: {rate:.1f}h/día → ETA YPP ~{eta} días  (faltan {rem:,.0f}h)")
         else:
             print(f"    Faltan {rem:,.0f}h para YPP")
-    print(f"    Watch 28d:       {yt.get('watch_hours_28d','?'):>10,}h{_fmt_delta(_delta(yt,pyt,'watch_hours_28d'),'h')}")
-    print(f"    Views 28d:       {yt.get('views_28d','?'):>10,}{_fmt_delta(_delta(yt,pyt,'views_28d'))}")
+    print(f"    Watch 28d:       {_n(yt.get('watch_hours_28d')):>10}h{_fmt_delta(_delta(yt,pyt,'watch_hours_28d'),'h')}")
+    print(f"    Views 28d:       {_n(yt.get('views_28d')):>10}{_fmt_delta(_delta(yt,pyt,'views_28d'))}")
 
     print("\n  🔵 FACEBOOK — Palabra De Dios (umbral 5k → monetización)")
     if fb:
         dfans = _delta(fb, pfb, "fans")
         print(f"    Fans:            {fb['fans']:>10,}{_fmt_delta(dfans)}  →  {fb['fans']/FB_GOAL_FANS*100:.1f}% de 5,000")
         rem = FB_GOAL_FANS - fb["fans"]
-        if days and dfans and dfans > 0:
+        if rem <= 0:
+            print(f"    🎉 Meta 5k alcanzada ({fb['fans']:,} fans)")
+        elif days and dfans and dfans > 0:
             rate = dfans / days
             eta = round(rem / rate)
             print(f"    Ritmo: {rate:.1f} fans/día → ETA 5k ~{eta} días  (faltan {rem:,})")
         else:
             print(f"    Faltan {rem:,} fans para 5k")
 
-    if not args.no_save:
+    if args.no_save:
+        print("\n  (--no-save: no guardado)")
+    elif not (yt or fb):
+        print("\n  ⚠️ Ambos APIs vacíos — NO guardo entry basura.")
+    else:
         CHECKPOINTS.parent.mkdir(parents=True, exist_ok=True)
         with open(CHECKPOINTS, "a") as f:
             f.write(json.dumps(now, ensure_ascii=False) + "\n")
         print(f"\n  ✅ Guardado en {CHECKPOINTS.name}  (--history para ver todos)")
-    else:
-        print("\n  (--no-save: no guardado)")
 
     if args.telegram:
         cfg = json.load(open(PROJECT_DIR / "config.json")) if (PROJECT_DIR / "config.json").exists() else {}

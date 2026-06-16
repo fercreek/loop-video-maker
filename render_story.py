@@ -73,6 +73,8 @@ MOOD_MUSIC_VOL: dict[str, float] = {
     "Alabanza":      0.11,   # júbilo
     "Paz profunda":  0.07,
     "Reposo":        0.07,
+    "Madrugada":     0.06,   # íntimo, despertar — música suave
+    "Devoción":      0.06,   # reverente, cercano
 }
 WATERMARK      = "@VersiculoDeDios"
 FONT_PATH      = str(PROJECT_DIR / "assets" / "fonts" / "CormorantGaramond-Regular.ttf")

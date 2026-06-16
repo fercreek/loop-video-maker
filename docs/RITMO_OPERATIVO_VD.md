@@ -7,6 +7,32 @@
 
 ---
 
+## 🟢 EMPIEZA AQUÍ (para Fernando, cada mañana)
+
+1. **Abre Telegram** → chat con @cero_ops_bot. Cada día 9am MX llega tu checkpoint (subs YT + fans FB). Si NO llegó → corre tú el comando del paso 3.
+2. **Lee 2 números:** ¿subieron las horas de YouTube? ¿subieron los fans de FB? Eso es todo el "cómo voy".
+3. **Abre la terminal y entra a la carpeta** (esto es lo único técnico, cópialo tal cual):
+   ```
+   cd /Users/fernandocastaneda/Documents/loop-video-maker
+   .venv/bin/python3 scripts/checkpoint.py        # tu reporte (refresca el % YPP)
+   .venv/bin/python3 scripts/outlier_finder.py    # qué temas están jalando
+   .venv/bin/python3 scripts/outlier_analyzer.py --kind historia --top 3   # ideas listas
+   ```
+   Si un comando da error rojo → no pasa nada, mándamelo y lo veo.
+4. **Decide:** ¿produzco 1 historia hoy, o arreglo funnel? (Bloque 1-2 abajo.)
+
+**Diccionario rápido (sin jerga):**
+- *YPP / gate* = las 4,000 horas de video largo que YouTube pide para pagarte.
+- *Watch hours / horas* = cuánto tiempo total ve la gente tus videos largos.
+- *Funnel / wire* = poner en tus Shorts un comentario/link que manda gente a tus videos de dormir.
+- *Outlier* = un video que tuvo MUCHAS más vistas de lo normal → el tema jala, lo puedes copiar.
+- *Sleep / long-form* = tus videos largos (historias, música para dormir).
+- *venom_truth.json* = el archivo donde viven los números reales (se actualiza solo; NO lo edites a mano).
+
+**Quién hace qué:** TÚ produces y decides · **venom** analiza/planea · **anti-venom** (el bot del VPS) publica y reposta solo. Las secciones marcadas "anti-venom" NO las haces tú.
+
+---
+
 ## Las 2 únicas métricas que importan (la regla madre)
 
 Todo paso de este ritmo apunta a una de estas dos. Si un paso no mueve ninguna → no se hace.
