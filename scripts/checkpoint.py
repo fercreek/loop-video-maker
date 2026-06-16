@@ -39,6 +39,7 @@ from core.youtube_client import _youtube, _analytics, get_channel_id
 CHECKPOINTS = PROJECT_DIR / "data" / "checkpoints.jsonl"
 FB_TOKEN_PATH = Path(os.path.expanduser("~/Documents/cero/cero-content/scripts/configs/tokens.json"))
 FB_PAGE_ID = "452922677899760"   # Palabra De Dios
+SLEEP_DEST_ID = "aqFlPGDD2ww"    # sleep Paz — destino del funnel de Shorts
 YPP_GOAL_H = 4000.0
 FB_GOAL_FANS = 5000
 
@@ -79,11 +80,28 @@ def _yt_snapshot() -> dict:
     # long-form 365d (lo que cuenta YPP) — reusa ypp_tracker
     try:
         from ypp_tracker import fetch_longform_hours
-        total, _ = fetch_longform_hours()
+        total, breakdown = fetch_longform_hours()
         snap["longform_365d_h"] = round(total, 1)
         snap["ypp_pct"] = round(total / YPP_GOAL_H * 100, 1)
+        # Split por formato DENTRO de long-form: historia (≤35min) vs sleep/lofi (>35min)
+        # → dice dónde está el ROI real al gate (qué producir más)
+        hist = round(sum(v.get("watch_hours", 0) for v in breakdown if v.get("duration_min", 0) <= 35), 1)
+        slp = round(sum(v.get("watch_hours", 0) for v in breakdown if v.get("duration_min", 0) > 35), 1)
+        snap["format_split"] = {"historia_h": hist, "sleep_h": slp}
+        # Top videos por watch-hours (para detectar movers vs el próximo checkpoint)
+        top = sorted(breakdown, key=lambda v: v.get("watch_hours", 0), reverse=True)[:8]
+        snap["top_videos"] = [
+            {"video_id": v["video_id"], "title": v["title"][:48], "watch_hours": round(v.get("watch_hours", 0), 1)}
+            for v in top
+        ]
     except Exception as e:
         print(f"  ⚠️ long-form 365d falló: {str(e)[:80]}")
+    # Funnel signal: views del sleep destino (a dónde mandan tráfico los Shorts wired)
+    try:
+        rv = yt.videos().list(part="statistics", id=SLEEP_DEST_ID).execute()
+        snap["funnel_sleep_views"] = int(rv["items"][0]["statistics"].get("viewCount", 0))
+    except Exception:
+        pass
     return snap
 
 
@@ -94,14 +112,28 @@ def _fb_snapshot() -> dict:
     tok = json.load(open(FB_TOKEN_PATH)).get("palabra-de-dios", "")
     if not tok:
         print("  ⚠️ token palabra-de-dios vacío"); return {}
+    out = {}
     try:
         url = (f"https://graph.facebook.com/v21.0/{FB_PAGE_ID}"
                f"?fields=fan_count,followers_count&access_token={tok}")
         d = json.loads(urllib.request.urlopen(url, timeout=20).read())
-        return {"fans": int(d.get("fan_count", 0)), "followers": int(d.get("followers_count", 0))}
+        out = {"fans": int(d.get("fan_count", 0)), "followers": int(d.get("followers_count", 0))}
     except Exception as e:
         print(f"  ⚠️ FB Graph falló: {str(e)[:80]}")
-        return {}
+        return out
+    # Engagement 28d (best-effort: alcance + interacciones) → qué Reel jala, qué reciclar
+    try:
+        iu = (f"https://graph.facebook.com/v21.0/{FB_PAGE_ID}/insights"
+              f"?metric=page_impressions_unique,page_post_engagements&period=days_28&access_token={tok}")
+        di = json.loads(urllib.request.urlopen(iu, timeout=20).read())
+        for m in di.get("data", []):
+            vals = m.get("values", [])
+            if vals and vals[-1].get("value") is not None:
+                key = "reach_28d" if m["name"] == "page_impressions_unique" else "engagements_28d"
+                out[key] = int(vals[-1]["value"])
+    except Exception:
+        pass  # insights a veces deprecados/sin permiso — fans es lo crítico
+    return out
 
 
 def _load_last() -> dict | None:
@@ -123,6 +155,22 @@ def _fmt_delta(d, suffix=""):
         return ""
     sign = "+" if d >= 0 else ""
     return f"  ({sign}{d:,.1f}{suffix})" if isinstance(d, float) else f"  ({sign}{d:,}{suffix})"
+
+
+def _top_movers(now_yt, prev_yt, n=3):
+    """Videos long-form que más watch-hours ganaron vs el checkpoint anterior."""
+    cur = now_yt.get("top_videos") or []
+    prev = {v["video_id"]: v.get("watch_hours", 0) for v in (prev_yt.get("top_videos") or [])}
+    if not prev:
+        return []
+    movers = []
+    for v in cur:
+        if v["video_id"] in prev:
+            d = round(v.get("watch_hours", 0) - prev[v["video_id"]], 1)
+            if d > 0:
+                movers.append((v["title"], d))
+    movers.sort(key=lambda x: x[1], reverse=True)
+    return movers[:n]
 
 
 def _tg_sign(d, suffix=""):
@@ -151,6 +199,12 @@ def build_telegram_text(now, prev, days) -> str:
         if days and dh and dh > 0:
             lines.append(f"  → {dh/days:.1f}h/día · ETA ~{round(rem/(dh/days))}d")
     lines.append(f"• Watch 28d: {_n(yt.get('watch_hours_28d'))}h{_tg_sign(_delta(yt,pyt,'watch_hours_28d'),'h')}")
+    fs = yt.get("format_split")
+    if fs:
+        lines.append(f"• Gate: historia {fs['historia_h']}h · sleep {fs['sleep_h']}h")
+    movers = _top_movers(yt, pyt, n=2)
+    if movers:
+        lines.append("• 📈 Jaló: " + " · ".join(f"+{d:.1f}h {t[:24]}" for t, d in movers))
     lines.append("")
     # Facebook
     lines.append("🔵 *Facebook — Palabra De Dios*")
@@ -162,6 +216,8 @@ def build_telegram_text(now, prev, days) -> str:
             lines.append(f"  → {dfans/days:.1f} fans/día · ETA ~{round(rem/(dfans/days))}d")
         else:
             lines.append(f"  faltan {rem:,} para 5k")
+        if "engagements_28d" in fb:
+            lines.append(f"• Engagement 28d: {_n(fb.get('engagements_28d'))}{_tg_sign(_delta(fb,pfb,'engagements_28d'))}")
     return "\n".join(lines)
 
 
@@ -237,6 +293,20 @@ def main():
             print(f"    Faltan {rem:,.0f}h para YPP")
     print(f"    Watch 28d:       {_n(yt.get('watch_hours_28d')):>10}h{_fmt_delta(_delta(yt,pyt,'watch_hours_28d'),'h')}")
     print(f"    Views 28d:       {_n(yt.get('views_28d')):>10}{_fmt_delta(_delta(yt,pyt,'views_28d'))}")
+    # Split por formato (dónde está el ROI al gate)
+    fs = yt.get("format_split")
+    if fs:
+        print(f"    Formato (h gate): historia {fs['historia_h']}h · sleep {fs['sleep_h']}h")
+    # Top movers (qué jaló desde el último checkpoint)
+    movers = _top_movers(yt, pyt)
+    if movers:
+        print("    📈 Movers (Δh long-form):")
+        for t, d in movers:
+            print(f"       +{d:.1f}h  {t}")
+    # Funnel (Shorts → sleep destino)
+    fsv = yt.get("funnel_sleep_views")
+    if fsv is not None:
+        print(f"    Funnel sleep dest: {fsv:>8,} views{_fmt_delta(_delta(yt,pyt,'funnel_sleep_views'))}")
 
     print("\n  🔵 FACEBOOK — Palabra De Dios (umbral 5k → monetización)")
     if fb:
@@ -251,6 +321,10 @@ def main():
             print(f"    Ritmo: {rate:.1f} fans/día → ETA 5k ~{eta} días  (faltan {rem:,})")
         else:
             print(f"    Faltan {rem:,} fans para 5k")
+        if "reach_28d" in fb:
+            print(f"    Reach 28d:       {_n(fb.get('reach_28d')):>10}{_fmt_delta(_delta(fb,pfb,'reach_28d'))}")
+        if "engagements_28d" in fb:
+            print(f"    Engagement 28d:  {_n(fb.get('engagements_28d')):>10}{_fmt_delta(_delta(fb,pfb,'engagements_28d'))}")
 
     if args.no_save:
         print("\n  (--no-save: no guardado)")
