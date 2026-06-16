@@ -6,6 +6,26 @@
 
 ---
 
+### 2026-06-15 · YT auth fix — invalid_scope recurrente (mata ypp_tracker + analytics_snapshot)
+
+**Pros (qué salió bien):**
+- Verify-before-build: git mostró que `4dfe896` ya tenía un fix implícito; el brief decía "no se hizo permanente" pero la verdad viva contradecía. Evitó re-romper.
+- Probe del token (`yt_token.json`: 2 scopes, refresh presente) antes de tocar código → causa confirmada.
+- Verificación con ambos scripts reales (278.9h, 14.3k subs), sin RefreshError.
+- Commit por path con tree sucio de daemons — solo `core/youtube_client.py`.
+
+**Cons (qué se atoró):**
+- Casi falto `import json` (el edit lo usaba sin importar) — cazado en grep de verificación, no en el edit.
+- El fix previo no tenía comentario "por qué" → el brief lo creyó no-hecho.
+
+**Consejo Claude Code (próxima vez):**
+- Bug "ya arreglado pero recurre" → `git log -- <file>` ANTES de re-arreglar. La fix real suele ser documentar el por qué, no reescribir.
+- Edit con llamada a stdlib nueva (`json.load`) → grep el import block antes de dar el edit por completo.
+
+**Patrón nuevo capturado:** Fix de bug recurrente lleva comentario "por qué" inline + en el commit; sin doc, recurre la confusión aunque el código esté bien.
+
+---
+
 ### 2026-06-10-b · Y1 Funnel + P1-3 Renders (Chrome MCP + 3 nuevos Shorts)
 
 **Pros (qué salió bien):**
