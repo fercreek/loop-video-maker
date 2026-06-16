@@ -13,6 +13,9 @@
 
 **Regla de filtro:** antes de cualquier tarea → "¿esto mueve watch-hours YT o fans FB?" Si no → al backlog.
 
+## ⚡ Hecho 2026-06-15 (YT auth fix permanente)
+- **`invalid_scope` recurrente RESUELTO** (`0eeb504`) — `core/youtube_client._get_creds()` ahora lee scopes del propio `data/yt_token.json` (2 scopes, sin force-ssl) en vez de forzar la constante `SCOPES` (3 scopes). Refresh ya no pide scopes nunca concedidos al refresh_token. `ypp_tracker.py` + `analytics_snapshot.py` corren limpios (278.9h long-form, 14.3k subs). Comments API por OAuth local = re-auth aparte (`yt_auth.py`), notado en código.
+
 ## ⚡ Hecho 2026-06-09 (sesión larga)
 - **Motor B LIVE** 💰 — Ko-fi membership `🕊️ Guardián del Ministerio $5` PÚBLICA + cobrable + lead magnet "7 Días de Paz" gratis + captura email automática. `ko-fi.com/versiculosdedios`. **El primer dólar ya tiene dónde entrar** (antes el link iba a página vacía).
 - **Incidente resuelto:** 2 "motores" (`r43LS0y0Wrg`, `MdenXXdtW60`) eran **TikToks ajenos** subidos por error manual → BORRADOS de YT. Watch-time 28d cayó ~435h (esperado/sano, eran horas tóxicas que NO contaban YPP).
