@@ -509,6 +509,21 @@ data/ig_state.json             ← runtime del ig-daemon (idempotente)
 
 ## Responsabilidades: loop-video-maker vs cero-agent
 
+### 🧬 División de agentes (regla estándar — 2026-06-16)
+
+**venom → loop-video-maker (CEREBRO · análisis local).** Stats, outliers, ROI por
+formato, qué producir, plan maestro. Read-only. NO ejecuta en redes/VPS.
+
+**anti-venom → cero-agent + n8n/VPS (MANOS · ejecución producción).** Salud de
+infra, responders de comentarios, deploys n8n, crons, el checkpoint diario en VPS.
+SSH al VPS, despliega, verifica con ground-truth.
+
+**El puente:** venom encuentra la oportunidad → anti-venom la automatiza en n8n/VPS.
+Patrón confirmado 2026-06-16 (venom analizó gate/formato/outliers → anti-venom
+arregló el IG responder + migró el checkpoint diario al VPS).
+
+Encaja con el invariante del repo: *Mac/loop-video = prototipado · n8n/VPS = producción*.
+
 ### loop-video-maker (este repo — local Mac)
 
 - Renderizar: Shorts, long-form, sleep, lofi

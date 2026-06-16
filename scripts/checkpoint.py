@@ -115,10 +115,66 @@ def _fmt_delta(d, suffix=""):
     return f"  ({sign}{d:,.1f}{suffix})" if isinstance(d, float) else f"  ({sign}{d:,}{suffix})"
 
 
+def _tg_sign(d, suffix=""):
+    if d is None:
+        return ""
+    s = "+" if d >= 0 else ""
+    return f" ({s}{d:,.1f}{suffix})" if isinstance(d, float) else f" ({s}{d:,}{suffix})"
+
+
+def build_telegram_text(now, prev, days) -> str:
+    """Mensaje compacto para Telegram (resumen diario de ambas verticales)."""
+    yt, fb = now["youtube"], now["facebook"]
+    pyt = prev.get("youtube", {}) if prev else {}
+    pfb = prev.get("facebook", {}) if prev else {}
+    head = f"🙏 *Checkpoint Religión* · {now['date']}"
+    if prev:
+        head += f" (vs {prev['date']}, {days:.1f}d)"
+    lines = [head, ""]
+    # YouTube
+    lines.append("🔴 *YouTube — VersiculoDeDios*")
+    lines.append(f"• Subs: {yt.get('subs','?'):,}{_tg_sign(_delta(yt,pyt,'subs'))}")
+    if "ypp_pct" in yt:
+        dh = _delta(yt, pyt, "longform_365d_h")
+        lines.append(f"• YPP: *{yt['ypp_pct']}%* ({yt['longform_365d_h']:,.0f}h/4000){_tg_sign(dh,'h')}")
+        rem = YPP_GOAL_H - yt["longform_365d_h"]
+        if days and dh and dh > 0:
+            lines.append(f"  → {dh/days:.1f}h/día · ETA ~{round(rem/(dh/days))}d")
+    lines.append(f"• Watch 28d: {yt.get('watch_hours_28d','?'):,}h{_tg_sign(_delta(yt,pyt,'watch_hours_28d'),'h')}")
+    lines.append("")
+    # Facebook
+    lines.append("🔵 *Facebook — Palabra De Dios*")
+    if fb:
+        dfans = _delta(fb, pfb, "fans")
+        lines.append(f"• Fans: *{fb['fans']:,}* ({fb['fans']/FB_GOAL_FANS*100:.0f}% de 5k){_tg_sign(dfans)}")
+        rem = FB_GOAL_FANS - fb["fans"]
+        if days and dfans and dfans > 0:
+            lines.append(f"  → {dfans/days:.1f} fans/día · ETA ~{round(rem/(dfans/days))}d")
+        else:
+            lines.append(f"  faltan {rem:,} para 5k")
+    return "\n".join(lines)
+
+
+def send_telegram(text: str, token: str, chat_id: str) -> bool:
+    import urllib.parse
+    try:
+        data = urllib.parse.urlencode({
+            "chat_id": chat_id, "text": text, "parse_mode": "Markdown",
+        }).encode()
+        url = f"https://api.telegram.org/bot{token}/sendMessage"
+        urllib.request.urlopen(urllib.request.Request(url, data=data), timeout=20)
+        return True
+    except Exception as e:
+        print(f"  ⚠️ Telegram send falló: {str(e)[:120]}")
+        return False
+
+
 def main():
     ap = argparse.ArgumentParser(description="Checkpoint crecimiento religión (YT+FB)")
     ap.add_argument("--no-save", action="store_true", help="no guardar, solo mostrar")
     ap.add_argument("--history", action="store_true", help="listar todos los checkpoints")
+    ap.add_argument("--telegram", action="store_true",
+                    help="enviar resumen a Telegram (creds en config.json: telegram_bot_token + telegram_chat_id, o env TG_BOT_TOKEN/TG_CHAT_ID)")
     args = ap.parse_args()
 
     if args.history:
@@ -189,6 +245,15 @@ def main():
         print(f"\n  ✅ Guardado en {CHECKPOINTS.name}  (--history para ver todos)")
     else:
         print("\n  (--no-save: no guardado)")
+
+    if args.telegram:
+        cfg = json.load(open(PROJECT_DIR / "config.json")) if (PROJECT_DIR / "config.json").exists() else {}
+        token = cfg.get("telegram_bot_token") or os.environ.get("TG_BOT_TOKEN", "")
+        chat = cfg.get("telegram_chat_id") or os.environ.get("TG_CHAT_ID", "")
+        if not token or not chat:
+            print("  ⚠️ Faltan telegram_bot_token / telegram_chat_id (config.json o env)")
+        elif send_telegram(build_telegram_text(now, prev, days or 1), token, str(chat)):
+            print("  📲 Enviado a Telegram")
 
 
 if __name__ == "__main__":
