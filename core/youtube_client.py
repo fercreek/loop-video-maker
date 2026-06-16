@@ -11,6 +11,7 @@ Requiere: data/yt_token.json (generado por scripts/yt_auth.py)
 """
 from __future__ import annotations
 
+import json
 import os
 import sys
 from datetime import datetime, timedelta
@@ -103,7 +104,13 @@ def _get_creds() -> Credentials:
     # Usar los scopes guardados en el token, NO la constante SCOPES.
     # Si el token fue minteado con menos scopes (ej. sin force-ssl), forzar SCOPES
     # hace que el refresh pida scopes nunca concedidos -> invalid_scope: Bad Request.
-    creds = Credentials.from_authorized_user_file(TOKEN_PATH)
+    # NOTA: el token local de analytics NO tiene force-ssl (solo youtube + yt-analytics.readonly).
+    # El yt-comments-agent (n8n) usa su propio token con force-ssl. Si algún día se quiere
+    # usar la comments API por OAuth local, hace falta re-auth: scripts/yt_auth.py.
+    with open(TOKEN_PATH) as f:
+        _tok = json.load(f)
+    _scopes = _tok.get("scopes") or SCOPES
+    creds = Credentials.from_authorized_user_file(TOKEN_PATH, _scopes)
     if creds.expired and creds.refresh_token:
         creds.refresh(Request())
         with open(TOKEN_PATH, "w") as f:
