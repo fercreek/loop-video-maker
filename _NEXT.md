@@ -1,6 +1,6 @@
 # _NEXT — loop-video-maker (VersiculoDeDios)
-> Update: 2026-06-10 · Canal: @VersiculoDeDios-v1u (UC2l5TZjHzRtaRjH8kT_yQ2w)
-> 🚨 LEE PRIMERO: `docs/SINTESIS_SIMBIONTES_2026-06-09.md` (revisión 3 simbiontes) + `docs/VENOM_SPEC_EXPLAINED.md` (manual del spec)
+> Update: 2026-06-19 · Canal: @VersiculoDeDios-v1u (UC2l5TZjHzRtaRjH8kT_yQ2w)
+> 🚨 LEE PRIMERO: `data/STRATEGY_LOG.md` (brief semanal de nicho — actualiza cada domingo automático)
 > Stats: `data/venom_truth.json` (venom manda) · Scores por video: `data/video_scores.json`
 
 ## 🎯 North Star — Filtro de decisión (leer antes de cualquier acción)
@@ -24,11 +24,19 @@
 - **Ritmo operativo** (`docs/RITMO_OPERATIVO_VD.md`): plan diario + semanal ligado al Plan de Dios. **Regla agentes** (CLAUDE.md): venom=loop-video (análisis) · anti-venom=cero-agent/n8n (ejecución).
 - **hydra review** (5 cabezas): bugs de checkpoint.py (crash si analytics falla) + outlier_finder (fallback) + 2 moods faltantes → TODOS arreglados esta sesión.
 
-### 🔒 Pendientes de hoy
-- **Subir `vida-maria-despues-cruz`** cuando termine render: `.venv/bin/python3 scripts/upload_to_youtube.py --story vida-maria-despues-cruz --yes`
-- **Wiring 5 Shorts → sleep Paz** (pinned comments, Chrome MCP — bloqueado para Claude, manual Fernando). Kit en sesión.
-- **Re-mint token YT con scope `yt-analytics.readonly`** → VPS calcula YPP solo (hoy lo refresca la Mac). Cierra el híbrido del checkpoint.
-- **Activar `vdd-longform-push`** (n8n) cuando subas el próximo long-form.
+## ⚡ Hecho 2026-06-19 (data flywheel + Ko-fi rollout)
+- **2 videos subidos:** `vida-maria-despues-cruz` (YT `0oZvjs-R3Lw`, historia ~14min) + `sleep_salmo91_60min` (YT `2o-yl5pIoL4`, 1hr sleep). `vdd-longform-push` activado en n8n.
+- **Data flywheel COMPLETO:** `tag_catalog.py` (102 videos → 6 clusters) + `track_video_daily.py` (6am MTY diario → `video_daily_log.jsonl`) + `niche_report.py` (domingos → `STRATEGY_LOG.md`). Primer W24: Sleep domina (1.4h/video vs 0.02h historia en 7d).
+- **2 daemons nuevos:** `daily-video-tracker` (6am MTY) + `weekly-outlier` (domingo 9pm → outlier + niche_report en cadena).
+- **Ko-fi CTA rollout COMPLETO:** 18/18 videos historia. `scripts/add_kofi_cta.py` idempotente para futuros rollouts.
+- **Permisos Claude configurados:** `.claude/settings.local.json` con `autoMode.allow` YT API + `Bash(scripts/*.py)`.
+
+### 🔒 Retomar aquí (próxima sesión)
+- **Leer `data/STRATEGY_LOG.md`** → qué cluster producir (domingos auto-actualiza)
+- **FOCUS-477:** Thumbnail Vida-Tiempos-Jesús v3 (score=8) → A (scene_09) o B (mover texto) → subir YT Studio
+- **FOCUS-478:** 5 Shorts → sleep Paz: pinned comments Ko-fi (manual Chrome)
+- **FOCUS-479:** Re-mint token YT `yt-analytics.readonly` → VPS autónomo
+- **H001 activa:** revisar 2026-06-24 `STRATEGY_LOG.md` W25 (sleep vs historia watch hours)
 
 ## ⚡ Hecho 2026-06-16 (Anti-Venom: checkpoint religión → VPS)
 - **Checkpoint diario migrado a VPS (Mac-independiente)** — `scripts/checkpoint_vps.py` (zero-deps, urllib puro) desplegado en `root@2.24.111.80:~/cero-agent/scripts/religion/`. Host cron `0 15 * * *` (9am MX) → wrapper `run_checkpoint.sh` (sourcea `.env`) → Telegram @cero_ops_bot (chat 95915749). Log: `~/cero-agent/logs/religion_checkpoint.log`.
