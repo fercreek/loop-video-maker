@@ -154,6 +154,32 @@
       "publish_at_utc": "2026-06-16T15:00:00Z",
       "uploaded": true,
       "youtube_id": "enM7jmk4WYc"
+    },
+    {
+      "story_id": "vida-maria-despues-cruz",
+      "title": "Así Vivió María Después de la Muerte de Jesús: Los Años que Nadie Cuenta",
+      "mp4_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/stories/vida-maria-despues-cruz/vida-maria-despues-cruz.mp4",
+      "thumbnail_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/stories/vida-maria-despues-cruz/thumbnail.jpg",
+      "description_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/stories/vida-maria-despues-cruz/yt_description.txt",
+      "metadata_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/stories/vida-maria-despues-cruz/yt_metadata.json",
+      "publish_date": "2026-06-18",
+      "publish_time_mty": "21:00",
+      "publish_at_utc": "2026-06-19T03:00:00Z",
+      "uploaded": true,
+      "youtube_id": "0oZvjs-R3Lw"
+    },
+    {
+      "story_id": "sleep_salmo91_60min",
+      "title": "SALMO 91 PARA DORMIR · 1 HORA · Protección y Paz Para Tu Noche 📖",
+      "mp4_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/sleep/sleep_salmo91_60min.mp4",
+      "thumbnail_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/sleep/thumbs/sleep_salmo91_thumb.jpg",
+      "publish_date": "2026-06-19",
+      "publish_time_mty": "21:00",
+      "publish_at_utc": "2026-06-20T03:00:00Z",
+      "uploaded": true,
+      "description_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/sleep/upload/sleep_salmo91_60min_description.txt",
+      "metadata_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/sleep/upload/sleep_salmo91_60min_metadata.json",
+      "youtube_id": "2o-yl5pIoL4"
     }
   ]
 }

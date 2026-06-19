@@ -2061,8 +2061,10 @@
       "status": {
         "script": true,
         "rendered": false,
-        "uploaded": false,
-        "youtube_id": null
+        "uploaded": true,
+        "youtube_id": "0oZvjs-R3Lw",
+        "youtube_url": "https://youtube.com/watch?v=0oZvjs-R3Lw",
+        "upload_date": "2026-06-18"
       }
     }
   ]
