@@ -1,0 +1,91 @@
+{
+  "generated_at": "2026-06-19T08:07:26.152146+00:00",
+  "period_days": 7,
+  "week_label": "2026-06-19",
+  "clusters": [
+    {
+      "cluster": "sleep_salmos",
+      "label": "Sleep — Salmos",
+      "videos_count": 5,
+      "total_watch_hours": 7.2,
+      "avg_watch_hours": 1.4,
+      "total_views": 48,
+      "avg_retention_pct": 4.4,
+      "top_video": {
+        "video_id": "9ydXq8BlvWY",
+        "title": "SALMOS DE SANACIÓN PARA DORMIR · Sueño Profundo y Descanso · 2 HORAS S",
+        "watch_hours": 7.2
+      }
+    },
+    {
+      "cluster": "sleep_versos",
+      "label": "Sleep — Versos",
+      "videos_count": 3,
+      "total_watch_hours": 4.0,
+      "avg_watch_hours": 1.3,
+      "total_views": 7,
+      "avg_retention_pct": 35.9,
+      "top_video": {
+        "video_id": "zSxs3wnTq9U",
+        "title": "VERSÍCULOS PARA DORMIR · Provisión y Bendición de Dios · 2 HORAS Sin A",
+        "watch_hours": 2.0
+      }
+    },
+    {
+      "cluster": "lofi",
+      "label": "Lo-Fi Cristiano",
+      "videos_count": 3,
+      "total_watch_hours": 2.1,
+      "avg_watch_hours": 0.7,
+      "total_views": 45,
+      "avg_retention_pct": 2.3,
+      "top_video": {
+        "video_id": "jdOSUMO3dbk",
+        "title": "BIBLIA PARA DORMIR EN PAZ · 2 HORAS · Lo-Fi Cristiano | Sin Anuncios",
+        "watch_hours": 1.3
+      }
+    },
+    {
+      "cluster": "historia_clasica",
+      "label": "Historia Clásica",
+      "videos_count": 53,
+      "total_watch_hours": 1.1,
+      "avg_watch_hours": 0.0,
+      "total_views": 17,
+      "avg_retention_pct": 30.0,
+      "top_video": {
+        "video_id": "enM7jmk4WYc",
+        "title": "Así Era la Vida en Tiempos de Jesús: Un Día que Nunca Imaginaste",
+        "watch_hours": 0.8
+      }
+    },
+    {
+      "cluster": "historia_misterio",
+      "label": "Historia Misterio",
+      "videos_count": 1,
+      "total_watch_hours": 0,
+      "avg_watch_hours": 0.0,
+      "total_views": 0,
+      "avg_retention_pct": 0.0,
+      "top_video": {
+        "video_id": "5PhNZPFp9sA",
+        "title": "Lázaro: Cuando Jesús Llamó a un Muerto por su Nombre y Respondió | His",
+        "watch_hours": 0
+      }
+    },
+    {
+      "cluster": "historia_redemption",
+      "label": "Historia Redemption",
+      "videos_count": 1,
+      "total_watch_hours": 0.0,
+      "avg_watch_hours": 0.0,
+      "total_views": 1,
+      "avg_retention_pct": 0.5,
+      "top_video": {
+        "video_id": "V1GdUjw2GVk",
+        "title": "El Hijo Pródigo: El Padre que Corrió a Abrazar al que lo Había Abandon",
+        "watch_hours": 0.0
+      }
+    }
+  ]
+}

@@ -21,7 +21,8 @@
         "youtube_url": "https://youtube.com/watch?v=9w16_VFEbBw",
         "upload_date": "2026-05-11",
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "noe",
@@ -41,7 +42,8 @@
         "youtube_url": "https://youtube.com/watch?v=Fp44KoQurkM",
         "upload_date": "2026-05-11",
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "jonas",
@@ -61,7 +63,8 @@
         "youtube_url": "https://youtube.com/watch?v=9517jJFubYk",
         "upload_date": "2026-05-11",
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "moises",
@@ -81,7 +84,8 @@
         "youtube_url": "https://youtube.com/watch?v=4OxApIJ7L-E",
         "upload_date": "2026-05-11",
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "abraham-e-isaac",
@@ -102,7 +106,8 @@
         "upload_date": "2026-05-11",
         "views": null,
         "rendered_at": "2026-05-10T12:12:39.132596+00:00"
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "jose-y-sus-hermanos",
@@ -123,7 +128,8 @@
         "upload_date": "2026-05-11",
         "views": null,
         "rendered_at": "2026-05-10T12:32:26.019770+00:00"
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "daniel-foso-leones",
@@ -144,7 +150,8 @@
         "upload_date": "2026-05-11",
         "views": null,
         "rendered_at": "2026-05-10T12:18:00.023650+00:00"
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "sanson-y-dalila",
@@ -165,7 +172,8 @@
         "upload_date": "2026-05-11",
         "views": null,
         "rendered_at": "2026-05-11T08:22:24.219607+00:00"
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "ester-y-el-rey",
@@ -186,7 +194,8 @@
         "upload_date": "2026-05-11",
         "views": null,
         "rendered_at": "2026-05-10T12:24:43.871334+00:00"
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "la-creacion-del-mundo",
@@ -206,7 +215,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "torre-de-babel",
@@ -226,7 +236,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "sodoma-y-gomorra",
@@ -246,7 +257,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "elias-profetas-baal",
@@ -266,7 +278,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "ruth-y-noemi",
@@ -287,7 +300,8 @@
         "upload_date": "2026-05-11",
         "views": null,
         "rendered_at": "2026-05-11T08:17:53.705749+00:00"
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "hijo-prodigo",
@@ -308,7 +322,8 @@
         "upload_date": "2026-05-11",
         "views": null,
         "rendered_at": "2026-05-11T07:59:55.362723+00:00"
-      }
+      },
+      "topic_cluster": "historia_redemption"
     },
     {
       "id": "buen-samaritano",
@@ -329,7 +344,8 @@
         "upload_date": "2026-05-11",
         "views": null,
         "rendered_at": "2026-05-11T08:32:54.025529+00:00"
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "lazaro-resurreccion",
@@ -350,7 +366,8 @@
         "upload_date": "2026-05-11",
         "views": null,
         "rendered_at": "2026-05-11T08:05:33.532890+00:00"
-      }
+      },
+      "topic_cluster": "historia_misterio"
     },
     {
       "id": "ultima-cena",
@@ -370,7 +387,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_misterio"
     },
     {
       "id": "resurreccion-de-jesus",
@@ -391,7 +409,8 @@
         "upload_date": "2026-05-11",
         "views": null,
         "rendered_at": "2026-05-11T08:12:17.536043+00:00"
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "gedeon-y-los-300",
@@ -411,7 +430,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "josue-jerico",
@@ -431,7 +451,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "salomon-sabiduria",
@@ -451,7 +472,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "david-y-betsabe",
@@ -471,7 +493,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_redemption"
     },
     {
       "id": "ezequiel-huesos-secos",
@@ -491,7 +514,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "job-sufrimiento",
@@ -512,7 +536,8 @@
         "upload_date": "2026-05-11",
         "views": null,
         "rendered_at": "2026-05-11T08:28:38.901902+00:00"
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "sermon-del-monte",
@@ -532,7 +557,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "tematico"
     },
     {
       "id": "panes-y-peces",
@@ -552,7 +578,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "pedro-camina-agua",
@@ -572,7 +599,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "pablo-camino-damasco",
@@ -592,7 +620,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_redemption"
     },
     {
       "id": "apocalipsis-fin-tiempos",
@@ -612,7 +641,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "tematico"
     },
     {
       "id": "josue-conquista-canaan",
@@ -632,7 +662,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "nehemias-reconstruye",
@@ -652,7 +683,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "esdras-restaura-ley",
@@ -672,7 +704,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "isaias-mesias-prometido",
@@ -692,7 +725,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "jeremias-profeta-llanto",
@@ -712,7 +746,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "ezequiel-rueda-aire",
@@ -732,7 +767,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "nacimiento-de-jesus",
@@ -752,7 +788,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_misterio"
     },
     {
       "id": "reyes-magos-herodes",
@@ -772,7 +809,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "juan-el-bautista",
@@ -792,7 +830,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "cain-y-abel",
@@ -812,7 +851,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "moises-sinai",
@@ -832,7 +872,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "los-10-mandamientos",
@@ -852,7 +893,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "tematico"
     },
     {
       "id": "becerro-de-oro",
@@ -872,7 +914,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "rahab-y-los-espias",
@@ -892,7 +935,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "debora-profetisa-guerrera",
@@ -912,7 +956,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "jefte-y-su-promesa",
@@ -932,7 +977,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "samuel-voz-de-dios",
@@ -952,7 +998,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "saul-primer-rey",
@@ -972,7 +1019,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "jonatan-y-david",
@@ -992,7 +1040,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "abigail-mujer-sabia",
@@ -1012,7 +1061,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_misterio"
     },
     {
       "id": "elias-en-el-desierto",
@@ -1032,7 +1082,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "eliseo-hacha-flotante",
@@ -1052,7 +1103,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "eliseo-viuda-aceite",
@@ -1072,7 +1124,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "eliseo-nino-resucitado",
@@ -1092,7 +1145,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "ezequias-enfermedad-mortal",
@@ -1112,7 +1166,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "ester-ayuno",
@@ -1132,7 +1187,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "daniel-escritura-pared",
@@ -1152,7 +1208,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "sadrac-mesac-abednego",
@@ -1172,7 +1229,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "maria-magdalena",
@@ -1192,7 +1250,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_misterio"
     },
     {
       "id": "zaqueo-cobrador",
@@ -1212,7 +1271,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_redemption"
     },
     {
       "id": "ciego-bartimeo",
@@ -1232,7 +1292,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "mujer-toco-manto",
@@ -1252,7 +1313,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_redemption"
     },
     {
       "id": "nicodemo-noche",
@@ -1272,7 +1334,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_misterio"
     },
     {
       "id": "mujer-samaritana-pozo",
@@ -1292,7 +1355,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_redemption"
     },
     {
       "id": "paralitico-betesda",
@@ -1312,7 +1376,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "tempestad-calmada",
@@ -1332,7 +1397,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "transfiguracion-jesus",
@@ -1352,7 +1418,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "parabola-talentos",
@@ -1372,7 +1439,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "parabola-sembrador",
@@ -1392,7 +1460,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "parabola-10-virgenes",
@@ -1412,7 +1481,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "pentecostes",
@@ -1433,7 +1503,8 @@
         "upload_date": "2026-05-11",
         "views": null,
         "rendered_at": "2026-05-10T14:01:23.309429+00:00"
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "esteban-primer-martir",
@@ -1453,7 +1524,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "felipe-y-el-etiope",
@@ -1473,7 +1545,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "cornelio-primer-gentil",
@@ -1493,7 +1566,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "bernabe-hijo-consolacion",
@@ -1513,7 +1587,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_misterio"
     },
     {
       "id": "pablo-y-silas-carcel",
@@ -1533,7 +1608,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "pablo-en-atenas",
@@ -1553,7 +1629,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "timoteo-joven-pastor",
@@ -1573,7 +1650,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "salmos-de-david",
@@ -1593,7 +1671,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "tematico"
     },
     {
       "id": "proverbios-sabiduria",
@@ -1613,7 +1692,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "tematico"
     },
     {
       "id": "cantar-cantares",
@@ -1633,7 +1713,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "tematico"
     },
     {
       "id": "apocalipsis-7-iglesias",
@@ -1653,7 +1734,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "tematico"
     },
     {
       "id": "bienaventuranzas",
@@ -1673,7 +1755,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "tematico"
     },
     {
       "id": "padre-nuestro",
@@ -1693,7 +1776,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "tematico"
     },
     {
       "id": "7-milagros-juan",
@@ -1713,7 +1797,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "tematico"
     },
     {
       "id": "7-palabras-cruz",
@@ -1733,7 +1818,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "tematico"
     },
     {
       "id": "nombres-de-dios",
@@ -1753,7 +1839,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "tematico"
     },
     {
       "id": "armadura-de-dios",
@@ -1773,7 +1860,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "tematico"
     },
     {
       "id": "noe-arca-short-companion",
@@ -1793,7 +1881,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "devocional_corto"
     },
     {
       "id": "creacion-adán-eva",
@@ -1813,7 +1902,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "el-diluvio-y-el-arcoiris",
@@ -1833,7 +1923,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "tematico"
     },
     {
       "id": "jose-en-egipto",
@@ -1853,7 +1944,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "las-plagas-de-egipto",
@@ -1873,7 +1965,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "mar-rojo",
@@ -1893,7 +1986,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "el-buen-pastor",
@@ -1913,7 +2007,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "tematico"
     },
     {
       "id": "la-crucifixion",
@@ -1933,7 +2028,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "daniel-sueños-nabucodonosor",
@@ -1953,7 +2049,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_clasica"
     },
     {
       "id": "el-hijo-de-dios",
@@ -1973,7 +2070,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "devocional"
     },
     {
       "id": "vida-eterna-biblia",
@@ -1993,7 +2091,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "devocional"
     },
     {
       "id": "ananias-y-safira",
@@ -2013,7 +2112,8 @@
         "youtube_url": null,
         "upload_date": null,
         "views": null
-      }
+      },
+      "topic_cluster": "historia_redemption"
     },
     {
       "id": "vida-tiempos-jesus",
@@ -2038,7 +2138,8 @@
         "youtube_id": "enM7jmk4WYc",
         "youtube_url": "https://youtube.com/watch?v=enM7jmk4WYc",
         "upload_date": "2026-06-15"
-      }
+      },
+      "topic_cluster": "historia_misterio"
     },
     {
       "id": "vida-maria-despues-cruz",
@@ -2065,7 +2166,8 @@
         "youtube_id": "0oZvjs-R3Lw",
         "youtube_url": "https://youtube.com/watch?v=0oZvjs-R3Lw",
         "upload_date": "2026-06-18"
-      }
+      },
+      "topic_cluster": "historia_misterio"
     }
   ]
 }
