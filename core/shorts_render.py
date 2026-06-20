@@ -102,6 +102,9 @@ HOOK_DUR       = 3.5           # batch_v6 QW: hook 2.2→3.5s (más tiempo de en
 # CTA overlay — últimos CTA_DUR segundos
 # v3: "Comparte" genera virality (share signal > save signal para algoritmo)
 CTA_TEXT      = "Escribe AMÉN si esto te llegó al corazón 🙏"  # batch_v6 QW: AMÉN > Comparte (engagement signal)
+# GAP-1 fix (carnage 2026-06-19): CTA funnel hacia long-form (mueve gate YPP).
+# render_short rota entre engagement (AMÉN) y funnel (este) por oración.
+CTA_TEXT_FUNNEL = "Ve el video completo para dormir — link abajo"
 CTA_FONTSIZE  = 54
 CTA_Y_POS     = "(h*0.85)"
 CTA_DUR       = 3.5

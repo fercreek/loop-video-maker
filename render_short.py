@@ -53,6 +53,8 @@ from core.shorts_render import (
     ShortClipConfig,
     render_short_clip,
     render_shorts_batch,
+    CTA_TEXT,
+    CTA_TEXT_FUNNEL,
 )
 
 # ─── Paths ────────────────────────────────────────────────────────────────────
@@ -259,6 +261,15 @@ def get_background_music(tema: str) -> Path | None:
     """
     patterns_by_priority = []
 
+    # BUG-1 fix (carnage 2026-06-19): match directo del track antes del keyword-map.
+    # El pool especifica mood exacto por oración (liberacion, solemnidad, contemplacion)
+    # que NO está en _TEMA_MUSIC_KEYWORDS → antes caía a ["paz"] e ignoraba el track curado
+    # aunque existiera en cache. Probar el nombre directo primero respeta la curaduría.
+    patterns_by_priority += [
+        str(MUSIC_POOL_DIR / f"*{tema.lower()}*_norm.aac"),
+        str(MUSIC_POOL_DIR / f"*{tema.lower()}*.wav"),
+    ]
+
     keywords = _TEMA_MUSIC_KEYWORDS.get(tema.lower(), ["paz"])
     for kw in keywords:
         patterns_by_priority += [
@@ -402,6 +413,17 @@ def run_pipeline(
         # Verse label: solo tema — corto y legible en pantalla
         verse_label = tema.upper()
 
+        # GAP-1 fix (carnage 2026-06-19): CTA funnel rotativo.
+        # Hash determinista del id → ~mitad lleva CTA al long-form (gate YPP),
+        # mitad mantiene AMÉN (engagement). El pool puede forzar con `cta="funnel"`.
+        cta_pref = oracion.get("cta", "")
+        if cta_pref == "funnel":
+            cta_text = CTA_TEXT_FUNNEL
+        elif cta_pref == "engagement":
+            cta_text = CTA_TEXT
+        else:
+            cta_text = CTA_TEXT_FUNNEL if (sum(ord(c) for c in oid) % 2 == 0) else CTA_TEXT
+
         # v6: Multi-imagen — preferir campo `fondos: [a, b, c, d]`
         # Si no existe, fallback a fondo + fondo2 (legacy)
         images_list: list[Path] = [image_path]
@@ -454,6 +476,7 @@ def run_pipeline(
             music_path=music_path,
             hook_text=hook_text,
             verse_label=verse_label,
+            cta_text=cta_text,
             force=force,
         ))
 

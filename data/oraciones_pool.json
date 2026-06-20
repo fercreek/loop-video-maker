@@ -266,7 +266,8 @@
       "hook": "¿Necesitas un milagro hoy?",
       "texto": "Señor, vengo a ti con lo que humanamente parece imposible. He agotado mis propias fuerzas y mis propias ideas. Lo que necesito está más allá de lo que yo puedo hacer. Pero sé que nada es difícil para ti. El mismo Dios que abrió el mar Rojo puede abrir camino en mi desierto. El mismo que resucitó a Lázaro puede dar vida a lo que parece muerto en mi situación. Creo en tu poder sobrenatural. No pido que cambies mis circunstancias a mi manera — pido que actúes de la manera que solo tú sabes. Confío en que lo que parece perdido puede ser restaurado. Espero el milagro con fe. En el nombre de Jesús, amén.",
       "fondo": "fondo_ai_parting_waters.jpg",
-      "musica": "liberacion"
+      "musica": "liberacion",
+      "cta": "funnel"
     },
     {
       "id": "corazon_001",

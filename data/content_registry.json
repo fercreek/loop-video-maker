@@ -839,6 +839,138 @@
         "week_2": null,
         "week_4": null
       }
+    },
+    {
+      "id": "milagro_001@2026-06-19",
+      "type": "short",
+      "session": "2026-06-19",
+      "title": "Oración para pedir un milagro: nada es imposible para Dios",
+      "spec": {
+        "voice": "es-MX-DaliaNeural",
+        "duration_s": 48.4,
+        "hook": "¿Necesitas un milagro hoy?",
+        "cta": "Ve el video completo para dormir — link abajo (funnel→sleep)",
+        "font": "Montserrat-ExtraBold",
+        "sub_color": "#F5C842",
+        "sub_chars_per_line": 26,
+        "images": [
+          "fondo_ai_parting_waters.jpg"
+        ],
+        "music_mood": "liberacion",
+        "ken_burns": true,
+        "voice_eq": "highpass+equalizer+acompressor+aecho",
+        "music_vol_db": -18,
+        "version": "v6-carnage",
+        "formula": "LLAMA DIVINA (hook-pregunta + CTA funnel)",
+        "carnage_fixes": [
+          "BUG-1 musica curada por oracion",
+          "GAP-1 CTA funnel rotativo",
+          "emoji tofu removido"
+        ],
+        "qa_score": 10
+      },
+      "upload": {
+        "platform": "youtube_short",
+        "video_id": null,
+        "upload_date": "2026-06-19",
+        "youtube_id": "jkCbill615E",
+        "youtube_url": "https://youtube.com/shorts/jkCbill615E",
+        "status": "scheduled",
+        "publish_at": "2026-06-20 09:00 MTY"
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "soledad_001@2026-06-19",
+      "type": "short",
+      "session": "2026-06-19",
+      "title": "Oración para cuando te sientes solo y sin esperanza",
+      "spec": {
+        "voice": "es-MX-DaliaNeural",
+        "duration_s": 49.4,
+        "hook": "¿Te sientes completamente solo?",
+        "cta": "Ve el video completo para dormir — link abajo (funnel→sleep)",
+        "font": "Montserrat-ExtraBold",
+        "sub_color": "#F5C842",
+        "sub_chars_per_line": 26,
+        "images": [
+          "fondo_ai_starry_desert.jpg"
+        ],
+        "music_mood": "contemplacion",
+        "ken_burns": true,
+        "voice_eq": "highpass+equalizer+acompressor+aecho",
+        "music_vol_db": -18,
+        "version": "v6-carnage",
+        "formula": "LLAMA DIVINA (hook-pregunta + CTA funnel)",
+        "carnage_fixes": [
+          "BUG-1 musica curada por oracion",
+          "GAP-1 CTA funnel rotativo",
+          "emoji tofu removido"
+        ],
+        "qa_score": 10
+      },
+      "upload": {
+        "platform": "youtube_short",
+        "video_id": null,
+        "upload_date": "2026-06-19",
+        "youtube_id": "5fKZZmzvH6g",
+        "youtube_url": "https://youtube.com/shorts/5fKZZmzvH6g",
+        "status": "scheduled",
+        "publish_at": "2026-06-21 09:00 MTY"
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
+    },
+    {
+      "id": "tristeza_001@2026-06-19",
+      "type": "short",
+      "session": "2026-06-19",
+      "title": "Oración para cuando estás triste sin saber por qué",
+      "spec": {
+        "voice": "es-MX-DaliaNeural",
+        "duration_s": 51.3,
+        "hook": "¿Estás triste sin saber por qué?",
+        "cta": "Ve el video completo para dormir — link abajo (funnel→sleep)",
+        "font": "Montserrat-ExtraBold",
+        "sub_color": "#F5C842",
+        "sub_chars_per_line": 26,
+        "images": [
+          "fondo_ai_gethsemane.jpg"
+        ],
+        "music_mood": "solemnidad",
+        "ken_burns": true,
+        "voice_eq": "highpass+equalizer+acompressor+aecho",
+        "music_vol_db": -18,
+        "version": "v6-carnage",
+        "formula": "LLAMA DIVINA (hook-pregunta + CTA funnel)",
+        "carnage_fixes": [
+          "BUG-1 musica curada por oracion",
+          "GAP-1 CTA funnel rotativo",
+          "emoji tofu removido"
+        ],
+        "qa_score": 10
+      },
+      "upload": {
+        "platform": "youtube_short",
+        "video_id": null,
+        "upload_date": "2026-06-19",
+        "youtube_id": "RvUMMVSfv9M",
+        "youtube_url": "https://youtube.com/shorts/RvUMMVSfv9M",
+        "status": "scheduled",
+        "publish_at": "2026-06-22 09:00 MTY"
+      },
+      "metrics": {
+        "week_1": null,
+        "week_2": null,
+        "week_4": null
+      }
     }
   ]
 }
