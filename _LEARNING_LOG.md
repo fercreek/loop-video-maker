@@ -318,3 +318,22 @@
 
 **Patrón nuevo capturado:**
 - La plantilla GANADORA suele ya existir en tus propios assets (thumbs lofi, prompts FB/IG) — el batch viejo usó la mala. Copiar lo que ya funciona, no inventar.
+
+### 2026-06-19 (s4) · Batch 3 reels carnage-hardened
+
+**Pros (qué salió bien):**
+- carnage-kill trazó un BUG de catálogo real (música curada por oración muerta → caía a paz), no cosmético. Fix permanente > los 3 reels.
+- Flujo test→aprobar→batch respetado: 1 unidad antes de 3, cero rework.
+- Gates objetivos: QA ≥8 + carnage + frames reales (no "se ve bien"). Cada hallazgo con file:line.
+- Git multi-sesión: orphan-uploads.json (daemon) excluido, stage por path, nunca -A.
+
+**Cons (qué se atoró):**
+- Emoji tofu (🌙→□) llegó al render funnel; solo lo cazó extraer frame. Pillow no soporta emoji color, sin guard → el 🙏 viejo del CTA AMÉN igual sale tofu.
+- Funnel a medias: reels + descripción prometen "comentario fijado" que no existe (bloqueado classifier).
+
+**Consejo Claude Code (cómo prompteamos mejor):**
+- Verify-the-glyph: texto Pillow con emoji/símbolo → extraer 1 frame ANTES del batch. QA numérico (LUFS/SSIM/sync) NO detecta tofu.
+- Antes de subir CTA→destino: confirmar que el destino existe.
+
+**Patrón nuevo capturado:**
+- Guard anti-emoji en core/shorts_render.py: strip/warn de codepoints fuera de la fuente en TODO texto (hook/CTA/sub). Cazaría tofu sin frame manual.

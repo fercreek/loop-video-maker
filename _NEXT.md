@@ -31,7 +31,15 @@
 - **Ko-fi CTA rollout COMPLETO:** 18/18 videos historia. `scripts/add_kofi_cta.py` idempotente para futuros rollouts.
 - **Permisos Claude configurados:** `.claude/settings.local.json` con `autoMode.allow` YT API + `Bash(scripts/*.py)`.
 
+## ⚡ Hecho 2026-06-19 (s4 — batch reels carnage)
+- **3 reels carnage-hardened subidos** (YT private+publishAt, 1/día 9am): milagro `jkCbill615E` (sáb 20), soledad `5fKZZmzvH6g` (dom 21), tristeza `RvUMMVSfv9M` (lun 22). Fórmula LLAMA DIVINA, QA 10/10. Registro `data/reels_batch_2026-06-19.json`.
+- **BUG-1 fix permanente:** `get_background_music` (render_short.py) ahora hace match directo del track antes del keyword-map → música curada por oración (liberacion/solemnidad/contemplacion) ya no cae a paz. Afecta TODO el catálogo.
+- **GAP-1:** CTA funnel rotativo (`CTA_TEXT_FUNNEL` en core/shorts_render.py) → sleep+Ko-fi además del AMÉN. Pool soporta `cta:"funnel"`/`"engagement"`.
+- **Uploader nuevo:** `scripts/upload_reels_batch.py` (YT-only, +disclosure IA). Commit `c493d2e` pushed.
+
 ### 🔒 Retomar aquí (próxima sesión)
+- **FOCUS-504 (urgent):** pinned comment funnel → sleep `aqFlPGDD2ww` + Ko-fi en los 3 reels al publicarse 20-22 jun (manual o cero-agent — bloqueado por classifier)
+- **FOCUS-503:** guard anti-emoji en `core/shorts_render.py` (caza tofu 🌙/🙏 en hook/CTA/sub)
 - **Leer `data/STRATEGY_LOG.md`** → qué cluster producir (domingos auto-actualiza)
 - **FOCUS-477:** Thumbnail Vida-Tiempos-Jesús v3 (score=8) → A (scene_09) o B (mover texto) → subir YT Studio
 - **FOCUS-478:** 5 Shorts → sleep Paz: pinned comments Ko-fi (manual Chrome)
