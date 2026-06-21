@@ -4,6 +4,37 @@
 > Bugs técnicos detallados van en `logs/LEARNINGS.md`.
 > Esto captura: ¿cómo le diríamos a Claude la próxima vez para llegar al mismo resultado en menos turnos?
 
+### 2026-06-20 · FB Content Monetization form (asesoría, no-code)
+
+**Pros (qué salió bien):**
+- HEIC decode rápido: `sips -s format jpeg IN --out /tmp/OUT.jpg` en loop, 5 imágenes 1 comando. No me trabé en "Read no lee HEIC".
+- Reconocí el invite como la palanca FB Content Monetization que CLAUDE.md ya documenta (no form genérico). Picks anclados en data real (YouTube 14.2k = activo grande → "other social").
+
+**Cons (qué se atoró):**
+- Numeré las recos por orden de imagen, no por orden real del flujo del form ("Tell us about yourself" va primero, no category).
+
+**Consejo Claude Code (próxima vez):**
+- Form en fotos de pantalla → reconstruir el ORDEN real del flujo top-down antes de numerar recos.
+- HEIC del usuario = decode-first sin avisar que "no se puede".
+
+---
+
+### 2026-06-20 · Optimización canal VD + near-miss duplicados
+
+**Pros (qué salió bien):**
+- venom+carnage corrigieron supuesto raíz: motor = sub-push del algoritmo, no el formato. Plan reescrito con data trazada (Rut: SUBSCRIBER+RELATED = 48h, SEARCH 0.6h).
+- Fase A de optimización $0/sin-RAM: playlists 100% (18 historias + 7 huérfanos), ~19 Shorts funnel a playlist, voz v3 (pitch -2Hz + pausas contemplativas en narration_gen.py).
+- venom deep-dive trazó el cliff de intro (Rut 97%→50% en 5%) = mayor palanca pendiente.
+
+**Cons (qué se atoró):**
+- **Subí 2 duplicados** (Hijo Pródigo + Lázaro) de videos YA live. Causa raíz: confié en un cross-ref de títulos difuso (sin normalizar acentos: "prodigo"≠"pródigo") en vez de `video_catalog.json` que YA los tenía uploaded=True. Uno estuvo público ~5min. Ambos borrados.
+
+**Consejo Claude Code (próxima vez):**
+- Antes de subir: `video_catalog.json` (status.uploaded) MANDA sobre cualquier match de título. Si cruzas por título, normalizar acentos (NFD+strip Mn). Verify-before-build con la fuente correcta, no un proxy frágil.
+- Las 18 historias YA están subidas — no había nada parado en disco (el "quick win" era fantasma).
+
+---
+
 ### 2026-06-19 · Ko-fi rollout + permisos settings.local.json
 
 **Pros (qué salió bien):**

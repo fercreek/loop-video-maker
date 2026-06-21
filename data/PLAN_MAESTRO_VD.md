@@ -19,7 +19,21 @@
 | YPP activo | Gate anterior | ❌ | Completar horas |
 | AdSense estimado al gate | — | — | $300–900/mes |
 
-**Palanca YT:** lofi 2h + sleep 120min con retención >50%. Shorts alimentan subs pero NO cuentan.
+**Palanca YT (actualizada 2026-06-20 — venom + carnage-kill):**
+
+El MOTOR real NO es un formato — es el **algoritmo empujando long-form fresco a los 14.3k subs + sugeridos**. Trazado en Rut (`HeGUMgQlfFo`, 18min, 51h/28d): SUBSCRIBER 25.9h + RELATED 22.1h = 48h; SEARCH solo 0.6h. La retención (26%) es consecuencia del push, no la causa.
+
+**Correcciones carnage (supuestos rotos):**
+- ❌ NO matar sleep 2h: gana por min/view (~12 min/view a 10% ret vs 4.6 de una historia). Pierde solo en VIEWS totales, no en rendimiento por view. La palanca real = VIEWS, no duración ni retención.
+- ❌ "+51h por historia" = spike de lanzamiento front-loaded, decae. Juzgar a 14 días, no a 48h.
+- ✅ Variar HOOK, no formato. Rotar 4 tipos de long-form (todos cuentan gate):
+  1. Historia bíblica narrada 15-20min (David, José) — hook narrativo
+  2. Sleep salmos 2h — gana por min/view, MANTENER
+  3. Reflexión temática 15min ("¿Por qué Dios permite el dolor?") — hook pregunta
+  4. Oración guiada 20min ("oración para dormir en paz") — hook búsqueda → ÚNICO que ataca SEARCH (escala sin gastar sub-push)
+- Tope **2 narradas/semana** (más satura el sub-push, que es finito).
+
+Shorts NO cuentan (son funnel → ver Funnel Kit `data/funnel_kit_shorts.md`).
 
 ---
 
@@ -125,7 +139,7 @@ Ecosistema orgánico (5-8 meses) →  Ko-fi+beehiiv+Hotmart+Etsy $200-500/mes
 ## FASE 2 — Momentum (30-90 días)
 
 ### YouTube
-1. Cadencia: **2 long-form/semana** (lofi 2h o sleep 120min con `render_sleep.py`). Costo marginal ~$0.
+1. Cadencia: **2 long-form/semana**, ROTANDO los 4 hooks (historia / sleep / reflexión / oración guiada — ver Palanca YT). Tope 2 narradas/sem (no saturar sub-push). Costo marginal ~$0.
 2. Fix intros: si retención lofi <30%, cortar intro a <15s en los 3 videos.
 3. Playlist binge: auto-add cada video nuevo a playlists PARA DORMIR / LO-FI.
 
@@ -211,7 +225,8 @@ Ecosistema orgánico (5-8 meses) →  Ko-fi+beehiiv+Hotmart+Etsy $200-500/mes
 | 4 | YT | Super Thanks activado | 10 min | Ingreso inmediato |
 | 5 | FB/IG | Auto-promo n8n cada video nuevo | 1h setup | Distribución pasiva |
 
-**Lo que NO mueve la aguja:** más Shorts sin funnel, Google Ads, stories 20min (12% ret).
+**Lo que NO mueve la aguja:** más Shorts sin funnel, Google Ads, depender solo de SEARCH (Rut trajo 0.6h de search).
+**Lo que SÍ:** long-form fresco que el algoritmo empuja a subs (rotar 4 hooks: historia / sleep / reflexión / oración guiada) + funnel Short→long + playlist binge. Sleep 2h se queda (gana por min/view).
 
 ---
 

@@ -40,6 +40,21 @@ EDGE_VOICES = {
 
 DEFAULT_VOICE = "jorge"   # narración devocional masculina
 EDGE_RATE     = "-8%"     # ritmo ligeramente más pausado que default
+EDGE_PITCH    = "-2Hz"    # v3: pitch ligeramente grave = voz más cálida/contemplativa
+
+
+def _add_contemplative_pauses(text: str) -> str:
+    """
+    v3: inserta pausas reflexivas devocionales SIN SSML (Edge TTS honra puntuación).
+    - em-dash / guion espaciado → elipsis (pausa larga dramática)
+    - elipsis ya existentes se respetan
+    NO toca referencias bíblicas (ej. 'Salmos 23:1', 'Juan 3:16' — sin guion espaciado).
+    """
+    import re
+    t = re.sub(r"\s*[—–]\s*", "… ", text)   # em/en-dash → pausa
+    t = re.sub(r"(?<=\w)\s-\s(?=\w)", "… ", t)  # ' - ' espaciado → pausa (no afecta 23:1)
+    t = re.sub(r"[ \t]{2,}", " ", t)        # colapsa espacios dobles
+    return t.strip()
 
 
 def _text_hash(text: str, voice: str, backend: str = "edge") -> str:
@@ -64,7 +79,7 @@ def get_audio_duration(wav_path: Path) -> float:
 
 
 # ─── Edge TTS backend ─────────────────────────────────────────────────────────
-async def _edge_tts_async(text: str, voice_name: str, mp3_path: Path, rate: str) -> list[dict]:
+async def _edge_tts_async(text: str, voice_name: str, mp3_path: Path, rate: str, pitch: str = EDGE_PITCH) -> list[dict]:
     """
     Llama Edge TTS async API → MP3 + word boundaries.
     Retorna lista de {word, offset_sec, duration_sec} para subtítulos sincronizados.
@@ -74,7 +89,7 @@ async def _edge_tts_async(text: str, voice_name: str, mp3_path: Path, rate: str)
     except ImportError:
         raise RuntimeError("edge-tts no instalado. Run: .venv/bin/pip install edge-tts")
 
-    communicate = edge_tts.Communicate(text, voice_name, rate=rate)
+    communicate = edge_tts.Communicate(text, voice_name, rate=rate, pitch=pitch)
     sentence_boundaries: list[dict] = []
 
     with open(mp3_path, "wb") as f:
@@ -127,8 +142,11 @@ def _edge_to_wav(
     voice_name = EDGE_VOICES.get(voice_key, EDGE_VOICES[DEFAULT_VOICE])
     mp3_path = wav_path.with_suffix(".mp3")
 
+    # v3: pausas contemplativas (puntuación) antes de TTS
+    spoken_text = _add_contemplative_pauses(text)
+
     # Ejecutar async → MP3 + boundaries
-    boundaries = asyncio.run(_edge_tts_async(text, voice_name, mp3_path, rate))
+    boundaries = asyncio.run(_edge_tts_async(spoken_text, voice_name, mp3_path, rate))
 
     if not mp3_path.exists() or mp3_path.stat().st_size < 1000:
         raise RuntimeError(f"Edge TTS no generó audio válido en {mp3_path}")

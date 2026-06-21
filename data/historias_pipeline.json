@@ -1,0 +1,64 @@
+{
+  "_comment": "Backlog de LONG-FORM a PRODUCIR (mueve gate YPP). NO es upload_schedule.json (ese es mp4 ya renderizado). Stack gratis: Edge TTS + MusicGen + render local. Fondos: REUSAR de output/stories|fondos (ver feedback-when-generate). Generar en sesión con RAM libre, Chrome cerrado.",
+  "estrategia": "Rotar 4 HOOKS de long-form (venom+carnage 2026-06-20). El motor = sub-push del algoritmo a 14.3k subs, no el formato. Variar hook evita fatiga + canibalización. Tope 2 narradas/semana.",
+  "referente": "HeGUMgQlfFo Rut y Noemí (18min, 51h/28d via SUBSCRIBER+RELATED; SEARCH solo 0.6h)",
+  "status": "spec_listo_pendiente_render",
+  "created": "2026-06-20",
+  "quality_gate": "Antes de subir lo NUEVO (oración/reflexión): correr loop carnage — carnage-kill al guion/visual (huecos, hook débil, ritmo) → repair → venom-design scorea thumbnail (>=9). No subir raw. Pedido Fernando 2026-06-20.",
+  "nota_estado": "David/José ya están SUBIDOS (live). Las 18 historias de output/stories/* TODAS subidas. Lo único a PRODUCIR de cero = oracion_dormir_paz + reflexion_dolor_proposito.",
+  "items": [
+    {
+      "id": "hist_david_goliat",
+      "hook_tipo": "historia_narrada",
+      "title": "David y Goliat: Cuando Tu Gigante Cae | Historia Bíblica",
+      "tema": "enfrentar el miedo / fe sobre fuerza",
+      "pasaje": "1 Samuel 17",
+      "hook_15s": "¿Qué gigante te ha hecho sentir pequeño?",
+      "duracion_min_target": "16-18",
+      "fondos": "output/stories/david-goliat/images (14 listas, NO generar)",
+      "ret_esperada": ">24%",
+      "rendered": false,
+      "youtube_id": null
+    },
+    {
+      "id": "hist_jose_egipto",
+      "hook_tipo": "historia_narrada",
+      "title": "José: Lo que el Mal Quiso, Dios lo Convirtió en Bien | Historia Bíblica",
+      "tema": "traición convertida en propósito",
+      "pasaje": "Génesis 37-50",
+      "hook_15s": "Lo traicionaron los suyos... y terminó salvándolos.",
+      "duracion_min_target": "18-20",
+      "fondos": "output/stories/jose-y-sus-hermanos/images (16 listas, NO generar)",
+      "ret_esperada": ">24%",
+      "rendered": false,
+      "youtube_id": null
+    },
+    {
+      "id": "oracion_dormir_paz",
+      "hook_tipo": "oracion_guiada",
+      "title": "Oración Para Dormir en Paz | Suelta la Ansiedad y Descansa en Dios",
+      "tema": "intención de búsqueda — ataca SEARCH (única palanca que escala sin gastar sub-push)",
+      "pasaje": "Salmo 4:8 · Filipenses 4:6-7 · Mateo 11:28",
+      "hook_15s": "Antes de cerrar los ojos, entrégale a Dios todo lo que te pesa.",
+      "duracion_min_target": "20",
+      "fondos": "REUSAR output/fondos (cielo nocturno / luz divina) — visual sleep, NO generar",
+      "ret_esperada": ">15% (sleep-style, gana por min/view)",
+      "seo_keywords": ["oración para dormir", "oración para la ansiedad", "dormir en paz con Dios"],
+      "rendered": false,
+      "youtube_id": null
+    },
+    {
+      "id": "reflexion_dolor_proposito",
+      "hook_tipo": "reflexion_tematica",
+      "title": "¿Por Qué Dios Permite el Dolor? | Reflexión Para Encontrar Paz",
+      "tema": "hook pregunta — tema validado por Short 'EL DOLOR TIENE PROPOSITO' (4,981 views)",
+      "pasaje": "Romanos 8:28 · Job · 2 Corintios 1:3-4",
+      "hook_15s": "Si Dios es bueno... ¿por qué duele tanto?",
+      "duracion_min_target": "15",
+      "fondos": "REUSAR output/stories/job-sufrimiento/images (12) o output/fondos — NO generar",
+      "ret_esperada": ">22%",
+      "rendered": false,
+      "youtube_id": null
+    }
+  ]
+}
