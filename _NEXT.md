@@ -24,6 +24,20 @@
 - **Ritmo operativo** (`docs/RITMO_OPERATIVO_VD.md`): plan diario + semanal ligado al Plan de Dios. **Regla agentes** (CLAUDE.md): venom=loop-video (análisis) · anti-venom=cero-agent/n8n (ejecución).
 - **hydra review** (5 cabezas): bugs de checkpoint.py (crash si analytics falla) + outlier_finder (fallback) + 2 moods faltantes → TODOS arreglados esta sesión.
 
+## ⚡ Hecho 2026-06-20 (optimización canal $0 + voz v3 + FB Content Monetization)
+- **FB Content Monetization** — llegó el invite (reemplazo Reels Play Bonus). Llené el form: Digital creator · Reels+Photo · YouTube como other social · copy del "why". FOCUS-510 = enviarlo.
+- **Plan reescrito (venom+carnage):** motor real = **sub-push del algoritmo a 14.3k subs + RELATED**, NO el formato. Trazado: Rut `HeGUMgQlfFo` 51h = SUBSCRIBER 25.9h + RELATED 22.1h, SEARCH 0.6h. Correcciones: NO matar sleep (12x min/view), rotar 4 hooks, tope 2 narradas/sem. En `data/PLAN_MAESTRO_VD.md`.
+- **Fase A optimización (todo $0/sin-RAM):** (A1) playlists binge 100% — 18 historias + 7 huérfanos música/lofi encadenados. (A2) ~19 Shorts → funnel a playlist long-form (descripción API). (A3) N/A — títulos sleep ya SEO-buenos.
+- **Voz v3** (`core/narration_gen.py`, commit `c4f089a`): pitch -2Hz + pausas contemplativas (em-dash→elipsis, respeta refs bíblicas). Aplica a TODO render nuevo (reels+long-form).
+- **Pipeline 4-hooks** (`data/historias_pipeline.json`): David/José YA live; nuevos a producir = **oración guiada** (ataca SEARCH) + **reflexión dolor** (validado por Short 4.9k views). Quality gate carnage antes de subir.
+- **⚠️ Near-miss:** subí 2 dups (Hijo Pródigo + Lázaro) de videos YA live → borrados. Lección: `video_catalog.json` MANDA sobre fuzzy title match (normalizar acentos). Verificado: las 18 historias + 6×120min sleep + lofi TODOS ya subidos. NO hay cola en disco.
+
+## 🔜 Próximo avance (venom deep-dive 06-20 — necesitan RAM o Studio)
+1. 🎯 **Re-cortar intro de las historias** (mayor ROI). Cliff trazado: Rut 97%→**50% en primeros 5%**, Noé →42%. La mitad se va en 30-60s = intro. Empezar por Rut+Noé, medir 7d, luego las 16. **Necesita render (RAM).**
+2. **Sleep nuevos con títulos búsqueda** ("SALMOS PARA DORMIR 8 HORAS", "SALMO 91 TODA LA NOCHE") — 12x min/view. Probar 3h>2h. **Render.**
+3. **End screens historia→historia** (Studio manual, Fernando) — playlists dan solo 0.1% tráfico; end screens encadenan mejor. Apuntar a Rut/Daniel (mejor ret). Potenciar Rut = "video puerta" (3x watch-min).
+4. **Limpiar dup viejo:** "VERSÍCULOS DE PROVISIÓN PARA DORMIR" aparece 2× (05-09) en canal.
+
 ## ⚡ Hecho 2026-06-19 (data flywheel + Ko-fi rollout)
 - **2 videos subidos:** `vida-maria-despues-cruz` (YT `0oZvjs-R3Lw`, historia ~14min) + `sleep_salmo91_60min` (YT `2o-yl5pIoL4`, 1hr sleep). `vdd-longform-push` activado en n8n.
 - **Data flywheel COMPLETO:** `tag_catalog.py` (102 videos → 6 clusters) + `track_video_daily.py` (6am MTY diario → `video_daily_log.jsonl`) + `niche_report.py` (domingos → `STRATEGY_LOG.md`). Primer W24: Sleep domina (1.4h/video vs 0.02h historia en 7d).
