@@ -5,6 +5,7 @@
   "status": "spec_listo_pendiente_render",
   "created": "2026-06-20",
   "quality_gate": "Antes de subir lo NUEVO (oración/reflexión): (1) APERTURA debe pasar docs/HOOK_STANDARD.md — hook-first, tensión en 1ª frase, NO exposición lugar+tiempo (Daniel 70% ret vs Ester 30% = la 1ª frase). (2) loop carnage — carnage-kill al guion/visual → repair → venom-design thumbnail >=9. No subir raw. Pedido Fernando 2026-06-20.",
+  "seo_titulo_futurista": "TRUCO TÍTULOS (outlier-analysis 06-22, replicabilidad 70-80%): meter el AÑO FUTURO ('2026') en títulos de sleep/oración/música evergreen → sensación de novedad + posiciona búsquedas anticipadas. Visto en 2 outliers competencia (1.1M + 568k views). Ej: 'SALMOS PARA DORMIR 2026 · Paz Toda la Noche'. NO aplicar a historias narradas (es para formato compilación/sleep/background). NO tocar títulos de videos ya live.",
   "nota_estado": "David/José ya están SUBIDOS (live). Las 18 historias de output/stories/* TODAS subidas. Lo único a PRODUCIR de cero = oracion_dormir_paz + reflexion_dolor_proposito.",
   "items": [
     {

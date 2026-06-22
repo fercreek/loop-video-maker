@@ -72,10 +72,12 @@ La Mac potente es la que SÍ puede generar fondos. Verificar mflux + modelo FLUX
 
 ## 📋 QUÉ PRODUCIR (pipeline en `data/historias_pipeline.json`)
 Rotar 4 hooks. Lo genuinamente NUEVO (lo demás ya está live):
-1. **`oracion_dormir_paz`** — "Oración Para Dormir en Paz" (20min) — ataca SEARCH (única palanca que escala sin sub-push)
+1. **`oracion_dormir_paz`** — "Oración Para Dormir en Paz 2026" (20min) — ataca SEARCH (única palanca que escala sin sub-push)
 2. **`reflexion_dolor_proposito`** — "¿Por Qué Dios Permite el Dolor?" (15min) — tema validado (Short 4.9k views)
-3. **Sleep nuevos** (venom #2): "SALMOS PARA DORMIR 8 HORAS", "SALMO 91 TODA LA NOCHE" — 12x min/view. Probar 3h.
+3. **Sleep nuevos** (venom #2): "SALMOS PARA DORMIR 2026 · 8 HORAS", "SALMO 91 PARA DORMIR 2026 · Toda la Noche" — 12x min/view. Probar 3h.
 4. **Reels** (Shorts 9:16, bajo RAM): replicar fórmula `LLAMA DIVINA` (474 subs/1 short) → cross-post FB (alimenta umbral FB Content Monetization).
+
+> 🔑 **TRUCO TÍTULOS — SEO futurista (outlier-analysis 06-22, replicabilidad 70-80%):** meter el AÑO FUTURO ("2026") en títulos de sleep/oración/música evergreen → novedad + posicionamiento de búsqueda anticipada. Visto en 2 outliers de competencia (1.1M + 568k views). Aplica SOLO a formato compilación/sleep/background — NO a historias narradas, NO a títulos de videos ya live.
 
 ---
 
