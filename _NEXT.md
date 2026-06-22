@@ -1,5 +1,6 @@
 # _NEXT — loop-video-maker (VersiculoDeDios)
-> Update: 2026-06-19 · Canal: @VersiculoDeDios-v1u (UC2l5TZjHzRtaRjH8kT_yQ2w)
+> 🚨 CONTINUAR EN MAC POTENTE: LEE PRIMERO `docs/SESSION_SPEC_2026-06-20.md` (setup + qué producir + comandos)
+> Update: 2026-06-20 · Canal: @VersiculoDeDios-v1u (UC2l5TZjHzRtaRjH8kT_yQ2w)
 > 🚨 LEE PRIMERO: `data/STRATEGY_LOG.md` (brief semanal de nicho — actualiza cada domingo automático)
 > Stats: `data/venom_truth.json` (venom manda) · Scores por video: `data/video_scores.json`
 
