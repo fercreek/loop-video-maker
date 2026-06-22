@@ -4,6 +4,29 @@
 
 ---
 
+## 🚀 ARRANQUE RÁPIDO (copy-paste en Mac B)
+```bash
+# 0. estar en el repo
+cd ~/Documents/loop-video-maker && git pull
+
+# 1. descomprimir el banco (AirDrop'd desde Mac A → ~/Downloads)
+tar -xzf ~/Downloads/VD_BANCO_MacA.tar.gz     # secrets + guiones + fondos
+tar -xf  ~/Downloads/VD_MUSICA_MacA.tar       # música cache
+
+# 2. dependencias del sistema
+brew install ffmpeg
+
+# 3. entorno python
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+
+# 4. verificar YT (si da error de auth → re-login)
+.venv/bin/python3 scripts/yt_stats.py || .venv/bin/python3 scripts/yt_auth.py
+```
+Si los 4 pasos corren limpio → **lista para producir.** Sigue con "QUÉ PRODUCIR" abajo.
+Checklist de que el banco llegó: deben existir `config.json`, `data/yt_token.json`, `data/stories/*.json`, `output/fondos/*.jpg`, `audio/cache/`.
+
+---
+
 ## 🎯 Qué vamos a hacer
 Producir contenido long-form + reels NUEVO para subir watch-hours del gate YPP (4,000h long-form).
 Esta Mac es la de generación pesada: **puede correr mflux (~9GB) y MusicGen sin RAM pressure** (la Mac vieja no podía). CPU anterior → ffmpeg por clip puede ir algo más lento, pero la generación de assets ya no swapea.
