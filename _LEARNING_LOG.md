@@ -368,3 +368,19 @@
 
 **Patrón nuevo capturado:**
 - Guard anti-emoji en core/shorts_render.py: strip/warn de codepoints fuera de la fuente en TODO texto (hook/CTA/sub). Cazaría tofu sin frame manual.
+
+### 2026-06-22 · Reels uploader v2 (Mac A → Mac B handoff)
+
+**Pros (qué salió bien):**
+- Auditoría de los 3 uploaders ANTES de escribir → identifiqué que `upload_reels_batch.py` es el patrón válido (private+publishAt, YT-only) y descarté `upload_shorts.py` (inmediato/public) + `upload_shorts_venom.py` (ids/paths stale).
+- v2 agregó anti-dup REAL (registro persistente `reels_uploaded.json` id→yt_id + skip) — el original re-subía todo al re-correr.
+- Verifiqué pool ids en vivo antes de hardcodear; modo dory cuando Fernando se saturó (tabla peso/git simple).
+
+**Cons (qué se atoró o sobrecomplicó):**
+- ~5 bash calls diagnosticando por qué el archivo nuevo no salía en `git status`. Causa real: hook auto-commiteó el archivo (`4cba7da`). 1 comando lo resolvía: `git log --oneline -- <file>`.
+
+**Consejo Claude Code (cómo prompteamos mejor):**
+- Git status raro / archivo nuevo invisible → `git log --oneline -- <archivo>` PRIMERO, antes de check-ignore/add/ls-files. Este repo tiene auto-commit hook: archivo nuevo suele estar YA commiteado, no ignorado.
+
+**Patrón nuevo capturado:**
+- Archivo nuevo invisible en `git status` ≠ ignorado. En repos con auto-commit hook puede estar ya commiteado — verificar con `git log -- <file>`.
