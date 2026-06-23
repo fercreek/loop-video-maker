@@ -1,0 +1,85 @@
+{
+  "story_id": "reflexion_miedo_paz",
+  "title": "¿Dónde Está Dios Cuando Tengo Miedo? | Reflexión Para Vencer el Temor",
+  "bible_ref": "Isaías 41:10 · Salmo 23:4 · 2 Timoteo 1:7",
+  "cold_open": {
+    "text": "El miedo no toca la puerta: entra sin permiso, casi siempre de noche. Te despierta a las tres de la mañana con preguntas que de día sabías responder. ¿Y si todo sale mal? ¿Y si no puedo? ¿Y si Dios no está mirando? Si el miedo te tiene despierto esta noche, no estás solo, y hay una respuesta más antigua y más fuerte que tu temor.",
+    "image_scene": 2
+  },
+  "end_screen": {
+    "text": "Que el Dios que está contigo en el valle te dé su paz esta noche. Si esta reflexión calmó tu corazón, compártela con alguien que esté luchando con el miedo. Suscríbete para más reflexiones que te acerquen a Dios. No temas: Él está contigo.",
+    "image_scene": 10
+  },
+  "scenes": [
+    {
+      "id": 1,
+      "title": "El miedo que todos conocemos",
+      "text": "El miedo es una de las experiencias más humanas que existen. No discrimina: lo siente el fuerte y el débil, el creyente y el que duda, el que tiene mucho y el que no tiene nada. A veces tiene nombre claro: una enfermedad, una deuda, una pérdida posible. Y a veces es una sombra sin forma, una ansiedad que aprieta el pecho sin que sepas exactamente por qué. La Biblia no se burla de tu miedo ni lo ignora. De hecho, la frase no temas, o no tengas miedo, aparece cientos de veces en sus páginas. ¿Y sabes por qué se repite tanto? Porque Dios conoce de qué estamos hechos. Sabe que el temor es nuestra reacción natural ante un mundo que no podemos controlar. Pero cada vez que dice no temas, casi nunca lo deja solo. Lo acompaña de una razón: no temas, porque yo estoy contigo. El antídoto al miedo en la Biblia casi nunca es la ausencia de peligro. Es la presencia de Dios. Y esta noche, esa presencia es para ti.",
+      "image_prompt": "A small figure standing before a vast dark expanse with a faint distant light, vulnerability facing the unknown, deep blue shadows with a tender glow, contemplative, oil painting style, cinematic, no text, no watermark",
+      "mood": "contemplacion"
+    },
+    {
+      "id": 2,
+      "title": "Aunque ande en valle de sombra",
+      "text": "El salmo más conocido del mundo no evita el miedo: lo atraviesa. David escribe en el Salmo veintitrés que Dios es su pastor, que lo lleva a aguas de reposo, que restaura su alma. Y entonces, en medio de esa calma, llega la frase más valiente: aunque ande en valle de sombra de muerte, no temeré mal alguno, porque tú estarás conmigo. Fíjate en lo que David no dice. No dice si llego a pasar por el valle. Dice aunque ande, dando por hecho que el valle llegará. La fe no te promete una vida sin valles oscuros. Te promete que no los caminarás solo. Y mira el cambio en sus palabras: al principio del salmo, David habla de Dios en tercera persona, él me hace descansar, él me guía. Pero al entrar al valle, cambia: tú estarás conmigo. En el lugar más oscuro, Dios deja de ser un concepto lejano y se vuelve una presencia cercana, alguien a quien le hablas de tú. El miedo no se vence negando el valle, sino sabiendo quién camina contigo dentro de él.",
+      "image_prompt": "A narrow path descending into a shadowed valley with a guiding presence of soft light alongside, companionship in darkness, deep blues with a warm steady glow, reassuring, oil painting style, cinematic, no text, no watermark",
+      "mood": "contemplacion"
+    },
+    {
+      "id": 3,
+      "title": "No te dejaré ni te desampararé",
+      "text": "Cuando Josué tuvo que tomar el lugar de Moisés y guiar a todo un pueblo hacia lo desconocido, debió sentir un miedo aplastante. ¿Cómo lleno los zapatos de un gigante? ¿Cómo cruzo a un pueblo entero hacia tierras llenas de enemigos? Y Dios, sabiendo el temor de su corazón, le repite tres veces la misma orden: esfuérzate y sé valiente; no temas ni desmayes, porque Jehová tu Dios estará contigo en dondequiera que vayas. Cuando Dios repite algo tres veces, es porque sabe que tu miedo también es insistente. Pero mira: no le dice a Josué que sea valiente porque es fuerte, ni porque el camino es fácil. Le dice que sea valiente porque no irá solo. El valor bíblico no es la ausencia de miedo; es avanzar a pesar del miedo, sabiendo quién va contigo. Esta noche, escucha esa misma orden dicha sobre tu vida: no temas ni desmayes. No porque seas suficiente, sino porque el Dios que estuvo con Josué está contigo, en dondequiera que vayas, incluso en este momento de incertidumbre.",
+      "image_prompt": "A figure stepping forward toward an open horizon at dawn with quiet courage, moving despite uncertainty, soft warm light breaking over distant land, hopeful and steady, oil painting style, cinematic, no text, no watermark",
+      "mood": "paz"
+    },
+    {
+      "id": 4,
+      "title": "No te angusties, yo soy tu Dios",
+      "text": "Hay un versículo que es como una mano firme sobre el hombro cuando todo tiembla. Isaías cuarenta y uno, diez: no temas, porque yo estoy contigo; no desmayes, porque yo soy tu Dios que te esfuerzo; siempre te ayudaré, siempre te sustentaré con la diestra de mi justicia. Léelo despacio, porque cada parte responde a un miedo distinto. ¿Temes estar solo? Yo estoy contigo. ¿Temes no ser suficiente? Yo soy tu Dios que te esfuerzo. ¿Temes caer? Siempre te sustentaré con mi mano. Dios no te promete que quitará todo aquello que temes. Te promete algo más profundo: que estará contigo dentro de ello, que te dará la fuerza que no tienes, y que su mano te sostendrá cuando sientas que resbalas. Imagina por un momento esa diestra, la mano poderosa que sostiene las estrellas en su lugar, sosteniéndote a ti esta noche. No estás colgando sobre el vacío. Estás en la palma de Dios. Y de esa mano, nada ni nadie te puede arrancar.",
+      "image_prompt": "A strong open hand of light gently holding and supporting against a dark sky, security and divine support, deep blue darkness cradled by warm golden light, comforting and powerful, oil painting style, cinematic, no text, no watermark",
+      "mood": "paz"
+    },
+    {
+      "id": 5,
+      "title": "No de cobardía, sino de poder",
+      "text": "Cuando el miedo se vuelve constante, empieza a mentirte sobre quién eres. Te dice que eres débil, que no podrás, que esto te va a aplastar. Pero Pablo le escribió a un joven temeroso llamado Timoteo una verdad que desarma esas mentiras: porque no nos ha dado Dios espíritu de cobardía, sino de poder, de amor y de dominio propio. Escucha lo que dice. El espíritu de temor que te paraliza no viene de Dios. Lo que Él ha puesto en ti es otra cosa: poder, para enfrentar lo que venga; amor, que echa fuera el temor; y dominio propio, una mente clara que no se deja gobernar por el pánico. Cuando el miedo grite que no puedes, puedes responderle con la verdad: este espíritu de temor no es mío, no viene de mi Padre, y no voy a dejar que gobierne mi noche. El miedo es un mentiroso ruidoso, pero la voz de Dios es más verdadera. Y su voz dice que en ti hay poder, hay amor, y hay una mente sana, porque su Espíritu vive en ti.",
+      "image_prompt": "Light pushing back shadows revealing a calm clear space, fear giving way to clarity and strength, warm light dispelling deep blue darkness, empowering, oil painting style, cinematic, no text, no watermark",
+      "mood": "paz"
+    },
+    {
+      "id": 6,
+      "title": "Echa toda tu ansiedad",
+      "text": "El miedo y la ansiedad tienen una manera cruel de hacerte sentir que debes cargarlos solo, en silencio, a las tres de la mañana, mientras el resto del mundo duerme. Pero Pedro, un hombre que conoció el pánico de hundirse en el mar, escribió esto: echad toda vuestra ansiedad sobre Él, porque Él tiene cuidado de vosotros. La palabra echad es fuerte: significa arrojar, descargar, soltar de golpe. No dice que la administres mejor, ni que la escondas. Dice que la arrojes sobre Dios, como quien se quita de la espalda un costal demasiado pesado. ¿Y por qué puedes hacerlo? Por la razón más tierna de toda la Biblia: porque Él tiene cuidado de ti. No eres una carga para Dios. No le molesta que llegues con tus miedos. Le importas. Le importa eso que te quita el sueño, esa preocupación que tú crees demasiado pequeña o demasiado grande. Así que esta noche, nómbrala. Ese miedo concreto que te tiene despierto, ponlo en palabras y arrójalo sobre Dios. Señor, esto que no puedo cargar, te lo entrego. Tú tienes cuidado de mí, y eso me basta.",
+      "image_prompt": "A heavy weight being released and lifted into soft glowing light, the relief of letting go, deep blue giving way to gentle warmth, freeing and tender, oil painting style, cinematic, no text, no watermark",
+      "mood": "contemplacion"
+    },
+    {
+      "id": 7,
+      "title": "Cuando Pedro miró las olas",
+      "text": "Hay una escena que explica el miedo mejor que mil sermones. Pedro vio a Jesús caminando sobre el agua en medio de una tormenta, y le pidió ir hacia Él. Jesús le dijo: ven. Y Pedro hizo lo imposible: bajó de la barca y caminó sobre el mar. Mientras tuvo los ojos en Jesús, lo imposible fue posible. Pero entonces, dice el texto, al ver el fuerte viento, tuvo miedo, y comenzando a hundirse, dio voces diciendo: Señor, sálvame. ¿Notas qué cambió? El viento siempre estuvo ahí. Las olas siempre estuvieron ahí. Lo que cambió fue dónde puso Pedro su mirada. Mientras miró a Cristo, caminó; cuando miró la tormenta, se hundió. Tu miedo casi siempre crece cuando dejas de mirar a Dios y empiezas a mirar el tamaño de tus olas. Pero mira lo que pasó después: Jesús, al instante, extendió la mano y lo sostuvo. Pedro se hundió, pero no se ahogó, porque la mano de Cristo llegó antes que el fondo. Esta noche, aunque sientas que te hundes, esa misma mano está extendida hacia ti. Mira a Cristo, no a la tormenta.",
+      "image_prompt": "A hand reaching down through storm and waves to rescue, the moment of being caught before sinking, dramatic dark water pierced by a beam of saving light, powerful and hopeful, oil painting style, cinematic, no text, no watermark",
+      "mood": "contemplacion"
+    },
+    {
+      "id": 8,
+      "title": "El amor que echa fuera el temor",
+      "text": "Juan, el discípulo que se llamaba a sí mismo el amado, descubrió el arma más poderosa contra el miedo, y no es la que esperarías. No es valentía. No es fuerza de voluntad. Escribió: en el amor no hay temor, sino que el perfecto amor echa fuera el temor. Piénsalo. Mucho de nuestro miedo nace de sentirnos solos, no vistos, no sostenidos, como si tuviéramos que enfrentar la vida a la intemperie. Pero cuando de verdad comprendes cuánto te ama Dios, algo cambia por dentro. No estás a la intemperie; estás cubierto. No estás solo; estás acompañado por Aquel que dio su vida por ti. Un Dios que te amó hasta la cruz no va a abandonarte en tu noche más oscura. El miedo dice: estás solo y todo depende de ti. El amor de Dios responde: estás conmigo, y yo cuido de los míos. Mientras más conoces ese amor, menos espacio queda para el temor. Señor, lléname esta noche de la certeza de tu amor. Que sea tan real en mí que no quede lugar para el miedo. Recuérdame que soy tuyo, y que nada me separa de ti.",
+      "image_prompt": "A warm enveloping glow of light surrounding and sheltering a small figure in the dark, being held by love, tender golden warmth against deep calm blue, deeply comforting, oil painting style, cinematic, no text, no watermark",
+      "mood": "paz"
+    },
+    {
+      "id": 9,
+      "title": "Nada nos separará",
+      "text": "Llega un momento en que el miedo intenta su última mentira: aunque Dios esté conmigo ahora, ¿y si lo que viene es tan grande que ni Él pueda sostenerme? A esa mentira, Pablo responde con una de las declaraciones más poderosas jamás escritas: estoy seguro de que ni la muerte, ni la vida, ni ángeles, ni principados, ni lo presente, ni lo por venir, ni lo alto, ni lo profundo, ni ninguna otra cosa creada nos podrá separar del amor de Dios, que es en Cristo Jesús. Léelo como una lista de todo lo que temes, tachado uno por uno. Lo presente, eso que enfrentas hoy: no te separará. Lo por venir, eso que temes del mañana: no te separará. Ni siquiera la muerte, el miedo más grande de todos, tiene el poder de cortarte del amor de Dios. Piensa en lo que eso significa esta noche. Puedes perderlo casi todo y seguir teniendo lo único que de verdad no se puede perder: a Dios mismo, sosteniéndote. Tu miedo es real, pero no es lo más fuerte en tu vida. Lo más fuerte es un amor del que nada te puede separar.",
+      "image_prompt": "An unbreakable thread of light connecting earth to a radiant sky through storms, an unseverable bond, deep dramatic blues bound by steady gold light, reassuring and eternal, oil painting style, cinematic, no text, no watermark",
+      "mood": "paz"
+    },
+    {
+      "id": 10,
+      "title": "Duerme, Dios vela por ti",
+      "text": "Así que esta noche, si el miedo te encontró despierto, quiero que te lleves esto. Tu miedo es comprensible, pero no tiene la última palabra. Sobre cada temor que te quita el sueño, hay un Dios más grande que vela. Mientras tú no puedes dormir por la preocupación, recuerda el salmo: no se adormecerá ni dormirá el que te guarda. No tienes que montar guardia sobre tu vida esta noche; hay Alguien que no cierra los ojos. Suelta el control que en realidad nunca tuviste, y entrégaselo a las manos que sostienen el universo. Respira hondo. Al inhalar, recibe su paz; al exhalar, suelta el temor. En paz me acostaré y asimismo dormiré, porque solo tú, Señor, me haces vivir confiado. No estás solo en esta noche. El Dios que venció a la muerte, el que extendió su mano para sostener a Pedro, el que te ama con un amor del que nada te puede separar, está contigo ahora mismo, y no piensa soltarte. Descansa, no porque el miedo se haya ido del todo, sino porque Aquel que es más fuerte que tu miedo te tiene en sus manos. Duerme en paz. Dios vela por ti. En el nombre de Jesús, amén.",
+      "image_prompt": "Peaceful night sky transitioning toward the faintest dawn over a calm resting landscape, fear surrendered into rest, deep blue softening into gentle warm light on the horizon, deeply calming, oil painting style, cinematic soft lighting, no text, no watermark",
+      "mood": "reposo"
+    }
+  ]
+}

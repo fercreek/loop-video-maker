@@ -71,6 +71,7 @@ Después de cada render, revisar el log y mover las mejores lecciones aquí.
 | 2026-05-06 | sanacion | v3.2-f6cb85f | 54.9min render | 3053MB | 120min video | Sanación + Ungimiento + Restauración + Reposo + Paz profunda + Manantial | [log](renders/2026-05-06_05-00_sanacion.md) |
 | 2026-05-06 | fe | v3.2-f6cb85f | 47.9min render | 3054MB | 120min video | Adoración + Fe viva + Devoción + Gracia + Reverencia + Promesa | [log](renders/2026-05-06_05-09_fe.md) |
 | 2026-05-06 | provision | v3.2-f6cb85f | 69.5min render | 3050MB | 120min video | Adoración + Júbilo + Gracia + Promesa + Fe viva + Gloria | [log](renders/2026-05-06_06-01_provision.md) |
+| 2026-06-22 | paz | v3.2-bc33428 | 2.2min render | 49MB | 2min video | Paz profunda + Reposo + Contemplación | [log](renders/2026-06-22_02-55_paz.md) |
 <!-- renders-table-end -->
 
 ---

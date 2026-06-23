@@ -22,6 +22,12 @@ import json
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
+# venv-guard (GAP-3): re-exec con el .venv del repo si se corrió con otro python (evita ModuleNotFoundError google)
+import os as _os, sys as _sys
+_vpy = _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))), ".venv", "bin", "python3")
+if _os.path.exists(_vpy) and _os.path.realpath(_sys.executable) != _os.path.realpath(_vpy):
+    _os.execv(_vpy, [_vpy] + _sys.argv)
+
 PROJECT_DIR    = Path(__file__).parent.parent
 TOKEN_PATH     = PROJECT_DIR / "data" / "yt_token.json"
 POOL_PATH      = PROJECT_DIR / "data" / "oraciones_pool.json"
@@ -31,12 +37,18 @@ UPLOADED_PATH  = PROJECT_DIR / "data" / "reels_uploaded.json"   # registro anti-
 MTY_TZ = timezone(timedelta(hours=-6))
 
 # ── Calendario del batch — EDITA AQUÍ cada vez ────────────────────────────────
-# 1/día. hora fija (HORA_MTY). hooks más fuertes primero.
-HORA_MTY = 9   # 9am MTY
+# 1/día. "hora" opcional por reel (coherente con el tema: 🌅 mañana / ☀️ día / 🌙 noche);
+# si falta, usa HORA_MTY.
+HORA_MTY = 13   # default ☀️ día (pico tarde)
 BATCH = [
-    {"id": "fe_001",        "date": "2026-06-23"},
-    {"id": "esperanza_001", "date": "2026-06-24"},
-    {"id": "gratitud_001",  "date": "2026-06-25"},
+    {"id": "fe_001",         "date": "2026-06-23", "hora": 13},  # ☀️ día
+    {"id": "esperanza_001",  "date": "2026-06-24", "hora": 13},  # ☀️ día
+    {"id": "gratitud_001",   "date": "2026-06-25", "hora": 7},   # 🌅 mañana (al despertar)
+    {"id": "proteccion_001", "date": "2026-06-26", "hora": 7},   # 🌅 mañana (para el camino)
+    {"id": "sanacion_001",   "date": "2026-06-27", "hora": 13},  # ☀️ día
+    {"id": "familia_001",    "date": "2026-06-28", "hora": 13},  # ☀️ día
+    {"id": "trabajo_001",    "date": "2026-06-29", "hora": 7},   # 🌅 mañana (abre puertas)
+    {"id": "paz_001",        "date": "2026-06-30", "hora": 20},  # 🌙 noche (paz del corazón)
 ]
 # ──────────────────────────────────────────────────────────────────────────────
 
@@ -102,7 +114,7 @@ def build_entries(semana: str) -> list[dict]:
             print(f"    ⚠ id '{oid}' no está en oraciones_pool.json — se salta.")
             continue
         y, m, d = (int(x) for x in item["date"].split("-"))
-        pub_mty = datetime(y, m, d, HORA_MTY, 0, 0, tzinfo=MTY_TZ)
+        pub_mty = datetime(y, m, d, item.get("hora", HORA_MTY), 0, 0, tzinfo=MTY_TZ)
         pub_utc = pub_mty.astimezone(timezone.utc)
         mp4s = sorted(semana_dir.glob(f"short_{oid}_*.mp4"))
         entries.append({
@@ -120,6 +132,18 @@ def upload_one(youtube, entry: dict, dry_run: bool) -> str | None:
     mp4 = Path(entry["mp4"]) if entry["mp4"] else None
     if not mp4 or not mp4.exists():
         print(f"    ✗ MP4 no existe para {entry['id']} ({entry['mp4']})")
+        return None
+
+    # BUG-3: no subir MP4 corrupto/incompleto
+    from _mp4_ok import valid_mp4
+    if not valid_mp4(mp4):
+        print(f"    ⛔ {entry['id']}: MP4 corrupto/incompleto — SKIP (no subir roto)")
+        return None
+
+    # GAP-1: publishAt debe ser futuro (si no, YouTube → 422)
+    pub = datetime.strptime(entry["publish_utc"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+    if pub <= datetime.now(timezone.utc):
+        print(f"    ⏭  {entry['id']}: fecha {entry['publish_mty']} ya pasó — SKIP (publishAt requiere futuro)")
         return None
 
     tags = BASE_TAGS + TOPIC_TAGS.get(entry["id"], [])

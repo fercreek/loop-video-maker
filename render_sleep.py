@@ -53,7 +53,7 @@ OUT_BASE.mkdir(parents=True, exist_ok=True)
 # ─── Defaults ─────────────────────────────────────────────────────────────────
 RESOLUTION = "1920x1080"
 RES_W, RES_H = 1920, 1080
-FPS = 24
+FPS = 12   # sleep = Ken Burns lento casi estático → 12fps se ve idéntico y rinde ~2× más rápido (24fps era desperdicio; los renderers 60/120min ya usan 12)
 BITRATE = "2500k"
 AUDIO_BITRATE = "192k"
 INTRO_DUR = 14.0          # segundos de título+invitación visible al inicio (era 10 — más tiempo para que aterrice el stay-hook)
@@ -209,18 +209,75 @@ def _find_bg_multi(candidates: list[str], n: int = N_IMAGES) -> list:
 
 
 def generate_audio(mood: str, duration_min: int, out_dir: Path, dry_run: bool = False) -> Path:
-    """Genera audio ambient usando musicgen-medium (mono) — middle ground calidad/RAM."""
-    from core.music_gen import generar_musica_musicgen
+    """Genera el track de audio del sleep.
+
+    Prioridad 1: música cacheada por mood en audio/cache/ (YouTube Audio Library,
+    monetización-safe, corre en CPU). Se extiende/recorta a la duración con ffmpeg.
+    Prioridad 2 (fallback): MusicGen — requiere torch+GPU, NO viable en Mac Intel.
+    """
     model = MUSICGEN_MODEL
     out_path = out_dir / f"sleep_audio_{mood.replace(' ', '_')}_{duration_min}min.wav"
     if out_path.exists():
         print(f"  [audio] Cache hit: {out_path.name}")
         return out_path
     if dry_run:
-        print(f"  [audio DRY] generaría {duration_min}min · {mood} · model={model}")
+        print(f"  [audio DRY] generaría {duration_min}min · {mood} (música cacheada → loop)")
         return out_path
     total_sec = duration_min * 60
-    print(f"  [audio] Generando {duration_min}min mood={mood} model={model}...")
+
+    # ── Prioridad 1: música cacheada por mood (loop/trim con ffmpeg) ──
+    import glob, unicodedata, subprocess
+    key = "".join(
+        c for c in unicodedata.normalize("NFD", mood.lower().split()[0])
+        if unicodedata.category(c) != "Mn"
+    )
+    cands = sorted(
+        glob.glob(str(MUSIC_CACHE / f"*{key}*_norm.aac"))
+        + glob.glob(str(MUSIC_CACHE / f"*{key}*.wav"))
+        + glob.glob(str(MUSIC_CACHE / f"*{key}*.aac"))
+    )
+    if cands:
+        src = cands[0]
+        print(f"  [audio] Música cacheada (loop→{duration_min}min): {Path(src).name}")
+        fade_out_st = max(0, total_sec - 5)
+        subprocess.run(
+            ["ffmpeg", "-y", "-stream_loop", "-1", "-i", src, "-t", str(total_sec),
+             "-af", f"afade=t=in:d=5,afade=t=out:st={fade_out_st}:d=5",
+             "-ar", "44100", str(out_path)],
+            capture_output=True,
+        )
+        if out_path.exists() and out_path.stat().st_size > 0:
+            return out_path
+        print("  ⚠️  [audio] ffmpeg loop falló — intentando otro mood cacheado...")
+
+    # ── Fallback 1: cualquier mood cacheado (default reposo/paz) — corre en CPU ──
+    if not cands:  # el mood pedido no tenía cache
+        prefer = ["reposo", "paz", "contemplacion", "adoracion"]
+        any_cached = []
+        for k in prefer:
+            any_cached = sorted(glob.glob(str(MUSIC_CACHE / f"*{k}*_norm.aac"))
+                                + glob.glob(str(MUSIC_CACHE / f"*{k}*.wav")))
+            if any_cached:
+                break
+        if not any_cached:  # último: lo que sea en cache
+            any_cached = sorted(glob.glob(str(MUSIC_CACHE / "*_norm.aac"))
+                                + glob.glob(str(MUSIC_CACHE / "*.wav")))
+        if any_cached:
+            src = any_cached[0]
+            print(f"  [audio] Mood '{mood}' sin cache → uso cacheado default: {Path(src).name}")
+            fade_out_st = max(0, total_sec - 5)
+            subprocess.run(
+                ["ffmpeg", "-y", "-stream_loop", "-1", "-i", src, "-t", str(total_sec),
+                 "-af", f"afade=t=in:d=5,afade=t=out:st={fade_out_st}:d=5",
+                 "-ar", "44100", str(out_path)],
+                capture_output=True,
+            )
+            if out_path.exists() and out_path.stat().st_size > 0:
+                return out_path
+
+    # ── Fallback 2: MusicGen (requiere torch — NO viable en Mac Intel, último recurso) ──
+    print(f"  [audio] Sin cache utilizable para '{mood}' — intentando MusicGen (requiere torch)...")
+    from core.music_gen import generar_musica_musicgen
     wav = generar_musica_musicgen(
         mood=mood,
         duracion_total=total_sec,

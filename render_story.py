@@ -191,8 +191,17 @@ def get_or_generate_image(
     ok = generate_scene_image(scene["image_prompt"], img_path, api_key)
 
     if not ok:
-        # Fallback: reutilizar fondo del pool general
-        pool = sorted(glob.glob(str(FONDOS_POOL / "*.jpg")))
+        # Fallback: reusar fondo del pool — calmado/noche si el tema lo pide (coherencia visual)
+        pool = None
+        try:
+            import sys as _s
+            _s.path.insert(0, str(FONDOS_POOL.parent.parent / "scripts"))
+            from fondo_pool import pool_for
+            pool = pool_for(story_id, FONDOS_POOL)
+        except Exception:
+            pool = None
+        if not pool:
+            pool = sorted(glob.glob(str(FONDOS_POOL / "*.jpg")))
         if pool:
             fallback = random.choice(pool)
             subprocess.run(

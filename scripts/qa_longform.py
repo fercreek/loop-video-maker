@@ -49,6 +49,19 @@ LONGFORM_HARD_FAIL    = 30       # <30s sospechoso
 LUFS_VOICE_TARGET     = -18.0   # más bajo que Shorts para audiencia dormida
 LUFS_VOICE_TOLERANCE  = 3.0
 
+# ─── Perfiles por tipo (auto-detect por duración) ────────────────────────────
+# Narrado (oración/reflexión/historia ~10-30min, voz al frente, -14 LUFS, buffer fin ~0.8s)
+# vs Sleep (60-130min, -18 LUFS). El umbral viejo (50min/-18) reprobaba falsamente lo narrado.
+PROFILES = {
+    "narrado": {"label": "narrado", "min_sec": 480, "target_max": 1800,
+                "lufs_target": -14.0, "lufs_tol": 3.0, "sync_crit": 2.0, "sync_warn": 1.0},
+    "sleep":   {"label": "sleep", "min_sec": LONGFORM_MIN_SEC, "target_max": LONGFORM_TARGET_MAX,
+                "lufs_target": LUFS_VOICE_TARGET, "lufs_tol": LUFS_VOICE_TOLERANCE,
+                "sync_crit": 0.5, "sync_warn": 0.2},
+}
+def pick_profile(duration: float) -> dict:
+    return PROFILES["narrado"] if duration < 2100 else PROFILES["sleep"]  # <35min = narrado
+
 # ─── Helpers ─────────────────────────────────────────────────────────────────
 def _ffprobe(video: Path) -> dict:
     r = subprocess.run(
@@ -146,23 +159,23 @@ def check_motion(video: Path, duration: float) -> dict:
             "static_runs": [(s * FRAME_SAMPLE_INTERVAL, e * FRAME_SAMPLE_INTERVAL) for s, e in static_runs]}
 
 
-def check_duration(duration: float) -> dict:
-    """Long-form: target 60-130 min."""
+def check_duration(duration: float, prof: dict) -> dict:
+    """Rango según perfil (narrado ~10-30min vs sleep 60-130min)."""
     mins = duration / 60
     if duration < LONGFORM_HARD_FAIL:
         return {"check": "duration", "severity": "CRITICAL", "score_impact": -8,
-                "msg": f"Duración {duration:.1f}s <30s. Render truncado o vacío."}
-    if duration < LONGFORM_MIN_SEC:
+                "msg": f"Duración {duration:.1f}s. Render truncado o vacío."}
+    if duration < prof["min_sec"]:
         return {"check": "duration", "severity": "WARN", "score_impact": -3,
-                "msg": f"Duración {mins:.1f}min <50min. Corto para long-form sleep."}
-    if duration > LONGFORM_TARGET_MAX:
+                "msg": f"Duración {mins:.1f}min corta para perfil {prof['label']}."}
+    if duration > prof["target_max"]:
         return {"check": "duration", "severity": "INFO", "score_impact": -1,
-                "msg": f"Duración {mins:.1f}min >130min. Largo pero OK."}
+                "msg": f"Duración {mins:.1f}min larga pero OK ({prof['label']})."}
     return {"check": "duration", "severity": "OK", "score_impact": 0,
-            "msg": f"Duración {mins:.1f}min en rango long-form sleep."}
+            "msg": f"Duración {mins:.1f}min en rango {prof['label']}."}
 
 
-def check_sync(streams: list[dict]) -> dict:
+def check_sync(streams: list[dict], prof: dict) -> dict:
     v = next((s for s in streams if s.get("codec_type") == "video"), None)
     a = next((s for s in streams if s.get("codec_type") == "audio"), None)
     if not v or not a:
@@ -170,28 +183,29 @@ def check_sync(streams: list[dict]) -> dict:
                 "msg": "Falta stream video o audio"}
     dv, da = float(v.get("duration", 0)), float(a.get("duration", 0))
     delta = abs(dv - da)
-    if delta > 0.5:
+    if delta > prof["sync_crit"]:
         return {"check": "sync", "severity": "CRITICAL", "score_impact": -3,
                 "msg": f"Desync audio/video Δ={delta:.2f}s"}
-    if delta > 0.2:
+    if delta > prof["sync_warn"]:
         return {"check": "sync", "severity": "WARN", "score_impact": -1,
-                "msg": f"Desync audio/video Δ={delta:.2f}s"}
+                "msg": f"Desync audio/video Δ={delta:.2f}s (buffer fin normal en narrado)"}
     return {"check": "sync", "severity": "OK", "score_impact": 0,
             "msg": f"Sync OK Δ={delta:.2f}s"}
 
 
-def check_loudness(video: Path) -> dict:
-    """Sleep target -18 LUFS (más bajo que Shorts -16, audiencia dormida)."""
+def check_loudness(video: Path, prof: dict) -> dict:
+    """LUFS target según perfil (narrado -14, sleep -18)."""
+    tgt, tol = prof["lufs_target"], prof["lufs_tol"]
     lufs = _measure_lufs(video)
-    delta = abs(lufs - LUFS_VOICE_TARGET)
-    if delta > LUFS_VOICE_TOLERANCE * 2:
+    delta = abs(lufs - tgt)
+    if delta > tol * 2:
         return {"check": "loudness", "severity": "WARN", "score_impact": -2,
-                "msg": f"LUFS {lufs:.1f} muy lejos sleep target {LUFS_VOICE_TARGET}"}
-    if delta > LUFS_VOICE_TOLERANCE:
+                "msg": f"LUFS {lufs:.1f} muy lejos de {prof['label']} target {tgt}"}
+    if delta > tol:
         return {"check": "loudness", "severity": "INFO", "score_impact": -1,
-                "msg": f"LUFS {lufs:.1f}, sleep target {LUFS_VOICE_TARGET}±{LUFS_VOICE_TOLERANCE}"}
+                "msg": f"LUFS {lufs:.1f}, {prof['label']} target {tgt}±{tol}"}
     return {"check": "loudness", "severity": "OK", "score_impact": 0,
-            "msg": f"LUFS {lufs:.1f} en sleep target"}
+            "msg": f"LUFS {lufs:.1f} en target {prof['label']}"}
 
 
 # ─── Main ────────────────────────────────────────────────────────────────────
@@ -202,12 +216,15 @@ def run_qa(video: Path, verbose: bool = True) -> dict:
     probe = _ffprobe(video)
     duration = float(probe["format"]["duration"])
     streams = probe["streams"]
+    prof = pick_profile(duration)
+    if verbose:
+        print(f"  perfil: {prof['label']} (auto-detect por duración)")
 
     checks = [
-        check_duration(duration),
-        check_sync(streams),
+        check_duration(duration, prof),
+        check_sync(streams, prof),
         check_motion(video, duration),
-        check_loudness(video),
+        check_loudness(video, prof),
     ]
 
     score = 10
