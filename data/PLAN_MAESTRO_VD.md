@@ -11,6 +11,11 @@
 
 ## SCOREBOARD — Estado vivo por plataforma
 
+> 🕷️ **venom optimización 2026-06-28 (data verificada `venom/_ESTADO.md`):**
+> 1. **Número stale:** el scoreboard FB de abajo dice "1,933 fans" → verificado HOY = **3,471** (+1,538). Más cerca de los gates de lo que el plan cree — re-medir el resto.
+> 2. **NO pivotear a engagement.** El re-leveling bajó Redes de VDD por engagement débil (FB 0.043% / IG 0.02%) — pero para un play de **monetización-por-volumen** (YPP/AdSense/Reels Bonus) el KPI es **watch-hours/reach/fans**, no engagement. El engagement bajo NO amenaza el norte; el volumen sí llega a los gates.
+> 3. **El hallazgo real (aguja):** el IG 0.02% = **throttle de 15 dups** (auto-publicador empujó 15 videos idénticos jun 24-25) = la máquina de volumen corriendo **sin control de calidad**. **Meter quality-gate al pipeline (dedup + variar hook — que el plan YA pide "vary hook not format")** → arregla el throttle + alinea estrategia. Borrar los 15 dups (lista: `venom/data/versiculos-ig-dups-to-delete.txt`).
+
 ### 📺 YouTube
 | Métrica | Requisito | Hoy | Gap |
 |---------|-----------|-----|-----|
@@ -522,3 +527,28 @@ Reporte ejecución: `data/carnage-execution-2026-06-02.md` (carnage lo llena)
 | Fecha | Cambio |
 |-------|--------|
 | 2026-06-09 | v7 (append-only) — Sección 💡 IDEAS COMPLEMENTARIAS Benchmark indie: validación pre-producto (Marc Lou), build-in-public/detrás de cámara (Pieter Levels), monetizar el skill de pipelines como servicio (hipótesis), email list como acelerador #1. NO se modificó ninguna sección existente. Correcciones de realidad (Reels Bonus muerto 31-ago-2025, Etsy descartado) viven en el plan semanal dual `docs/PLAN_SEMANA_2026-06-09.md`, no se tocó el cuerpo del maestro. |
+
+---
+
+## 🎯 Sprint contenido masivo — hasta 2026-07-20 (pre-AstroCap)
+
+> Ventana: 2026-07-01 al 2026-07-20 (antes de entrar a AstroCap ~18-23 jul, que reduce tiempo disponible). Contexto: Fernando quiere volumen masivo cross-marca en este tramo — para VD la pregunta correcta NO es "generar más desde cero" (ya hay pipeline n8n automatizado, Shorts + long-form ~1/hora según `_CALENDARIO-CONTENIDO-2026-07-01-al-14.md`), sino **evaluar si acelerar la cadencia existente o mantenerla**.
+
+**Estado actual (no forzar volumen donde ya hay pipeline saturado):**
+- Auto-Publicador n8n activo (workflow #1, tabla CERO-AGENT arriba) + daemons IG 9am/1pm/7pm. El cuello de botella de VD nunca fue "producir más" — es CTA/monetización y horas long-form válidas para YPP.
+- Acelerar frecuencia de Shorts NO mueve la aguja (no cuentan YPP, ver Palanca YT arriba: "Lo que NO mueve la aguja: más Shorts sin funnel"). Subir el ritmo de Shorts en este sprint sería volumen sin propósito — evitar.
+
+**Dónde SÍ conviene empujar en la ventana — long-form hacia YPP:**
+- Gap actual: 151.6h / 4,000h (3.8%). Cadencia recomendada en Fase 2 = 2 long-form/semana rotando 4 hooks (historia/sleep/reflexión/oración guiada), tope 2 narradas/semana.
+- Esta ventana de 3 semanas (~19 días) es oportunidad de **empujar el tope permitido de long-form** (no Shorts) sin romper la regla del sub-push finito: hasta 2 narradas + resto rotando sleep/reflexión/oración, evaluando si el inventario de renders (`render_sleep.py` + MusicGen $0/video) alcanza para sostener 3-4/semana en vez de 2 durante el sprint.
+- Si hay inventario parado (revisar `_NEXT.md` / `docs/UPLOAD_LOG.md`) → subirlo esta ventana es directo +horas YPP sin costo de producción nuevo.
+
+**Cómo se mide (NO usa el loop content-ideas.json/content-log.json):**
+- El pipeline VD es YT-nativo (Shorts+long-form vía n8n), no pasa por el loop cross-marca `registry/content-ideas.json` → `content-log.json` → `measure_content_performance.py` (ese loop es para posts IG/FB de otras marcas con ángulos generados).
+- Fuente de medición de este sprint: `loop-video-maker/scripts/ypp_tracker.py` (corre diario 6am, log `data/ypp-progress.jsonl`) — trackear h/día real vs el ritmo objetivo (3-4h/día para gate en 12-18 meses, ver PROYECCIÓN REALISTA arriba). Comparar ritmo pre-sprint vs durante-sprint al cierre del 20-jul.
+- FB/IG: usar `versiculos-fb.json`/`-ig.json` (venom `data/`) para ver si el volumen de Shorts cross-posted como Reels sube fans/engagement — pero esto es secundario, no el objetivo del sprint.
+
+**Riesgo a vigilar:**
+- Acelerar sin criterio satura el canal o baja calidad — ya hubo un incidente de esto (15 dups IG jun 24-25 por auto-publicador sin quality-gate, ver nota venom 2026-06-28 arriba). Cualquier aceleración de cadencia en este sprint debe mantener el dedup + variar-hook, no repetir el error.
+- Versículos es motor de emoción/identidad, no contenido "contrarian de negocio" — el formato reel sharable/case-study (recomendado proactivamente para otras marcas con foco en alcance) NO aplica aquí (nota ya documentada en `venom/CLAUDE.md`).
+- Ventana corta (19 días) + gate YPP requiere ~3,848h más — este sprint NO cierra el gate, solo puede mover el ritmo diario un poco antes de que AstroCap reduzca disponibilidad de Fernando para revisar/curar el pipeline.
