@@ -1,0 +1,85 @@
+{
+  "story_id": "reflexion_dolor_proposito",
+  "title": "¿Por Qué Dios Permite el Dolor? | Reflexión Para Encontrar Paz",
+  "bible_ref": "Romanos 8:28 · Job · 2 Corintios 1:3-4",
+  "cold_open": {
+    "text": "Si Dios es bueno... ¿por qué duele tanto? Si Él tiene todo el poder, y dice que me ama, ¿por qué permitió que esto pasara? Tal vez has hecho esa pregunta en la oscuridad, con lágrimas, sin recibir respuesta. No estás solo. Y esa pregunta no te aleja de Dios: puede ser justo el lugar donde lo encuentres.",
+    "image_scene": 3
+  },
+  "end_screen": {
+    "text": "Si esta reflexión te dio un poco de paz en medio del dolor, no la guardes solo para ti: compártela con alguien que la necesite hoy. Suscríbete para más reflexiones que te acerquen al corazón de Dios. Y recuerda: tu dolor no es el final de la historia.",
+    "image_scene": 10
+  },
+  "scenes": [
+    {
+      "id": 1,
+      "title": "La pregunta que todos callan",
+      "text": "Hay una pregunta que casi nadie se atreve a decir en voz alta dentro de una iglesia, pero que casi todos hemos pensado en silencio. Si Dios existe y es bueno, ¿por qué hay tanto dolor? ¿Por qué la enfermedad, la pérdida, la traición, el hijo que se va, el diagnóstico que llega sin aviso? Algunos te dirán que dudar es falta de fe. Pero la Biblia está llena de personas que le hicieron a Dios esa misma pregunta. David clamó: ¿hasta cuándo, Señor, me olvidarás para siempre? Jeremías lloró ciudades enteras. Hasta Jesús, en la cruz, gritó: Dios mío, Dios mío, ¿por qué me has abandonado? Si los hombres y mujeres más cercanos a Dios cuestionaron en su dolor, entonces tú también puedes. Dios no se asusta de tus preguntas. No necesitas fingir que estás bien para acercarte a Él. La fe no es la ausencia de preguntas; muchas veces es decidir seguir buscando a Dios precisamente en medio de ellas. Así que esta noche, deja de esconder la herida. Tráela tal como está. Empecemos por ahí.",
+      "image_prompt": "A solitary figure sitting in soft shadow with a single beam of gentle light from above, quiet vulnerability, deep blue tones with a warm glow, contemplative and tender, oil painting style, cinematic soft lighting, no text, no watermark",
+      "mood": "contemplacion"
+    },
+    {
+      "id": 2,
+      "title": "El hombre que lo perdió todo",
+      "text": "Si alguien tuvo derecho a esa pregunta, fue Job. En un solo día perdió su ganado, su riqueza, sus siervos, y lo peor: a sus diez hijos. Poco después, su propio cuerpo se cubrió de llagas. Job no había hecho nada para merecerlo; la Escritura lo llama un hombre perfecto y recto, temeroso de Dios. Sus amigos llegaron a consolarlo y terminaron acusándolo, insistiendo en que algún pecado oculto había causado su ruina. Pero Job sabía que no era así. Y aquí está lo que sorprende: Job clamó, discutió, se quejó amargamente con Dios durante capítulos enteros. No fingió paz que no tenía. Y sin embargo, en medio de todo, dijo una de las frases más valientes de la Biblia: aunque él me matare, en él esperaré. Job no entendía. Job no recibió, en todo su sufrimiento, una sola explicación de por qué. Lo que recibió fue algo distinto, y al final, mejor: recibió a Dios mismo. Y a veces, esa es la respuesta que no esperábamos.",
+      "image_prompt": "An ancient weathered man seated among ashes under a vast brooding sky, dignified in suffering, distant storm clouds with a faint break of light on the horizon, dramatic but hopeful, oil painting style, cinematic, deep earth tones, no text, no watermark",
+      "mood": "contemplacion"
+    },
+    {
+      "id": 3,
+      "title": "Cuando Dios no explica, se acerca",
+      "text": "Al final del libro, Dios le responde a Job. Pero no como esperaríamos. No le da la lista de razones. No le explica el porqué de cada lágrima. En cambio, le hace preguntas: ¿dónde estabas tú cuando yo fundaba la tierra? ¿Quién puso sus medidas? Dios no le entrega a Job un argumento; le entrega una revelación de quién es Él. Y algo cambia en el corazón de Job. Dice: de oídas te había oído, mas ahora mis ojos te ven. Job pasó de saber de Dios a conocer a Dios, y eso le bastó. Aquí hay una verdad difícil pero liberadora: tal vez nunca tengas la explicación completa de tu dolor en esta vida. Pero la fe no se sostiene en entenderlo todo, sino en conocer a Aquel que sí lo entiende. Cuando Dios no responde el porqué, muchas veces responde con su presencia. Y un Dios cercano en medio del dolor vale más que mil explicaciones a la distancia. No siempre tendrás la respuesta. Pero puedes tener a Dios.",
+      "image_prompt": "Divine light breaking powerfully through dark heavy clouds over a vast landscape, overwhelming majesty and tender presence at once, deep blues pierced by warm golden light, oil painting style, cinematic, no text, no watermark",
+      "mood": "paz"
+    },
+    {
+      "id": 4,
+      "title": "A los que aman a Dios",
+      "text": "Hay un versículo que muchos citan y pocos leen con cuidado. Romanos ocho, veintiocho: y sabemos que a los que aman a Dios, todas las cosas les ayudan a bien. Fíjate en lo que NO dice. No dice que todas las cosas son buenas. La enfermedad no es buena. La traición no es buena. La muerte no es buena. Dios no te pide que llames bueno a lo que te rompió el corazón. Lo que dice es que todas esas cosas, incluso las más oscuras, Él las puede tejer juntas para un bien mayor. La palabra es ayudan: cooperan, se entrelazan. Como hilos que por separado parecen feos y sueltos, pero que en las manos del tejedor forman un tapiz que aún no alcanzas a ver desde abajo. Tú ves el reverso del bordado, lleno de nudos y cabos. Dios ve el frente. Esto no minimiza tu dolor; lo redime. Significa que ni una sola de tus lágrimas se desperdicia. Que Dios está obrando, ahora mismo, en lo que tú solo ves como ruina. No al azar. Para bien.",
+      "image_prompt": "Threads of golden light weaving together across a dark background forming a subtle pattern of dawn, transformation and hidden order, deep blue turning to warm light, abstract and hopeful, oil painting style, cinematic, no text, no watermark",
+      "mood": "paz"
+    },
+    {
+      "id": 5,
+      "title": "El fuego que no destruye, refina",
+      "text": "La Biblia usa muchas veces la imagen del fuego para hablar del dolor. Pero no el fuego que consume para destruir, sino el del orfebre que funde el oro para purificarlo. El metalúrgico antiguo calentaba el metal hasta que las impurezas subían a la superficie, y entonces las retiraba. ¿Y cómo sabía que el oro estaba listo? Cuando podía ver su propio rostro reflejado en él. Quizás Dios no causó tu dolor, pero no permitirá que se desperdicie. En el lugar donde más has sufrido, también es donde más has aprendido a depender de Él, a orar de verdad, a soltar lo que creías que te sostenía. El sufrimiento tiene una capacidad extraña de quemar lo falso y dejar lo esencial. Pedro lo escribió: para que la prueba de vuestra fe, mucho más preciosa que el oro, sea hallada en alabanza. No estás siendo destruido. Estás siendo formado. Y aunque el proceso duela, hay Alguien junto al fuego que no te quita los ojos de encima, esperando ver su reflejo en ti.",
+      "image_prompt": "Warm glowing embers and refining fire light against deep darkness, gold tones emerging from shadow, purification and warmth rather than destruction, intimate and hopeful, oil painting style, cinematic, no text, no watermark",
+      "mood": "reposo"
+    },
+    {
+      "id": 6,
+      "title": "Consolados para consolar",
+      "text": "Pablo escribió algo desde su propio sufrimiento que cambia por completo la manera de ver el dolor. En segunda de Corintios uno: bendito sea el Dios de toda consolación, el cual nos consuela en todas nuestras tribulaciones, para que podamos también nosotros consolar a los que están en cualquier angustia, por medio de la consolación con que nosotros somos consolados de Dios. ¿Lo ves? El consuelo que recibes en tu dolor no termina en ti. Dios te sostiene en el valle para que un día puedas tomar de la mano a alguien que entra en el mismo valle, y decirle con verdad: yo estuve aquí, y Dios fue fiel. Las personas que más han consolado a otros casi nunca son las que nunca sufrieron, sino las que sufrieron y encontraron a Dios en medio. Tu herida, sanada por Él, se vuelve un lugar de refugio para otros. Nada de lo que has atravesado se desperdicia en el reino de Dios. Tu dolor de hoy puede ser la esperanza de alguien mañana. El sufrimiento no compartido aísla; el sufrimiento redimido conecta.",
+      "image_prompt": "Two faint figures reaching toward one another across a soft glowing landscape at dawn, compassion and shared light, warm golden tones against gentle blue, tender and hopeful, oil painting style, cinematic, no text, no watermark",
+      "mood": "paz"
+    },
+    {
+      "id": 7,
+      "title": "El Dios que también lloró",
+      "text": "Hay algo que distingue al Dios de la Biblia de cualquier idea lejana de un creador indiferente: nuestro Dios no se quedó a salvo en el cielo, mirando el dolor humano desde lejos. Entró en él. Cuando su amigo Lázaro murió, Jesús, sabiendo que lo iba a resucitar, primero se detuvo. Y el versículo más corto de toda la Biblia dice simplemente: Jesús lloró. Dios con lágrimas en el rostro. No lloró porque no tuviera el poder de cambiarlo; lloró porque amaba. Eso significa que cuando tú lloras, no lo haces ante un Dios que no entiende. Lo haces ante un Dios que conoció el hambre, el cansancio, la traición de un amigo, el abandono, la agonía. Isaías lo llamó varón de dolores, experimentado en quebranto. No tienes que explicarle a Jesús lo que es sufrir; Él ya lo sabe por dentro. Y un Dios que llora contigo es infinitamente más cercano que un Dios que solo te explica. No estás llorando solo. Hay lágrimas divinas mezcladas con las tuyas.",
+      "image_prompt": "A gentle compassionate presence amid soft rain and muted light, sorrow held with tenderness, deep blues with a warm sheltering glow, deeply moving and intimate, oil painting style, cinematic, no text, no watermark",
+      "mood": "contemplacion"
+    },
+    {
+      "id": 8,
+      "title": "La cruz: el peor dolor, el mayor bien",
+      "text": "Si quieres saber hasta dónde puede llegar Dios para sacar bien del dolor, mira la cruz. El viernes que llamamos santo, todo parecía perdido. El inocente fue condenado. El justo fue clavado. Los discípulos huyeron, la esperanza murió, y el cielo guardó silencio. Para cualquiera que mirara ese día, era el triunfo absoluto del mal sobre el bien. La mayor injusticia de la historia. Y sin embargo, ese mismo viernes oscuro se convirtió en la puerta de la salvación para el mundo entero. Lo que parecía el fin, era el principio. Lo que parecía derrota, era la victoria más grande jamás ganada. Si Dios pudo tomar el peor día de la historia, el asesinato de su propio Hijo, y convertirlo en la mayor esperanza para la humanidad, entonces puede tomar tu viernes oscuro y escribir un domingo que todavía no alcanzas a imaginar. La tumba no tuvo la última palabra. El dolor no tuvo la última palabra. Y en tu vida, tampoco la tendrá. Tu historia aún no termina en el capítulo del dolor.",
+      "image_prompt": "A distant hill silhouette under a dramatic sky transitioning from storm darkness to breaking dawn light, redemption emerging from sorrow, deep blues and purples giving way to warm gold, epic and hopeful, oil painting style, cinematic, no text, no watermark",
+      "mood": "contemplacion"
+    },
+    {
+      "id": 9,
+      "title": "Lo que el dolor no puede quitarte",
+      "text": "El dolor puede quitarte muchas cosas. Puede llevarse tu salud, tu estabilidad, personas que amabas, planes que dabas por seguros. Pero hay algo que ningún sufrimiento, por más profundo que sea, tiene el poder de tocar. Pablo lo declaró con una certeza forjada en cárceles y naufragios: estoy seguro de que ni la muerte, ni la vida, ni lo presente, ni lo por venir, ni lo alto, ni lo profundo, ni ninguna otra cosa creada nos podrá separar del amor de Dios, que es en Cristo Jesús. Léelo despacio. Ni la muerte. Ni lo que temes del futuro. Ni la noche más oscura que estés viviendo ahora. Nada de eso puede cortar el hilo que te une al amor de Dios. Puedes perderlo casi todo y aún tener lo único que de verdad no se puede perder. En el centro de tu dolor, esa es la roca que permanece. No estás sostenido por lo que entiendes, ni por lo que sientes, ni por lo que te queda. Estás sostenido por un amor que decidió no soltarte jamás. Y ese amor sigue intacto esta noche.",
+      "image_prompt": "An unshakable rock standing firm amid swirling soft mist and gentle light, permanence and security, deep calm blues with a steady warm glow, reassuring and solid, oil painting style, cinematic, no text, no watermark",
+      "mood": "paz"
+    },
+    {
+      "id": 10,
+      "title": "Tu dolor no es el final",
+      "text": "Así que si esta noche llegaste con el corazón pesado, con preguntas sin responder, con una herida que todavía no cierra, quiero que te lleves esto. Tu dolor es real, y Dios no te pide que lo niegues. Pero tu dolor no es el final de la historia. Es un capítulo, no el último. Hay un día que la Escritura promete, en el que Dios mismo enjugará toda lágrima de tus ojos, y ya no habrá muerte, ni llanto, ni clamor, ni dolor, porque las primeras cosas pasaron. Hasta que llegue ese día, no caminas solo. El Dios que lloró, el Dios que venció la tumba, el Dios que teje todas las cosas para bien, está contigo en este valle, y no piensa soltarte. Descansa esta noche, no porque entiendas todo, sino porque Él lo sostiene todo. Entrégale tu pregunta, tu herida, tu mañana. Y deja que su paz, esa que sobrepasa todo entendimiento, guarde tu corazón. Tu historia sigue. Y Dios la está escribiendo hacia el bien. En el nombre de Jesús, amén.",
+      "image_prompt": "A peaceful dawn breaking fully over a calm landscape, night giving way to gentle warm light, hope and new beginning, soft golden glow over restful blue, deeply comforting, oil painting style, cinematic soft lighting, no text, no watermark",
+      "mood": "reposo"
+    }
+  ]
+}

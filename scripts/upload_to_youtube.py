@@ -28,6 +28,12 @@ import json
 import sys
 import time
 from datetime import datetime
+
+# venv-guard (GAP-3): re-exec con el .venv del repo si se corrió con otro python
+import os as _os
+_vpy = _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))), ".venv", "bin", "python3")
+if _os.path.exists(_vpy) and _os.path.realpath(sys.executable) != _os.path.realpath(_vpy):
+    _os.execv(_vpy, [_vpy] + sys.argv)
 from pathlib import Path
 
 PROJECT_DIR    = Path(__file__).parent.parent
@@ -90,6 +96,12 @@ def upload_video(youtube, entry: dict, dry_run: bool = False) -> str | None:
 
     if not mp4.exists():
         print(f"  ✗ MP4 no existe: {mp4}")
+        return None
+
+    # BUG-3: no subir MP4 corrupto/incompleto (ej. render cortado por sleep de la Mac)
+    from _mp4_ok import valid_mp4
+    if not valid_mp4(mp4):
+        print(f"  ⛔ MP4 corrupto/incompleto: {mp4} — SKIP (no subir roto)")
         return None
 
     metadata = json.load(open(metadata_file)) if metadata_file.exists() else {}

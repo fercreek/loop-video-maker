@@ -109,21 +109,47 @@ def _normalize_hashtag(text: str) -> str:
     return "".join(c for c in s if c.isalnum())
 
 
+# Wording coherente por tipo de contenido (no todo es "historia bíblica")
+TYPE_WORDS = {
+    "historia": {
+        "intro": "narrada completa en español. {n} minutos de historia bíblica con narración inmersiva.",
+        "cta": "Si esta historia te tocó el corazón, escríbenos en los comentarios:\n¿qué fue lo que más te impactó?",
+        "subscribe": "nuevas historias bíblicas narradas cada semana",
+        "basado": "Reina-Valera 1960 / adaptación narrativa",
+    },
+    "oracion": {
+        "intro": "Una oración guiada de {n} minutos para acompañarte, con narración serena y música suave de fondo.",
+        "cta": "Si esta oración te dio paz, déjanos un 🙏 Amén en los comentarios.",
+        "subscribe": "nuevas oraciones para acercarte a Dios cada semana",
+        "basado": "Reina-Valera 1960",
+    },
+    "reflexion": {
+        "intro": "Una reflexión bíblica de {n} minutos para encontrar paz y esperanza, con narración serena.",
+        "cta": "Si esta reflexión te tocó el corazón, escríbenos en los comentarios:\n¿qué fue lo que más necesitabas escuchar hoy?",
+        "subscribe": "nuevas reflexiones que te acercan a Dios cada semana",
+        "basado": "Reina-Valera 1960",
+    },
+    "sleep": {
+        "intro": "{n} minutos para descansar en la presencia de Dios, con versículos y música suave para dormir.",
+        "cta": "Que descanses en paz. Déjanos un 🙏 en los comentarios antes de dormir.",
+        "subscribe": "nuevos videos para dormir y descansar en Dios cada semana",
+        "basado": "Reina-Valera 1960",
+    },
+}
+
+
 def build_description(story: dict, chapters: list[dict], total_dur_min: float) -> str:
     """Construye descripción completa lista para copy-paste a YouTube."""
     title = story["title"]
     bible_ref = story.get("bible_ref", "")
+    words = TYPE_WORDS.get(story.get("type", "historia"), TYPE_WORDS["historia"])
 
-    # Hook único por historia (campo `hook_text` en JSON, fallback genérico)
+    # Hook único por historia (campo `hook_text` en JSON, fallback genérico por tipo)
     custom_hook = story.get("hook_text") or story.get("description_hook")
     if custom_hook:
         hook = f"{custom_hook}\n\n"
     else:
-        # Fallback genérico solo si no hay hook custom
-        hook = (
-            f"{title} narrada completa en español. "
-            f"{int(total_dur_min)} minutos de historia bíblica con narración inmersiva.\n\n"
-        )
+        hook = f"{title}. {words['intro'].format(n=int(total_dur_min))}\n\n"
 
     desc = hook
 
@@ -140,19 +166,18 @@ def build_description(story: dict, chapters: list[dict], total_dur_min: float) -
         desc += "━━━━━━━━━━━━━━━━━━━━━━━\n"
         desc += "BASADO EN\n"
         desc += "━━━━━━━━━━━━━━━━━━━━━━━\n"
-        desc += f"{bible_ref} — Reina-Valera 1960 / adaptación narrativa\n\n"
+        desc += f"{bible_ref} — {words['basado']}\n\n"
 
     # CTA
     desc += "━━━━━━━━━━━━━━━━━━━━━━━\n"
     desc += "PARA REFLEXIONAR\n"
     desc += "━━━━━━━━━━━━━━━━━━━━━━━\n"
-    desc += "Si esta historia te tocó el corazón, escríbenos en los comentarios:\n"
-    desc += "¿qué fue lo que más te impactó?\n\n"
+    desc += f"{words['cta']}\n\n"
 
     desc += "━━━━━━━━━━━━━━━━━━━━━━━\n"
     desc += "SUSCRÍBETE\n"
     desc += "━━━━━━━━━━━━━━━━━━━━━━━\n"
-    desc += "Activa la 🔔 para no perderte nuevas historias bíblicas narradas cada semana.\n"
+    desc += f"Activa la 🔔 para no perderte {words['subscribe']}.\n"
     desc += f"{CHANNEL_TAG}\n\n"
 
     # Hashtags — deduplicados, sin acentos, max 7 (sweet spot YT)
@@ -209,6 +234,11 @@ def generate(story_id: str) -> dict:
     # Título: del catálogo si existe, si no del story JSON
     catalog_entry = find_story_in_catalog(story_id)
     title = catalog_entry["title"] if catalog_entry else story.get("title", story_id)
+
+    # Type del catálogo (oracion/reflexion/sleep/historia) → wording coherente en la descripción
+    if catalog_entry and catalog_entry.get("type"):
+        story["type"] = catalog_entry["type"]
+    story["title"] = title  # usar el título canónico del catálogo (con 2026, etc.)
 
     # Tags: default + story-specific (todos <= 30 chars, validación YouTube)
     bible_ref_tag = story.get("bible_ref", "").lower()
