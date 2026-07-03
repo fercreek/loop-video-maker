@@ -801,6 +801,86 @@
         "mismatch_titulo_narracion": "Título promete familia restaurada, narración pivota a herencia generacional espiritual",
         "replica_de": "bi_B78HZuJ4"
       }
+    },
+    {
+      "id": "semestre_001",
+      "tema": "gratitud",
+      "titulo": "Gracias Dios, primer semestre",
+      "hook": "Enero a Junio… mira lo que Dios hizo",
+      "texto": "Del primero de enero al último de junio… Dios estuvo ahí. Te cuidó cuando no lo viste. Te sostuvo cuando quisiste soltar. Gracias, Dios, por la primera mitad del año.",
+      "hashtags": [
+        "#Fe",
+        "#Dios",
+        "#Gratitud",
+        "#Versiculos",
+        "#PalabraDeDios",
+        "#Cristianos"
+      ],
+      "cta": "engagement",
+      "fondos": [
+        "fondo_ai_night_stars.jpg",
+        "fondo_ai_starry_desert.jpg"
+      ],
+      "musica": "adoracion",
+      "spec_venom": {
+        "brief": "render-vdd-semestre-2026-07-02.md",
+        "experimento": "exp-2026-07-01-02",
+        "formato": "Reel vertical 9:16 ~22s — gratitud primer semestre (timely S1 1-6 jul)",
+        "cta_brief_no_soportado": "El CTA-seguir 'Sígueme para caminar el 2º semestre con fe · Compártelo' NO se puede pasar por el pool (render_short.py solo acepta cta='funnel'|'engagement'). Se usó engagement (AMÉN) como fallback más cercano."
+      }
+    },
+    {
+      "id": "exp-2026-07-02-01",
+      "tema": "esperanza",
+      "titulo": "Tu tristeza tiene fecha de caducidad — Isaías 61",
+      "hook": "¿Días de tristeza? Mira lo que Dios promete",
+      "texto": "Si hoy cargas tristeza, escucha esto: Dios puede cambiar tus días de dolor por tiempos de esperanza y de alegría. Tu temporada difícil no es el final de la historia.",
+      "hashtags": [
+        "#Fe",
+        "#Esperanza",
+        "#Isaias61",
+        "#PalabraDeDios",
+        "#Dios"
+      ],
+      "cta": "engagement",
+      "fondos": [
+        "fondo_ai_night_stars.jpg",
+        "fondo_ai_starry_desert.jpg"
+      ],
+      "musica": "adoracion",
+      "spec_venom": {
+        "experimento": "exp-2026-07-02-01",
+        "concepto": "concepto-2026-07-01-31",
+        "formato": "Reel vertical 9:16 ~22s — consuelo tristeza->alegria (Isaias 61), timely S2 7-13 jul",
+        "cta_brief_no_soportado": "El CTA-seguir 'Sigueme para no soltar la fe / Comparte con quien lo necesita' NO se puede pasar por el pool (render_short.py solo acepta cta='funnel'|'engagement'). Se uso engagement (AMEN) como fallback; el CTA-seguir va en el caption."
+      }
+    },
+    {
+      "id": "exp-2026-07-02-02",
+      "tema": "fe",
+      "titulo": "Si te tengo a ti, lo tengo todo",
+      "hook": "Si lo tienes a Él...",
+      "texto": "Puedes no tenerlo todo... pero si lo tienes a Él, lo tienes todo.",
+      "hashtags": [
+        "#Fe",
+        "#Jesus",
+        "#PalabraDeDios",
+        "#Dios",
+        "#Esperanza"
+      ],
+      "cta": "engagement",
+      "fondos": [
+        "fondo_ai_shepherd_hills.jpg",
+        "fondo_shepherd_flock.jpg"
+      ],
+      "musica": "adoracion",
+      "spec_venom": {
+        "experimento": "exp-2026-07-02-02",
+        "concepto": "concepto-2026-07-01-32",
+        "formato": "Reel vertical 9:16 ~18s — TEST estilo ILUSTRADO (cartoon calido, match img-32 Nellmolina)",
+        "BLOCKER_estilo_ilustrado": "El motor (core/shorts_render.py) SOLO hace foto-fondo con Ken Burns; NO anima personajes cartoon. NO existe ningun fondo ilustrado/cartoon en output/fondos/ (solo AI fotorrealistas y pinturas al oleo). El look ILUSTRADO CALIDO del brief (Jesus+persona estilo Nellmolina) NO es reproducible con el pipeline actual. Renderizado como aproximacion MAS CERCANA: fondos calidos tema-pastor (shepherd), NO el estilo real solicitado. Para lograrlo se necesita: (a) otro motor con animacion de personajes, o (b) meter un fondo ilustrado/cartoon al pool.",
+        "cta_brief_no_soportado": "CTA-seguir va en caption; pool solo acepta funnel|engagement -> engagement (AMEN)."
+      }
     }
   ]
 }
