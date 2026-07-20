@@ -1,11 +1,67 @@
 # ✝️ OPERACIÓN DE DIOS — Plan Maestro @VersiculoDeDios
 > Nombre operación: **Operación de Dios** · Equivalente: Plan 20K (Studio Link)
-> Owner: Fernando · Stats: `venom_truth.json` (venom manda) · Update: 2026-06-02
+> Owner: Fernando · Stats: `venom_truth.json` (venom manda) · Update: 2026-07-01
 > Hermano: `docs/STRATEGY_MONETIZATION_2026-06-01.md` (análisis completo)
 > Frentes alternos: `docs/PLAN_MONETIZACION_ALTERNA_2026-06-04.md` (Ko-fi/Etsy/Hotmart/beehiiv · tablero priorizado venom)
 > **Flywheel + automatización: `docs/FLYWHEEL_VDD_2026-06-04.md`** (Ko-fi×YT×FB×email · 4 workflows n8n · venom+carnage)
 > 🕷️ **Monitor vivo + decisiones abiertas + pautas: `docs/_MONITOR-OPERACION-DIOS.md`** (venom — leer antes de asumir cambios estructurales)
 > Anti-switching: un solo plan. Cambio = editar ESTE archivo, no crear otro.
+
+---
+
+## ⚡ ADDENDUM RÉGIMEN EMPLEO — venom 2026-07-19 (gobierna sobre el cuerpo de abajo)
+
+> Modo 🤖 AUTO (`venom/_EMPLOYMENT-REGIME.md`). **Lente: aquí las redes SON el negocio** — "redes bajas" = no hay negocio. El cuerpo (01-jul) asume horas de Fernando que ya no existen desde el 20-jul; este bloque lo corrige sin reescribirlo.
+
+1. **P0 riesgo existencial:** 2 strikes de copyright activos + copyright-gate PAUSADO (WF-A/WF-C, FOCUS-872). Un strike más = canal cerrado = operación muerta. Nada de volumen nuevo sin el gate reactivado con fix.
+2. **P0 medición ciega:** watch_hours 28d = 0.0 (token YT de la cuenta personal, 403 — no de la marca VDD). Fix = re-auth `yt_auth.py` con la cuenta de marca (~30 min, B3 del régimen). **Ninguna decisión de contenido/YPP se toma antes de este fix.**
+3. **Monetización = $0 real** pese a 14,700 subs. Ko-fi/beehiiv/Etsy "pendiente activar" desde junio. Meta dic-2026: YPP medible + **≥1 fuente con ≥$1 cobrado**. Si en D4 (16-ago) sigue en $0 → replantear Fase 1 completa.
+4. **Video pipeline apagado:** el upload-a-YouTube NO existe en n8n (era Mac-dependiente y la Mac duerme en horario laboral). Decisión abierta: construir upload YT en n8n (brief a anti-venom) o aceptar VDD = FB/IG-only en H2. Sin YT no hay camino YPP.
+5. **Derogado:** cadencia "2 long-form/sem" y toda tarea que pida horas de Fernando entre semana. Regla del modo AUTO: lo que no corra solo en n8n, no corre.
+
+---
+
+## Estado (2026-07-01) — venom
+
+> Naturaleza: marca propia de Fernando (motor emoción/identidad) — no aplica formato "contrarian de negocio" (ver nota en `venom/CLAUDE.md`).
+
+**Nivel L4 (6.0) — piso L4 en riesgo.** Fuente: `venom/registry/score-history.json` (#19).
+
+| Métrica | Valor |
+|---|---|
+| YT Subs | 14,400 |
+| YT Views totales | 1.08M |
+| YT Watch-hrs / 28d | 252 hrs |
+| YPP progreso | 8.4% (faltan 2,748h de 3,000 requeridas al ritmo del tracker actual) |
+| YPP tiempo al ritmo actual | ~11 meses |
+| FB fans / engagement | 3,752 fans · 0.021% |
+| IG followers / engagement | 1,247 · 1.17% |
+| IG vs FB rendimiento | IG rinde **56x mejor** que FB en engagement |
+
+> Nota de reconciliación: el scoreboard histórico de este doc (sección YT arriba) trae 151.6h/4,000h como base 365d; el número venom de hoy (252h/28d, meta 3,000h) viene del tracker YPP vivo — ambos miden el mismo gate YPP con ventanas distintas (365d acumulado vs ritmo 28d). No son contradictorios, son dos cortes del mismo problema: falta volumen de horas long-form válidas.
+
+---
+
+## Orientación (próximas 2 semanas) — venom
+
+1. **Rescatar el long-form.** Los videos de 3h ("ansiedad", "Salmo 23") tienen 0-41 views mientras un short de 25s pega 1,000 views. **Linkear el long-form desde el short top-performer** como "video completo" (end-screen + pinned comment) — es la única palanca real hacia las 2,748 hrs que faltan para YPP. Ya está parcialmente en el plan (Funnel Short `r43LS0y0Wrg` → sleep, Palanca YT arriba) — reforzar: aplicar el mismo patrón a CADA short top-performer nuevo, no solo al primero.
+2. **Reducir shorts casi-duplicados.** Mismo título 3-4x/día diluye la distribución de YT (mismo mecanismo que causó el throttle IG de 15 dups jun 24-25, nota venom 2026-06-28 arriba). Variar hook, no solo el formato.
+3. **Dejar FB en automático, doblar en IG.** IG rinde 56x mejor en engagement (1.17% vs 0.021%) — no vale la pena invertir tiempo de curación en FB más allá del auto-publicador ya activo; cualquier atención manual extra va a IG.
+
+---
+
+## 🔗 Cross-pollination (leverage por grupos) — venom
+
+- **Versículos EXPORTA el activo más valioso del ecosistema: su motor n8n de auto-publicación.** El Auto-Publicador (workflow #1, tabla CERO-AGENT arriba) corre 10+10 posts/14d sin esfuerzo manual. Todas las marcas propias con redes muertas (Studio Link, Vayla, Dance Leveling, CERØ) deberían copiar este motor para dejar de depender de posting manual. Es el mayor leverage cross-marca disponible hoy en el ecosistema.
+- **IMPORTA:** de las otras marcas web (SL, CC, Vayla), el aprendizaje SEO/GEO — aunque Versículos es canal YT nativo (no web), su equivalente de SEO es la variante VideoObject/títulos-keywords en YT, que puede beneficiarse del mismo rigor que se aplica a meta tags/schema en los sitios web del ecosistema.
+- **Grupo "distribución automática":** Versículos es la prueba viva de que el auto-feed n8n funciona a escala sin intervención diaria. Ese patrón es el fix del cuello universal (Redes) del resto del portafolio — replicarlo es la recomendación cross-marca de mayor ROI de este corte.
+
+---
+
+## Links
+
+- Orientación cross-marca: `venom/_ORIENTACION-MARCAS-2026-07-01.md`
+- Leveling: `venom/registry/score-history.json` (#19)
 
 ---
 
