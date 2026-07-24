@@ -43,6 +43,34 @@
         "short_hook": "Pon esto cuando vayas a orar. 2 horas de adoración sin anuncios 🙏",
         "cta_link": "https://youtu.be/7cOYmo27qS4"
       }
+    },
+    {
+      "story_id": "sleep-salmo91-3h-2026",
+      "title": "SALMO 91 PARA DORMIR 3 HORAS 2026 · Protección Toda la Noche Bajo Su Sombra",
+      "publish_date": "2026-07-24",
+      "youtube_id": "nv-AC5xZnG4",
+      "youtube_url": "https://youtu.be/nv-AC5xZnG4",
+      "push_strategy": {
+        "comentario_pinned": "🙏 Que el Salmo 91 cuide tu noche. ¿Por quién estás orando hoy? Escríbelo aquí abajo 👇",
+        "fb_post_copy": "🌙 \"El que habita al abrigo del Altísimo morará bajo la sombra del Omnipotente.\"\n\nTres horas del Salmo 91 para acompañar tu noche. Sin anuncios que te despierten.\n\nPonlo antes de cerrar los ojos 👉 https://youtu.be/nv-AC5xZnG4\n\n#Salmo91 #MusicaCristianaParaDormir #PazDeDios",
+        "ig_caption": "🌙 Salmo 91 · 3 horas para dormir bajo Su sombra. Sin anuncios, sin interrupciones. Link en el perfil 🔗\n\n#salmo91 #versiculosdedios #musicacristiana #dormirenpaz #pazinterior",
+        "short_hook": "Si esta noche no puedes dormir, deja que el Salmo 91 te cuide 🌙",
+        "cta_link": "https://youtu.be/nv-AC5xZnG4"
+      }
+    },
+    {
+      "story_id": "sleep-promesas-3h-2026",
+      "title": "PROMESAS DE DIOS PARA DORMIR 3 HORAS 2026 · Descansa en Su Palabra Toda la Noche",
+      "publish_date": "2026-07-27",
+      "youtube_id": "WPBaPdzJIFM",
+      "youtube_url": "https://youtu.be/WPBaPdzJIFM",
+      "push_strategy": {
+        "comentario_pinned": "🙏 ¿Qué promesa de Dios te está sosteniendo en esta temporada? Compártela aquí 👇",
+        "fb_post_copy": "🌙 \"Fiel es el que prometió.\" — Hebreos 10:23\n\nDios no promete noches sin dificultad. Promete estar en ellas contigo.\n\nTres horas de promesas para tu descanso 👉 https://youtu.be/WPBaPdzJIFM\n\n#PromesasDeDios #MusicaCristianaParaDormir #DescansoEnDios",
+        "ig_caption": "🌙 3 horas de promesas de Dios para dormir en paz. Sin anuncios. Link en el perfil 🔗\n\n#promesasdedios #versiculosdedios #musicacristiana #dormirenpaz #fe",
+        "short_hook": "Dios no promete noches fáciles. Promete estar en ellas contigo 🌙",
+        "cta_link": "https://youtu.be/WPBaPdzJIFM"
+      }
     }
   ],
   "instrucciones_cero_agent": {
@@ -54,5 +82,6 @@
       "4. Generar Short con short_hook como intro → CTA al video largo (watch time funnel)"
     ],
     "nota": "youtube_id se llena DESPUÉS de subir. Reemplazar {youtube_id} con el ID real antes de publicar posts."
-  }
+  },
+  "last_updated": "2026-07-23"
 }

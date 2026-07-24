@@ -187,17 +187,48 @@ def _find_bg(candidates: list[str]) -> Path:
     return available[0]
 
 
+MAX_LUMA = 80      # 0-255, brillo medio. Arriba de esto el fondo se siente "de día".
+MAX_HIGHLIGHT = 210  # percentil 95. La media sola no basta: un atardecer con el sol
+                     # quemado promedia bajo y aun así deslumbra (vineyard_harvest
+                     # pasaba con 89.5 de media y abría un video "para dormir" con un sol).
+
+
+def _luma(path: Path) -> tuple[float, int]:
+    """(brillo medio, percentil 95) de una imagen, sobre un thumbnail."""
+    from PIL import Image
+
+    px = sorted(Image.open(path).convert("L").resize((160, 90)).getdata())
+    return sum(px) / len(px), px[int(len(px) * 0.95)]
+
+
+def _is_night(path: Path) -> bool:
+    mean, p95 = _luma(path)
+    return mean <= MAX_LUMA and p95 <= MAX_HIGHLIGHT
+
+
 def _find_bg_multi(candidates: list[str], n: int = N_IMAGES) -> list:
     """
     Selecciona N imágenes diversas del pool para secuencia xfade.
     Prioriza los candidates del tema, luego rellena del pool completo.
+
+    Filtra por brillo: un video "para dormir" que abre con un amanecer dorado pelea
+    con su propio propósito. Se miden los fondos y se descartan los diurnos; si no
+    alcanzan los oscuros, se completa con los menos brillantes que queden.
     """
     import random
     # Collect candidate paths that exist
     priority = [FONDOS_DIR / c for c in candidates if (FONDOS_DIR / c).exists()]
     all_fondos = sorted(FONDOS_DIR.glob("fondo_ai_*.jpg"))
+
+    by_luma = sorted(all_fondos, key=lambda p: _luma(p)[0])
+    dark = [p for p in by_luma if _is_night(p)]
+    if len(dark) < n:
+        dark = by_luma[:n]
+    dark_set = set(dark)
+
+    priority = [p for p in priority if p in dark_set]
     # Exclude already-selected paths
-    remaining = [p for p in all_fondos if p not in priority]
+    remaining = [p for p in dark if p not in priority]
     random.shuffle(remaining)
     pool = priority + remaining
     selected = pool[:n]
@@ -327,9 +358,10 @@ def build_overlay_pngs(titulo: str, out_dir: Path, invitacion: str = "") -> tupl
     img = Image.new("RGBA", (RES_W, RES_H), (0, 0, 0, 0))
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype(font_path, 72) if font_path else ImageFont.load_default()
-    # Wrap title if too long
+    # Wrap title if too long. Se parte primero en los separadores "·" — dejar que el
+    # wrap por ancho decida solo mandaba el "·" al inicio de la 2a linea.
     max_w = RES_W * 0.85
-    lines = [titulo]
+    lines = [seg.strip() for seg in titulo.split("·") if seg.strip()] or [titulo]
     while True:
         widest = max(draw.textbbox((0, 0), L, font=font)[2] for L in lines)
         if widest <= max_w or all(len(L.split()) == 1 for L in lines):

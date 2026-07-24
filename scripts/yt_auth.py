@@ -54,8 +54,12 @@ def get_credentials() -> Credentials:
                 print("  4. Descargar JSON → guardar como client_secret.json en la raíz del proyecto")
                 sys.exit(1)
             print("Abriendo navegador para autorización...")
+            print("⚠️  Elige el canal VersiculoDeDios, NO la cuenta personal.")
             flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRET, SCOPES)
-            creds = flow.run_local_server(port=0)
+            # prompt= fuerza el selector de cuenta/canal. Sin esto Google reusa la
+            # sesión activa y mintea el token contra el canal personal en silencio:
+            # la Data API responde normal y solo Analytics falla, con 403 opaco.
+            creds = flow.run_local_server(port=0, prompt="select_account consent")
 
         os.makedirs(os.path.dirname(TOKEN_PATH), exist_ok=True)
         with open(TOKEN_PATH, "w") as f:
@@ -65,7 +69,27 @@ def get_credentials() -> Credentials:
     return creds
 
 
+EXPECTED_CHANNEL_ID = "UC2l5TZjHzRtaRjH8kT_yQ2w"  # @VersiculoDeDios
+
+
+def verify_channel(creds: Credentials) -> bool:
+    """Confirma que el token quedó ligado al canal correcto, no a la cuenta personal."""
+    from googleapiclient.discovery import build
+
+    ch = build("youtube", "v3", credentials=creds).channels().list(
+        part="snippet", mine=True
+    ).execute()["items"][0]
+    ok = ch["id"] == EXPECTED_CHANNEL_ID
+    print(f"\n{'✅' if ok else '❌'} Canal del token: {ch['snippet']['title']} ({ch['id']})")
+    if not ok:
+        print(f"   Se esperaba {EXPECTED_CHANNEL_ID}. Analytics va a dar 403.")
+        print(f"   Fix: rm {TOKEN_PATH} y vuelve a correr, eligiendo VersiculoDeDios.")
+    return ok
+
+
 if __name__ == "__main__":
     creds = get_credentials()
     print(f"\n✅ Autenticado. Token válido hasta: {creds.expiry}")
+    if not verify_channel(creds):
+        sys.exit(1)
     print("   Siguiente paso: .venv/bin/python3 scripts/yt_stats.py")

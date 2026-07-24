@@ -21,43 +21,109 @@ from datetime import datetime, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from core.youtube_client import get_channel_videos, get_video_analytics
+from core.youtube_client import (
+    _get_creds,
+    _iso_duration_to_min,
+    _youtube,
+    get_channel_id,
+    get_channel_videos,
+    get_video_analytics,
+)
 
-YPP_GOAL         = 3000.0  # watch hours required
+YPP_GOAL         = 4000.0  # watch hours required (long-form, 365d)
 LONGFORM_MIN_MIN = 10      # 10 minutes — clean gap: Shorts <2min, long-form >14min
 LOG_PATH         = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "ypp-progress.jsonl")
+
+
+def _analytics_top_videos() -> dict[str, dict]:
+    """
+    {video_id: {watch_hours, views, avg_view_pct}} for the top videos by watch time (365d).
+
+    The Analytics API caps this report at 200 rows and rejects startIndex>1, so this
+    is the head of the distribution, not the whole channel. It is still essential:
+    the uploads playlist silently omits videos (140 missing as of 2026-07-23,
+    including the three highest-watch sleep videos), so neither source alone is complete.
+    """
+    from datetime import timedelta
+
+    from googleapiclient.discovery import build
+
+    an = build("youtubeAnalytics", "v2", credentials=_get_creds())
+    end = datetime.now(timezone.utc).date()
+    start = end - timedelta(days=365)
+    rows = an.reports().query(
+        ids=f"channel=={get_channel_id()}",
+        startDate=str(start),
+        endDate=str(end),
+        metrics="estimatedMinutesWatched,views,averageViewPercentage",
+        dimensions="video",
+        sort="-estimatedMinutesWatched",
+        maxResults=200,
+    ).execute().get("rows", [])
+
+    return {
+        r[0]: {
+            "watch_hours":  round(r[1] / 60, 2),
+            "views":        int(r[2]),
+            "avg_view_pct": round(r[3], 1),
+        }
+        for r in rows
+    }
 
 
 def fetch_longform_hours() -> tuple[float, list[dict]]:
     """
     Returns (total_longform_watch_hours_365d, per_video_breakdown).
 
-    Strategy: get ALL channel videos, filter long-form by duration,
-    then query analytics individually per video (avoids top-50 Shorts domination).
+    Unions two incomplete sources — the Analytics top-200 and the uploads playlist —
+    because each drops videos the other keeps. Long-form is filtered by duration, so
+    Shorts in the analytics rows are discarded.
     """
-    print("  Loading all channel videos...")
-    all_videos = get_channel_videos(max_results=2000)
-    seen_ids = set()
-    deduped = []
-    for v in all_videos:
-        if v["video_id"] not in seen_ids:
-            seen_ids.add(v["video_id"])
-            deduped.append(v)
-    longform_meta = [v for v in deduped if v.get("duration_min", 0) >= LONGFORM_MIN_MIN]
+    print("  Loading analytics top videos...")
+    top = _analytics_top_videos()
+
+    print("  Loading channel uploads...")
+    meta = {}
+    for v in get_channel_videos(max_results=2000):
+        meta.setdefault(v["video_id"], v)
+
+    missing_ids = [vid for vid in top if vid not in meta]
+    if missing_ids:
+        print(f"  {len(missing_ids)} videos con watch-time no estan en la playlist de uploads — resolviendo")
+        yt = _youtube()
+        for i in range(0, len(missing_ids), 50):
+            resp = yt.videos().list(
+                part="snippet,contentDetails",
+                id=",".join(missing_ids[i:i + 50]),
+            ).execute()
+            for v in resp.get("items", []):
+                meta[v["id"]] = {
+                    "video_id":     v["id"],
+                    "title":        v["snippet"]["title"],
+                    "duration_min": _iso_duration_to_min(v["contentDetails"]["duration"]),
+                }
+
+    longform_meta = [v for v in meta.values() if v.get("duration_min", 0) >= LONGFORM_MIN_MIN]
     print(f"  Long-form videos found: {len(longform_meta)}")
 
     longform = []
     for i, v in enumerate(longform_meta, 1):
         vid_id = v["video_id"]
-        print(f"  [{i}/{len(longform_meta)}] {v['title'][:45]}...")
-        an = get_video_analytics(vid_id, days=365)
+        an = top.get(vid_id)
+        if an is None:
+            # Below the analytics top-200 cutoff — needs its own query.
+            print(f"  [{i}/{len(longform_meta)}] {v['title'][:45]}...")
+            raw = get_video_analytics(vid_id, days=365)
+            an = {
+                "watch_hours":  raw.get("watch_time_hours", 0),
+                "views":        raw.get("views", 0),
+                "avg_view_pct": raw.get("avg_view_pct", 0.0),
+            }
         longform.append({
             "video_id":     vid_id,
             "title":        v["title"][:60],
             "duration_min": v["duration_min"],
-            "watch_hours":  an.get("watch_time_hours", 0),
-            "views":        an.get("views", 0),
-            "avg_view_pct": an.get("avg_view_pct", 0.0),
+            **an,
         })
 
     total = round(sum(v["watch_hours"] for v in longform), 2)
@@ -140,7 +206,7 @@ def main() -> None:
     print("=" * 52)
     print(f"  YPP TRACKER — {today}")
     print("=" * 52)
-    print(f"  Long-form watch hrs:  {total_hrs:>8.1f} / 3,000")
+    print(f"  Long-form watch hrs:  {total_hrs:>8.1f} / {YPP_GOAL:,.0f}")
     print(f"  Progreso:             {pct:>7.1f}%")
     print(f"  Restante:             {remaining:>8.1f} hrs")
     if delta is not None:

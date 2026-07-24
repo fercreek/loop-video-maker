@@ -1,7 +1,7 @@
 {
   "generated_at": "2026-06-22T18:39:54.075231+00:00",
   "channel": "@VersiculoDeDios",
-  "total_videos": 2,
+  "total_videos": 4,
   "schedule": [
     {
       "story_id": "oracion_dormir_paz",
@@ -34,6 +34,38 @@
       "priority": 1,
       "uploaded": true,
       "youtube_id": "0rmdsqsJpLk"
+    },
+    {
+      "story_id": "sleep-salmo91-3h-2026",
+      "title": "SALMO 91 PARA DORMIR 3 HORAS 2026 · Protección Toda la Noche Bajo Su Sombra",
+      "publish_date": "2026-07-24",
+      "publish_day": "vie",
+      "publish_time_mty": "20:00",
+      "publish_at_utc": "2026-07-25T02:00:00Z",
+      "mp4_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/sleep/sleep_salmo91_180min_v2.mp4",
+      "thumbnail_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/sleep/thumb_salmo91_3h.jpg",
+      "description_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/sleep/salmo91_3h_description.txt",
+      "metadata_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/sleep/sleep-salmo91-3h-2026_metadata.json",
+      "chapters_count": 0,
+      "priority": 1,
+      "uploaded": true,
+      "youtube_id": "nv-AC5xZnG4"
+    },
+    {
+      "story_id": "sleep-promesas-3h-2026",
+      "title": "PROMESAS DE DIOS PARA DORMIR 3 HORAS 2026 · Descansa en Su Palabra Toda la Noche",
+      "publish_date": "2026-07-27",
+      "publish_day": "lun",
+      "publish_time_mty": "20:00",
+      "publish_at_utc": "2026-07-28T02:00:00Z",
+      "mp4_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/sleep/sleep_promesas_180min_v2.mp4",
+      "thumbnail_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/sleep/thumb_promesas_3h.jpg",
+      "description_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/sleep/promesas_3h_description.txt",
+      "metadata_path": "/Users/fernandocastaneda/Documents/loop-video-maker/output/sleep/sleep-promesas-3h-2026_metadata.json",
+      "chapters_count": 0,
+      "priority": 1,
+      "uploaded": true,
+      "youtube_id": "WPBaPdzJIFM"
     }
   ]
 }

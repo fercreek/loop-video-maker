@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "channel": "@VersiculoDeDios-v1u",
-  "last_updated": "2026-05-09",
+  "last_updated": "2026-07-23",
   "videos": [
     {
       "id": "david-goliat",
@@ -2270,6 +2270,128 @@
         "views": null
       },
       "topic_cluster": "reflexion"
+    },
+    {
+      "id": "sleep-salmo23-3h",
+      "title": "SALMO 23 PARA DORMIR 3 HORAS 2026 · El Buen Pastor Cuida Tu Descanso",
+      "type": "sleep",
+      "bible_ref": "Salmos 23",
+      "priority": 1,
+      "search_volume": "alto",
+      "duration_est_min": 180,
+      "notes": "Registrado retroactivamente 2026-07-23 desde YouTube API. El formato sleep no estaba en el catalogo pese a ser el de mayor watch-hours por view.",
+      "status": {
+        "script": true,
+        "rendered": true,
+        "uploaded": true,
+        "youtube_id": "T-ljF2qcNYQ",
+        "youtube_url": "https://youtube.com/watch?v=T-ljF2qcNYQ",
+        "upload_date": "2026-06-28",
+        "views": 101
+      },
+      "topic_cluster": "sleep"
+    },
+    {
+      "id": "sleep-musica-paz-2h",
+      "title": "MÚSICA CRISTIANA PARA DORMIR · Paz de Dios para Alejar la Angustia · 2 HORAS Sin Anuncios 🌙",
+      "type": "sleep",
+      "bible_ref": null,
+      "priority": 1,
+      "search_volume": "alto",
+      "duration_est_min": 120,
+      "notes": "Registrado retroactivamente 2026-07-23 desde YouTube API. El formato sleep no estaba en el catalogo pese a ser el de mayor watch-hours por view.",
+      "status": {
+        "script": true,
+        "rendered": true,
+        "uploaded": true,
+        "youtube_id": "aqFlPGDD2ww",
+        "youtube_url": "https://youtube.com/watch?v=aqFlPGDD2ww",
+        "upload_date": "2026-06-03",
+        "views": 119
+      },
+      "topic_cluster": "sleep"
+    },
+    {
+      "id": "sleep-salmos-profundo-2h",
+      "title": "SALMOS PARA DORMIR PROFUNDAMENTE · Elimina Toda Ansiedad · 2 HORAS Sin Anuncios 📖",
+      "type": "sleep",
+      "bible_ref": null,
+      "priority": 1,
+      "search_volume": "alto",
+      "duration_est_min": 120,
+      "notes": "Registrado retroactivamente 2026-07-23 desde YouTube API. El formato sleep no estaba en el catalogo pese a ser el de mayor watch-hours por view.",
+      "status": {
+        "script": true,
+        "rendered": true,
+        "uploaded": true,
+        "youtube_id": "6eHgRtGjaYA",
+        "youtube_url": "https://youtube.com/watch?v=6eHgRtGjaYA",
+        "upload_date": "2026-06-01",
+        "views": 101
+      },
+      "topic_cluster": "sleep"
+    },
+    {
+      "id": "sleep-sanacion-2h",
+      "title": "SALMOS DE SANACIÓN PARA DORMIR · Sueño Profundo y Descanso · 2 HORAS Sin Anuncios 💚",
+      "type": "sleep",
+      "bible_ref": "Salmos 91, 103, 147",
+      "priority": 1,
+      "search_volume": "alto",
+      "duration_est_min": 120,
+      "notes": "Registrado retroactivamente 2026-07-23 desde YouTube API. El formato sleep no estaba en el catalogo pese a ser el de mayor watch-hours por view.",
+      "status": {
+        "script": true,
+        "rendered": true,
+        "uploaded": true,
+        "youtube_id": "9ydXq8BlvWY",
+        "youtube_url": "https://youtube.com/watch?v=9ydXq8BlvWY",
+        "upload_date": "2026-06-07",
+        "views": null
+      },
+      "topic_cluster": "sleep"
+    },
+    {
+      "id": "sleep-salmo91-3h-2026",
+      "title": "SALMO 91 PARA DORMIR 3 HORAS 2026 · Protección Toda la Noche Bajo Su Sombra",
+      "type": "sleep",
+      "bible_ref": "Salmos 91",
+      "priority": 1,
+      "search_volume": "alto",
+      "duration_est_min": 180,
+      "notes": "Render 2026-07-23. QA 9/10. Fondos nocturnos verificados (media 44-57, p95 bajo umbral). Pendiente revision de Fernando antes de subir.",
+      "status": {
+        "script": true,
+        "rendered": true,
+        "uploaded": true,
+        "local_path": "output/sleep/sleep_salmo91_180min_v2.mp4",
+        "youtube_id": "nv-AC5xZnG4",
+        "youtube_url": "https://youtube.com/watch?v=nv-AC5xZnG4",
+        "upload_date": "2026-07-23",
+        "views": null
+      },
+      "topic_cluster": "sleep"
+    },
+    {
+      "id": "sleep-promesas-3h-2026",
+      "title": "PROMESAS DE DIOS PARA DORMIR 3 HORAS 2026 · Descansa en Su Palabra Toda la Noche",
+      "type": "sleep",
+      "bible_ref": null,
+      "priority": 1,
+      "search_volume": "alto",
+      "duration_est_min": 180,
+      "notes": "Render 2026-07-23. QA 9/10. Fondos nocturnos verificados (media 44-57, p95 bajo umbral). Pendiente revision de Fernando antes de subir.",
+      "status": {
+        "script": true,
+        "rendered": true,
+        "uploaded": true,
+        "local_path": "output/sleep/sleep_promesas_180min_v2.mp4",
+        "youtube_id": "WPBaPdzJIFM",
+        "youtube_url": "https://youtube.com/watch?v=WPBaPdzJIFM",
+        "upload_date": "2026-07-23",
+        "views": null
+      },
+      "topic_cluster": "sleep"
     }
   ]
 }
