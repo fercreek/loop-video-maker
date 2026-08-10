@@ -1,8 +1,33 @@
+> ⚠️ **STALE — 37 días sin actualizar** (última vez 2026-07-04).
+> **Las tareas vivas de este proyecto están en `focus`** (11 en `venom`): `make wip` · `make next`.
+> _Marcado 2026-08-10 al reconciliar los pickup points; el contenido de abajo NO se tocó._
+
 # _NEXT — loop-video-maker (VersiculoDeDios)
 > 🚨 CONTINUAR EN MAC POTENTE: LEE PRIMERO `docs/SESSION_SPEC_2026-06-20.md` (setup + qué producir + comandos)
 > Update: 2026-06-20 · Canal: @VersiculoDeDios-v1u (UC2l5TZjHzRtaRjH8kT_yQ2w)
 > 🚨 LEE PRIMERO: `data/STRATEGY_LOG.md` (brief semanal de nicho — actualiza cada domingo automático)
 > Stats: `data/venom_truth.json` (venom manda) · Scores por video: `data/video_scores.json`
+
+---
+## 🚨 ARRANQUE DE PRODUCCIÓN — pega este prompt al abrir el repo (2026-07-04)
+
+> Brief fresco de venom: **`data/PRODUCTION_BRIEF_2026-07-04.md`** (léelo primero, tiene el detalle + recetas).
+> Contexto: la cola de publicación de long-form de VDD está en **0** (cero-agent la publica sola, sano y esperando). El cuello de botella es PRODUCIR. Sesión de cero-agent 2026-07-04 dejó el copyright-gate operando; el long-form es el siguiente lever (watch-time → YPP).
+
+**Prompt a pegar:**
+```
+Voy a producir long-form nuevo para VDD (destrabar watch-time → gate YPP). Invoca vd-youtube para anclar el objetivo, y lee data/PRODUCTION_BRIEF_2026-07-04.md + data/PLAN_MAESTRO_VD.md.
+
+Prioridad #1 (⭐): sleep 2h/3h nuevos con títulos-búsqueda + "2026" e INTRO CORTA (INTRO_DUR ~4s — ataca el cliff del 78% que se va a los ~6min). Es render que corre solo: render_sleep.py + MusicGen, SIN Gemini/mflux (93 fondos + assets de 19 historias ya en disco). Produce 2-3 sleep. Quality gate antes de subir: venom-design ≥9 en thumbnail + carnage-qa. El publicador de cero-agent (VDD Longform Push) los sube solo.
+
+Hallazgo clave (por qué sleep y no historias): el long-form saltó +66.6h en UN día esta semana — el funnel Shorts→sleep FUNCIONÓ. Sleep h/view 0.21 = el más alto del canal. Historias (David/Goliat tipo Rut) van en 2º lugar, tope 2 narradas/semana. NO producir lofi (ROI=0) ni Noé/Moisés (ret 12-16%).
+
+Corrección: el gate real long-form es 4,000h (el PLAN_MAESTRO viejo dice 3,000h — actualízalo).
+```
+
+**Skills listos para esa sesión:** `vd-youtube` (default: ancla objetivo + stats + lanza venom) · `shorts-qa` (QA de renders devocionales, bloquea uploads <8) · `venom-design` (gate ≥9 thumbnail) · `carnage-qa` (QA visual rápido). Stack render: `render_sleep.py` · `render_120min.py` · `core/music_gen.py`. **Necesita Mac potente (RAM).**
+
+---
 
 ## 🎯 North Star — Filtro de decisión (leer antes de cualquier acción)
 
