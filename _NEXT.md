@@ -3,6 +3,11 @@
 > _Marcado 2026-08-10 al reconciliar los pickup points; el contenido de abajo NO se tocó._
 
 # _NEXT — loop-video-maker (VersiculoDeDios)
+
+> 🎬 **2026-09-04 · Editar video con Claude, sin CapCut** — brief listo para otra sesión en
+> `specs/video-edit/BRIEF.md` (material medido, qué existe, qué falta, la interfaz de
+> parámetros y el prompt para abrir). Es de luna #290 (Red Bull) y #291 (Dance Leveling).
+> Paso 0 de Fernando: exportar su preset de CapCut como `assets/luts/fernando.cube`.
 > 🚨 CONTINUAR EN MAC POTENTE: LEE PRIMERO `docs/SESSION_SPEC_2026-06-20.md` (setup + qué producir + comandos)
 > Update: 2026-06-20 · Canal: @VersiculoDeDios-v1u (UC2l5TZjHzRtaRjH8kT_yQ2w)
 > 🚨 LEE PRIMERO: `data/STRATEGY_LOG.md` (brief semanal de nicho — actualiza cada domingo automático)
