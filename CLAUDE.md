@@ -69,7 +69,7 @@ cat data/venom_truth.json | python3 -m json.tool   # snapshot completo
 ### Track 1 — Videos largos (60min / 120min)
 **Stack:** `render_120min.py` · `render_60min.py` · MusicGen · Gemini fondos
 **Output:** `output/semana_YYYY-MM-DD/`
-**Subida:** YouTube manual o `scripts/yt_upload.py` (requiere re-auth)
+**Subida:** YouTube manual o `scripts/upload_to_youtube.py` (re-auth: `python3 scripts/yt_auth.py`)
 **Docs:** `docs/CHANNEL_STRATEGY.md` · `docs/SYSTEM_OVERVIEW.md`
 **Guía rápida:**
 ```bash
