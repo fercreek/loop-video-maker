@@ -242,7 +242,7 @@ python3 scripts/generate_fondos_mflux.py --count 2 --format 9:16
 - Sample frames cada 60s
 - JSON report en `logs/qa/longform/`
 
-### Agente `@agent shorts-qa` (en `~/.claude/agents/shorts-qa.md`)
+### Agente `@agent shorts-qa` (archivado en `~/.claude/agents-archived/shorts-qa.md`)
 Supervisor que diagnostica bugs conocidos (#1-10), aplica fixes, re-renderea hasta PASS.
 Auto-actualizado con bugs nuevos cada sesión (feedback loop).
 
