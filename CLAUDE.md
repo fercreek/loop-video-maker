@@ -252,13 +252,38 @@ Auto-actualizado con bugs nuevos cada sesión (feedback loop).
 
 **Plists:** `~/Library/LaunchAgents/com.versiculodedios.*.plist`
 
-| Daemon | Schedule | Función |
-|--------|----------|---------|
-| `ig-daemon` | 5:10am MTY + RunAtLoad | Publica IG del día (Graph API, idempotente) |
-| `yt-fb-uploader` | 1:30am MTY | Sube YT+FB pendientes (post quota reset) |
-| `morning-status` | 11am MTY | Genera `STATUS_TODAY.md` + notif macOS |
-| `wake-reminder` | 10am MTY | Notif "abre Claude — pendientes X" |
-| `orphan-guard` | 8pm MTY | Reconcilia canal YT vs tracking (`scripts/orphan_guard.py`). Orphan = video en canal NO en JSONs, ventana 14d. HIGH = licensedContent o ≥50h watch → WA venom. Out: `data/orphan-uploads.json` |
+| Daemon | Schedule | Estado (4-nov-2026) | Función |
+|--------|----------|---------------------|---------|
+| `daily-video-tracker` | 6am MTY | ✅ prendido | Snapshot diario de horas por video (usa el python de Homebrew, no `.venv`) |
+| `orphan-guard` | 8pm MTY | ✅ prendido | Reconcilia canal YT vs tracking (`scripts/orphan_guard.py`). Orphan = video en canal NO en JSONs, ventana 14d. HIGH = licensedContent o ≥50h watch → WA venom. Out: `data/orphan-uploads.json` |
+| `weekly-outlier` | dom 9pm MTY | ✅ prendido | `outlier_finder` → `outlier_analyzer` → `niche_report`: temas que jalan en el nicho |
+| `ig-daemon` | 5:10am MTY + RunAtLoad | ⛔ apagado | Publicaba en IG los reels de `data/shorts_schedule.json` |
+| `yt-fb-uploader` | 1:30am MTY | ⛔ apagado | Subía a YT+FB lo pendiente de `shorts_schedule.json` |
+| `morning-status` | 11am MTY | ⛔ apagado | `STATUS_TODAY.md` sobre los dos daemons de arriba |
+| `wake-reminder` | 10am MTY | ⛔ apagado | Notif "lee `docs/SESSION_SPEC_2026-05-25.md`" |
+
+**Por qué se apagaron 4 (4-nov-2026, con el sí de Fernando).** El `.venv` desapareció entre
+el 20 y el 21-oct-2026 y desde entonces las tareas que lo usan salían con `exit 127`.
+Al revisarlo:
+
+- `ig-daemon`: IG (@palabradedios111) ya recibe 1 video al día por la vía de n8n / olas
+  (visto en la API: 1 VIDEO diario del 17-oct al 3-nov). De los 20 reels `venom_0xx` del
+  schedule sólo 2 salieron por el daemon; los otros 18 quedaron atrasados y el daemon
+  publica los atrasados todos en una corrida (catch-up `late=true`). Revivirlo = 18 reels de
+  golpe, duplicando la cadencia de n8n. **No se vuelve a cargar sin vaciar o rehacer
+  `shorts_schedule.json`.**
+- `yt-fb-uploader`: los 20 del schedule ya están programados en YT y FB (hasta el 9-nov);
+  no queda nada que subir, y la fuente de Shorts (los videos de la mamá) se acabó el 15-oct.
+  VDD publica por olas desde cero-agent / n8n.
+- `morning-status`: sólo reportaba esos dos daemons.
+- `wake-reminder`: recordatorio de un pendiente de mayo.
+
+Se apagaron con `launchctl unload` **sin borrar el plist**. Para volver a prender uno:
+`launchctl load ~/Library/LaunchAgents/com.versiculodedios.<nombre>.plist`.
+
+El `.venv` se recreó el 4-nov con `/usr/bin/python3` (3.9.6) +
+`pip install -r requirements.txt google-api-python-client google-auth google-auth-oauthlib`
+(el `requirements.txt` no trae las librerías de Google que usan orphan-guard y weekly-outlier).
 
 ### ⚠️ Requisito macOS Sequoia: Full Disk Access
 
