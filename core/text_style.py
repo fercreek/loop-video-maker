@@ -21,22 +21,23 @@ from core.formats import (
 
 # ─── Font paths ───────────────────────────────────────────────────────────────
 
+# Brand kit (versiculos/_BRAND-KIT.md section 3, decided 2026-11-11): videos use the
+# same type as images. Georgia for the verse and the signature, Helvetica Neue for
+# the citation ("Juan 3:16").
 FONTS_DIR = Path(__file__).parent.parent / "assets" / "fonts"
-FONT_VERSE = FONTS_DIR / "CormorantGaramond-Italic.ttf"
-FONT_REF = FONTS_DIR / "Cinzel-Regular.ttf"
+FONT_VERSE = Path("/System/Library/Fonts/Supplemental/Georgia.ttf")
+FONT_REF = Path("/System/Library/Fonts/HelveticaNeue.ttc")
+FONT_BRAND = FONT_VERSE
 
 SYSTEM_FONTS = [
-    "/System/Library/Fonts/Supplemental/Times New Roman Italic.ttf",
-    "/System/Library/Fonts/Times.ttc",
-    "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Italic.ttf",
-    "C:/Windows/Fonts/timesi.ttf",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf",
+    "C:/Windows/Fonts/georgia.ttf",
 ]
 
 SYSTEM_FONTS_REF = [
-    "/System/Library/Fonts/Supplemental/Times New Roman.ttf",
-    "/System/Library/Fonts/Times.ttc",
-    "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf",
-    "C:/Windows/Fonts/times.ttf",
+    "/System/Library/Fonts/Helvetica.ttc",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+    "C:/Windows/Fonts/arial.ttf",
 ]
 
 
@@ -141,7 +142,7 @@ def render_fea_frame(
     font_label = _get_font(FONT_REF, tuple(SYSTEM_FONTS_REF), max(label_size, 10))
     font_verse = _get_font(FONT_VERSE, tuple(SYSTEM_FONTS), max(verse_size, 16))
     font_ref = _get_font(FONT_REF, tuple(SYSTEM_FONTS_REF), max(ref_size, 12))
-    font_brand = _get_font(FONT_REF, tuple(SYSTEM_FONTS_REF), max(brand_size, 8))
+    font_brand = _get_font(FONT_BRAND, tuple(SYSTEM_FONTS), max(brand_size, 8))
 
     # Create transparent RGBA canvas
     img = Image.new("RGBA", (width, height), (0, 0, 0, 0))

@@ -70,13 +70,10 @@ KB_ZOOM_RANGE = 0.12   # 12% movement — VISIBLE, no sutil (era 4%)
 SUB_FADE_IN_DUR = 0.18   # segundos de fade-in por cada segmento
 
 # ─── Subtítulos ───────────────────────────────────────────────────────────────
+# Brand kit section 3 (2026-11-11): Georgia for video verse text.
 FONT_PATHS = [
-    # v2: Montserrat ExtraBold — primer choice
-    str(Path(__file__).parent.parent / "assets" / "fonts" / "Montserrat-ExtraBold.ttf"),
-    # Fallback
-    "/System/Library/Fonts/Supplemental/Arial Rounded Bold.ttf",
-    "/System/Library/Fonts/HelveticaNeue.ttc",
-    "/System/Library/Fonts/Helvetica.ttc",
+    "/System/Library/Fonts/Supplemental/Georgia.ttf",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf",
 ]
 
 SUB_FONTSIZE    = 78             # v2: más grande y bold

@@ -31,11 +31,16 @@ PROJECT_DIR = Path(__file__).parent.parent
 W, H = 1080, 1920
 
 # ─── Fonts ────────────────────────────────────────────────────────────────────
+# Brand kit section 3 (2026-11-11): Georgia for verse text (hook, subtitles, CTA,
+# watermark), Helvetica Neue for the citation label.
 FONT_PATHS = [
-    str(PROJECT_DIR / "assets" / "fonts" / "Montserrat-ExtraBold.ttf"),
-    "/System/Library/Fonts/Supplemental/Arial Rounded Bold.ttf",
+    "/System/Library/Fonts/Supplemental/Georgia.ttf",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf",
+]
+REF_FONT_PATHS = [
     "/System/Library/Fonts/HelveticaNeue.ttc",
     "/System/Library/Fonts/Helvetica.ttc",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
 ]
 
 # ─── Colores ──────────────────────────────────────────────────────────────────
@@ -78,8 +83,8 @@ def verify_text_engine() -> None:
         )
 
 
-def _load_font(size: int) -> "ImageFont.FreeTypeFont":
-    for p in FONT_PATHS:
+def _load_font(size: int, paths: list | None = None) -> "ImageFont.FreeTypeFont":
+    for p in (paths or FONT_PATHS):
         try:
             return ImageFont.truetype(p, size)
         except Exception:
@@ -182,7 +187,7 @@ def generate_verse_label(verse_text: str, out_dir: Path, duration: float) -> Tex
     draw = ImageDraw.Draw(img)
     _draw_watermark(draw)
 
-    font = _load_font(VERSE_SIZE)
+    font = _load_font(VERSE_SIZE, REF_FONT_PATHS)
     text = verse_text.upper()
     bbox = draw.textbbox((0, 0), text, font=font)
     tw, th = bbox[2]-bbox[0], bbox[3]-bbox[1]

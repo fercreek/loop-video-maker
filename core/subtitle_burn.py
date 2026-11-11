@@ -42,11 +42,10 @@ BOX_PAD_H      = 18     # padding vertical del fondo
 BOX_PAD_W      = 28     # padding horizontal del fondo
 BOX_RADIUS     = 14     # radio de bordes redondeados
 
-# Fonts disponibles en el proyecto
+# Brand kit section 3 (2026-11-11): Georgia for video verse text.
 FONT_PATHS = [
-    str(PROJECT_DIR / "assets" / "fonts" / "Cinzel-Regular.ttf"),     # mejor para subtítulos (caps)
-    str(PROJECT_DIR / "assets" / "fonts" / "CormorantGaramond-Regular.ttf"),
-    "/System/Library/Fonts/Helvetica.ttc",
+    "/System/Library/Fonts/Supplemental/Georgia.ttf",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf",
 ]
 
 

@@ -70,7 +70,7 @@ HOOK_VOICE = "dalia"      # femenina cálida contemplativa (es-MX) — ideal sle
 HOOK_DELAY = 3.0          # seg antes de que entre la voz (deja respirar la música)
 HOOK_DUCK_TAIL = 2.0      # seg de cola tras la voz antes de volver música a full
 HOOK_MUSIC_DUCK = 0.38    # música baja a 38% mientras habla la voz
-INVITACION = "Déjalo reproduciendo toda la noche · Descansa en su paz"  # subtítulo bajo el título (sin emoji — Montserrat no los tiene)
+INVITACION = "Déjalo reproduciendo toda la noche · Descansa en su paz"  # subtitle under the title (no emoji: Georgia has none)
 
 N_IMAGES   = 6            # imágenes en secuencia por video
 XFADE_DUR  = 3.0          # segundos de crossfade entre imágenes
@@ -346,11 +346,10 @@ def build_overlay_pngs(titulo: str, out_dir: Path, invitacion: str = "") -> tupl
     title_png = out_dir / "_overlay_title.png"
     wm_png = out_dir / "_overlay_wm.png"
 
-    # Try Montserrat first, fallback to system fonts
+    # Brand kit section 3 (2026-11-11): Georgia for video text
     font_paths = [
-        str(PROJECT_DIR / "assets" / "fonts" / "Montserrat-ExtraBold.ttf"),
-        "/System/Library/Fonts/Supplemental/Arial Rounded Bold.ttf",
-        "/System/Library/Fonts/HelveticaNeue.ttc",
+        "/System/Library/Fonts/Supplemental/Georgia.ttf",
+        "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf",
     ]
     font_path = next((p for p in font_paths if os.path.exists(p)), None)
 

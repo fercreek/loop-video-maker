@@ -77,7 +77,7 @@ MOOD_MUSIC_VOL: dict[str, float] = {
     "Devoción":      0.06,   # reverente, cercano
 }
 WATERMARK      = "@VersiculoDeDios"
-FONT_PATH      = str(PROJECT_DIR / "assets" / "fonts" / "CormorantGaramond-Regular.ttf")
+FONT_PATH      = "/System/Library/Fonts/Supplemental/Georgia.ttf"  # brand kit section 3
 TITLE_FONT_SZ  = 52
 WATERMARK_SZ   = 28
 CANVAS_W, CANVAS_H = 1920, 1080

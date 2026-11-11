@@ -376,7 +376,7 @@ Después de cada render, revisar el log y mover las mejores lecciones aquí.
 
 **Texto**
 - Stroke de referencia: offsets (-3,0),(3,0),(0,-3),(0,3) + alpha 240 mejora legibilidad en fondos claros.
-- Fuente Cormorant Garamond Italic da el estilo devocional correcto.
+- Fuente: Georgia para el versículo y Helvetica Neue para la cita (brand kit §3, 11-nov-2026).
 
 ---
 
