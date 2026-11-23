@@ -252,7 +252,7 @@ Auto-actualizado con bugs nuevos cada sesión (feedback loop).
 
 **Plists:** `~/Library/LaunchAgents/com.versiculodedios.*.plist`
 
-| Daemon | Schedule | Estado (4-nov-2026) | Función |
+| Daemon | Schedule | Estado (23-nov-2026) | Función |
 |--------|----------|---------------------|---------|
 | `daily-video-tracker` | 6am MTY | ✅ prendido | Snapshot diario de horas por video (usa el python de Homebrew, no `.venv`) |
 | `orphan-guard` | 8pm MTY | ✅ prendido | Reconcilia canal YT vs tracking (`scripts/orphan_guard.py`). Orphan = video en canal NO en JSONs, ventana 14d. HIGH = licensedContent o ≥50h watch → WA venom. Out: `data/orphan-uploads.json` |
@@ -262,24 +262,12 @@ Auto-actualizado con bugs nuevos cada sesión (feedback loop).
 | `morning-status` | 11am MTY | ⛔ apagado | `STATUS_TODAY.md` sobre los dos daemons de arriba |
 | `wake-reminder` | 10am MTY | ⛔ apagado | Notif "lee `docs/SESSION_SPEC_2026-05-25.md`" |
 
-**Por qué se apagaron 4 (4-nov-2026, con el sí de Fernando).** El `.venv` desapareció entre
-el 20 y el 21-oct-2026 y desde entonces las tareas que lo usan salían con `exit 127`.
-Al revisarlo:
+**Apagados de verdad el 23-nov-2026.** El 4-nov se apagaron con `launchctl unload` (sin `disable`) y volvieron a cargarse: el 10-nov a las 21:16 el `ig-daemon` corrió por `RunAtLoad`, intentó los 18 reels pendientes de `shorts_schedule.json` y Instagram aceptó 2 y rechazó 16 (errores 400 y 412); desde entonces corría cada día sin publicar nada. El 23-nov se detuvieron con `launchctl bootout` y se desactivaron con `launchctl disable`; los plist siguen en su sitio. Se quedan prendidos `daily-video-tracker`, `orphan-guard` y `weekly-outlier`.
 
-- `ig-daemon`: IG (@palabradedios111) ya recibe 1 video al día por la vía de n8n / olas
-  (visto en la API: 1 VIDEO diario del 17-oct al 3-nov). De los 20 reels `venom_0xx` del
-  schedule sólo 2 salieron por el daemon; los otros 18 quedaron atrasados y el daemon
-  publica los atrasados todos en una corrida (catch-up `late=true`). Revivirlo = 18 reels de
-  golpe, duplicando la cadencia de n8n. **No se vuelve a cargar sin vaciar o rehacer
-  `shorts_schedule.json`.**
-- `yt-fb-uploader`: los 20 del schedule ya están programados en YT y FB (hasta el 9-nov);
-  no queda nada que subir, y la fuente de Shorts (los videos de la mamá) se acabó el 15-oct.
-  VDD publica por olas desde cero-agent / n8n.
-- `morning-status`: sólo reportaba esos dos daemons.
-- `wake-reminder`: recordatorio de un pendiente de mayo.
+**Estado real de los 20 reels `venom_0xx` (leído en las APIs el 23-nov-2026):** los 20 están públicos en YouTube (salieron uno por día a las 5:00 MTY, del 26-may al 18-jun) y publicados en Facebook. Las fechas de `data/shorts_schedule.json` (22-nov → 11-dic) son un plan que el uploader reescribía cada noche y **no reflejan lo publicado**. En Instagram salieron 4 de los 20 (2 en mayo, 2 el 10-nov) y 16 quedaron en `errors` de `data/ig_state.json`.
 
-Se apagaron con `launchctl unload` **sin borrar el plist**. Para volver a prender uno:
-`launchctl load ~/Library/LaunchAgents/com.versiculodedios.<nombre>.plist`.
+Para volver a prender uno: `launchctl enable gui/$(id -u)/com.versiculodedios.<nombre>` y `launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.versiculodedios.<nombre>.plist`. **No se prende `ig-daemon` sin vaciar o rehacer `shorts_schedule.json` e `ig_state.json`.** Las razones del apagado del 4-nov: `docs/CLAUDE-REFERENCE.md`.
+
 
 El `.venv` se recreó el 4-nov con `/usr/bin/python3` (3.9.6) +
 `pip install -r requirements.txt google-api-python-client google-auth google-auth-oauthlib`
@@ -333,27 +321,7 @@ Install: `brew install --cask swiftbar`
 
 ## Session Spec Workflow
 
-Para sesiones largas (>3h trabajo o múltiples deploys), genera spec persistido:
-
-**Patrón:** `docs/SESSION_SPEC_YYYY-MM-DD.md`
-
-**Contenido obligatorio:**
-- Qué se hizo (features, bugs, scripts nuevos)
-- Estado actual upload/deploy
-- Bloqueos pendientes (con acción concreta usuario)
-- Cómo retomar (lista de archivos a leer + comandos)
-- Referencias (PR, URLs, IDs)
-
-**Para qué:** próxima sesión Claude lee este archivo PRIMERO + `_NEXT.md`
-→ reconstruye contexto sin chat history. Cero memoria conversacional necesaria.
-
-**Linkear desde `_NEXT.md`** banner top:
-```md
-🚨 LEE PRIMERO: `docs/SESSION_SPEC_YYYY-MM-DD.md` ← TODO el contexto
-```
-
-**Tracking spec vivo:** `_SCHEDULE_VENOM.md` (en raíz) — tabla por video × plataforma
-con status ✅/🕐/❌. Se actualiza después de cada upload.
+Para sesiones largas (más de 3 h o varios deploys) se deja un `docs/SESSION_SPEC_YYYY-MM-DD.md` con qué se hizo, estado, bloqueos y cómo retomar; la próxima sesión lo lee primero. Ya no se enlaza desde `_NEXT.md` (retirado el 16-sep-2026): la tarjeta del tablero apunta a él. Contenido obligatorio y detalle: `docs/CLAUDE-REFERENCE.md`.
 
 ---
 
@@ -401,7 +369,7 @@ cat /tmp/versiculos_publish.log
 
 | Archivo | Para qué |
 |---------|---------|
-| `_NEXT.md` | Pendientes inmediatos — leer primero |
+| Tablero (`localhost:8899`) | Pendientes inmediatos (el `_NEXT.md` se retiró el 16-sep-2026) |
 | `_LEARNING_LOG.md` | Auto-reflexión por sesión (pros/cons/consejos Claude) |
 | `_SCHEDULE_VENOM.md` | Living spec: tabla 20 videos × plataforma con status |
 | `docs/SESSION_SPEC_2026-05-25.md` | Spec sesión completa — entry point próxima sesión |
